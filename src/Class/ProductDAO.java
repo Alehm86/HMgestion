@@ -1178,13 +1178,15 @@ public class ProductDAO {
             JTextField txtProductCode   
             ){    
         
-        String sql="SELECT categories.name, subcategories.name, brands.name, suppliers.name, products.model, products.color, products.product_code" +
-"                    FROM products" +
-"                    INNER JOIN subcategories ON products.id_subcategory = subcategories.id_subcategory" +
-"                    INNER JOIN brands ON products.id_brand = brands.id_brand" +
-"                    INNER JOIN suppliers ON products.id_supplier = suppliers.id_supplier" +
-"                    INNER JOIN categories ON products.id_category = categories.id_category" +
-"                    WHERE products.id_product = "+idProducto;     
+        String sql =
+                "SELECT categories.name, subcategories.name, brands.name, suppliers.name, " +
+                "products.model, products.color, products.product_code " +
+                "FROM products " +
+                "INNER JOIN subcategories ON products.id_subcategory = subcategories.id_subcategory " +
+                "INNER JOIN brands ON products.id_brand = brands.id_brand " +
+                "INNER JOIN suppliers ON products.id_supplier = suppliers.id_supplier " +
+                "INNER JOIN categories ON products.id_category = categories.id_category " +
+                "WHERE products.id_product = " + idProducto;   
         
         Statement stmt;               
         ConnectionDB con = new ConnectionDB();
@@ -1205,14 +1207,14 @@ public class ProductDAO {
                 txtSubcategorie.setText(rs.getString("subcategories.name"));
             
             } else {
-        //    JOptionPane.showMessageDialog(null, "No se encontró el producto con ID: " + idProducto);
+                JOptionPane.showMessageDialog(null, "No se encontró el producto con ID: " + idProducto);
             }
             rs.close();
             stmt.close();
             conexion.close();
         }
         catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "ERROR");
+            JOptionPane.showMessageDialog(null, "ERROR X");
         } 
     }
     

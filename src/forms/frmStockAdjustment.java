@@ -4,6 +4,7 @@
  */
 package forms;
 
+import OldFrames.frmProducts;
 import Class.ProductDAO;
 import Class.modelProducts;
 import Class.modelStocks;

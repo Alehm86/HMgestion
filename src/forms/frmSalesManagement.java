@@ -4,6 +4,8 @@
  */
 package forms;
 
+import OldFrames.frmNewProduct;
+import OldFrames.frmMenu;
 import javax.swing.table.DefaultTableModel;
 
 

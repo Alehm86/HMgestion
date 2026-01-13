@@ -4,6 +4,9 @@
  */
 package forms;
 
+import OldFrames.frmNewProduct;
+import OldFrames.frmProducts;
+import OldFrames.frmMenu;
 import Class.ProductDAO;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Graphics;
@@ -371,7 +374,7 @@ public class frmReturnProducts extends javax.swing.JFrame {
 
         btnSales.setBackground(new java.awt.Color(255, 255, 255));
         btnSales.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
-        btnSales.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cart96.png"))); // NOI18N
+        btnSales.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/3puntos32.png"))); // NOI18N
         btnSales.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnSales.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSales.setHideActionText(true);
