@@ -4,9 +4,11 @@
  */
 package forms;
 
-import OldFrames.frmProducts;
+
+import Old.frmProducts;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -16,12 +18,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 
 public class frmHome extends javax.swing.JFrame {
     
     fondoPanel background = new fondoPanel();
+    Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
     
     public frmHome() {
         
@@ -30,6 +34,9 @@ public class frmHome extends javax.swing.JFrame {
         this.setExtendedState(6);
         FechaHora.iniciarFecha(jLabelFecha);
         FechaHora.iniciarReloj(jLabelHora);
+        menuSuperior();
+        paginaDeInicio();
+        
         
     }
     
@@ -46,6 +53,17 @@ public class frmHome extends javax.swing.JFrame {
             super.paint(g);
         }
         
+    }
+    
+    public void paginaDeInicio(){
+        PageDashboard pDashboard = new PageDashboard();
+        pDashboard.setSize(1700, 877);
+        pDashboard.setLocation(0, 0);
+        
+        jPanelContent.removeAll();
+        jPanelContent.add(pDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1712, 877));
+        jPanelContent.revalidate();
+        jPanelContent.repaint();
     }
     
     
@@ -110,6 +128,67 @@ public class frmHome extends javax.swing.JFrame {
         
     }
     
+    private void menuSuperior(){
+
+        jMenuNewBrand.addActionListener(e -> {
+            frmBrandNew dialogo = new frmBrandNew(this, true);
+            dialogo.setVisible(true);
+        });
+        
+        jMenuBrandEdit.addActionListener(e -> {
+            frmBrandEdit dialogo = new frmBrandEdit(this, true);
+            dialogo.setVisible(true);
+        });
+
+        jMenuNewCat.addActionListener(e -> {
+//            frmCategoriesAndSubcategoriesMgmt dialogo = new frmCategoriesAndSubcategoriesMgmt(this, true);
+//            dialogo.setVisible(true);
+        });
+
+        jMenuNewSupplier.addActionListener(e -> {
+            frmSupplierNew fNsupplier = new frmSupplierNew(this, true);
+            fNsupplier.setVisible(true);
+        });
+        
+        jMenuIEditSupplier.addActionListener(e -> {
+            frmSupplierEdit fEsupplier = new frmSupplierEdit(this, true);
+            fEsupplier.setVisible(true);
+        });
+
+        jMenuNewProduct.addActionListener(e -> {
+            frmProductNewDialog newProduct = new frmProductNewDialog(parent, true);
+            newProduct.setLocationRelativeTo(parent);
+            newProduct.setVisible(true);
+
+        });
+
+        jMenuAjusteDeStock.addActionListener(e -> {
+            frmStockAdjustment stockAdj = new frmStockAdjustment();
+            stockAdj.setVisible(true);
+        });
+        
+        jMenuNewSubcat.addActionListener(e -> {
+            frmSubategoriesNew fNSubcat = new frmSubategoriesNew(this, true);
+            fNSubcat.setVisible(true);
+        });
+        
+        jMenuEditSubcat.addActionListener(e -> {
+            frmSubcategoriesEdit fESubcat = new frmSubcategoriesEdit(this, true);
+            fESubcat.setVisible(true);
+        });
+        
+        jMenuNewCat.addActionListener(e -> {
+            frmCategoriesNew fNcat = new frmCategoriesNew(this, true);
+            fNcat.setVisible(true);
+        });
+         
+        jMenuEditCat.addActionListener(e -> {
+            frmCategoriesEdit fEcat = new frmCategoriesEdit(this, true);
+            fEcat.setVisible(true);
+        });
+
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -134,13 +213,19 @@ public class frmHome extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuNewCategory = new javax.swing.JMenu();
         jMenuNewProduct = new javax.swing.JMenuItem();
-        jMenuCategory = new javax.swing.JMenuItem();
-        jMenuNewBrand = new javax.swing.JMenuItem();
+        jMenuCategorias = new javax.swing.JMenu();
+        jMenuNewCat = new javax.swing.JMenuItem();
+        jMenuEditCat = new javax.swing.JMenuItem();
+        jMenuNewSubcat = new javax.swing.JMenuItem();
+        jMenuEditSubcat = new javax.swing.JMenuItem();
+        jMenuBrands = new javax.swing.JMenu();
         jMenuBrandEdit = new javax.swing.JMenuItem();
+        jMenuNewBrand = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu8 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenuNewSupplier = new javax.swing.JMenuItem();
+        jMenuIEditSupplier = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         jMenuAjusteDeStock = new javax.swing.JMenuItem();
@@ -430,7 +515,7 @@ public class frmHome extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanelContent.setBackground(new java.awt.Color(255, 255, 255, 0));
+        jPanelContent.setBackground(new java.awt.Color(255, 255, 255));
         jPanelContent.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelTitle.setFont(new java.awt.Font("Poppins", 1, 36)); // NOI18N
@@ -461,21 +546,28 @@ public class frmHome extends javax.swing.JFrame {
         });
         jMenuNewCategory.add(jMenuNewProduct);
 
-        jMenuCategory.setText("Crear categoria");
-        jMenuCategory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuCategoryActionPerformed(evt);
-            }
-        });
-        jMenuNewCategory.add(jMenuCategory);
+        jMenuCategorias.setText("Gestionar categorías");
 
-        jMenuNewBrand.setText("Crear marca");
-        jMenuNewBrand.addActionListener(new java.awt.event.ActionListener() {
+        jMenuNewCat.setText("Crear Categoría");
+        jMenuNewCat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuNewBrandActionPerformed(evt);
+                jMenuNewCatActionPerformed(evt);
             }
         });
-        jMenuNewCategory.add(jMenuNewBrand);
+        jMenuCategorias.add(jMenuNewCat);
+
+        jMenuEditCat.setText("Editar Categoría");
+        jMenuCategorias.add(jMenuEditCat);
+
+        jMenuNewSubcat.setText("Crear Subcategoría");
+        jMenuCategorias.add(jMenuNewSubcat);
+
+        jMenuEditSubcat.setText("Editar Subcategoría");
+        jMenuCategorias.add(jMenuEditSubcat);
+
+        jMenuNewCategory.add(jMenuCategorias);
+
+        jMenuBrands.setText("Gestionar marcas");
 
         jMenuBrandEdit.setText("Editar marca");
         jMenuBrandEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -483,7 +575,17 @@ public class frmHome extends javax.swing.JFrame {
                 jMenuBrandEditActionPerformed(evt);
             }
         });
-        jMenuNewCategory.add(jMenuBrandEdit);
+        jMenuBrands.add(jMenuBrandEdit);
+
+        jMenuNewBrand.setText("Crear marca");
+        jMenuNewBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuNewBrandActionPerformed(evt);
+            }
+        });
+        jMenuBrands.add(jMenuNewBrand);
+
+        jMenuNewCategory.add(jMenuBrands);
 
         jMenuBar1.add(jMenuNewCategory);
 
@@ -495,13 +597,16 @@ public class frmHome extends javax.swing.JFrame {
 
         jMenu5.setText("Proveedores");
 
-        jMenuNewSupplier.setText("Crear/Editar proveedor");
+        jMenuNewSupplier.setText("Crear proveedor");
         jMenuNewSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuNewSupplierActionPerformed(evt);
             }
         });
         jMenu5.add(jMenuNewSupplier);
+
+        jMenuIEditSupplier.setText("Editar proveedor");
+        jMenu5.add(jMenuIEditSupplier);
 
         jMenuBar1.add(jMenu5);
 
@@ -659,9 +764,9 @@ public class frmHome extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuNewBrandActionPerformed
 
-    private void jMenuCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCategoryActionPerformed
+    private void jMenuNewCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuNewCatActionPerformed
 
-    }//GEN-LAST:event_jMenuCategoryActionPerformed
+    }//GEN-LAST:event_jMenuNewCatActionPerformed
 
     private void jMenuNewProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuNewProductActionPerformed
 
@@ -725,10 +830,16 @@ public class frmHome extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuAjusteDeStock;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuBrandEdit;
-    private javax.swing.JMenuItem jMenuCategory;
+    private javax.swing.JMenu jMenuBrands;
+    private javax.swing.JMenu jMenuCategorias;
+    private javax.swing.JMenuItem jMenuEditCat;
+    private javax.swing.JMenuItem jMenuEditSubcat;
+    private javax.swing.JMenuItem jMenuIEditSupplier;
     private javax.swing.JMenuItem jMenuNewBrand;
+    private javax.swing.JMenuItem jMenuNewCat;
     private javax.swing.JMenu jMenuNewCategory;
     private javax.swing.JMenuItem jMenuNewProduct;
+    private javax.swing.JMenuItem jMenuNewSubcat;
     private javax.swing.JMenuItem jMenuNewSupplier;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

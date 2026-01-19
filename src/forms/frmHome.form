@@ -35,30 +35,59 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuNewProductActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuCategory">
+            <Menu class="javax.swing.JMenu" name="jMenuCategorias">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Crear categoria"/>
+                <Property name="text" type="java.lang.String" value="Gestionar categor&#xed;as"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuCategoryActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuNewBrand">
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuNewCat">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Crear Categor&#xed;a"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuNewCatActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuEditCat">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Editar Categor&#xed;a"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuNewSubcat">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Crear Subcategor&#xed;a"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuEditSubcat">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Editar Subcategor&#xed;a"/>
+                  </Properties>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <Menu class="javax.swing.JMenu" name="jMenuBrands">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Crear marca"/>
+                <Property name="text" type="java.lang.String" value="Gestionar marcas"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuNewBrandActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuBrandEdit">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Editar marca"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuBrandEditActionPerformed"/>
-              </Events>
-            </MenuItem>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuBrandEdit">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Editar marca"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuBrandEditActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuNewBrand">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Crear marca"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuNewBrandActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu4">
@@ -78,11 +107,16 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuNewSupplier">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Crear/Editar proveedor"/>
+                <Property name="text" type="java.lang.String" value="Crear proveedor"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuNewSupplierActionPerformed"/>
               </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuIEditSupplier">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Editar proveedor"/>
+              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -609,8 +643,8 @@
     </Container>
     <Container class="javax.swing.JPanel" name="jPanelContent">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new java.awt.Color(255, 255, 255, 0)" type="code"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
       </Properties>
 
