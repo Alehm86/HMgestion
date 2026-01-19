@@ -41,6 +41,9 @@ public class PageProduct extends javax.swing.JPanel {
         queries.llenarCombosActivos(cboCategories,"categories");
         queries.llenarCombos(cboBrand,"brands");
         llenarSubcategorias(); 
+        
+        filtrarPorCombos();
+        
     }
 
     private void addTableFinancy(String entidad, String financy, double ctf, double cuota){
@@ -118,6 +121,16 @@ public class PageProduct extends javax.swing.JPanel {
     }    
  
     private void actionButtons(){
+
+        
+        btnEditPrice.addActionListener(e->{
+            int id = queries.obtenerIdProduct(filaSeleccionada);
+            
+            frmEditPrice editPrice = new frmEditPrice();
+            editPrice.dialogoEdit(id);
+            editPrice.setVisible(true);
+        });
+          
                 
         btnSerchCode.addActionListener(e -> { 
             tableProducts.setRowCount(0);
@@ -173,6 +186,8 @@ public class PageProduct extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jtableFinancy = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        btnEditPrice = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1600, 800));
@@ -323,8 +338,9 @@ public class PageProduct extends javax.swing.JPanel {
 
             }
         ));
+        jtablePrducts.setGridColor(new java.awt.Color(255, 255, 255));
         jtablePrducts.setRowHeight(25);
-        jtablePrducts.setSelectionBackground(new java.awt.Color(224, 242, 255));
+        jtablePrducts.setSelectionBackground(new java.awt.Color(255, 204, 153));
         jScrollPane1.setViewportView(jtablePrducts);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -365,7 +381,47 @@ public class PageProduct extends javax.swing.JPanel {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnEditPrice.setBackground(new java.awt.Color(255, 255, 255));
+        btnEditPrice.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnEditPrice.setForeground(new java.awt.Color(12, 83, 151));
+        btnEditPrice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ProductPrice.png"))); // NOI18N
+        btnEditPrice.setText("Editar Precio");
+        btnEditPrice.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        btnEditPrice.setBorderPainted(false);
+        btnEditPrice.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditPrice.setFocusable(false);
+        btnEditPrice.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEditPriceMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnEditPriceMouseExited(evt);
+            }
+        });
+        btnEditPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditPriceActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(btnEditPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 12, Short.MAX_VALUE)
+                .addComponent(btnEditPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -373,10 +429,11 @@ public class PageProduct extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1194, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -387,7 +444,11 @@ public class PageProduct extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -424,8 +485,21 @@ public class PageProduct extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSerchCode2ActionPerformed
 
+    private void btnEditPriceMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditPriceMouseEntered
+        btnEditPrice.setBackground(new Color(180,180,180));
+    }//GEN-LAST:event_btnEditPriceMouseEntered
+
+    private void btnEditPriceMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditPriceMouseExited
+        btnEditPrice.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnEditPriceMouseExited
+
+    private void btnEditPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPriceActionPerformed
+
+    }//GEN-LAST:event_btnEditPriceActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEditPrice;
     private javax.swing.JButton btnSerchCode;
     private javax.swing.JButton btnSerchCode2;
     private javax.swing.JComboBox<String> cboBrand;
@@ -437,6 +511,7 @@ public class PageProduct extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
