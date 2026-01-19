@@ -205,9 +205,10 @@ public class frmSupplierNew extends javax.swing.JDialog {
 
         btnConfirm.setBackground(new java.awt.Color(255, 255, 255));
         btnConfirm.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        btnConfirm.setForeground(new java.awt.Color(102, 102, 102));
+        btnConfirm.setForeground(new java.awt.Color(101, 129, 171));
         btnConfirm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
         btnConfirm.setText("Registrar");
+        btnConfirm.setBorder(null);
         btnConfirm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnConfirm.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -223,32 +224,32 @@ public class frmSupplierNew extends javax.swing.JDialog {
             }
         });
 
-        labelName.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        labelName.setForeground(new java.awt.Color(13, 155, 219));
+        labelName.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        labelName.setForeground(new java.awt.Color(101, 129, 171));
         labelName.setText("Nombre:");
 
-        labelCuit.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        labelCuit.setForeground(new java.awt.Color(13, 155, 219));
+        labelCuit.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        labelCuit.setForeground(new java.awt.Color(101, 129, 171));
         labelCuit.setText("C.U.I.T.");
 
-        labelTel.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        labelTel.setForeground(new java.awt.Color(13, 155, 219));
+        labelTel.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        labelTel.setForeground(new java.awt.Color(101, 129, 171));
         labelTel.setText("Teléfono:");
 
-        labelMail.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        labelMail.setForeground(new java.awt.Color(13, 155, 219));
+        labelMail.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        labelMail.setForeground(new java.awt.Color(101, 129, 171));
         labelMail.setText("Correo electrónico:");
 
-        labelUrl.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        labelUrl.setForeground(new java.awt.Color(13, 155, 219));
+        labelUrl.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        labelUrl.setForeground(new java.awt.Color(101, 129, 171));
         labelUrl.setText("Sitio web:");
 
-        labelUser.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        labelUser.setForeground(new java.awt.Color(13, 155, 219));
+        labelUser.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        labelUser.setForeground(new java.awt.Color(101, 129, 171));
         labelUser.setText("Usuario:");
 
-        labelPass.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        labelPass.setForeground(new java.awt.Color(13, 155, 219));
+        labelPass.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        labelPass.setForeground(new java.awt.Color(101, 129, 171));
         labelPass.setText("Contraseña:");
 
         txtTel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
@@ -271,7 +272,8 @@ public class frmSupplierNew extends javax.swing.JDialog {
         txtPass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnCancel.setBackground(new java.awt.Color(255, 255, 255));
-        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Cancel32.png"))); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
+        btnCancel.setBorder(null);
         btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -312,17 +314,17 @@ public class frmSupplierNew extends javax.swing.JDialog {
                     .addComponent(labelPass))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelDatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelDatesLayout.createSequentialGroup()
-                        .addComponent(btnCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
-                    .addComponent(txtPass)
+                    .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                     .addComponent(txtUser)
                     .addComponent(txtUrl)
                     .addComponent(txtName)
                     .addComponent(txtTel)
                     .addComponent(txtMail)
-                    .addComponent(txtCuit))
+                    .addComponent(txtCuit)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatesLayout.createSequentialGroup()
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelDatesLayout.setVerticalGroup(
@@ -357,14 +359,13 @@ public class frmSupplierNew extends javax.swing.JDialog {
                     .addComponent(labelPass)
                     .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnConfirm)
-                    .addComponent(btnCancel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanelDatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Poppins", 0, 18), new java.awt.Color(255, 255, 255))); // NOI18N
 
         tableSupplier.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         tableSupplier.setForeground(new java.awt.Color(102, 102, 102));
@@ -381,7 +382,7 @@ public class frmSupplierNew extends javax.swing.JDialog {
         ));
         tableSupplier.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tableSupplier.setRowHeight(25);
-        tableSupplier.setSelectionBackground(new java.awt.Color(224, 242, 255));
+        tableSupplier.setSelectionBackground(new java.awt.Color(255, 204, 153));
         jScrollPane1.setViewportView(tableSupplier);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -390,38 +391,31 @@ public class frmSupplierNew extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
+
+        jPanel3.setBackground(new java.awt.Color(12, 83, 151));
 
         labelTitle1.setBackground(new java.awt.Color(255, 255, 255));
         labelTitle1.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        labelTitle1.setForeground(new java.awt.Color(101, 129, 171));
+        labelTitle1.setForeground(new java.awt.Color(255, 255, 255));
         labelTitle1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelTitle1.setText("Registrar nuevo proveedor.");
-        labelTitle1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(labelTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
-                .addComponent(labelTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(labelTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
         );
 
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
@@ -429,7 +423,7 @@ public class frmSupplierNew extends javax.swing.JDialog {
         btnExit.setForeground(new java.awt.Color(101, 129, 171));
         btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/exit2_64.png"))); // NOI18N
         btnExit.setText("Salir");
-        btnExit.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnExit.setBorder(null);
         btnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -449,29 +443,28 @@ public class frmSupplierNew extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17)
+                        .addGap(6, 6, 6)
                         .addComponent(jPanelDates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanelDates, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -487,9 +480,7 @@ public class frmSupplierNew extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -518,7 +509,7 @@ public class frmSupplierNew extends javax.swing.JDialog {
 
     private void btnCancelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseEntered
         if (btnCancel.isEnabled()) {
-            btnCancel.setBackground(new Color(238,238,238));
+            btnCancel.setBackground(new Color(255,127,39));
         } else {
             btnCancel.setBackground(new Color(255,255,255));
         }
@@ -530,7 +521,7 @@ public class frmSupplierNew extends javax.swing.JDialog {
 
     private void btnConfirmMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmMouseEntered
         if (btnConfirm.isEnabled()) {
-            btnConfirm.setBackground(new Color(238,238,238));
+            btnConfirm.setBackground(new Color(255,215,0));
         } else {
             btnConfirm.setBackground(new Color(255,255,255));
         }
