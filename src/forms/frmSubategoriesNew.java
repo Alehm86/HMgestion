@@ -150,7 +150,7 @@ public class frmSubategoriesNew extends javax.swing.JDialog {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,15 +269,15 @@ public class frmSubategoriesNew extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(labelState, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(6, 6, 6)
-                                .addComponent(checkState, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
+                                .addComponent(checkState, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(labelTitleNameNew, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtName))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(labelCatPNew1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                                .addComponent(labelCatPNew1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cboCatPNew, 0, 172, Short.MAX_VALUE)))))
+                                .addComponent(cboCatPNew, 0, 110, Short.MAX_VALUE)))))
                 .addGap(148, 148, 148))
         );
         jPanel1Layout.setVerticalGroup(

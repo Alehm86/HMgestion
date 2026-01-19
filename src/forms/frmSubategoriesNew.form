@@ -64,7 +64,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jLabel1" alignment="0" pref="626" max="32767" attributes="0"/>
+              <Component id="jLabel1" alignment="0" pref="557" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -149,7 +149,7 @@
                               <Group type="102" attributes="0">
                                   <Component id="labelState" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                  <Component id="checkState" pref="286" max="32767" attributes="0"/>
+                                  <Component id="checkState" pref="218" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="labelTitleNameNew" min="-2" pref="70" max="-2" attributes="0"/>
@@ -157,9 +157,9 @@
                                   <Component id="txtName" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="labelCatPNew1" pref="164" max="32767" attributes="0"/>
+                                  <Component id="labelCatPNew1" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="cboCatPNew" pref="172" max="32767" attributes="0"/>
+                                  <Component id="cboCatPNew" pref="110" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
