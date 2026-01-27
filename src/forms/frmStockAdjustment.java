@@ -60,9 +60,9 @@ public class frmStockAdjustment extends javax.swing.JFrame {
     }
     
     private void buscar(){
-        id = queries.obtenerIdProduct(txtProductCode.getText());
+        id = queries.selectIdProduct(txtProductCode.getText());
         queries.selectProduct(id, labelDescripcion,txtProductCode);
-        stockProd  = queries.obtenerStock(id);
+        stockProd  = queries.selectStock(id);
         labelStock.setText(String.valueOf(stockProd)+ " Unidades");
     }   
     
@@ -121,9 +121,9 @@ public class frmStockAdjustment extends javax.swing.JFrame {
 
             
             if(cboTipoAjuste.getSelectedItem().toString().equals("Aumento")){
-                queries.editStockProduct(id, (stockProd + cant));
+                queries.updateStockProduct(id, (stockProd + cant));
             }else{
-                queries.editStockProduct(id, (stockProd - cant));
+                queries.updateStockProduct(id, (stockProd - cant));
             }       
         }
         
