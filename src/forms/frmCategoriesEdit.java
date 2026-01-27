@@ -4,6 +4,7 @@
  */
 package forms;
 
+import Class.GenericDAO;
 import Class.ProductDAO;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -20,7 +21,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class frmCategoriesEdit extends javax.swing.JDialog {
     
-    ProductDAO queries = new ProductDAO();
+    ProductDAO queriesProduct = new ProductDAO();
+    GenericDAO queriesGeneric = new GenericDAO();
     
     private String categoriaCreada;
     private String subcategoriaCreada;
@@ -52,7 +54,7 @@ public class frmCategoriesEdit extends javax.swing.JDialog {
         btnEdit.setEnabled(false);
         btnCancelEdit.setEnabled(false);
         
-        queries.listTableCategory(tableCategory);
+        queriesProduct.listTableCategory(tableCategory);
         txtNameEdit.setText("");
 
     }
@@ -63,9 +65,9 @@ public class frmCategoriesEdit extends javax.swing.JDialog {
     }
     
     void actDesactCatAndSubcat(){       
-        queries.editState("categories",filaSeleccionada, queries.verificarState("categories",filaSeleccionada));
+        queriesGeneric.updateState("categories",filaSeleccionada, queriesGeneric.verificarState("categories",filaSeleccionada));
         limpiarJtable();
-        queries.listTableCategory(tableCategory);
+        queriesProduct.listTableCategory(tableCategory);
         btnActDes.setEnabled(false);
         btnEdit.setEnabled(false);
         btnCancelEdit.setEnabled(false);
@@ -74,11 +76,11 @@ public class frmCategoriesEdit extends javax.swing.JDialog {
     
     void editName(){
         
-        if (!queries.nameExists(txtNameEdit.getText(),"categories")) {
+        if (!queriesGeneric.nameExists(txtNameEdit.getText(),"categories")) {
             categoriaCreada = txtNameEdit.getText().toUpperCase(); 
-            queries.editName("categories", filaSeleccionada, txtNameEdit.getText().toUpperCase()); 
+            queriesGeneric.updateName("categories", filaSeleccionada, txtNameEdit.getText().toUpperCase()); 
             limpiarJtable();   
-            queries.listTableCategory(tableCategory);
+            queriesProduct.listTableCategory(tableCategory);
             btnConfirmEdit.setEnabled(false);
             txtNameEdit.setText("");
             txtNameEdit.setEnabled(false);
