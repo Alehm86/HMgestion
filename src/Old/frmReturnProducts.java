@@ -106,7 +106,7 @@ public class frmReturnProducts extends javax.swing.JFrame {
     }
     
     private void buscarProducto(){
-        id = queries.obtenerIdProduct(txtProductCode.getText());       
+        id = queries.selectIdProduct(txtProductCode.getText());       
         queries.selectProduct(id, labelDescripcion,txtProductCode);
         queries.selectProductPriceEdit(id, txtPrice, labelPrice1);
     }
@@ -166,7 +166,7 @@ public class frmReturnProducts extends javax.swing.JFrame {
                 return;
             }
 
-            double Stock = queries.obtenerStock(id);
+            double Stock = queries.selectStock(id);
 
             int confirmacion = JOptionPane.showConfirmDialog(
                 null,
@@ -193,11 +193,11 @@ public class frmReturnProducts extends javax.swing.JFrame {
                 switch (seleccion) {
                     case 1: // Nota de Crédito
                         Stock = Stock + cantidad;
-                        queries.editStockProduct(id, Stock);
+                        queries.updateStockProduct(id, Stock);
                         break;
                     case 2: // Reintegro de dinero
                         Stock = Stock + cantidad;
-                        queries.editStockProduct(id, Stock);
+                        queries.updateStockProduct(id, Stock);
                         // Aplicar reintegro y descontar dinero de caja
                         break;
                     case 3: // Cambio por otro producto igual
@@ -208,11 +208,11 @@ public class frmReturnProducts extends javax.swing.JFrame {
                 switch (seleccion) {
                     case 1: // Nota de Crédito
                         Stock = Stock - cantidad;
-                        queries.editStockProduct(id, Stock);
+                        queries.updateStockProduct(id, Stock);
                         break;
                     case 2: // Reintegro de dinero
                         Stock = Stock - cantidad;
-                        queries.editStockProduct(id, Stock);
+                        queries.updateStockProduct(id, Stock);
                         // Aplicar reintegro y aumentar dinero en caja
                         break;
                     case 3: // Cambio por otro producto igual
