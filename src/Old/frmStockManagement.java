@@ -161,7 +161,7 @@ public class frmStockManagement extends javax.swing.JFrame {
    
     void buscar(){
         //clear();
-        int id = queries.obtenerIdProduct(txtProductCode.getText());
+        int id = queries.selectIdProduct(txtProductCode.getText());
         queries.selectProductPriceEdit(id, txtPrice, lblIva);
         queries.selectProduct(id, labelDescripcion,txtProductCode);
         
@@ -209,12 +209,12 @@ public class frmStockManagement extends javax.swing.JFrame {
         }else{
             for(int i = 0; i < tableStock1.getRowCount(); i++){
                 
-                stock.idProduct = queries.obtenerIdProduct(tableStock1.getValueAt(i, 0).toString());
+                stock.idProduct = queries.selectIdProduct(tableStock1.getValueAt(i, 0).toString());
                 stock.stock = Integer.parseInt(tableStock1.getValueAt(i, 2).toString());
                 price.price = Double.parseDouble(tableStock1.getValueAt(i, 3).toString());
                 
-                queries.editPriceInStocks(stock.getIdProduct(),price.getPrice());
-                queries.editStockProduct(stock.getIdProduct(),stock.getStock());         
+                queries.updatePriceInStocks(stock.getIdProduct(),price.getPrice());
+                queries.updateStockProduct(stock.getIdProduct(),stock.getStock());         
             }
         }
         clearTxt();
