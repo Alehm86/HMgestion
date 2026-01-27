@@ -17,7 +17,7 @@ public class modelClient {
     public String street;
     public int height;
     public int idProvince;
-    public LocalDateTime fechaRegistro;
+    public String fechaRegistro;
     public int state;
     public int iva;
 
@@ -85,11 +85,11 @@ public class modelClient {
         this.idProvince = idProvince;
     }
 
-    public LocalDateTime getFechaRegistro() {
+    public String getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+    public void setFechaRegistro(String fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 
@@ -109,7 +109,7 @@ public class modelClient {
         this.iva = iva;
     }
 
-    public modelClient(String name, int tipeClient, int CUIT, String email, int phone, String street, int height, int idProvince, LocalDateTime fechaRegistro, int state, int iva) {
+    public modelClient(String name, int tipeClient, int CUIT, String email, int phone, String street, int height, int idProvince, String fechaRegistro, int state, int iva) {
         this.name = name;
         this.tipeClient = tipeClient;
         this.CUIT = CUIT;
@@ -122,6 +122,7 @@ public class modelClient {
         this.state = state;
         this.iva = iva;
     }
+
 
 
     public modelClient() {
