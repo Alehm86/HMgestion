@@ -4,8 +4,6 @@
  */
 package forms;
 
-
-import Old.frmProducts;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Frame;
@@ -36,7 +34,7 @@ public class frmHome extends javax.swing.JFrame {
         FechaHora.iniciarReloj(jLabelHora);
         menuSuperior();
         paginaDeInicio();
-        
+        actionButtons();
         
     }
     
@@ -100,10 +98,27 @@ public class frmHome extends javax.swing.JFrame {
     private void actionButtons(){
         
         btnProducts.addActionListener(e -> {
-            frmProducts products = new frmProducts();
-            products.setVisible(true);
-            this.dispose();
+            PageProductsHome pProduct = new PageProductsHome();
+            pProduct.setSize(1700, 877);
+            pProduct.setLocation(0, 0);
+
+            jPanelContent.removeAll();
+            jPanelContent.add(pProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1712, 877));
+            jPanelContent.revalidate();
+            jPanelContent.repaint();
         });
+        
+        btnClient.addActionListener(e -> {
+            PageClientHome pClient = new PageClientHome();
+            pClient.setSize(1700, 877);
+            pClient.setLocation(0, 0);
+
+            jPanelContent.removeAll();
+            jPanelContent.add(pClient, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1712, 877));
+            jPanelContent.revalidate();
+            jPanelContent.repaint();
+        });
+                
         
         btnExit.addActionListener(e -> {  
             
@@ -121,9 +136,9 @@ public class frmHome extends javax.swing.JFrame {
         });
         
         btnSales.addActionListener(e -> {
-            frmSalesManagement sales = new frmSalesManagement();
-            sales.setVisible(true);
-            this.dispose();
+//            frmSalesManagement sales = new frmSalesManagement();
+//            sales.setVisible(true);
+//            this.dispose();
         });
         
     }
@@ -196,7 +211,7 @@ public class frmHome extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnProducts = new javax.swing.JButton();
         btnSales = new javax.swing.JButton();
-        btnCustomers = new javax.swing.JButton();
+        btnClient = new javax.swing.JButton();
         btnCtaCte = new javax.swing.JButton();
         btnServiceTec = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -293,29 +308,29 @@ public class frmHome extends javax.swing.JFrame {
             }
         });
 
-        btnCustomers.setBackground(new java.awt.Color(101, 129, 171));
-        btnCustomers.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        btnCustomers.setForeground(new java.awt.Color(240, 240, 242));
-        btnCustomers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/profile_account_user_icon_228272.png"))); // NOI18N
-        btnCustomers.setText("Clientes");
-        btnCustomers.setBorder(null);
-        btnCustomers.setBorderPainted(false);
-        btnCustomers.setContentAreaFilled(false);
-        btnCustomers.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCustomers.setFocusPainted(false);
-        btnCustomers.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnCustomers.setPreferredSize(new java.awt.Dimension(103, 37));
-        btnCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnClient.setBackground(new java.awt.Color(101, 129, 171));
+        btnClient.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        btnClient.setForeground(new java.awt.Color(240, 240, 242));
+        btnClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/profile_account_user_icon_228272.png"))); // NOI18N
+        btnClient.setText("Clientes");
+        btnClient.setBorder(null);
+        btnClient.setBorderPainted(false);
+        btnClient.setContentAreaFilled(false);
+        btnClient.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClient.setFocusPainted(false);
+        btnClient.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnClient.setPreferredSize(new java.awt.Dimension(103, 37));
+        btnClient.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCustomersMouseEntered(evt);
+                btnClientMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCustomersMouseExited(evt);
+                btnClientMouseExited(evt);
             }
         });
-        btnCustomers.addActionListener(new java.awt.event.ActionListener() {
+        btnClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCustomersActionPerformed(evt);
+                btnClientActionPerformed(evt);
             }
         });
 
@@ -458,7 +473,7 @@ public class frmHome extends javax.swing.JFrame {
                     .addComponent(btnServiceTec, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnProducts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCustomers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCtaCte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -474,7 +489,7 @@ public class frmHome extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCtaCte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -538,7 +553,7 @@ public class frmHome extends javax.swing.JFrame {
             }
         });
 
-        jMenuNewProduct.setText("Nuevo producto");
+        jMenuNewProduct.setText("Crear producto nuevo");
         jMenuNewProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuNewProductActionPerformed(evt);
@@ -669,14 +684,6 @@ public class frmHome extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProductsMouseExited
 
     private void btnProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductsActionPerformed
-        PageProductsHome p1 = new PageProductsHome();
-        p1.setSize(1700, 877);
-        p1.setLocation(0, 0);
-        
-        jPanelContent.removeAll();
-        jPanelContent.add(p1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1712, 877));
-        jPanelContent.revalidate();
-        jPanelContent.repaint();
                 
     }//GEN-LAST:event_btnProductsActionPerformed
 
@@ -692,17 +699,17 @@ public class frmHome extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnSalesActionPerformed
 
-    private void btnCustomersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCustomersMouseEntered
-        btnCustomers.setForeground(new Color(215,215,0));
-    }//GEN-LAST:event_btnCustomersMouseEntered
+    private void btnClientMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClientMouseEntered
+        btnClient.setForeground(new Color(215,215,0));
+    }//GEN-LAST:event_btnClientMouseEntered
 
-    private void btnCustomersMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCustomersMouseExited
-        btnCustomers.setForeground(new Color(255,255,255));
-    }//GEN-LAST:event_btnCustomersMouseExited
+    private void btnClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClientMouseExited
+        btnClient.setForeground(new Color(255,255,255));
+    }//GEN-LAST:event_btnClientMouseExited
 
-    private void btnCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomersActionPerformed
+    private void btnClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientActionPerformed
 
-    }//GEN-LAST:event_btnCustomersActionPerformed
+    }//GEN-LAST:event_btnClientActionPerformed
 
     private void btnCtaCteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCtaCteMouseEntered
         btnCtaCte.setForeground(new Color(215,215,0));
@@ -808,8 +815,8 @@ public class frmHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClient;
     private javax.swing.JButton btnCtaCte;
-    private javax.swing.JButton btnCustomers;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnProducts;
     private javax.swing.JButton btnSales;

@@ -29,7 +29,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuNewProduct">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Nuevo producto"/>
+                <Property name="text" type="java.lang.String" value="Crear producto nuevo"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuNewProductActionPerformed"/>
@@ -221,7 +221,7 @@
                       <Component id="btnServiceTec" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnProducts" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnSales" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnCustomers" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnClient" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnCtaCte" alignment="0" max="32767" attributes="0"/>
                       <Component id="jPanel4" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnExit" alignment="0" max="32767" attributes="0"/>
@@ -240,7 +240,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnSales" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnCustomers" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnClient" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnCtaCte" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -335,7 +335,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalesActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnCustomers">
+        <Component class="javax.swing.JButton" name="btnClient">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ab" green="81" red="65" type="rgb"/>
@@ -365,9 +365,9 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCustomersMouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCustomersMouseExited"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCustomersActionPerformed"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnClientMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnClientMouseExited"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClientActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCtaCte">
