@@ -9,6 +9,7 @@ import java.awt.Frame;
 import Class.ProductDAO;
 import Class.modelPrice;
 import Class.modelStocks;
+import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import java.text.NumberFormat;
 import javax.swing.JFormattedTextField;
@@ -40,7 +41,21 @@ public class PageProductStock extends javax.swing.JPanel {
         formatearTxtPrice();
         formatearCantidad();
         buttonsActions();
-        
+        titlesButtons();
+        start();
+    }
+    
+    private void titlesButtons(){
+        btnFrmNewProduct.setToolTipText("Registrar producto nuevo.");
+        btnQuitar.setToolTipText("Quitar de lista.");
+        btnEliminarTodo.setToolTipText("Eliminar lista.");
+        btnRegistrar.setToolTipText("Registrar todos los productos");
+    }
+    
+    private void start(){
+        labelSupplier.setText("");
+        labelDate.setText("");
+        labelTotal.setText("");
     }
 
     private void buttonsActions(){
@@ -68,7 +83,7 @@ public class PageProductStock extends javax.swing.JPanel {
             clearTxt();                     
         });
         
-        btnRegister.addActionListener(e -> {
+        btnRegistrar.addActionListener(e -> {
            registrarCambios(); 
         });
         
@@ -76,6 +91,26 @@ public class PageProductStock extends javax.swing.JPanel {
             boolean activo = CheckBoxEdit.isSelected();           
             txtPrice.setEnabled(activo);            
         });
+
+        CheckBoxFactura.addItemListener(e -> {
+            if (CheckBoxFactura.isSelected()) {
+                start();
+                txtFactura.setEnabled(false);
+                btnBuscarFactura.setEnabled(false);
+                jLabel39.setEnabled(false);  
+                jLabel41.setEnabled(false);  
+                jLabel37.setEnabled(false); 
+
+            } else {
+                start();   
+                txtFactura.setEnabled(true);
+                btnBuscarFactura.setEnabled(true);
+                jLabel39.setEnabled(true);  
+                jLabel41.setEnabled(true);  
+                jLabel37.setEnabled(true); 
+            }
+        });         
+        
     }
     
     void eliminarDeLista(){
@@ -139,8 +174,9 @@ public class PageProductStock extends javax.swing.JPanel {
    }
    
     void buscar(){
-        //clear();
-        int id = queries.obtenerIdProduct(txtProductCode.getText());
+        //BUSCA EL ID DEL PRODUCTO
+        //BUSCA EL PRODUCTO SEGUN ID
+        int id = queries.selectIdProduct(txtProductCode.getText());
         queries.selectProductPriceEdit(id, txtPrice, lblIva);
         queries.selectProduct(id, labelDescripcion,txtProductCode);
         
@@ -188,12 +224,12 @@ public class PageProductStock extends javax.swing.JPanel {
         }else{
             for(int i = 0; i < tableStock1.getRowCount(); i++){
                 
-                stock.idProduct = queries.obtenerIdProduct(tableStock1.getValueAt(i, 0).toString());
+                stock.idProduct = queries.selectIdProduct(tableStock1.getValueAt(i, 0).toString());
                 stock.stock = Integer.parseInt(tableStock1.getValueAt(i, 2).toString());
                 price.price = Double.parseDouble(tableStock1.getValueAt(i, 3).toString());
                 
-                queries.editPriceInStocks(stock.getIdProduct(),price.getPrice());
-                queries.editStockProduct(stock.getIdProduct(),stock.getStock());         
+                queries.updatePriceInStocks(stock.getIdProduct(),price.getPrice());
+                queries.updateStockProduct(stock.getIdProduct(),stock.getStock());         
             }
         }
         clearTxt();
@@ -242,7 +278,7 @@ public class PageProductStock extends javax.swing.JPanel {
         jScrollPane5 = new javax.swing.JScrollPane();
         tableStock1 = new javax.swing.JTable();
         jPanel36 = new javax.swing.JPanel();
-        btnRegister = new javax.swing.JButton();
+        btnRegistrar = new javax.swing.JButton();
         btnQuitar = new javax.swing.JButton();
         jLabel27 = new javax.swing.JLabel();
         btnEliminarTodo = new javax.swing.JButton();
@@ -291,6 +327,14 @@ public class PageProductStock extends javax.swing.JPanel {
         btnBuscarFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscarFactura.setFocusPainted(false);
         btnBuscarFactura.setFocusable(false);
+        btnBuscarFactura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBuscarFacturaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnBuscarFacturaMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -389,7 +433,7 @@ public class PageProductStock extends javax.swing.JPanel {
         );
 
         jLabel18.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel18.setForeground(new java.awt.Color(255, 102, 102));
         jLabel18.setText("Falta programar");
 
         javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
@@ -443,6 +487,14 @@ public class PageProductStock extends javax.swing.JPanel {
         btnAdd.setMaximumSize(new java.awt.Dimension(120, 52));
         btnAdd.setMinimumSize(new java.awt.Dimension(120, 52));
         btnAdd.setPreferredSize(new java.awt.Dimension(120, 52));
+        btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAddMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAddMouseExited(evt);
+            }
+        });
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -473,6 +525,14 @@ public class PageProductStock extends javax.swing.JPanel {
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.setFocusPainted(false);
         btnBuscar.setFocusable(false);
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseExited(evt);
+            }
+        });
 
         jPanel31.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -551,6 +611,14 @@ public class PageProductStock extends javax.swing.JPanel {
         btnFrmNewProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFrmNewProduct.setFocusPainted(false);
         btnFrmNewProduct.setFocusable(false);
+        btnFrmNewProduct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnFrmNewProductMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnFrmNewProductMouseExited(evt);
+            }
+        });
         btnFrmNewProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFrmNewProductActionPerformed(evt);
@@ -644,18 +712,34 @@ public class PageProductStock extends javax.swing.JPanel {
 
         jPanel36.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnRegister.setBackground(new java.awt.Color(255, 255, 255));
-        btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/circleok_121876.png"))); // NOI18N
-        btnRegister.setBorder(null);
-        btnRegister.setBorderPainted(false);
-        btnRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRegister.setFocusPainted(false);
-        btnRegister.setPreferredSize(new java.awt.Dimension(52, 52));
+        btnRegistrar.setBackground(new java.awt.Color(255, 255, 255));
+        btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/circleok_121876.png"))); // NOI18N
+        btnRegistrar.setBorder(null);
+        btnRegistrar.setBorderPainted(false);
+        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrar.setFocusPainted(false);
+        btnRegistrar.setPreferredSize(new java.awt.Dimension(52, 52));
+        btnRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRegistrarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRegistrarMouseExited(evt);
+            }
+        });
 
         btnQuitar.setBackground(new java.awt.Color(255, 255, 255));
         btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/bin_121907.png"))); // NOI18N
         btnQuitar.setBorder(null);
         btnQuitar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnQuitar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnQuitarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnQuitarMouseExited(evt);
+            }
+        });
 
         jLabel27.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(101, 129, 171));
@@ -666,6 +750,14 @@ public class PageProductStock extends javax.swing.JPanel {
         btnEliminarTodo.setToolTipText("");
         btnEliminarTodo.setBorder(null);
         btnEliminarTodo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarTodo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEliminarTodoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnEliminarTodoMouseExited(evt);
+            }
+        });
         btnEliminarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarTodoActionPerformed(evt);
@@ -685,7 +777,7 @@ public class PageProductStock extends javax.swing.JPanel {
                     .addGroup(jPanel36Layout.createSequentialGroup()
                         .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
@@ -697,7 +789,7 @@ public class PageProductStock extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEliminarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel27)
                 .addContainerGap())
@@ -776,6 +868,62 @@ public class PageProductStock extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarTodoActionPerformed
 
+    private void btnBuscarFacturaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarFacturaMouseEntered
+        btnBuscarFactura.setBackground(new Color(180,180,180));
+    }//GEN-LAST:event_btnBuscarFacturaMouseEntered
+
+    private void btnBuscarFacturaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarFacturaMouseExited
+        btnBuscarFactura.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnBuscarFacturaMouseExited
+
+    private void btnBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseEntered
+        btnBuscar.setBackground(new Color(180,180,180));
+    }//GEN-LAST:event_btnBuscarMouseEntered
+
+    private void btnBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseExited
+        btnBuscar.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnBuscarMouseExited
+
+    private void btnFrmNewProductMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrmNewProductMouseEntered
+        btnFrmNewProduct.setBackground(new Color(180,180,180));
+    }//GEN-LAST:event_btnFrmNewProductMouseEntered
+
+    private void btnFrmNewProductMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrmNewProductMouseExited
+        btnFrmNewProduct.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnFrmNewProductMouseExited
+
+    private void btnAddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseEntered
+        btnAdd.setBackground(new Color(255,215,0));
+    }//GEN-LAST:event_btnAddMouseEntered
+
+    private void btnAddMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseExited
+        btnAdd.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnAddMouseExited
+
+    private void btnQuitarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuitarMouseEntered
+        btnQuitar.setBackground(new Color(255,127,39));
+    }//GEN-LAST:event_btnQuitarMouseEntered
+
+    private void btnQuitarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuitarMouseExited
+        btnQuitar.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnQuitarMouseExited
+
+    private void btnEliminarTodoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarTodoMouseEntered
+        btnEliminarTodo.setBackground(new Color(255,102,102));
+    }//GEN-LAST:event_btnEliminarTodoMouseEntered
+
+    private void btnEliminarTodoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarTodoMouseExited
+        btnEliminarTodo.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnEliminarTodoMouseExited
+
+    private void btnRegistrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseEntered
+        btnRegistrar.setBackground(new Color(255,215,0));
+    }//GEN-LAST:event_btnRegistrarMouseEntered
+
+    private void btnRegistrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseExited
+        btnRegistrar.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnRegistrarMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox CheckBoxEdit;
@@ -786,7 +934,7 @@ public class PageProductStock extends javax.swing.JPanel {
     private javax.swing.JButton btnEliminarTodo;
     private javax.swing.JButton btnFrmNewProduct;
     private javax.swing.JButton btnQuitar;
-    private javax.swing.JButton btnRegister;
+    private javax.swing.JButton btnRegistrar;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel17;
