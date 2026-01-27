@@ -4,6 +4,7 @@
  */
 package forms;
 
+import Class.GenericDAO;
 import Class.ProductDAO;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -20,7 +21,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class frmSubategoriesNew extends javax.swing.JDialog {
     
-    ProductDAO queries = new ProductDAO();
+    ProductDAO queriesPriduct = new ProductDAO();
+    GenericDAO queriesGeneric = new GenericDAO();
     
     private String subcategoriaCreada;
     public int state;
@@ -42,7 +44,7 @@ public class frmSubategoriesNew extends javax.swing.JDialog {
     }
     
     void llenarCombos(){
-        queries.llenarCombos(cboCatPNew,"categories"); 
+        queriesGeneric.llenarCombos(cboCatPNew,"categories"); 
     }
   
     void inicializar(){
@@ -69,9 +71,9 @@ public class frmSubategoriesNew extends javax.swing.JDialog {
             return;
         }
 
-        if (!queries.nameExists(txtName.getText().toUpperCase(),"subcategories")) {
-            queries.newSubcategory(
-                    queries.idCategoria(cboCatPNew.getSelectedItem().toString()),
+        if (!queriesGeneric.nameExists(txtName.getText().toUpperCase(),"subcategories")) {
+            queriesPriduct.insertSubcategory(
+                    queriesPriduct.selectIdCategoria(cboCatPNew.getSelectedItem().toString()),
                     txtName.getText().toUpperCase(),
                     state);
             subcategoriaCreada = txtName.getText().toUpperCase();
