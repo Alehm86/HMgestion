@@ -4,6 +4,7 @@
  */
 package forms;
 
+import Class.GenericDAO;
 import Class.ProductDAO;
 import Class.modelSupplier;
 import java.awt.Color;
@@ -17,7 +18,9 @@ import javax.swing.text.MaskFormatter;
 
 public class frmSupplierEdit extends javax.swing.JDialog {
 
-    ProductDAO queries = new ProductDAO();
+    ProductDAO queriesProduct = new ProductDAO();
+    GenericDAO queriesGeneric = new GenericDAO();
+    
     modelSupplier classSupplier = new modelSupplier();
     
     private String SupplierSelected = "";
@@ -31,7 +34,7 @@ public class frmSupplierEdit extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
  
-        queries.listTableSupplier(tableSupplier);
+        queriesProduct.listTableSupplier(tableSupplier);
         actions();
     }
     
@@ -54,7 +57,7 @@ public class frmSupplierEdit extends javax.swing.JDialog {
                     txtUser.setText("");
                     txtPass.setText("");
                     
-                    queries.selectSupplier(SupplierSelected, txtName, txtCuit, txtTel, txtMail, txtUrl, txtUser, txtPass);
+                    queriesProduct.selectSupplier(SupplierSelected, txtName, txtCuit, txtTel, txtMail, txtUrl, txtUser, txtPass);
                 }
                 else{
                 }            
@@ -193,10 +196,10 @@ public class frmSupplierEdit extends javax.swing.JDialog {
             return;
         }
 
-        idSupplier = queries.obtenerId("id_supplier","suppliers",classSupplier.getName());
+        idSupplier = queriesGeneric.selectId("id_supplier","suppliers",classSupplier.getName());
         
-        if (!queries.nameExistsForOtherId(classSupplier.getName(), idSupplier)) {
-            queries.EditSupplier(
+        if (!queriesProduct.nameExistsForOtherId(classSupplier.getName(), idSupplier)) {
+            queriesProduct.updateSupplier(
                 SupplierSelected,
                 classSupplier.getName(),
                 classSupplier.getCuit(),
@@ -208,7 +211,7 @@ public class frmSupplierEdit extends javax.swing.JDialog {
             );
             
             proveedorEditado = classSupplier.getName();
-            queries.listTableSupplier(tableSupplier);
+            queriesProduct.listTableSupplier(tableSupplier);
             
             
             JOptionPane.showMessageDialog(null, "Proveedor editado correctamente. ✅");
