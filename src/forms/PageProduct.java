@@ -4,6 +4,7 @@
  */
 package forms;
 
+import Class.GenericDAO;
 import Class.ProductDAO;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Graphics;
@@ -25,7 +26,8 @@ import javax.swing.JTextField;
 
 public class PageProduct extends javax.swing.JPanel {
 
-    ProductDAO queries = new ProductDAO();
+    ProductDAO queriesProduct = new ProductDAO();
+    GenericDAO queriesGeneric = new GenericDAO();
     
     DefaultTableModel tableProducts = new DefaultTableModel();
     DefaultTableModel tableFinancy = new DefaultTableModel();
@@ -38,8 +40,8 @@ public class PageProduct extends javax.swing.JPanel {
         initComponents();
         actionButtons();
         agregarPlaceholder(txtCodProduct, "Ingrese código de producto...");       
-        queries.llenarCombosActivos(cboCategories,"categories");
-        queries.llenarCombos(cboBrand,"brands");
+        queriesGeneric.llenarCombosActivos(cboCategories,"categories");
+        queriesGeneric.llenarCombos(cboBrand,"brands");
         llenarSubcategorias(); 
         
         filtrarPorCombos();
@@ -78,9 +80,9 @@ public class PageProduct extends javax.swing.JPanel {
             String categoria = (String) cboCategories.getSelectedItem();
 
             if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                int idCat = queries.idCategoria(categoria);
+                int idCat = queriesProduct.selectIdCategoria(categoria);
                 cboSubcategories.removeAllItems();
-                queries.llenarCombosSubcategories(cboSubcategories, idCat);          
+                queriesProduct.llenarCombosSubcategories(cboSubcategories, idCat);          
             }
         });
     }
@@ -91,30 +93,30 @@ public class PageProduct extends javax.swing.JPanel {
         String subcategoria = (String) cboSubcategories.getSelectedItem();
         String brand = (String) cboBrand.getSelectedItem();
         
-        int idCat = queries.idCategoria(categoria); 
-        int idSubcat = queries.obtenerId("id_subcategory","subcategories",subcategoria);
-        int idBrand = queries.obtenerId("id_brand","brands",brand);
+        int idCat = queriesProduct.selectIdCategoria(categoria); 
+        int idSubcat = queriesGeneric.selectId("id_subcategory","subcategories",subcategoria);
+        int idBrand = queriesGeneric.selectId("id_brand","brands",brand);
         
         if(cboBrand.getSelectedIndex() != 0){
             if(cboCategories.getSelectedIndex() != 0){               
                 if(cboSubcategories.getSelectedIndex() != 0){
-                    queries.listProdForBrandAndSubCat(jtablePrducts, idBrand, idSubcat);
+                    queriesProduct.listProdForBrandAndSubCat(jtablePrducts, idBrand, idSubcat);
                 }else{
-                    queries.listProdForBrandAndCat(jtablePrducts, idBrand, idCat);
+                    queriesProduct.listProdForBrandAndCat(jtablePrducts, idBrand, idCat);
                 }
             }else{
-                queries.listAllProdForBrand(jtablePrducts, idBrand);
+                queriesProduct.listAllProdForBrand(jtablePrducts, idBrand);
             }          
             
         }else{
             if(cboCategories.getSelectedIndex() != 0){
                 if(cboSubcategories.getSelectedIndex() != 0){
-                    queries.listAllProdForSubcategory(jtablePrducts,idSubcat);
+                    queriesProduct.listAllProdForSubcategory(jtablePrducts,idSubcat);
                 }else{
-                    queries.listAllProdForIDCategory(jtablePrducts,idCat);
+                    queriesProduct.listAllProdForIDCategory(jtablePrducts,idCat);
                 }               
             }else{
-                queries.listAllProdForCategory(jtablePrducts);
+                queriesProduct.listAllProdForCategory(jtablePrducts);
             }
         }
         
@@ -124,7 +126,7 @@ public class PageProduct extends javax.swing.JPanel {
 
         
         btnEditPrice.addActionListener(e->{
-            int id = queries.obtenerIdProduct(filaSeleccionada);
+            int id = queriesProduct.selectIdProduct(filaSeleccionada);
             
             frmEditPrice editPrice = new frmEditPrice();
             editPrice.dialogoEdit(id);
@@ -137,7 +139,7 @@ public class PageProduct extends javax.swing.JPanel {
             String productCode = txtCodProduct.getText().trim();
 
             if (!productCode.isEmpty() && !productCode.equals("Ingrese código de producto...")) {
-                queries.listTableProducts(jtablePrducts, productCode);
+                queriesProduct.listTableProducts(jtablePrducts, productCode);
                 txtCodProduct.setText("");
             } else {
                 JOptionPane.showMessageDialog(null, "¡Debe ingresar un código de producto!");
@@ -200,11 +202,11 @@ public class PageProduct extends javax.swing.JPanel {
 
         txtCodProduct.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         txtCodProduct.setText("Ingrese codigo de producto...");
-        txtCodProduct.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(12, 83, 151), 2, true));
+        txtCodProduct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(12, 83, 151)));
 
         btnSerchCode.setBackground(new java.awt.Color(242, 242, 242));
         btnSerchCode.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Serch32.png"))); // NOI18N
-        btnSerchCode.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(12, 83, 151), 2, true));
+        btnSerchCode.setBorder(null);
         btnSerchCode.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSerchCode.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -228,7 +230,7 @@ public class PageProduct extends javax.swing.JPanel {
         cboCategories.setFont(new java.awt.Font("Raleway", 1, 14)); // NOI18N
         cboCategories.setForeground(new java.awt.Color(102, 102, 102));
         cboCategories.setToolTipText("");
-        cboCategories.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(12, 83, 151), 1, true));
+        cboCategories.setBorder(null);
         cboCategories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboCategoriesActionPerformed(evt);
@@ -242,7 +244,7 @@ public class PageProduct extends javax.swing.JPanel {
         cboSubcategories.setBackground(new java.awt.Color(255, 255, 255));
         cboSubcategories.setFont(new java.awt.Font("Raleway", 1, 14)); // NOI18N
         cboSubcategories.setForeground(new java.awt.Color(102, 102, 102));
-        cboSubcategories.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(12, 83, 151), 1, true));
+        cboSubcategories.setBorder(null);
         cboSubcategories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboSubcategoriesActionPerformed(evt);
@@ -256,7 +258,7 @@ public class PageProduct extends javax.swing.JPanel {
         cboBrand.setBackground(new java.awt.Color(255, 255, 255));
         cboBrand.setFont(new java.awt.Font("Raleway", 1, 14)); // NOI18N
         cboBrand.setForeground(new java.awt.Color(102, 102, 102));
-        cboBrand.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(12, 83, 151), 1, true));
+        cboBrand.setBorder(null);
 
         btnSerchCode2.setBackground(new java.awt.Color(242, 242, 242));
         btnSerchCode2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Serch32.png"))); // NOI18N
