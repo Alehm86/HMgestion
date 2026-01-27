@@ -4,6 +4,7 @@
  */
 package Old;
 
+import Class.GenericDAO;
 import Old.frmProducts;
 import Old.frmMenu;
 import java.awt.Graphics;
@@ -39,6 +40,7 @@ import javax.swing.SwingUtilities;
 
 public class frmEditProduct extends javax.swing.JFrame {
     ProductDAO queries = new ProductDAO();
+    GenericDAO queriesGeneric = new GenericDAO();
     modelProducts product = new modelProducts();
   
     fondoPanel background = new fondoPanel();
@@ -100,7 +102,7 @@ public class frmEditProduct extends javax.swing.JFrame {
             dialogo.setVisible(true);
             
             String nuevaMarca = dialogo.getMarcaCreada();
-            queries.llenarCombos(cboBrands,"brands");
+            queriesGeneric.llenarCombos(cboBrands,"brands");
            
             if (nuevaMarca != null) {
                 cboBrands.setSelectedItem(nuevaMarca);
@@ -112,7 +114,7 @@ public class frmEditProduct extends javax.swing.JFrame {
             frmBrandEdit dialogo = new frmBrandEdit(this, true);
             dialogo.setVisible(true);
             String nuevaMarca = dialogo.getMarcaCreada();
-            queries.llenarCombos(cboBrands,"brands");
+            queriesGeneric.llenarCombos(cboBrands,"brands");
            
             if (nuevaMarca != null) {
                 cboBrands.setSelectedItem(nuevaMarca);
@@ -151,7 +153,7 @@ public class frmEditProduct extends javax.swing.JFrame {
             dialogo.setVisible(true);
             
             String newSupplier = dialogo.getProveedorCreado();
-            queries.llenarCombos(cboSuppliers, "suppliers");
+            queriesGeneric.llenarCombos(cboSuppliers, "suppliers");
            
             if (newSupplier != null && !newSupplier.isEmpty()) {
                 cboSuppliers.setSelectedItem(newSupplier);
@@ -165,7 +167,7 @@ public class frmEditProduct extends javax.swing.JFrame {
 
             String newSupplier = dialogo.getProveedorEditado();
             
-            queries.llenarCombos(cboSuppliers, "suppliers");
+            queriesGeneric.llenarCombos(cboSuppliers, "suppliers");
 
             if (newSupplier != null && !newSupplier.isEmpty()) {
                 cboSuppliers.setSelectedItem(newSupplier);
@@ -203,7 +205,7 @@ public class frmEditProduct extends javax.swing.JFrame {
             frmCategoriesNew dialogo = new frmCategoriesNew(this, true);
             dialogo.setVisible(true);
             String nuevaCategoria = dialogo.getCategoriaCreada();
-            queries.llenarCombosActivos(cboCategories,"categories");
+            queriesGeneric.llenarCombosActivos(cboCategories,"categories");
         
             if (nuevaCategoria != null) {
                 cboCategories.setSelectedItem(nuevaCategoria);
@@ -220,7 +222,7 @@ public class frmEditProduct extends javax.swing.JFrame {
             if (nuevaCategoria != null && !nuevaCategoria.isEmpty()) {
 //                cboCategories.setSelectedItem(nuevaCategoria);
                 cboCategories.removeAllItems();
-                queries.llenarCombosActivos(cboCategories,"categories");
+                queriesGeneric.llenarCombosActivos(cboCategories,"categories");
                 cboCategories.setSelectedItem(nuevaCategoria);
             } 
         });
@@ -261,7 +263,7 @@ public class frmEditProduct extends javax.swing.JFrame {
                 String categoria = (String) cboCategories.getSelectedItem();
             
                 if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                    int idCat = queries.idCategoria(categoria);
+                    int idCat = queries.selectIdCategoria(categoria);
                     cboSubcategories.removeAllItems();
                     queries.llenarCombosSubcategories(cboSubcategories, idCat);
                     cboSubcategories.setSelectedItem(nuevaSubcategoria);
@@ -279,7 +281,7 @@ public class frmEditProduct extends javax.swing.JFrame {
                     String categoria = (String) cboCategories.getSelectedItem();
             
                     if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                        int idCat = queries.idCategoria(categoria);
+                        int idCat = queries.selectIdCategoria(categoria);
                         cboSubcategories.removeAllItems();
                         queries.llenarCombosSubcategories(cboSubcategories, idCat);
                         cboSubcategories.setSelectedItem(nuevaSubcategoria);
@@ -423,7 +425,7 @@ public class frmEditProduct extends javax.swing.JFrame {
             String categoria = (String) cboCategories.getSelectedItem();
 
             if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                int idCat = queries.idCategoria(categoria);
+                int idCat = queries.selectIdCategoria(categoria);
                 cboSubcategories.removeAllItems();
                 queries.llenarCombosSubcategories(cboSubcategories, idCat);          
             }
@@ -431,9 +433,9 @@ public class frmEditProduct extends javax.swing.JFrame {
     }
     
     private void llenarCombos(){
-        queries.llenarCombos(cboBrands,"brands");
-        queries.llenarCombosActivos(cboCategories,"categories");
-        queries.llenarCombos(cboSuppliers,"suppliers");
+        queriesGeneric.llenarCombos(cboBrands,"brands");
+        queriesGeneric.llenarCombosActivos(cboCategories,"categories");
+        queriesGeneric.llenarCombos(cboSuppliers,"suppliers");
     }
     
     private void inicializar(){      
@@ -456,10 +458,10 @@ public class frmEditProduct extends javax.swing.JFrame {
     private void insertProduct(){
         int id = idProducto;
         product.state = 1;   
-        product.id_brand = queries.obtenerId("id_brand","brands",txtBrand.getText());
-        product.id_supplier = queries.obtenerId("id_supplier","suppliers",txtSupplier.getText());
-        product.id_category = queries.obtenerId("id_category","categories",txtCategory.getText());
-        product.id_subcat = queries.obtenerId("id_subcategory","subcategories",txtSubcategory.getText());       
+        product.id_brand = queriesGeneric.selectId("id_brand","brands",txtBrand.getText());
+        product.id_supplier = queriesGeneric.selectId("id_supplier","suppliers",txtSupplier.getText());
+        product.id_category = queriesGeneric.selectId("id_category","categories",txtCategory.getText());
+        product.id_subcat = queriesGeneric.selectId("id_subcategory","subcategories",txtSubcategory.getText());       
         product.model = txtModel.getText().toUpperCase();
         product.color = txtColor.getText().toUpperCase();
         product.productCode = txtProductCode.getText().toUpperCase();
@@ -474,7 +476,7 @@ public class frmEditProduct extends javax.swing.JFrame {
             return;
         }
         
-        queries.editProduct(
+        queries.updateProduct(
             id,
             product.getId_subcat(),
             product.getId_brand(),
@@ -489,7 +491,7 @@ public class frmEditProduct extends javax.swing.JFrame {
     
     private void buscar(){
         clear();
-        int id = queries.obtenerIdProduct(txtCodProducto.getText());
+        int id = queries.selectIdProduct(txtCodProducto.getText());
         queries.selectProductEdit(id, txtSubcategory, txtBrand, txtSupplier, txtCategory, txtModel, txtColor, txtProductCode);      
     }
     
