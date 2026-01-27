@@ -16,7 +16,7 @@ import javax.swing.text.NumberFormatter;
 
 import Class.modelProducts;
 import Class.modelPrice;
-import Old.frmNewProduct_1;
+import OldNotUsed.frmNewProduct_1;
 import forms.frmBrandEdit;
 import forms.frmBrandNew;
 import forms.frmCategoriesEdit;
