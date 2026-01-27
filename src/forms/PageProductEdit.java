@@ -4,6 +4,7 @@
  */
 package forms;
 
+import Class.GenericDAO;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -28,6 +29,7 @@ public class PageProductEdit extends javax.swing.JPanel {
 
     ProductDAO queries = new ProductDAO();
     modelProducts product = new modelProducts();
+    GenericDAO queriesGeneric = new GenericDAO();
     
 //    private int idProducto;
     private int idProduct;
@@ -137,7 +139,7 @@ public class PageProductEdit extends javax.swing.JPanel {
             dialogo.setVisible(true);
 
             String nuevaMarca = dialogo.getMarcaCreada();
-            queries.llenarCombos(cboBrands, "brands");
+            queriesGeneric.llenarCombos(cboBrands, "brands");
 
             if (nuevaMarca != null) {
                 cboBrands.setSelectedItem(nuevaMarca);
@@ -152,7 +154,7 @@ public class PageProductEdit extends javax.swing.JPanel {
             dialogo.setVisible(true);
 
             String nuevaMarca = dialogo.getMarcaCreada();
-            queries.llenarCombos(cboBrands, "brands");
+            queriesGeneric.llenarCombos(cboBrands, "brands");
 
             if (nuevaMarca != null) {
                 cboBrands.setSelectedItem(nuevaMarca);
@@ -193,7 +195,7 @@ public class PageProductEdit extends javax.swing.JPanel {
             dialogo.setVisible(true);
 
             String newSupplier = dialogo.getProveedorCreado();
-            queries.llenarCombos(cboSuppliers, "suppliers");
+            queriesGeneric.llenarCombos(cboSuppliers, "suppliers");
 
             if (newSupplier != null && !newSupplier.isEmpty()) {
                 cboSuppliers.setSelectedItem(newSupplier);
@@ -208,7 +210,7 @@ public class PageProductEdit extends javax.swing.JPanel {
             dialogo.setVisible(true);
 
             String newSupplier = dialogo.getProveedorEditado();
-            queries.llenarCombos(cboSuppliers, "suppliers");
+            queriesGeneric.llenarCombos(cboSuppliers, "suppliers");
 
             if (newSupplier != null && !newSupplier.isEmpty()) {
                 cboSuppliers.setSelectedItem(newSupplier);
@@ -249,7 +251,7 @@ public class PageProductEdit extends javax.swing.JPanel {
             dialogo.setVisible(true);
 
             String nuevaCategoria = dialogo.getCategoriaCreada();
-            queries.llenarCombosActivos(cboCategories, "categories");
+            queriesGeneric.llenarCombosActivos(cboCategories, "categories");
 
             if (nuevaCategoria != null) {
                 cboCategories.setSelectedItem(nuevaCategoria);
@@ -283,7 +285,7 @@ public class PageProductEdit extends javax.swing.JPanel {
             if (nuevaCategoria != null && !nuevaCategoria.isEmpty()) {
 
                 cboCategories.removeAllItems();
-                queries.llenarCombosActivos(cboCategories, "categories");
+                queriesGeneric.llenarCombosActivos(cboCategories, "categories");
                 cboCategories.setSelectedItem(nuevaCategoria);
             }
         });    
@@ -327,7 +329,7 @@ public class PageProductEdit extends javax.swing.JPanel {
                 String categoria = (String) cboCategories.getSelectedItem();
 
                 if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                    int idCat = queries.idCategoria(categoria);
+                    int idCat = queries.selectIdCategoria(categoria);
                     cboSubcategories.removeAllItems();
                     queries.llenarCombosSubcategories(cboSubcategories, idCat);
                     cboSubcategories.setSelectedItem(nuevaSubcategoria);
@@ -348,7 +350,7 @@ public class PageProductEdit extends javax.swing.JPanel {
                 String categoria = (String) cboCategories.getSelectedItem();
 
                 if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                    int idCat = queries.idCategoria(categoria);
+                    int idCat = queries.selectIdCategoria(categoria);
                     cboSubcategories.removeAllItems();
                     queries.llenarCombosSubcategories(cboSubcategories, idCat);
                     cboSubcategories.setSelectedItem(nuevaSubcategoria);
@@ -406,7 +408,7 @@ public class PageProductEdit extends javax.swing.JPanel {
             String categoria = (String) cboCategories.getSelectedItem();
 
             if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                int idCat = queries.idCategoria(categoria);
+                int idCat = queries.selectIdCategoria(categoria);
                 cboSubcategories.removeAllItems();
                 queries.llenarCombosSubcategories(cboSubcategories, idCat);          
             }
@@ -414,9 +416,9 @@ public class PageProductEdit extends javax.swing.JPanel {
     }
     
     private void llenarCombos(){
-        queries.llenarCombos(cboBrands,"brands");
-        queries.llenarCombosActivos(cboCategories,"categories");
-        queries.llenarCombos(cboSuppliers,"suppliers");
+        queriesGeneric.llenarCombos(cboBrands,"brands");
+        queriesGeneric.llenarCombosActivos(cboCategories,"categories");
+        queriesGeneric.llenarCombos(cboSuppliers,"suppliers");
     }
     
 //    private void inicializar(){      
@@ -426,10 +428,10 @@ public class PageProductEdit extends javax.swing.JPanel {
     private void insertProduct(){
 
         product.state = 1;   
-        product.id_brand = queries.obtenerId("id_brand","brands",txtBrand.getText());
-        product.id_supplier = queries.obtenerId("id_supplier","suppliers",txtSupplier.getText());
-        product.id_category = queries.obtenerId("id_category","categories",txtCategory.getText());
-        product.id_subcat = queries.obtenerId("id_subcategory","subcategories",txtSubcategory.getText());       
+        product.id_brand = queriesGeneric.selectId("id_brand","brands",txtBrand.getText());
+        product.id_supplier = queriesGeneric.selectId("id_supplier","suppliers",txtSupplier.getText());
+        product.id_category = queriesGeneric.selectId("id_category","categories",txtCategory.getText());
+        product.id_subcat = queriesGeneric.selectId("id_subcategory","subcategories",txtSubcategory.getText());       
         product.model = txtModel.getText().toUpperCase();
         product.color = txtColor.getText().toUpperCase();
         product.productCode = txtProductCode.getText().toUpperCase();
@@ -444,7 +446,7 @@ public class PageProductEdit extends javax.swing.JPanel {
             return;
         }
         
-        queries.editProduct(
+        queries.updateProduct(
             idProduct,
             product.getId_subcat(),
             product.getId_brand(),
@@ -459,7 +461,7 @@ public class PageProductEdit extends javax.swing.JPanel {
     
     private void buscar(){
         clear();
-        idProduct = queries.obtenerIdProduct(txtCodProducto.getText());
+        idProduct = queries.selectIdProduct(txtCodProducto.getText());
         queries.selectProductEdit(idProduct, txtSubcategory, txtBrand, txtSupplier, txtCategory, txtModel, txtColor, txtProductCode);      
     }
     
@@ -514,9 +516,8 @@ public class PageProductEdit extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Codigo de producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Poppins", 1, 14), new java.awt.Color(101, 129, 171))); // NOI18N
 
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/search32N.png"))); // NOI18N
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Serch32.png"))); // NOI18N
         btnBuscar.setBorder(null);
         btnBuscar.setBorderPainted(false);
         btnBuscar.setContentAreaFilled(false);
@@ -531,7 +532,7 @@ public class PageProductEdit extends javax.swing.JPanel {
         });
 
         txtCodProducto.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        txtCodProducto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtCodProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Codigo de producto", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Poppins", 1, 14), new java.awt.Color(101, 129, 171))); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/barCode48.png"))); // NOI18N
@@ -543,21 +544,19 @@ public class PageProductEdit extends javax.swing.JPanel {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(196, 196, 196)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(txtCodProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addGap(6, 6, 6)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(txtCodProducto)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(14, 14, 14))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCodProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -611,10 +610,10 @@ public class PageProductEdit extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(275, 275, 275)
-                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(299, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -622,7 +621,7 @@ public class PageProductEdit extends javax.swing.JPanel {
                 .addGap(5, 5, 5)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
 
@@ -635,34 +634,34 @@ public class PageProductEdit extends javax.swing.JPanel {
         jLabel5.setText("Marca:");
 
         txtBrand.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        txtBrand.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtBrand.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         jLabel6.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel6.setText("Modelo:");
 
         txtModel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        txtModel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtModel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         jLabel11.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel11.setText("Codigo prod.:");
 
         txtProductCode.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        txtProductCode.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtProductCode.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         jLabel10.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel10.setText("Categoria:");
 
         txtCategory.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        txtCategory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtCategory.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         jLabel14.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel14.setText("Subcategoría:");
 
         txtSubcategory.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        txtSubcategory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtSubcategory.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         txtSupplier.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        txtSupplier.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtSupplier.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         jLabel13.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel13.setText("Proveedor:");
@@ -814,7 +813,7 @@ public class PageProductEdit extends javax.swing.JPanel {
         jLabel7.setText("Color:");
 
         txtColor.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        txtColor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtColor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         txtColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtColorActionPerformed(evt);
@@ -901,12 +900,9 @@ public class PageProductEdit extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -916,7 +912,7 @@ public class PageProductEdit extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
