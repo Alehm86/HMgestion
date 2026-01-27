@@ -5,6 +5,7 @@
 package forms;
 
 import Class.ProductDAO;
+import Class.GenericDAO;
 import Class.modelSupplier;
 import java.awt.Color;
 import java.awt.Point;
@@ -17,7 +18,8 @@ import javax.swing.text.MaskFormatter;
 
 public class frmSupplierNew extends javax.swing.JDialog {
 
-    ProductDAO queries = new ProductDAO();
+    ProductDAO queriesProduct = new ProductDAO();
+    GenericDAO queriesGeneric = new GenericDAO();
     modelSupplier classSupplier = new modelSupplier();
     
     private String SupplierSelected = "";
@@ -31,7 +33,7 @@ public class frmSupplierNew extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
 
-        queries.listTableSupplier(tableSupplier);
+        queriesProduct.listTableSupplier(tableSupplier);
         actions();
     }
     
@@ -123,8 +125,8 @@ public class frmSupplierNew extends javax.swing.JDialog {
             return;
         }
             
-        if (!queries.nameExists(txtName.getText(),"suppliers")) {
-            queries.newSupplier(
+        if (!queriesGeneric.nameExists(txtName.getText(),"suppliers")) {
+            queriesProduct.insertSupplier(
             classSupplier.getName(),
             classSupplier.getCuit(),
             classSupplier.getTelephone(),
@@ -134,7 +136,7 @@ public class frmSupplierNew extends javax.swing.JDialog {
             classSupplier.getPass()); 
             
             proveedorCreado = classSupplier.getName();
-            queries.listTableSupplier(tableSupplier);
+            queriesProduct.listTableSupplier(tableSupplier);
             
             
             JOptionPane.showMessageDialog(null, "Proveedor creado correctamente. ✅");
@@ -158,7 +160,7 @@ public class frmSupplierNew extends javax.swing.JDialog {
         }
             
         proveedorCreado = classSupplier.getName();
-        queries.listTableSupplier(tableSupplier);
+        queriesProduct.listTableSupplier(tableSupplier);
         clearFields();
     }
 
