@@ -18,6 +18,8 @@ public class PageAltaCliente extends javax.swing.JPanel {
 
     ProductDAO queriesProduct = new ProductDAO();
     GenericDAO queriesGeneric = new GenericDAO();
+    ClientDAO queriesClient = new ClientDAO();
+    
 //    import Class.GenericDAO;
     
     
@@ -105,6 +107,10 @@ public class PageAltaCliente extends javax.swing.JPanel {
         txtCity.setText("");
         cboProvinces.setSelectedIndex(0);
         cboIVA.setSelectedIndex(0);
+    }
+    
+    private void insertCLient(){
+        
     }
     
     
