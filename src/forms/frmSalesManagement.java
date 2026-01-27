@@ -4,8 +4,8 @@
  */
 package forms;
 
-import OldFrames.frmNewProduct;
-import OldFrames.frmMenu;
+import Old.frmNewProduct_1;
+import Old.frmMenu;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -65,7 +65,7 @@ public class frmSalesManagement extends javax.swing.JFrame {
 //        });
 
         jMenuNewProduct.addActionListener(e -> {
-            frmNewProduct edit = new frmNewProduct();
+            frmNewProduct_1 edit = new frmNewProduct_1();
             edit.setVisible(true);
             this.dispose();
         });
@@ -1827,7 +1827,7 @@ public class frmSalesManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jMenuNewProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuNewProductActionPerformed
-        frmNewProduct newProduct = new frmNewProduct();
+        frmNewProduct_1 newProduct = new frmNewProduct_1();
         newProduct.setVisible(true);
         this.dispose();
 
