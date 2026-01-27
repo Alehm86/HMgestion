@@ -4,6 +4,7 @@
  */
 package forms;
 
+import Class.GenericDAO;
 import Class.ProductDAO;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -20,7 +21,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class frmCategoriesNew extends javax.swing.JDialog {
     
-    ProductDAO queries = new ProductDAO();
+    ProductDAO queriesProduct = new ProductDAO();
+    GenericDAO queriesGeneric = new GenericDAO();
     
     public String categoriaCreada;
     public int state;
@@ -39,10 +41,10 @@ public class frmCategoriesNew extends javax.swing.JDialog {
     }
   
     void newName(){
-        if(!queries.nameExists(txtName.getText(), "categories")){
+        if(!queriesGeneric.nameExists(txtName.getText(), "categories")){
             
             categoriaCreada = txtName.getText().toUpperCase();
-            queries.newCategory(txtName.getText().toUpperCase(), state);
+            queriesProduct.insertCategory(txtName.getText().toUpperCase(), state);
             
             JOptionPane.showMessageDialog(null, "Categoria creada. ✅");
             
