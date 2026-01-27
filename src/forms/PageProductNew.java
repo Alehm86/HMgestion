@@ -4,9 +4,8 @@
  */
 package forms;
 
+import Class.GenericDAO;
 import java.awt.Color;
-import Old.frmProducts;
-import Old.frmMenu;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -30,7 +29,9 @@ import javax.swing.SwingUtilities;
 
 public class PageProductNew extends javax.swing.JPanel {
 
-    ProductDAO queries = new ProductDAO();
+    ProductDAO queriesProduct = new ProductDAO();
+    GenericDAO queriesGeneric = new GenericDAO();
+    
     modelProducts product = new modelProducts();
     modelPrice precio = new modelPrice();
     private String action;
@@ -55,17 +56,17 @@ public class PageProductNew extends javax.swing.JPanel {
             String categoria = (String) cboCategories.getSelectedItem();
 
             if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                int idCat = queries.idCategoria(categoria);
+                int idCat = queriesProduct.selectIdCategoria(categoria);
                 cboSubcategories.removeAllItems();
-                queries.llenarCombosSubcategories(cboSubcategories, idCat);          
+                queriesProduct.llenarCombosSubcategories(cboSubcategories, idCat);          
             }
         });
     }
     
     void llenarCombos(){
-        queries.llenarCombos(cboBrands,"brands");
-        queries.llenarCombosActivos(cboCategories,"categories");      
-        queries.llenarCombos(cboSuppliers,"suppliers");
+        queriesGeneric.llenarCombos(cboBrands,"brands");
+        queriesGeneric.llenarCombosActivos(cboCategories,"categories");      
+        queriesGeneric.llenarCombos(cboSuppliers,"suppliers");
     }
     
     void formatearTxtPrice(){
@@ -105,7 +106,7 @@ public class PageProductNew extends javax.swing.JPanel {
         boolean valido = true;
         
         if (cboBrands.getSelectedIndex() > 0) { 
-            product.id_brand = queries.obtenerId(
+            product.id_brand = queriesGeneric.selectId(
                     "id_brand",
                     "brands",
                     cboBrands.getSelectedItem().toString()
@@ -116,7 +117,7 @@ public class PageProductNew extends javax.swing.JPanel {
         }
         
         if (cboSuppliers.getSelectedIndex() > 0) { 
-            product.id_supplier = queries.obtenerId(
+            product.id_supplier = queriesGeneric.selectId(
                     "id_supplier",
                     "suppliers",
                     cboSuppliers.getSelectedItem().toString()
@@ -127,14 +128,14 @@ public class PageProductNew extends javax.swing.JPanel {
         }
         
         if (cboCategories.getSelectedIndex() > 0) { 
-            product.id_category = queries.obtenerId(
+            product.id_category = queriesGeneric.selectId(
                     "id_category",
                     "categories",
                     cboCategories.getSelectedItem().toString()
             );
 
             if (cboSubcategories.getSelectedIndex() > 0) {
-                product.id_subcat = queries.obtenerId(
+                product.id_subcat = queriesGeneric.selectId(
                         "id_subcategory",
                         "subcategories",
                         cboSubcategories.getSelectedItem().toString()
@@ -195,7 +196,7 @@ public class PageProductNew extends javax.swing.JPanel {
             return;
         }
         
-        queries.newProduct(
+        queriesProduct.insertProduct(
                 product.getId_subcat(),
                 product.getId_brand(),
                 product.getId_supplier(),
@@ -209,13 +210,13 @@ public class PageProductNew extends javax.swing.JPanel {
     
     public int obtenerId(String codeProduct){
         int id = 0;
-        id = queries.obtenerIdProduct(codeProduct);
+        id = queriesProduct.selectIdProduct(codeProduct);
         return id;
     }
     
     void insetPrice(int idProd){ 
         
-        queries.priceProduct(
+        queriesProduct.priceProduct(
                 idProd, 
                 precio.getPrice(), 
                 precio.getBenefit(), 
@@ -237,7 +238,7 @@ public class PageProductNew extends javax.swing.JPanel {
             dialogo.setVisible(true);
 
             String nuevaMarca = dialogo.getMarcaCreada();
-            queries.llenarCombos(cboBrands, "brands");
+            queriesGeneric.llenarCombos(cboBrands, "brands");
 
             if (nuevaMarca != null) {
                 cboBrands.setSelectedItem(nuevaMarca);
@@ -252,7 +253,7 @@ public class PageProductNew extends javax.swing.JPanel {
             dialogo.setVisible(true);
 
             String nuevaMarca = dialogo.getMarcaCreada();
-            queries.llenarCombos(cboBrands, "brands");
+            queriesGeneric.llenarCombos(cboBrands, "brands");
 
             if (nuevaMarca != null) {
                 cboBrands.setSelectedItem(nuevaMarca);
@@ -293,7 +294,7 @@ public class PageProductNew extends javax.swing.JPanel {
             dialogo.setVisible(true);
 
             String newSupplier = dialogo.getProveedorCreado();
-            queries.llenarCombos(cboSuppliers, "suppliers");
+            queriesGeneric.llenarCombos(cboSuppliers, "suppliers");
 
             if (newSupplier != null && !newSupplier.isEmpty()) {
                 cboSuppliers.setSelectedItem(newSupplier);
@@ -308,7 +309,7 @@ public class PageProductNew extends javax.swing.JPanel {
             dialogo.setVisible(true);
 
             String newSupplier = dialogo.getProveedorEditado();
-            queries.llenarCombos(cboSuppliers, "suppliers");
+            queriesGeneric.llenarCombos(cboSuppliers, "suppliers");
 
             if (newSupplier != null && !newSupplier.isEmpty()) {
                 cboSuppliers.setSelectedItem(newSupplier);
@@ -349,7 +350,7 @@ public class PageProductNew extends javax.swing.JPanel {
             dialogo.setVisible(true);
 
             String nuevaCategoria = dialogo.getCategoriaCreada();
-            queries.llenarCombosActivos(cboCategories, "categories");
+            queriesGeneric.llenarCombosActivos(cboCategories, "categories");
 
             if (nuevaCategoria != null) {
                 cboCategories.setSelectedItem(nuevaCategoria);
@@ -383,7 +384,7 @@ public class PageProductNew extends javax.swing.JPanel {
             if (nuevaCategoria != null && !nuevaCategoria.isEmpty()) {
 
                 cboCategories.removeAllItems();
-                queries.llenarCombosActivos(cboCategories, "categories");
+                queriesGeneric.llenarCombosActivos(cboCategories, "categories");
                 cboCategories.setSelectedItem(nuevaCategoria);
             }
         });    
@@ -427,9 +428,9 @@ public class PageProductNew extends javax.swing.JPanel {
                 String categoria = (String) cboCategories.getSelectedItem();
 
                 if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                    int idCat = queries.idCategoria(categoria);
+                    int idCat = queriesProduct.selectIdCategoria(categoria);
                     cboSubcategories.removeAllItems();
-                    queries.llenarCombosSubcategories(cboSubcategories, idCat);
+                    queriesProduct.llenarCombosSubcategories(cboSubcategories, idCat);
                     cboSubcategories.setSelectedItem(nuevaSubcategoria);
                 }
             }
@@ -448,9 +449,9 @@ public class PageProductNew extends javax.swing.JPanel {
                 String categoria = (String) cboCategories.getSelectedItem();
 
                 if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                    int idCat = queries.idCategoria(categoria);
+                    int idCat = queriesProduct.selectIdCategoria(categoria);
                     cboSubcategories.removeAllItems();
-                    queries.llenarCombosSubcategories(cboSubcategories, idCat);
+                    queriesProduct.llenarCombosSubcategories(cboSubcategories, idCat);
                     cboSubcategories.setSelectedItem(nuevaSubcategoria);
                 }
             }
@@ -477,7 +478,7 @@ public class PageProductNew extends javax.swing.JPanel {
     }
     
     public void insetStock(int idProd){               
-        queries.agregarStock(idProd);       
+        queriesProduct.insertStock(idProd);       
     }
     
     private void actionButtons(){
@@ -587,21 +588,21 @@ public class PageProductNew extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(379, 379, 379)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(377, Short.MAX_VALUE)
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(359, 359, 359))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(19, 19, 19))
+                .addContainerGap())
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -837,8 +838,8 @@ public class PageProductNew extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -846,7 +847,7 @@ public class PageProductNew extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
