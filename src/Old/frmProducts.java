@@ -4,6 +4,7 @@
  */
 package Old;
 
+import Class.GenericDAO;
 import Old.frmMenu;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Graphics;
@@ -28,6 +29,7 @@ import javax.swing.JTextField;
 
 public class frmProducts extends javax.swing.JFrame {
     ProductDAO queries = new ProductDAO();
+    GenericDAO queriesGeneric = new GenericDAO();
     
     fondoPanel background = new fondoPanel();
 
@@ -46,8 +48,8 @@ public class frmProducts extends javax.swing.JFrame {
         
         actionButtons();
         agregarPlaceholder(txtCodProduct, "Ingrese código de producto...");       
-        queries.llenarCombosActivos(cboCategories,"categories");
-        queries.llenarCombos(cboBrand,"brands");
+        queriesGeneric.llenarCombosActivos(cboCategories,"categories");
+        queriesGeneric.llenarCombos(cboBrand,"brands");
         titlesButtons();
         llenarSubcategorias();
         menuSuperior(); 
@@ -149,7 +151,7 @@ public class frmProducts extends javax.swing.JFrame {
             String categoria = (String) cboCategories.getSelectedItem();
 
             if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                int idCat = queries.idCategoria(categoria);
+                int idCat = queries.selectIdCategoria(categoria);
                 cboSubcategories.removeAllItems();
                 queries.llenarCombosSubcategories(cboSubcategories, idCat);          
             }
@@ -162,9 +164,9 @@ public class frmProducts extends javax.swing.JFrame {
         String subcategoria = (String) cboSubcategories.getSelectedItem();
         String brand = (String) cboBrand.getSelectedItem();
         
-        int idCat = queries.idCategoria(categoria); 
-        int idSubcat = queries.obtenerId("id_subcategory","subcategories",subcategoria);
-        int idBrand = queries.obtenerId("id_brand","brands",brand);
+        int idCat = queries.selectIdCategoria(categoria); 
+        int idSubcat = queriesGeneric.selectId("id_subcategory","subcategories",subcategoria);
+        int idBrand = queriesGeneric.selectId("id_brand","brands",brand);
         
         if(cboBrand.getSelectedIndex() != 0){
             if(cboCategories.getSelectedIndex() != 0){               
@@ -246,7 +248,7 @@ public class frmProducts extends javax.swing.JFrame {
         });
         
         btnEdit.addActionListener(e->{
-            int id = queries.obtenerIdProduct(filaSeleccionada);
+            int id = queries.selectIdProduct(filaSeleccionada);
 
             frmEditProduct edit = new frmEditProduct();
             edit.dialogoEdit(id);
@@ -255,7 +257,7 @@ public class frmProducts extends javax.swing.JFrame {
         });
         
         btnEditPrice.addActionListener(e->{
-            int id = queries.obtenerIdProduct(filaSeleccionada);
+            int id = queries.selectIdProduct(filaSeleccionada);
             
             frmEditPrice editPrice = new frmEditPrice();
             editPrice.dialogoEdit(id);
