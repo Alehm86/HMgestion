@@ -193,12 +193,12 @@ public class frmEditPrice extends javax.swing.JFrame {
     }
     
     private void editar(){
-        int id = queries.obtenerIdProduct(txtProductCode.getText());
+        int id = queries.selectIdProduct(txtProductCode.getText());
         price.price = ((Number) txtPrice.getValue()).doubleValue();
         price.benefit = Double.parseDouble(txtBenefit.getText());
         price.salesPrice = ((Number) txtFinalPrice.getValue()).doubleValue();
         
-        queries.editPriceProduct(
+        queries.updatePriceProduct(
                 id, 
                 price.getPrice(), 
                 price.getBenefit(), 
@@ -236,7 +236,7 @@ public class frmEditPrice extends javax.swing.JFrame {
             return;
         }
 
-        int id = queries.obtenerIdProduct(codigo);
+        int id = queries.selectIdProduct(codigo);
 
         if (id <= 0) {
             JOptionPane.showMessageDialog(null, "Producto no encontrado.");
