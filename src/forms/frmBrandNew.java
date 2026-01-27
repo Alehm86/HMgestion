@@ -4,6 +4,7 @@
  */
 package forms;
 
+import Class.GenericDAO;
 import Class.ProductDAO;
 import Class.ModelBrands;
 import java.awt.Color;
@@ -21,7 +22,9 @@ import javax.swing.table.TableRowSorter;
 
 public class frmBrandNew extends javax.swing.JDialog {
 
-    ProductDAO queries = new ProductDAO();
+    ProductDAO queriesProduct = new ProductDAO();
+    GenericDAO queriesGeneric = new GenericDAO();
+    
     ModelBrands classBrand = new ModelBrands();
     
     public String marcaSeleccionada = "";
@@ -41,7 +44,7 @@ public class frmBrandNew extends javax.swing.JDialog {
         actionButtons();
         txtBrand.requestFocusInWindow();
                 
-        queries.listTableBrands(tableBrands);
+        queriesProduct.listTableBrands(tableBrands);
             
         activarBuscadorTabla();
         
@@ -124,11 +127,11 @@ public class frmBrandNew extends javax.swing.JDialog {
             classBrand.name=txtBrand.getText().toUpperCase();
 
             
-            if (!queries.nameExists(classBrand.getName(),"brands")) {
+            if (!queriesGeneric.nameExists(classBrand.getName(),"brands")) {
                     
-                queries.newBrand(classBrand.getName());
+                queriesProduct.insertBrand(classBrand.getName());
                 marcaCreada = classBrand.getName();
-                queries.listTableBrands(tableBrands);
+                queriesProduct.listTableBrands(tableBrands);
                 
                 JOptionPane.showMessageDialog(null, "Marca registrada correctamente. ✅");
                 
