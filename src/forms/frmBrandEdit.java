@@ -4,6 +4,7 @@
  */
 package forms;
 
+import Class.GenericDAO;
 import Class.ProductDAO;
 import Class.ModelBrands;
 import java.awt.Color;
@@ -22,7 +23,9 @@ import javax.swing.table.TableRowSorter;
 
 public class frmBrandEdit extends javax.swing.JDialog {
 
-    ProductDAO queries = new ProductDAO();
+    ProductDAO queriesProduct = new ProductDAO();
+    GenericDAO queriesGeneric = new GenericDAO();
+    
     ModelBrands classBrand = new ModelBrands();
     
     public String marcaSeleccionada = "";
@@ -41,7 +44,7 @@ public class frmBrandEdit extends javax.swing.JDialog {
         actionButtons();
         inicializar();
                    
-        queries.listTableBrands(tableBrands);
+        queriesProduct.listTableBrands(tableBrands);
         
         tableBrands.addMouseListener(new MouseAdapter(){
             public void mousePressed(MouseEvent Mouse_evt){
@@ -119,7 +122,7 @@ public class frmBrandEdit extends javax.swing.JDialog {
             classBrand.name=txtBrand.getText().toUpperCase();
 
 
-            if (!queries.nameExists(classBrand.getName(),"brands")) {
+            if (!queriesGeneric.nameExists(classBrand.getName(),"brands")) {
                 
                 int confirmacion = JOptionPane.showConfirmDialog(
                     null,
@@ -131,9 +134,9 @@ public class frmBrandEdit extends javax.swing.JDialog {
                     return;
                 }
                     
-                queries.editBrand(classBrand.getName(),marcaSeleccionada);
+                queriesProduct.updateBrand(classBrand.getName(),marcaSeleccionada);
                 marcaCreada = classBrand.getName();
-                queries.listTableBrands(tableBrands);
+                queriesProduct.listTableBrands(tableBrands);
                 
                 JOptionPane.showMessageDialog(null, "Marca editada correctamente. ✅");
                 
