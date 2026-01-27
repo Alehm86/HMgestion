@@ -4,8 +4,8 @@
  */
 package forms;
 
-import Old.frmNewProduct_1;
-import Old.frmMenu;
+import OldNotUsed.frmNewProduct_1;
+import OldNotUsed.frmMenu;
 import javax.swing.table.DefaultTableModel;
 
 
