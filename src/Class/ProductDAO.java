@@ -20,167 +20,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JSpinner;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 
 public class ProductDAO {
    //============================================ CONSULTAS USADAS EN MULTIPLES CASOS ==================================================================    
     
-    //VERIFICA SI EXISTE EL NOMBRE
-    public boolean nameExists(String name , String tabla) {
-        String sql = "SELECT COUNT(*) FROM `" + tabla + "` WHERE `name` = ?";
-    
-        ConnectionDB con = new ConnectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
-    
-        try {
-            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);  
-            pstmt.setString(1, name);
-            ResultSet rs = pstmt.executeQuery();
-        
-            if (rs.next()) {
-                return rs.getInt(1) > 0;
-            }
-        
-            rs.close();
-            conexion.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR AL VERIFICAR EXISTENCIA DE NOMBRE");
-        }
-        return false;
-    }  
-    
-    //DEVUELVE EL VALOR CONTRARIO AL DEL ESTADO DE UNA CATEGORIA O SUBCATEGORIA
-    public static int verificarState(String tabla, String name){
-        String sql="SELECT `state` FROM `"+tabla+"` WHERE `name`= '"+ name +"'";
-        Statement stmt;
-        int estado = 0;
-        
-        ConnectionDB con = new ConnectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
-        
-        try{
-           stmt=conexion.createStatement();
-           ResultSet rs = stmt.executeQuery(sql);
-           
-           while(rs.next()){
-               
-               if (rs.getString("state").equals("0")) {
-                    estado = 1;
-                } else {
-                    estado = 0;
-                }
-           }               
-        }
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "ERROR AL VERIFICAR ESTADO");
-        }
-       return estado; 
-    }
-    
-    //ACTUALIZA EL ESTADO DE UNA CATEGORIA O SUBCATEGORIA
-    public void editState(String tabla, String name, int state){
-        String sql = "UPDATE `"+tabla+"` SET `state`=? WHERE `name`=?";
-        
-        ConnectionDB con = new ConnectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
-       
-        try{
-            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);  
-            pstmt.setInt(1, state);
-            pstmt.setString(2, name);
-            pstmt.executeUpdate();
-            
-            conexion.close();
-        }
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR ESTADO" + e.getMessage());
-        }
-    }
-    
-    //ACTUALIZA EL NOMBRE DE UNA CATEGORIA O SUBCATEGORIA
-    public void editName(String tabla, String oldName, String newName){
-        String sql = "UPDATE `"+tabla+"` SET `name`=? WHERE `name`=?";
-        
-        
-        ConnectionDB con = new ConnectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
-       
-        try{
-            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);  
-            pstmt.setString(1, newName);
-            pstmt.setString(2, oldName);
-            pstmt.executeUpdate();
-            
-            conexion.close();
-        }
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR ESTADO" + e.getMessage());
-        }
-    }
-    
-    public void llenarCombos(JComboBox combo, String table){
-        String sql="SELECT * FROM `"+table+"`";
-        Statement stmt;
-        
-        ConnectionDB con = new ConnectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
-        combo.addItem("Seleccione una categoría");
-        
-        
-        try{
-           stmt=conexion.createStatement();
-           ResultSet rs = stmt.executeQuery(sql);
-           
-           while(rs.next()){
-               combo.addItem(rs.getString("name"));
-           }                  
-        }
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "ERROR");
-        }
-    }
-    
-    public void llenarCombosActivos(JComboBox combo, String table){
-        String sql="SELECT * FROM `"+table+"` WHERE `state`='1'";
-        Statement stmt;
-        
-        ConnectionDB con = new ConnectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
-        combo.addItem("Seleccione una categoría");
-        
-        
-        try{
-           stmt=conexion.createStatement();
-           ResultSet rs = stmt.executeQuery(sql);
-           
-           while(rs.next()){
-               combo.addItem(rs.getString("name"));
-           }                  
-        }
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "ERROR CARGAR "+table);
-        }
-    }
-    
-    public static int obtenerId(String nameId, String tabla, String name){
-        String sql="SELECT `"+ nameId +"` FROM `"+ tabla +"` WHERE `name` = '"+ name +"'";
-        Statement stmt;
-        String nId=nameId;
-        int id=0;       
-        ConnectionDB con = new ConnectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
-        
-        try{
-           stmt=conexion.createStatement();
-           ResultSet rs = stmt.executeQuery(sql);         
-           while(rs.next()){
-               id=(rs.getInt(nId));            
-           }                 
-        }
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "ERROR");
-        }
-       return id; 
-    }
+   
     
 //============================================ END: CONSULTAS USADAS EN MULTIPLES CASOS ==================================================================        
     
@@ -227,7 +73,7 @@ public class ProductDAO {
         
     }
     //REGISTRAR NUEVA MARCA EN frmNewBrand.java
-    public void newBrand(String name){
+    public void insertBrand(String name){
         
         String sql="INSERT INTO brands(name) VALUE(?)";
         
@@ -248,7 +94,7 @@ public class ProductDAO {
     }
     
     //EDITAR MARCA REGISTRADA EN frmNewBrand.java
-    public void editBrand(String newName, String oldName){
+    public void updateBrand(String newName, String oldName){
         String sql = "UPDATE `brands` SET `name` = ? WHERE `name` = ?";
         
         ConnectionDB con = new ConnectionDB();
@@ -382,7 +228,7 @@ public class ProductDAO {
     }
     
     //EDITAR PROVEEDOR REGISTRADA EN frmNewSupplier.java
-    public void EditSupplier(String oldName,String newName,String cuit,String tel,String mail,String url,String user,String pass){
+    public void updateSupplier(String oldName,String newName,String cuit,String tel,String mail,String url,String user,String pass){
         
         String sql = "UPDATE `suppliers` "
                 + "SET "
@@ -421,7 +267,7 @@ public class ProductDAO {
     }
     
     //REGISTRAR NUEVO PROVEEDOR EN frmNewSupplier.java
-    public void newSupplier(String name,String cuit,String tel,String mail,String url,String user,String pass){
+    public void insertSupplier(String name,String cuit,String tel,String mail,String url,String user,String pass){
         
         String sql="INSERT INTO `suppliers`(`name`, `cuit`, `telefono`, `mail`, `url`, `user`, `pass`) VALUES (?,?,?,?,?,?,?)";
         
@@ -474,7 +320,7 @@ public class ProductDAO {
 //********************************************** CATEGORIES ****************************************************************************
   
     //REGISTRAR CATEGORIA NUEVA
-    public void newCategory(String name, int state){
+    public void insertCategory(String name, int state){
         
         String sql="INSERT INTO `categories`(`name`, `state`) VALUES (?,?)";
         
@@ -722,12 +568,13 @@ public class ProductDAO {
                     rs.getString("proveedor"),
                     rs.getInt("amount"),
                     rs.getDouble("iva"),
-                    rs.getDouble("salePrice")
+                    rs.getDouble("salePrice"),
                 };
                 dtm.addRow(row);
             }
 
             jtable.setModel(dtm);
+            
             
             jtable.getColumnModel().getColumn(0).setPreferredWidth(150);
             jtable.getColumnModel().getColumn(1).setPreferredWidth(500);
@@ -984,7 +831,7 @@ public class ProductDAO {
         }
     }    
     
-    public void newSubcategory(int idCat, String name, int state){
+    public void insertSubcategory(int idCat, String name, int state){
         
         String sql="INSERT INTO `subcategories`(`id_category`, `name`, `state`) VALUES (?,?,?)";
         
@@ -1006,7 +853,7 @@ public class ProductDAO {
     }
     
     //CARGA EL JLIST DE CATEGORIAS
-    public static int idCategoria(String name){
+    public static int selectIdCategoria(String name){
         String sql="SELECT `id_category` FROM `categories` WHERE `name` = '"+ name +"'";
         Statement stmt;
         int idCat=0;
@@ -1072,7 +919,7 @@ public class ProductDAO {
     }
     
     //ACTUALIZA LA CATEGORIA PADRE DE UNA SUBCATEGORIA
-    public void editCatPadre(String name, int idCat){
+    public void updateCatPadre(String name, int idCat){
         String sql = "UPDATE `subcategories` SET `id_category`= ? WHERE `name`=?";
         //UPDATE `subcategories` SET `id_category`= 1 WHERE `name`='TECLADOS'; 
         
@@ -1118,7 +965,7 @@ public class ProductDAO {
     
 //********************************************** PRODUCTS ************************************************************************************************* 
     
-    public void newProduct(int id_subcategory, int id_brand , int id_supplier , int id_category, String model, String color, String product_code, int state){
+    public void insertProduct(int id_subcategory, int id_brand , int id_supplier , int id_category, String model, String color, String product_code, int state){
         
         String sql="INSERT INTO `products`(`id_subcategory`, `id_brand`, `id_supplier`, `id_category`, `model`, `color`, `product_code`, `state`) VALUES (?,?,?,?,?,?,?,?)";
                
@@ -1144,7 +991,7 @@ public class ProductDAO {
     }
       
     
-    public static int obtenerIdProduct(String product_code){
+    public static int selectIdProduct(String product_code){
         String sql = "SELECT id_product FROM products WHERE product_code = ?";
         int id = 0;
 
@@ -1207,7 +1054,7 @@ public class ProductDAO {
                 txtSubcategorie.setText(rs.getString("subcategories.name"));
             
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró el producto con ID: " + idProducto);
+                JOptionPane.showMessageDialog(null, "No se encontró el producto");
             }
             rs.close();
             stmt.close();
@@ -1255,7 +1102,7 @@ public class ProductDAO {
     }
     
     //EDITAR PRODUCTO
-    public void editProduct(int idProduct, int id_subcategory, int id_brand , int id_supplier, int id_category, String model, String color, String product_code, int state){
+    public void updateProduct(int idProduct, int id_subcategory, int id_brand , int id_supplier, int id_category, String model, String color, String product_code, int state){
         
         String sql = "UPDATE `products` SET `id_subcategory`=?,`id_brand`=?,`id_supplier`=?,`id_category`=?,`model`=?,`color`=?,`product_code`=? ,`state`=? WHERE `id_product`=?";
                
@@ -1421,7 +1268,7 @@ public class ProductDAO {
     }
     
     //EDITAR PRECIO DE PRODUCTO
-    public void editPriceProduct(int idProduct, double price, double benefit, double salePrice){
+    public void updatePriceProduct(int idProduct, double price, double benefit, double salePrice){
         String sql = "UPDATE `prices` SET `price`=?, `benefit`=?, `salePrice`=? WHERE `id_product`=?";
 
         ConnectionDB con = new ConnectionDB();
@@ -1445,7 +1292,7 @@ public class ProductDAO {
         } 
     }
     
-    public void editPriceInStocks(int idProduct, double price){
+    public void updatePriceInStocks(int idProduct, double price){
         String sql = "UPDATE `prices` SET `price`=? WHERE `id_product`=?";
 
         ConnectionDB con = new ConnectionDB();
@@ -1484,7 +1331,7 @@ public class ProductDAO {
                 labelIva.setText(rs.getString("iva"));
                 txtFinalPrice.setText(rs.getString("salePrice"));
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró el id: " + id_Product);
+                JOptionPane.showMessageDialog(null, "No se encontró el producto");
             }
 
             rs.close();
@@ -1528,7 +1375,7 @@ public class ProductDAO {
 //********************************************** END: PRICE ****************************************************************************    
     
 //********************************************** STOCKS ************************************************************************************      
-    public static int obtenerStock(int id_product) {
+    public static int selectStock(int id_product) {
         int stock = 0;
 
         String sql = "SELECT amount FROM stocks WHERE id_product = ?";
@@ -1557,7 +1404,7 @@ public class ProductDAO {
         return stock;
     }
     
-    public void agregarStock(int id_product){
+    public void insertStock(int id_product){
         
         String sql="INSERT INTO `stocks`(`id_product`, `amount`, `min`, `max`) VALUES (?,?,?,?)";
         int max = 0;
@@ -1583,7 +1430,7 @@ public class ProductDAO {
         }    
     }
     
-    public void editStockProduct(int idProduct, double stock){
+    public void updateStockProduct(int idProduct, double stock){
         String sql = "UPDATE `stocks` SET `amount`=? WHERE `id_product`=?";
 
         ConnectionDB con = new ConnectionDB();
