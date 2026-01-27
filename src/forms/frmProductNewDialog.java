@@ -4,6 +4,7 @@
  */
 package forms;
 
+import Class.GenericDAO;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -39,7 +40,9 @@ import javax.swing.SwingUtilities;
 
 public class frmProductNewDialog extends javax.swing.JDialog {
 
-    ProductDAO queries = new ProductDAO();
+    ProductDAO queriesProduct = new ProductDAO();
+    GenericDAO queriesGeneric = new GenericDAO();
+    
     modelProducts product = new modelProducts();
     modelPrice precio = new modelPrice();
     private String action;
@@ -65,17 +68,17 @@ public class frmProductNewDialog extends javax.swing.JDialog {
             String categoria = (String) cboCategories.getSelectedItem();
 
             if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                int idCat = queries.idCategoria(categoria);
+                int idCat = queriesProduct.selectIdCategoria(categoria);
                 cboSubcategories.removeAllItems();
-                queries.llenarCombosSubcategories(cboSubcategories, idCat);          
+                queriesProduct.llenarCombosSubcategories(cboSubcategories, idCat);          
             }
         });
     }
     
     void llenarCombos(){
-        queries.llenarCombos(cboBrands,"brands");
-        queries.llenarCombosActivos(cboCategories,"categories");      
-        queries.llenarCombos(cboSuppliers,"suppliers");
+        queriesGeneric.llenarCombos(cboBrands,"brands");
+        queriesGeneric.llenarCombosActivos(cboCategories,"categories");      
+        queriesGeneric.llenarCombos(cboSuppliers,"suppliers");
     }
     
     void formatearTxtPrice(){
@@ -108,7 +111,7 @@ public class frmProductNewDialog extends javax.swing.JDialog {
         boolean valido = true;
         
         if (cboBrands.getSelectedIndex() > 0) { 
-            product.id_brand = queries.obtenerId(
+            product.id_brand = queriesGeneric.selectId(
                     "id_brand",
                     "brands",
                     cboBrands.getSelectedItem().toString()
@@ -119,7 +122,7 @@ public class frmProductNewDialog extends javax.swing.JDialog {
         }
         
         if (cboSuppliers.getSelectedIndex() > 0) { 
-            product.id_supplier = queries.obtenerId(
+            product.id_supplier = queriesGeneric.selectId(
                     "id_supplier",
                     "suppliers",
                     cboSuppliers.getSelectedItem().toString()
@@ -130,14 +133,14 @@ public class frmProductNewDialog extends javax.swing.JDialog {
         }
         
         if (cboCategories.getSelectedIndex() > 0) { 
-            product.id_category = queries.obtenerId(
+            product.id_category = queriesGeneric.selectId(
                     "id_category",
                     "categories",
                     cboCategories.getSelectedItem().toString()
             );
 
             if (cboSubcategories.getSelectedIndex() > 0) {
-                product.id_subcat = queries.obtenerId(
+                product.id_subcat = queriesGeneric.selectId(
                         "id_subcategory",
                         "subcategories",
                         cboSubcategories.getSelectedItem().toString()
@@ -198,7 +201,7 @@ public class frmProductNewDialog extends javax.swing.JDialog {
             return;
         }
         
-        queries.newProduct(
+        queriesProduct.insertProduct(
                 product.getId_subcat(),
                 product.getId_brand(),
                 product.getId_supplier(),
@@ -212,13 +215,13 @@ public class frmProductNewDialog extends javax.swing.JDialog {
     
     public int obtenerId(String codeProduct){
         int id = 0;
-        id = queries.obtenerIdProduct(codeProduct);
+        id = queriesProduct.selectIdProduct(codeProduct);
         return id;
     }
     
     void insetPrice(int idProd){ 
         
-        queries.priceProduct(
+        queriesProduct.priceProduct(
                 idProd, 
                 precio.getPrice(), 
                 precio.getBenefit(), 
@@ -240,7 +243,7 @@ public class frmProductNewDialog extends javax.swing.JDialog {
             dialogo.setVisible(true);
 
             String nuevaMarca = dialogo.getMarcaCreada();
-            queries.llenarCombos(cboBrands, "brands");
+            queriesGeneric.llenarCombos(cboBrands, "brands");
 
             if (nuevaMarca != null) {
                 cboBrands.setSelectedItem(nuevaMarca);
@@ -255,7 +258,7 @@ public class frmProductNewDialog extends javax.swing.JDialog {
             dialogo.setVisible(true);
 
             String nuevaMarca = dialogo.getMarcaCreada();
-            queries.llenarCombos(cboBrands, "brands");
+            queriesGeneric.llenarCombos(cboBrands, "brands");
 
             if (nuevaMarca != null) {
                 cboBrands.setSelectedItem(nuevaMarca);
@@ -296,7 +299,7 @@ public class frmProductNewDialog extends javax.swing.JDialog {
             dialogo.setVisible(true);
 
             String newSupplier = dialogo.getProveedorCreado();
-            queries.llenarCombos(cboSuppliers, "suppliers");
+            queriesGeneric.llenarCombos(cboSuppliers, "suppliers");
 
             if (newSupplier != null && !newSupplier.isEmpty()) {
                 cboSuppliers.setSelectedItem(newSupplier);
@@ -311,7 +314,7 @@ public class frmProductNewDialog extends javax.swing.JDialog {
             dialogo.setVisible(true);
 
             String newSupplier = dialogo.getProveedorEditado();
-            queries.llenarCombos(cboSuppliers, "suppliers");
+            queriesGeneric.llenarCombos(cboSuppliers, "suppliers");
 
             if (newSupplier != null && !newSupplier.isEmpty()) {
                 cboSuppliers.setSelectedItem(newSupplier);
@@ -352,7 +355,7 @@ public class frmProductNewDialog extends javax.swing.JDialog {
             dialogo.setVisible(true);
 
             String nuevaCategoria = dialogo.getCategoriaCreada();
-            queries.llenarCombosActivos(cboCategories, "categories");
+            queriesGeneric.llenarCombosActivos(cboCategories, "categories");
 
             if (nuevaCategoria != null) {
                 cboCategories.setSelectedItem(nuevaCategoria);
@@ -386,7 +389,7 @@ public class frmProductNewDialog extends javax.swing.JDialog {
             if (nuevaCategoria != null && !nuevaCategoria.isEmpty()) {
 
                 cboCategories.removeAllItems();
-                queries.llenarCombosActivos(cboCategories, "categories");
+                queriesGeneric.llenarCombosActivos(cboCategories, "categories");
                 cboCategories.setSelectedItem(nuevaCategoria);
             }
         });    
@@ -430,9 +433,9 @@ public class frmProductNewDialog extends javax.swing.JDialog {
                 String categoria = (String) cboCategories.getSelectedItem();
 
                 if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                    int idCat = queries.idCategoria(categoria);
+                    int idCat = queriesProduct.selectIdCategoria(categoria);
                     cboSubcategories.removeAllItems();
-                    queries.llenarCombosSubcategories(cboSubcategories, idCat);
+                    queriesProduct.llenarCombosSubcategories(cboSubcategories, idCat);
                     cboSubcategories.setSelectedItem(nuevaSubcategoria);
                 }
             }
@@ -451,9 +454,9 @@ public class frmProductNewDialog extends javax.swing.JDialog {
                 String categoria = (String) cboCategories.getSelectedItem();
 
                 if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                    int idCat = queries.idCategoria(categoria);
+                    int idCat = queriesProduct.selectIdCategoria(categoria);
                     cboSubcategories.removeAllItems();
-                    queries.llenarCombosSubcategories(cboSubcategories, idCat);
+                    queriesProduct.llenarCombosSubcategories(cboSubcategories, idCat);
                     cboSubcategories.setSelectedItem(nuevaSubcategoria);
                 }
             }
@@ -480,7 +483,7 @@ public class frmProductNewDialog extends javax.swing.JDialog {
     }
     
     public void insetStock(int idProd){               
-        queries.agregarStock(idProd);       
+        queriesProduct.insertStock(idProd);       
     }
     
     private void actionButtons(){
@@ -510,7 +513,6 @@ public class frmProductNewDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        labelTitle = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnCancel = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
@@ -537,14 +539,11 @@ public class frmProductNewDialog extends javax.swing.JDialog {
         cboIva = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
         cboSuppliers = new javax.swing.JComboBox<>();
+        jPanel3 = new javax.swing.JPanel();
+        labelTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        labelTitle.setBackground(new java.awt.Color(255, 255, 255));
-        labelTitle.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        labelTitle.setForeground(new java.awt.Color(101, 129, 171));
-        labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelTitle.setText("Datos de producto nuevo.");
+        setBackground(new java.awt.Color(255, 255, 255));
 
         btnCancel.setBackground(new java.awt.Color(255, 255, 255));
         btnCancel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -593,21 +592,21 @@ public class frmProductNewDialog extends javax.swing.JDialog {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(383, 383, 383)
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(387, 387, 387))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(19, 19, 19))
+                .addContainerGap())
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -838,7 +837,26 @@ public class frmProductNewDialog extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboSuppliers, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(12, 83, 151));
+
+        labelTitle.setBackground(new java.awt.Color(12, 83, 151));
+        labelTitle.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
+        labelTitle.setForeground(new java.awt.Color(255, 255, 255));
+        labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelTitle.setText("Datos de producto nuevo.");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -846,19 +864,18 @@ public class frmProductNewDialog extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -986,6 +1003,7 @@ public class frmProductNewDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel labelTitle;
     private javax.swing.JTextField txtColor;
     private javax.swing.JTextField txtModel;
