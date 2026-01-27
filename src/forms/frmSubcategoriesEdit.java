@@ -4,6 +4,7 @@
  */
 package forms;
 
+import Class.GenericDAO;
 import Class.ProductDAO;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -21,8 +22,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class frmSubcategoriesEdit extends javax.swing.JDialog {
     
-    ProductDAO queries = new ProductDAO();
-    
+    ProductDAO queriesProduct = new ProductDAO();
+    GenericDAO queriesGeneric = new GenericDAO();    
 
     private String subcategoriaCreada;
     private int state;
@@ -67,8 +68,8 @@ public class frmSubcategoriesEdit extends javax.swing.JDialog {
     }
     
     void llenarCombos(){
-        queries.llenarCombos(cboCatPEdit,"categories");
-        queries.llenarCombos(cboChaCatP,"categories");
+        queriesGeneric.llenarCombos(cboCatPEdit,"categories");
+        queriesGeneric.llenarCombos(cboChaCatP,"categories");
     }
 
     void limpiarJtable(){
@@ -77,7 +78,7 @@ public class frmSubcategoriesEdit extends javax.swing.JDialog {
     }
     
     void actDesactSubcat(){       
-        queries.editState("subcategories",filaSeleccionada, queries.verificarState("subcategories",filaSeleccionada));
+        queriesGeneric.updateState("subcategories",filaSeleccionada, queriesGeneric.verificarState("subcategories",filaSeleccionada));
         limpiarJtable();
         llenarComboCatPadreInEdit();
         btnActDes.setEnabled(false);
@@ -87,12 +88,12 @@ public class frmSubcategoriesEdit extends javax.swing.JDialog {
     
     void editName(){
         
-        if (!queries.nameExists(txtNameEdit.getText(),"subcategories")) {
-            queries.editName("subcategories", filaSeleccionada, txtNameEdit.getText().toUpperCase());
+        if (!queriesGeneric.nameExists(txtNameEdit.getText(),"subcategories")) {
+            queriesGeneric.updateName("subcategories", filaSeleccionada, txtNameEdit.getText().toUpperCase());
             subcategoriaCreada = txtNameEdit.getText().toUpperCase();
             limpiarJtable();   
             cboCatPEdit.setSelectedItem(comboSeleccionado);
-            queries.listTableSubcategories(tableCategory, queries.idCategoria(cboCatPEdit.getSelectedItem().toString()));                
+            queriesProduct.listTableSubcategories(tableCategory, queriesProduct.selectIdCategoria(cboCatPEdit.getSelectedItem().toString()));                
             txtNameEdit.setText("");
             txtNameEdit.setEnabled(false);
             btnActDes.setEnabled(false);
@@ -178,8 +179,8 @@ public class frmSubcategoriesEdit extends javax.swing.JDialog {
         });
         
         cboCatPEdit.addActionListener(e -> {
-            int id = queries.idCategoria(cboCatPEdit.getSelectedItem().toString());
-            queries.listTableSubcategories(tableCategory, id);
+            int id = queriesProduct.selectIdCategoria(cboCatPEdit.getSelectedItem().toString());
+            queriesProduct.listTableSubcategories(tableCategory, id);
         });
       
     }
@@ -189,8 +190,8 @@ public class frmSubcategoriesEdit extends javax.swing.JDialog {
         comboSeleccionado=cboCatPEdit.getSelectedItem().toString();
             
         if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-            int idCat = queries.idCategoria(categoria);
-            queries.listTableSubcategories(tableCategory, idCat);
+            int idCat = queriesProduct.selectIdCategoria(categoria);
+            queriesProduct.listTableSubcategories(tableCategory, idCat);
         }
     }
     
@@ -208,11 +209,11 @@ public class frmSubcategoriesEdit extends javax.swing.JDialog {
         if (confirmacion != JOptionPane.YES_OPTION) {
             return;
         }
-        int id = queries.idCategoria(cboChaCatP.getSelectedItem().toString());
-        queries.editCatPadre(filaSeleccionada,id);
+        int id = queriesProduct.selectIdCategoria(cboChaCatP.getSelectedItem().toString());
+        queriesProduct.updateCatPadre(filaSeleccionada,id);
         limpiarJtable(); 
         
-        queries.listTableSubcategories(tableCategory, queries.idCategoria(cboCatPEdit.getSelectedItem().toString()));       
+        queriesProduct.listTableSubcategories(tableCategory, queriesProduct.selectIdCategoria(cboCatPEdit.getSelectedItem().toString()));       
         checkBoxCambiarCatP.setSelected(false);
         cboChaCatP.setEnabled(false);
         btnConfirmChaCatP.setEnabled(false);    
