@@ -6,7 +6,7 @@ package forms;
 
 import Class.GenericDAO;
 import Class.ProductDAO;
-import Class.ModelBrands;
+import Class.modelBrands;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -25,7 +25,7 @@ public class frmBrandNew extends javax.swing.JDialog {
     ProductDAO queriesProduct = new ProductDAO();
     GenericDAO queriesGeneric = new GenericDAO();
     
-    ModelBrands classBrand = new ModelBrands();
+    modelBrands classBrand = new modelBrands();
     
     public String marcaSeleccionada = "";
     private String marcaCreada;
