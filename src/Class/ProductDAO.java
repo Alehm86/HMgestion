@@ -17,11 +17,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JSpinner;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
+
 
 public class ProductDAO {
    //============================================ CONSULTAS USADAS EN MULTIPLES CASOS ==================================================================    
@@ -241,9 +239,7 @@ public class ProductDAO {
                 + "`pass`=? "
                 + "WHERE "
                 + "`name`=?";
-                
-                
-                
+                  
         ConnectionDB con = new ConnectionDB();
         Connection conexion = (Connection) con.establecerConexion();
        
@@ -262,7 +258,7 @@ public class ProductDAO {
             conexion.close();
         }
         catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "ERROR AL EDITAR PROVEEDOR" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ya existe otro proveedor con ese nombre.");
         }
     }
     
@@ -290,30 +286,7 @@ public class ProductDAO {
             JOptionPane.showMessageDialog(null, "ERROR AL REGISTRAR PROVEEDOR");
         }    
     }
-    
-    public boolean nameExistsForOtherId(String name, int id) {
-        boolean exists = false;
-        String sql = "SELECT 1 FROM suppliers WHERE UPPER(name) = ? AND id_supplier != ? LIMIT 1";
-        
-        ConnectionDB con = new ConnectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
-
-        try{
-            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
-            pstmt.setString(1, name.toUpperCase());
-            pstmt.setInt(2, id);
-
-            try (ResultSet rs = pstmt.executeQuery()) {
-                exists = rs.next();
-            }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al verificar proveedor duplicado: " + e.getMessage());
-        }
-
-        return exists;
-    }
-    
+      
 //********************************************** END: SUPPLIERS ***************************************************************************     
     
     
@@ -1472,4 +1445,5 @@ public class ProductDAO {
             JOptionPane.showMessageDialog(null, "ERROR AL CARGAR LOS COMBOBOX" + e.getMessage());
         }
     } 
+    
 }
