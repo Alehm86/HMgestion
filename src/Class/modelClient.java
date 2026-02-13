@@ -9,17 +9,26 @@ import java.time.LocalDateTime;
 
 public class modelClient {
     
+    public int ID;
     public String name;
-    public int tipeClient;
-    public int CUIT;
+    public String CUIT;
     public String email;
-    public int phone;
+    public String phone;
     public String street;
     public int height;
     public int idProvince;
+    public String city;
     public String fechaRegistro;
     public int state;
     public int iva;
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
     public String getName() {
         return name;
@@ -29,19 +38,11 @@ public class modelClient {
         this.name = name;
     }
 
-    public int getTipeClient() {
-        return tipeClient;
-    }
-
-    public void setTipeClient(int tipeClient) {
-        this.tipeClient = tipeClient;
-    }
-
-    public int getCUIT() {
+    public String getCUIT() {
         return CUIT;
     }
 
-    public void setCUIT(int CUIT) {
+    public void setCUIT(String CUIT) {
         this.CUIT = CUIT;
     }
 
@@ -53,11 +54,11 @@ public class modelClient {
         this.email = email;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -85,6 +86,14 @@ public class modelClient {
         this.idProvince = idProvince;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public String getFechaRegistro() {
         return fechaRegistro;
     }
@@ -109,22 +118,21 @@ public class modelClient {
         this.iva = iva;
     }
 
-    public modelClient(String name, int tipeClient, int CUIT, String email, int phone, String street, int height, int idProvince, String fechaRegistro, int state, int iva) {
+    public modelClient(int ID, String name, String CUIT, String email, String phone, String street, int height, int idProvince, String city, String fechaRegistro, int state, int iva) {
+        this.ID = ID;
         this.name = name;
-        this.tipeClient = tipeClient;
         this.CUIT = CUIT;
         this.email = email;
         this.phone = phone;
         this.street = street;
         this.height = height;
         this.idProvince = idProvince;
+        this.city = city;
         this.fechaRegistro = fechaRegistro;
         this.state = state;
         this.iva = iva;
     }
-
-
-
+    
     public modelClient() {
 
     }
