@@ -5,24 +5,17 @@
 package forms;
 
 import Class.GenericDAO;
-import Class.ProductDAO;
 import javax.swing.table.DefaultTableModel;
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 import Class.ProductDAO;
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Point;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-
-
+import javax.swing.SwingUtilities;
 
 public class PageProduct extends javax.swing.JPanel {
 
@@ -34,45 +27,21 @@ public class PageProduct extends javax.swing.JPanel {
     private String filaSeleccionada = "";
     //⚠️
     //✅
-    
+    Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);    
     
     public PageProduct() {
         initComponents();
         actionButtons();
-        agregarPlaceholder(txtCodProduct, "Ingrese código de producto...");       
+        queriesGeneric.agregarPlaceholderN(txtCodProduct, "Ingrese código de producto...");       
         queriesGeneric.llenarCombosActivos(cboCategories,"categories");
         queriesGeneric.llenarCombos(cboBrand,"brands");
-        llenarSubcategorias(); 
-        
+        llenarSubcategorias();        
         filtrarPorCombos();
         
     }
 
     private void addTableFinancy(String entidad, String financy, double ctf, double cuota){
          tableFinancy.addRow(new Object[]{entidad,financy,ctf,cuota});
-    }
-
-    void agregarPlaceholder(JTextField campo, String placeholder) {
-        campo.setForeground(Color.GRAY);
-        campo.setText(placeholder);
-
-        campo.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (campo.getText().equals(placeholder)) {
-                    campo.setText("");
-                    campo.setForeground(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (campo.getText().isEmpty()) {
-                    campo.setForeground(Color.GRAY);
-                    campo.setText(placeholder);
-                }
-            }
-        });
     }
     
     void llenarSubcategorias(){
@@ -106,8 +75,7 @@ public class PageProduct extends javax.swing.JPanel {
                 }
             }else{
                 queriesProduct.listAllProdForBrand(jtablePrducts, idBrand);
-            }          
-            
+            }                     
         }else{
             if(cboCategories.getSelectedIndex() != 0){
                 if(cboSubcategories.getSelectedIndex() != 0){
@@ -118,12 +86,35 @@ public class PageProduct extends javax.swing.JPanel {
             }else{
                 queriesProduct.listAllProdForCategory(jtablePrducts);
             }
+        }      
+    }
+
+    public class frmProductEditWDialog extends JDialog {
+
+        private int idProduct;
+
+        public frmProductEditWDialog(Frame parent, boolean modal, int idProduct) {
+            super(parent, modal);
+            this.idProduct = idProduct;
+            initComponents();
+            loadProduct();
         }
-        
-    }    
+
+        private void loadProduct() {
+            // acá cargás los datos del producto usando idProduct
+        }
+    }
+    
  
     private void actionButtons(){
 
+        btnEdit.addActionListener(e->{
+            int id = queriesProduct.selectIdProduct(filaSeleccionada);
+            
+            frmProductEdit editP = new frmProductEdit();
+            editP.dialogoEdit(id);
+            editP.setVisible(true);
+        });
         
         btnEditPrice.addActionListener(e->{
             int id = queriesProduct.selectIdProduct(filaSeleccionada);
@@ -132,8 +123,7 @@ public class PageProduct extends javax.swing.JPanel {
             editPrice.dialogoEdit(id);
             editPrice.setVisible(true);
         });
-          
-                
+                         
         btnSerchCode.addActionListener(e -> { 
             tableProducts.setRowCount(0);
             String productCode = txtCodProduct.getText().trim();
@@ -190,6 +180,7 @@ public class PageProduct extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnEditPrice = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1600, 800));
@@ -411,19 +402,45 @@ public class PageProduct extends javax.swing.JPanel {
             }
         });
 
+        btnEdit.setBackground(new java.awt.Color(255, 255, 255));
+        btnEdit.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnEdit.setForeground(new java.awt.Color(12, 83, 151));
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ProductEdit.png"))); // NOI18N
+        btnEdit.setText("Editar");
+        btnEdit.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        btnEdit.setBorderPainted(false);
+        btnEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEditMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnEditMouseExited(evt);
+            }
+        });
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(btnEditPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 12, Short.MAX_VALUE)
-                .addComponent(btnEditPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEditPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -499,8 +516,21 @@ public class PageProduct extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnEditPriceActionPerformed
 
+    private void btnEditMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseEntered
+        btnEdit.setBackground(new Color(180,180,180));
+    }//GEN-LAST:event_btnEditMouseEntered
+
+    private void btnEditMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseExited
+        btnEdit.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnEditMouseExited
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+
+    }//GEN-LAST:event_btnEditActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnEditPrice;
     private javax.swing.JButton btnSerchCode;
     private javax.swing.JButton btnSerchCode2;

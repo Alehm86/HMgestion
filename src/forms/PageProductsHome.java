@@ -58,7 +58,7 @@ public class PageProductsHome extends javax.swing.JPanel {
         });
         
         btnRerturnProduct.addActionListener(e-> {
-            PageProductReturn pReturn = new PageProductReturn();
+            PageProductReturnVOLVERANALIZAR pReturn = new PageProductReturnVOLVERANALIZAR();
             pReturn.setSize(1700, 800);
             pReturn.setLocation(0, 0);
 
@@ -220,7 +220,7 @@ public class PageProductsHome extends javax.swing.JPanel {
         btnEdit.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnEdit.setForeground(new java.awt.Color(12, 83, 151));
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ProductEdit.png"))); // NOI18N
-        btnEdit.setText("Editar");
+        btnEdit.setText("Buscar y editar");
         btnEdit.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         btnEdit.setBorderPainted(false);
         btnEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -248,12 +248,12 @@ public class PageProductsHome extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnNewProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddStock, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRerturnProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(483, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

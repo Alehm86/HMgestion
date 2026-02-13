@@ -54,7 +54,7 @@ public class frmHome extends javax.swing.JFrame {
     }
     
     public void paginaDeInicio(){
-        PageDashboard pDashboard = new PageDashboard();
+        PageDashboardForm pDashboard = new PageDashboardForm();
         pDashboard.setSize(1700, 877);
         pDashboard.setLocation(0, 0);
         
@@ -109,7 +109,7 @@ public class frmHome extends javax.swing.JFrame {
         });
         
         btnClient.addActionListener(e -> {
-            PageClientHome pClient = new PageClientHome();
+            PageCustomerHomeForm pClient = new PageCustomerHomeForm();
             pClient.setSize(1700, 877);
             pClient.setLocation(0, 0);
 
@@ -171,7 +171,7 @@ public class frmHome extends javax.swing.JFrame {
         });
 
         jMenuNewProduct.addActionListener(e -> {
-            frmProductNewDialog newProduct = new frmProductNewDialog(parent, true);
+            frmProductNewWDialog newProduct = new frmProductNewWDialog(parent, true);
             newProduct.setLocationRelativeTo(parent);
             newProduct.setVisible(true);
 

@@ -27,7 +27,7 @@
           <Component id="jPanel10" alignment="1" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanelProductContent" pref="1247" max="32767" attributes="0"/>
+              <Component id="jPanelClientContent" pref="1247" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -37,7 +37,7 @@
               <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
               <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanelProductContent" pref="797" max="32767" attributes="0"/>
+              <Component id="jPanelClientContent" pref="797" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -56,16 +56,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="BtnProdHome" min="-2" pref="146" max="-2" attributes="0"/>
+                  <Component id="btnClientHome" min="-2" pref="146" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnNewProduct" min="-2" pref="146" max="-2" attributes="0"/>
+                  <Component id="btnNewClient" min="-2" pref="146" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnEdit" min="-2" pref="156" max="-2" attributes="0"/>
+                  <Component id="btnEditClient" min="-2" pref="146" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnAddStock" min="-2" pref="146" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnRerturnProduct" min="-2" pref="146" max="-2" attributes="0"/>
-                  <EmptySpace pref="483" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -74,11 +72,10 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="BtnProdHome" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="btnNewProduct" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="btnEdit" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btnClientHome" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btnNewClient" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btnEditClient" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="btnAddStock" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="btnRerturnProduct" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="16" max="32767" attributes="0"/>
               </Group>
@@ -86,7 +83,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btnNewProduct">
+        <Component class="javax.swing.JButton" name="btnNewClient">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new java.awt.Color(255,255,255)" type="code"/>
@@ -98,9 +95,9 @@
               <Color blue="97" green="53" red="c" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/ProductAdd.png"/>
+              <Image iconType="3" name="/Icons/altaCliente.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nuevo"/>
+            <Property name="text" type="java.lang.String" value="Alta cliente"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder roundedCorners="true"/>
@@ -112,41 +109,9 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnNewProductMouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnNewProductMouseExited"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNewProductActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnRerturnProduct">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new java.awt.Color(255, 255, 255)" type="code"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Poppins" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="97" green="53" red="c" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/ProductReturn.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Devoluci&#xf3;n"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder roundedCorners="true"/>
-              </Border>
-            </Property>
-            <Property name="borderPainted" type="boolean" value="false"/>
-            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Hand Cursor"/>
-            </Property>
-            <Property name="focusable" type="boolean" value="false"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnRerturnProductMouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnRerturnProductMouseExited"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRerturnProductActionPerformed"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnNewClientMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnNewClientMouseExited"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNewClientActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnAddStock">
@@ -161,9 +126,9 @@
               <Color blue="97" green="53" red="c" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/ProductStock.png"/>
+              <Image iconType="3" name="/Icons/eliminarCliente.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Stock"/>
+            <Property name="text" type="java.lang.String" value="Baja"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder roundedCorners="true"/>
@@ -181,7 +146,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddStockActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="BtnProdHome">
+        <Component class="javax.swing.JButton" name="btnClientHome">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new java.awt.Color(255,255,255)" type="code"/>
@@ -193,9 +158,9 @@
               <Color blue="97" green="53" red="c" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/ProductHome.png"/>
+              <Image iconType="3" name="/Icons/homeCliente (2).png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Productos"/>
+            <Property name="text" type="java.lang.String" value="Home"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder roundedCorners="true"/>
@@ -207,12 +172,12 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BtnProdHomeMouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BtnProdHomeMouseExited"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnProdHomeActionPerformed"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnClientHomeMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnClientHomeMouseExited"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClientHomeActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnEdit">
+        <Component class="javax.swing.JButton" name="btnEditClient">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new java.awt.Color(255, 255, 255)" type="code"/>
@@ -224,9 +189,9 @@
               <Color blue="97" green="53" red="c" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/ProductEdit.png"/>
+              <Image iconType="3" name="/Icons/editClient.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Buscar y editar"/>
+            <Property name="text" type="java.lang.String" value="Editar"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder roundedCorners="true"/>
@@ -238,15 +203,18 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnEditMouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnEditMouseExited"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditActionPerformed"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnEditClientMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnEditClientMouseExited"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditClientActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="jPanelProductContent">
+    <Container class="javax.swing.JPanel" name="jPanelClientContent">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[1600, 800]"/>
         </Property>

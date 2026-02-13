@@ -144,6 +144,11 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Datos de producto nuevo.">
+              <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder>
+                  <Color PropertyName="color" blue="ab" green="81" red="65" type="rgb"/>
+                </LineBorder>
+              </Border>
               <Font PropertyName="font" name="Poppins" size="24" style="1"/>
               <Color PropertyName="color" blue="ab" green="81" red="65" type="rgb"/>
             </TitledBorder>
@@ -154,27 +159,49 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel5" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
-                      <Component id="jLabel17" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
-                      <Component id="jLabel19" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
-                      <Component id="jLabel18" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
-                      <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="cboBrands" alignment="2" min="-2" pref="253" max="-2" attributes="0"/>
-                      <Component id="txtProductCode" alignment="2" min="-2" pref="253" max="-2" attributes="0"/>
-                      <Component id="cboCategories" alignment="2" min="-2" pref="252" max="-2" attributes="0"/>
-                      <Component id="txtPrice" alignment="2" min="-2" pref="252" max="-2" attributes="0"/>
-                      <Component id="cboSuppliers" alignment="2" min="-2" pref="253" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnCategory" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnBrand" alignment="1" min="-2" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
+                          <Component id="lblErrorBrand" min="-2" pref="287" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel5" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
+                              <Component id="jLabel17" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
+                              <Component id="jLabel19" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
+                              <Component id="jLabel18" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
+                              <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="cboBrands" alignment="2" min="-2" pref="253" max="-2" attributes="0"/>
+                                      <Component id="txtProductCode" alignment="2" min="-2" pref="253" max="-2" attributes="0"/>
+                                      <Component id="cboCategories" alignment="2" min="-2" pref="252" max="-2" attributes="0"/>
+                                      <Component id="txtPrice" alignment="2" min="-2" pref="252" max="-2" attributes="0"/>
+                                      <Component id="cboSuppliers" alignment="2" min="-2" pref="253" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="btnCategory" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnBrand" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblErrorCodeP" min="-2" pref="287" max="-2" attributes="0"/>
+                                      <Component id="lblErrorCategory" alignment="0" min="-2" pref="287" max="-2" attributes="0"/>
+                                      <Component id="lblErrorSupplier" alignment="0" min="-2" pref="287" max="-2" attributes="0"/>
+                                      <Component id="lblErrorPrice" alignment="0" min="-2" pref="287" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -183,22 +210,35 @@
                       <Component id="jLabel16" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel15" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="txtModel" alignment="2" min="-2" pref="253" max="-2" attributes="0"/>
-                      <Component id="txtColor" alignment="2" min="-2" pref="253" max="-2" attributes="0"/>
-                      <Component id="cboSubcategories" alignment="2" min="-2" pref="252" max="-2" attributes="0"/>
-                      <Component id="cboIva" alignment="2" min="-2" pref="252" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="btnSupplier" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="txtModel" alignment="2" min="-2" pref="253" max="-2" attributes="0"/>
+                              <Component id="txtColor" alignment="2" min="-2" pref="253" max="-2" attributes="0"/>
+                              <Component id="cboSubcategories" alignment="2" min="-2" pref="252" max="-2" attributes="0"/>
+                              <Component id="cboIva" alignment="2" min="-2" pref="252" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="btnSupplier" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="btnSubcategories" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="12" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="btnSubcategories" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblErrorIva" min="-2" pref="287" max="-2" attributes="0"/>
+                              <Component id="lblErrorSubcategory" min="-2" pref="287" max="-2" attributes="0"/>
+                              <Component id="lblErrorColor" min="-2" pref="287" max="-2" attributes="0"/>
+                              <Component id="lblErrorModel" min="-2" pref="287" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -215,14 +255,24 @@
                       <Component id="jLabel15" alignment="2" min="-2" pref="38" max="-2" attributes="0"/>
                       <Component id="txtModel" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="60" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblErrorBrand" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblErrorModel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
                       <Component id="jLabel17" alignment="2" min="-2" pref="38" max="-2" attributes="0"/>
                       <Component id="txtProductCode" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
                       <Component id="jLabel16" alignment="2" min="-2" pref="38" max="-2" attributes="0"/>
                       <Component id="txtColor" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblErrorCodeP" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblErrorColor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
                       <Component id="jLabel19" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
                       <Component id="cboCategories" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
@@ -231,7 +281,12 @@
                       <Component id="cboSubcategories" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
                       <Component id="btnSubcategories" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblErrorCategory" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblErrorSubcategory" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
                       <Component id="jLabel8" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="txtPrice" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
@@ -239,12 +294,19 @@
                       <Component id="cboIva" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
                       <Component id="btnSupplier" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblErrorIva" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblErrorPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
                       <Component id="jLabel18" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
                       <Component id="cboSuppliers" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="69" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblErrorSupplier" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="41" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -626,6 +688,105 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblErrorBrand">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Poppins" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="66" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Mensaje error!"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblErrorModel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Poppins" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="66" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Mensaje error!"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblErrorCodeP">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Poppins" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="66" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Mensaje error!"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblErrorColor">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Poppins" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="66" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Mensaje error!"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblErrorCategory">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Poppins" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="66" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Mensaje error!"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblErrorSubcategory">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Poppins" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="66" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Mensaje error!"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblErrorIva">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Poppins" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="66" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Mensaje error!"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblErrorSupplier">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Poppins" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="66" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Mensaje error!"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblErrorPrice">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Poppins" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="66" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Mensaje error!"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

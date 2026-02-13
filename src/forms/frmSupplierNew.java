@@ -8,19 +8,14 @@ import Class.ProductDAO;
 import Class.GenericDAO;
 import Class.modelSupplier;
 import java.awt.Color;
-import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JTable;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.text.MaskFormatter;
+
 
 public class frmSupplierNew extends javax.swing.JDialog {
 
     ProductDAO queriesProduct = new ProductDAO();
     GenericDAO queriesGeneric = new GenericDAO();
-    modelSupplier classSupplier = new modelSupplier();
+    modelSupplier mSupplier = new modelSupplier();
     
     private String SupplierSelected = "";
     private String proveedorCreado;
@@ -56,112 +51,88 @@ public class frmSupplierNew extends javax.swing.JDialog {
     }
     
     void clearFields(){
-
         txtName.setText("");
         txtCuit.setText("");
         txtTel.setText("");
         txtMail.setText("");
         txtUrl.setText("");
         txtUser.setText("");
-        txtPass.setText("");
-        
+        txtPass.setText("");     
     }
-    
-   
+       
     void nuevoProveedor(){
+        
+        Boolean valido = true;
    
         if(!txtName.getText().isEmpty()){         
-            classSupplier.name=txtName.getText().toUpperCase();        
+            mSupplier.name=txtName.getText().toUpperCase();        
         }else{
             JOptionPane.showMessageDialog(null, "¡Debe ingresar un nombre de proveedor!");           
             txtName.requestFocusInWindow();
-            return;       
+            valido = false;       
         }
         
         if(!txtCuit.getText().isEmpty()){
-            classSupplier.cuit=txtCuit.getText();
+            mSupplier.cuit=txtCuit.getText();
         }else{
-            classSupplier.cuit="00-00000000-0";
+            mSupplier.cuit="00-00000000-0";
         }
         
         if(!txtTel.getText().isEmpty()){
-            classSupplier.telefono = txtTel.getText();
+            mSupplier.telefono = txtTel.getText();
         }else{
-            classSupplier.telefono="0";
+            mSupplier.telefono="0";
         }
         
         if(!txtMail.getText().isEmpty()){
-            classSupplier.email=txtMail.getText();
+            mSupplier.email=txtMail.getText();
         }else{
-            classSupplier.email="Sin datos";
+            mSupplier.email="Sin datos";
         }
         
         if(!txtUrl.getText().isEmpty()){
-            classSupplier.web=txtUrl.getText();
+            mSupplier.web=txtUrl.getText();
         }else{
-            classSupplier.web="Sin datos";
+            mSupplier.web="Sin datos";
         }
         
         if(!txtUser.getText().isEmpty()){
-            classSupplier.user=txtUser.getText();
+            mSupplier.user=txtUser.getText();
         }else{
-            classSupplier.user="Sin datos";
+            mSupplier.user="Sin datos";
         }
         
         if(!txtPass.getText().isEmpty()){
-            classSupplier.pass=txtPass.getText();
+            mSupplier.pass=txtPass.getText();
         }else{
-            classSupplier.pass="Sin datos";
+            mSupplier.pass="Sin datos";
         }
         
-        int confirmacion = JOptionPane.showConfirmDialog(
-            null,
-            "¿Registrar el proveedor " + classSupplier.getName()+"?",
-            "Confirmación",
-            JOptionPane.YES_NO_OPTION
-        );
-
-        if (confirmacion != JOptionPane.YES_OPTION) {
+        if(!valido){
             return;
         }
             
         if (!queriesGeneric.nameExists(txtName.getText(),"suppliers")) {
             queriesProduct.insertSupplier(
-            classSupplier.getName(),
-            classSupplier.getCuit(),
-            classSupplier.getTelephone(),
-            classSupplier.getEmail(),
-            classSupplier.getWeb(),
-            classSupplier.getUser(),
-            classSupplier.getPass()); 
+            mSupplier.getName(),
+            mSupplier.getCuit(),
+            mSupplier.getTelephone(),
+            mSupplier.getEmail(),
+            mSupplier.getWeb(),
+            mSupplier.getUser(),
+            mSupplier.getPass());           
+            proveedorCreado = mSupplier.getName();
+            queriesProduct.listTableSupplier(tableSupplier);  
             
-            proveedorCreado = classSupplier.getName();
-            queriesProduct.listTableSupplier(tableSupplier);
-            
-            
-            JOptionPane.showMessageDialog(null, "Proveedor creado correctamente. ✅");
-            
-            int msjNuevo = JOptionPane.showConfirmDialog(
-                this,
-                "¿Deseas crear otro proveedor?",
-                "Confirmar registro",
-                JOptionPane.YES_NO_OPTION
-            );
-
-            if (msjNuevo == JOptionPane.YES_OPTION) {
-                clearFields();  
-            }else{
-                this.dispose();
-            }            
-            
-            
+            JOptionPane.showMessageDialog(null, "Proveedor creado correctamente. ✅");           
+            clearFields();           
         }else{
             JOptionPane.showMessageDialog(null, "El nombre del proveedor ya existe!..");
         }
             
-        proveedorCreado = classSupplier.getName();
+        proveedorCreado = mSupplier.getName();
         queriesProduct.listTableSupplier(tableSupplier);
-        clearFields();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -274,7 +245,7 @@ public class frmSupplierNew extends javax.swing.JDialog {
         txtPass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnCancel.setBackground(new java.awt.Color(255, 255, 255));
-        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/borrador32.png"))); // NOI18N
         btnCancel.setBorder(null);
         btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {

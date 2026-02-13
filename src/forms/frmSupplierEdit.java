@@ -38,7 +38,7 @@ public class frmSupplierEdit extends javax.swing.JDialog {
         actions();
     }
     
-    void actions(){
+    private void actions(){
         
         tableSupplier.addMouseListener(new MouseAdapter(){
             public void mousePressed(MouseEvent Mouse_evt){
@@ -80,96 +80,17 @@ public class frmSupplierEdit extends javax.swing.JDialog {
         
     }
     
-    void clearFields(){
-
+    private void clearFields(){
         txtName.setText("");
         txtCuit.setText("");
         txtTel.setText("");
         txtMail.setText("");
         txtUrl.setText("");
         txtUser.setText("");
-        txtPass.setText("");
-        
+        txtPass.setText("");       
     }
- 
-//    void nuevoProveedor(){
-//   
-//        if(!txtName.getText().isEmpty()){         
-//            classSupplier.name=txtName.getText().toUpperCase();        
-//        }else{
-//            JOptionPane.showMessageDialog(null, "¡Debe ingresar un nombre de proveedor!");           
-//            txtName.requestFocusInWindow();
-//            return;       
-//        }
-//        
-//        if(!txtCuit.getText().isEmpty()){
-//            classSupplier.cuit=txtCuit.getText();
-//        }else{
-//            classSupplier.cuit="00-00000000-0";
-//        }
-//        
-//        if(!txtTel.getText().isEmpty()){
-//            classSupplier.telefono = txtTel.getText();
-//        }else{
-//            classSupplier.telefono="0";
-//        }
-//        
-//        if(!txtMail.getText().isEmpty()){
-//            classSupplier.email=txtMail.getText();
-//        }else{
-//            classSupplier.email="Sin datos";
-//        }
-//        
-//        if(!txtUrl.getText().isEmpty()){
-//            classSupplier.web=txtUrl.getText();
-//        }else{
-//            classSupplier.web="Sin datos";
-//        }
-//        
-//        if(!txtUser.getText().isEmpty()){
-//            classSupplier.user=txtUser.getText();
-//        }else{
-//            classSupplier.user="Sin datos";
-//        }
-//        
-//        if(!txtPass.getText().isEmpty()){
-//            classSupplier.pass=txtPass.getText();
-//        }else{
-//            classSupplier.pass="Sin datos";
-//        }
-//        
-//        int confirmacion = JOptionPane.showConfirmDialog(
-//            null,
-//            "¿Registrar el proveedor " + classSupplier.getName()+"?",
-//            "Confirmación",
-//            JOptionPane.YES_NO_OPTION
-//        );
-//
-//        if (confirmacion != JOptionPane.YES_OPTION) {
-//            return;
-//        }
-//            
-//        if (!queries.nameExists(txtName.getText(),"suppliers")) {
-//            queries.newSupplier(
-//            classSupplier.getName(),
-//            classSupplier.getCuit(),
-//            classSupplier.getTelephone(),
-//            classSupplier.getEmail(),
-//            classSupplier.getWeb(),
-//            classSupplier.getUser(),
-//            classSupplier.getPass()); 
-//        }else{
-//            JOptionPane.showMessageDialog(null, "El nombre del proveedor ya existe!..");
-//        }
-//            
-//        proveedorCreado = classSupplier.getName();
-//        queries.listTableSupplier(tableSupplier);
-//        disableSupplier();
-//    }
-//    
-    void editarProveedor() {
-        
-        int idSupplier = 0;
+  
+    private void editarProveedor() {
         
         if (txtName.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "¡Debe ingresar un nombre de proveedor!");
@@ -185,57 +106,19 @@ public class frmSupplierEdit extends javax.swing.JDialog {
         classSupplier.user = txtUser.getText().trim();
         classSupplier.pass = txtPass.getText().trim();
 
-        int confirmacion = JOptionPane.showConfirmDialog(
-            null,
-            "¿Deseás editar el proveedor " + classSupplier.getName() + "?",
-            "Confirmación",
-            JOptionPane.YES_NO_OPTION
+        queriesProduct.updateSupplier(
+            SupplierSelected,
+            classSupplier.getName(),
+            classSupplier.getCuit(),
+            classSupplier.getTelephone(),
+            classSupplier.getEmail(),
+            classSupplier.getWeb(),
+            classSupplier.getUser(),
+            classSupplier.getPass()
         );
-
-        if (confirmacion != JOptionPane.YES_OPTION) {
-            return;
-        }
-
-        idSupplier = queriesGeneric.selectId("id_supplier","suppliers",classSupplier.getName());
-        
-        if (!queriesProduct.nameExistsForOtherId(classSupplier.getName(), idSupplier)) {
-            queriesProduct.updateSupplier(
-                SupplierSelected,
-                classSupplier.getName(),
-                classSupplier.getCuit(),
-                classSupplier.getTelephone(),
-                classSupplier.getEmail(),
-                classSupplier.getWeb(),
-                classSupplier.getUser(),
-                classSupplier.getPass()
-            );
             
-            proveedorEditado = classSupplier.getName();
-            queriesProduct.listTableSupplier(tableSupplier);
-            
-            
-            JOptionPane.showMessageDialog(null, "Proveedor editado correctamente. ✅");
-            
-            int msjNuevo = JOptionPane.showConfirmDialog(
-                this,
-                "¿Deseas modificar otro proveedor?",
-                "Confirmar registro",
-                JOptionPane.YES_NO_OPTION
-            );
-
-            if (msjNuevo == JOptionPane.YES_OPTION) {
-                clearFields();  
-            }else{
-                this.dispose();
-            }
-            
-        } else {
-            JOptionPane.showMessageDialog(null, "Ya existe otro proveedor con ese nombre.");
-            txtName.requestFocusInWindow();
-            return;
-        }
-
-        
+        proveedorEditado = classSupplier.getName();
+        queriesProduct.listTableSupplier(tableSupplier);                  
     }
 
 
@@ -286,7 +169,7 @@ public class frmSupplierEdit extends javax.swing.JDialog {
         btnConfirm.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnConfirm.setForeground(new java.awt.Color(101, 129, 171));
         btnConfirm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
-        btnConfirm.setText("Confirmar");
+        btnConfirm.setText("Editar");
         btnConfirm.setBorder(null);
         btnConfirm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnConfirm.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -351,7 +234,7 @@ public class frmSupplierEdit extends javax.swing.JDialog {
         txtPass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnCancel.setBackground(new java.awt.Color(255, 255, 255));
-        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/borrador32.png"))); // NOI18N
         btnCancel.setBorder(null);
         btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
