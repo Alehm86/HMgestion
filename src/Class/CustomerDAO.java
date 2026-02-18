@@ -10,6 +10,7 @@ import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -112,6 +113,30 @@ public class CustomerDAO {
 
     }
     
+    public void updateState(String cuit, int state){    
+    
+        String sql = "UPDATE client SET id_state=? WHERE cuit=?";      
+        
+        ConnectionDB con = new ConnectionDB();
+        Connection conexion = (Connection) con.establecerConexion();
+        
+               
+        try{
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);  
+            pstmt.setInt(1, state);
+            pstmt.setString(2, cuit);     
+            
+            pstmt.executeUpdate();            
+            conexion.close(); 
+            
+            JOptionPane.showMessageDialog(null, "CLIENTE DADO DE BAJA.");
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR");
+        }
+
+    }    
+    
     public boolean existsByCuit(String cuit) {
         String sql = "SELECT COUNT(*) FROM `client` WHERE `cuit` = ?";
     
@@ -147,25 +172,28 @@ public class CustomerDAO {
             JTextField txtHeight,  
             JTextField txtCity,
             JTextField txtIva,
-            JTextField txtProvince
+            JTextField txtProvince,
+            JTextField txtState
             ){  
         
         
     String sql =
             "SELECT " +
-            "    client.name AS client_name, " +
-            "    client.id_client, " +            
-            "    iva.name AS iva_name, " +
-            "    client.cuit, " +
-            "    client.email, " +
-            "    client.phone, " +
-            "    client.street, " +
-            "    client.height, " +
-            "    client.city, " +
-            "    provinces.name AS province_name " +
+            "client.name AS client_name, " +
+            "client.id_client, " +            
+            "iva.name AS iva_name, " +
+            "client.cuit, " +
+            "client.email, " +
+            "client.phone, " +
+            "client.street, " +
+            "client.height, " +
+            "client.city, " +
+            "provinces.name AS province_name, " +
+            "stateclient.name AS stateclient_name " +
             "FROM client " +
             "INNER JOIN iva ON client.id_iva = iva.id_iva " +
             "INNER JOIN provinces ON client.id_province = provinces.id_province " +
+            "INNER JOIN stateclient ON client.id_state = stateclient.id_state " +
             "WHERE client.cuit ="+cuit;
         
         Statement stmt;               
@@ -189,6 +217,7 @@ public class CustomerDAO {
                 txtCity.setText(rs.getString("city"));
                 txtIva.setText(rs.getString("iva_name"));
                 txtProvince.setText(rs.getString("province_name"));
+                txtState.setText(rs.getString("stateclient_name"));
 
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el cliente");
@@ -201,7 +230,7 @@ public class CustomerDAO {
             JOptionPane.showMessageDialog(null, "ERROR X");
         } 
     } 
-    
+    //no se usa
     public void listAllCustomer(JTable jtable){
         
         String sql = "SELECT * FROM `client`";  
@@ -253,9 +282,15 @@ public class CustomerDAO {
         
         String sql = 
                 "SELECT client.name AS client_name, " +
-                "iva.name AS iva_name, cuit, email, phone, city " +
+                "iva.name AS iva_name, " +
+                "client.cuit, " +
+                "client.email, " +
+                "client.phone, " +
+                "client.city, " +
+                "stateclient.name AS stateclient_name " +
                 "FROM client " +
-                "INNER JOIN iva ON client.id_iva = iva.id_iva";
+                "INNER JOIN iva ON client.id_iva = iva.id_iva " +
+                "INNER JOIN stateclient ON client.id_state = stateclient.id_state";
         
         Statement stmt;
         
@@ -269,7 +304,7 @@ public class CustomerDAO {
         ConnectionDB con = new ConnectionDB();
         Connection conexion = (Connection) con.establecerConexion();
         
-        String[] titleTable = {"Nombre","CUIT / DNI","IVA","Teléfono","Email","Ciudad"};
+        String[] titleTable = {"Nombre","CUIT / DNI","IVA","Teléfono","Email","Ciudad","Estado"};
         dtm.setColumnIdentifiers(titleTable);
         
         try{
@@ -284,6 +319,7 @@ public class CustomerDAO {
                     rs.getString("phone"),
                     rs.getString("email"),
                     rs.getString("city"),
+                    rs.getString("stateclient_name"),
 
                 };
                 dtm.addRow(row);
@@ -303,11 +339,75 @@ public class CustomerDAO {
         catch(SQLException e){
             JOptionPane.showMessageDialog(null, "ERROR");
         }
-    }    
+    }  
     
-    public void listCustomerForIva(JTable jtable, int iva){
+        public void listAllCustomerForState(JTable jtable, int state){
         
-        String SQL="SELECT `name`, `cuit` FROM `client` WHERE `id_iva`="+iva;
+        String sql = 
+                "SELECT client.name AS client_name, " +
+                "iva.name AS iva_name, " +
+                "client.cuit, " +
+                "client.email, " +
+                "client.phone, " +
+                "client.city, " +
+                "stateclient.name AS stateclient_name " +
+                "FROM client " +
+                "INNER JOIN iva ON client.id_iva = iva.id_iva " +
+                "INNER JOIN stateclient ON client.id_state = stateclient.id_state " +
+                "WHERE client.id_state ="+state;
+        
+        Statement stmt;
+        
+        DefaultTableModel dtm = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        ConnectionDB con = new ConnectionDB();
+        Connection conexion = (Connection) con.establecerConexion();
+        
+        String[] titleTable = {"Nombre","CUIT / DNI","IVA","Teléfono","Email","Ciudad","Estado"};
+        dtm.setColumnIdentifiers(titleTable);
+        
+        try{
+            stmt=conexion.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                Object[] row = {
+                    rs.getString("client_name"),
+                    rs.getString("cuit"),
+                    rs.getString("iva_name"),
+                    rs.getString("phone"),
+                    rs.getString("email"),
+                    rs.getString("city"),
+                    rs.getString("stateclient_name"),
+
+                };
+                dtm.addRow(row);
+            }
+
+            jtable.setModel(dtm);
+            
+            jtable.getColumnModel().getColumn(0).setPreferredWidth(100);
+            jtable.getColumnModel().getColumn(1).setPreferredWidth(30);           
+
+            jtable.getTableHeader().setReorderingAllowed(false);
+            
+            rs.close();
+            stmt.close();
+            conexion.close();
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR");
+        }
+    }
+    
+    public void listCustomerForIva(JTable jtable, int iva){                     //no lo estoy usando (revisar y borrar)
+        
+        String SQL="SELECT `name`, `cuit` FROM `client` WHERE `id_state`= 1 AND `id_iva`="+iva;
         
         Statement stmt;
         
@@ -355,13 +455,19 @@ public class CustomerDAO {
     
     public void listCustomerForIvaComplete(JTable jtable, int iva){
         
-//        String SQL="SELECT `name`, `cuit` FROM `client` WHERE `id_iva`="+iva;
-        String SQL = 
-                "SELECT c.name AS client_name, " +
-                "i.name AS iva_name, c.cuit, c.email, c.phone, c.city " +
-                "FROM client c " +
-                "INNER JOIN iva i ON c.id_iva = i.id_iva " +
-                "WHERE c.id_iva =" + iva;
+        String SQL =
+                "SELECT client.name AS client_name, " +
+                "iva.name AS iva_name, " +
+                "client.cuit, " +
+                "client.email, " +
+                "client.phone, " +
+                "client.city, " +
+                "stateclient.name AS stateclient_name " +
+                "FROM client " +
+                "INNER JOIN iva ON client.id_iva = iva.id_iva " +
+                "INNER JOIN stateclient ON client.id_state = stateclient.id_state " +
+                "WHERE client.id_iva = " + iva;
+
         
         Statement stmt;
         
@@ -375,7 +481,7 @@ public class CustomerDAO {
         ConnectionDB con = new ConnectionDB();
         Connection conexion = (Connection) con.establecerConexion();
         
-        String[] titleTable = {"Nombre","CUIT / DNI","IVA","Teléfono","Email","Ciudad"};
+        String[] titleTable = {"Nombre","CUIT / DNI","IVA","Teléfono","Email","Ciudad","Estado"};
         dtm.setColumnIdentifiers(titleTable);
         
         try{
@@ -390,6 +496,7 @@ public class CustomerDAO {
                     rs.getString("phone"),
                     rs.getString("email"),
                     rs.getString("city"),
+                    rs.getString("stateclient_name"),
 
                 };
                 dtm.addRow(row);
@@ -410,6 +517,71 @@ public class CustomerDAO {
             JOptionPane.showMessageDialog(null, "ERROR");
         }
     }    
+    
+    public void listCustomerForIvaAndState(JTable jtable, int iva, int state){
+        
+        String SQL =
+                "SELECT client.name AS client_name, " +
+                "iva.name AS iva_name, " +
+                "client.cuit, " +
+                "client.email, " +
+                "client.phone, " +
+                "client.city, " +
+                "stateclient.name AS stateclient_name " +
+                "FROM client " +
+                "INNER JOIN iva ON client.id_iva = iva.id_iva " +
+                "INNER JOIN stateclient ON client.id_state = stateclient.id_state " +
+                "WHERE client.id_state = "+ state +" AND client.id_iva = " + iva;
+
+        
+        Statement stmt;
+        
+        DefaultTableModel dtm = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        ConnectionDB con = new ConnectionDB();
+        Connection conexion = (Connection) con.establecerConexion();
+        
+        String[] titleTable = {"Nombre","CUIT / DNI","IVA","Teléfono","Email","Ciudad","Estado"};
+        dtm.setColumnIdentifiers(titleTable);
+        
+        try{
+            stmt=conexion.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL);
+
+            while (rs.next()) {
+                Object[] row = {
+                    rs.getString("client_name"),
+                    rs.getString("cuit"),
+                    rs.getString("iva_name"),
+                    rs.getString("phone"),
+                    rs.getString("email"),
+                    rs.getString("city"),
+                    rs.getString("stateclient_name"),
+
+                };
+                dtm.addRow(row);
+            }
+
+            jtable.setModel(dtm);
+            
+            jtable.getColumnModel().getColumn(0).setPreferredWidth(100);
+            jtable.getColumnModel().getColumn(1).setPreferredWidth(30);          
+
+            jtable.getTableHeader().setReorderingAllowed(false);
+            
+            rs.close();
+            stmt.close();
+            conexion.close();
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR");
+        }
+    }        
     
     public static int selectIdIva(String valor){
         String sql = "SELECT id_iva FROM iva WHERE name = ?";
@@ -455,7 +627,48 @@ public class CustomerDAO {
         return cuit;
     }   
 
-    
+    public static int selectIdState(String name){
+        String sql = "SELECT id_state FROM stateclient WHERE name = ?";
+        int id_state = -1;
+
+        ConnectionDB con = new ConnectionDB();
+        Connection conexion = (Connection) con.establecerConexion();
+
+        try{
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
+            pstmt.setString(1, name);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                id_state = rs.getInt("id_state");
+            }
+            rs.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener ID.");
+        }
+        return id_state;
+    }
+        
+    public void ComboIdState(JComboBox combo){
+        String sql="SELECT `name` FROM `stateclient`";
+        Statement stmt;
+
+        ConnectionDB con = new ConnectionDB();
+        Connection conexion = (Connection) con.establecerConexion();
+        combo.addItem("Todos");
+
+        try{
+            stmt=conexion.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                combo.addItem(rs.getString("name"));
+            }                  
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR");
+        }
+    }
 
     
     

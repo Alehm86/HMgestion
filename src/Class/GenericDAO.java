@@ -24,7 +24,7 @@ import javax.swing.event.DocumentListener;
 
 
 public class GenericDAO {
-    
+       
     //AGREGA PLACEHOLDER A CAJAS DE TEXTO ---- COLOR NEGRO.
     public void agregarPlaceholderN(JTextField campo, String placeholder) {
         campo.setForeground(Color.BLACK);
@@ -73,7 +73,7 @@ public class GenericDAO {
         });
     }     
     
-     //VERIFICA SI EXISTE EL NOMBRE
+    //VERIFICA SI EXISTE EL NOMBRE
     public boolean nameExists(String name , String tabla) {
         String sql = "SELECT COUNT(*) FROM `" + tabla + "` WHERE `name` = ?";
     
@@ -166,8 +166,8 @@ public class GenericDAO {
         }
     }
     
-    public void llenarCombos(JComboBox combo, String table){
-        String sql="SELECT * FROM `"+table+"`";
+    public void llenarCombos(JComboBox combo, String tableDB){
+        String sql="SELECT * FROM `"+tableDB+"`";
         Statement stmt;
         
         ConnectionDB con = new ConnectionDB();
