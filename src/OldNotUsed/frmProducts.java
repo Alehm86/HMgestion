@@ -4,19 +4,19 @@
  */
 package OldNotUsed;
 
-import Class.GenericDAO;
+import dao.GenericDAO;
 import OldNotUsed.frmMenu;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import Class.ProductDAO;
-import forms.frmBrandEdit;
-import forms.frmBrandNew;
-import forms.frmEditPrice;
+import dao.ProductDAO;
+import forms.frmProductBrandEditForm;
+import forms.frmProductBrandNewForm;
+import forms.frmProductPriceUpdate;
 import forms.frmSalesManagement;
-import forms.frmStockAdjustment;
+import forms.frmProductStockAdjustmentForm;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.FocusAdapter;
@@ -89,12 +89,12 @@ public class frmProducts extends javax.swing.JFrame {
     private void menuSuperior(){
 
         jMenuNewBrand.addActionListener(e -> {
-            frmBrandNew dialogo = new frmBrandNew(this, true);
+            frmProductBrandNewForm dialogo = new frmProductBrandNewForm(this, true);
             dialogo.setVisible(true);
         });
         
         jMenuBrandEdit.addActionListener(e -> {
-            frmBrandEdit dialogo = new frmBrandEdit(this, true);
+            frmProductBrandEditForm dialogo = new frmProductBrandEditForm(this, true);
             dialogo.setVisible(true);
         });
 
@@ -116,7 +116,7 @@ public class frmProducts extends javax.swing.JFrame {
         });
 
         jMenuAjusteDeStock.addActionListener(e -> {
-            frmStockAdjustment stockAdj = new frmStockAdjustment();
+            frmProductStockAdjustmentForm stockAdj = new frmProductStockAdjustmentForm();
             stockAdj.setVisible(true);
         });
          
@@ -259,7 +259,7 @@ public class frmProducts extends javax.swing.JFrame {
         btnEditPrice.addActionListener(e->{
             int id = queries.selectIdProduct(filaSeleccionada);
             
-            frmEditPrice editPrice = new frmEditPrice();
+            frmProductPriceUpdate editPrice = new frmProductPriceUpdate();
             editPrice.dialogoEdit(id);
             editPrice.setVisible(true);
         });

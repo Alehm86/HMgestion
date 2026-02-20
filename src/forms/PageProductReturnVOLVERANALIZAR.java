@@ -4,7 +4,7 @@
  */
 package forms;
 
-import Class.ProductDAO;
+import dao.ProductDAO;
 import OldNotUsed.frmProducts;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Graphics;

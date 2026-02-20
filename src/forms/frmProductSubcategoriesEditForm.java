@@ -4,8 +4,8 @@
  */
 package forms;
 
-import Class.GenericDAO;
-import Class.ProductDAO;
+import dao.GenericDAO;
+import dao.ProductDAO;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;

@@ -4,9 +4,9 @@
  */
 package forms;
 
-import Class.GenericDAO;
-import Class.ProductDAO;
-import Class.modelProducts;
+import dao.GenericDAO;
+import dao.ProductDAO;
+import models.modelProducts;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;

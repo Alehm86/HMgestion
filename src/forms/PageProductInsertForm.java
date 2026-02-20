@@ -4,18 +4,18 @@
  */
 package forms;
 
-import Class.GenericDAO;
+import dao.GenericDAO;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import Class.ProductDAO;
+import dao.ProductDAO;
 import java.text.NumberFormat;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
-import Class.modelProducts;
-import Class.modelPrice;
+import models.modelProducts;
+import models.modelPrice;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

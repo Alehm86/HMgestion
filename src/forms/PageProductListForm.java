@@ -4,9 +4,9 @@
  */
 package forms;
 
-import Class.GenericDAO;
+import dao.GenericDAO;
 import javax.swing.table.DefaultTableModel;
-import Class.ProductDAO;
+import dao.ProductDAO;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Point;

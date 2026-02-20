@@ -5,9 +5,9 @@
 package forms;
 
 import OldNotUsed.frmProducts;
-import Class.ProductDAO;
-import Class.modelProducts;
-import Class.modelStocks;
+import dao.ProductDAO;
+import models.modelProducts;
+import models.modelStocks;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 

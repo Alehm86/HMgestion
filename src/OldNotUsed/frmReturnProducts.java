@@ -7,11 +7,11 @@ package OldNotUsed;
 import OldNotUsed.frmNewProduct_1;
 import OldNotUsed.frmProducts;
 import OldNotUsed.frmMenu;
-import Class.ProductDAO;
-import forms.frmBrandEdit;
-import forms.frmBrandNew;
+import dao.ProductDAO;
+import forms.frmProductBrandEditForm;
+import forms.frmProductBrandNewForm;
 import forms.frmSalesManagement;
-import forms.frmStockAdjustment;
+import forms.frmProductStockAdjustmentForm;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -59,12 +59,12 @@ public class frmReturnProducts extends javax.swing.JFrame {
     public void menuSuperior(){
 
         jMenuNewBrand.addActionListener(e -> {
-            frmBrandNew dialogo = new frmBrandNew(this, true);
+            frmProductBrandNewForm dialogo = new frmProductBrandNewForm(this, true);
             dialogo.setVisible(true);
         });
         
         jMenuBrandEdit.addActionListener(e -> {
-            frmBrandEdit dialogo = new frmBrandEdit(this, true);
+            frmProductBrandEditForm dialogo = new frmProductBrandEditForm(this, true);
             dialogo.setVisible(true);
         });
 
@@ -85,7 +85,7 @@ public class frmReturnProducts extends javax.swing.JFrame {
         });
 
         jMenuAjusteDeStock.addActionListener(e -> {
-            frmStockAdjustment stockAdj = new frmStockAdjustment();
+            frmProductStockAdjustmentForm stockAdj = new frmProductStockAdjustmentForm();
             stockAdj.setVisible(true);
         });
 

@@ -4,11 +4,11 @@
  */
 package Wallpapers;
 
-import OldFrames.frmMenu;
-import OldFrames.frmProducts;
-import OldFrames.frmNewProduct;
-import forms.frmEditPrice;
-import forms.frmHome;
+import OldNotUsed.frmMenu;
+import OldNotUsed.frmProducts;
+import OldNotUsed.frmNewProduct_1;
+import forms.frmProductPriceUpdate;
+import forms.frmHomeForm;
         
 public class wallpapers {
     
@@ -17,9 +17,9 @@ public class wallpapers {
     {
         new frmMenu().setVisible(true);
         new frmProducts().setVisible(true);
-        new frmNewProduct().setVisible(true);
-        new frmEditPrice().setVisible(true);
-        new frmHome().setVisible(true);
+        new frmNewProduct_1().setVisible(true);
+        new frmProductPriceUpdate().setVisible(true);
+        new frmHomeForm().setVisible(true);
        
     }
     

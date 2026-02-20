@@ -4,9 +4,9 @@
  */
 package forms;
 
-import Class.GenericDAO;
-import Class.ProductDAO;
-import Class.modelBrands;
+import dao.GenericDAO;
+import dao.ProductDAO;
+import models.modelBrands;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;

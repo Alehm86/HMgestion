@@ -5,29 +5,29 @@
 package OldNotUsed;
 
 
-import Class.GenericDAO;
+import dao.GenericDAO;
 import OldNotUsed.frmProducts;
 import OldNotUsed.frmMenu;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import Class.ProductDAO;
+import dao.ProductDAO;
 import java.text.NumberFormat;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 
-import Class.modelProducts;
-import Class.modelPrice;
-import forms.frmBrandEdit;
-import forms.frmBrandNew;
-import forms.frmCategoriesEdit;
-import forms.frmCategoriesNew;
+import models.modelProducts;
+import models.modelPrice;
+import forms.frmProductBrandEditForm;
+import forms.frmProductBrandNewForm;
+import forms.frmProductCategoriesEditForm;
+import forms.frmProductCategoriesInsertForm;
 import forms.frmSalesManagement;
-import forms.frmSubategoriesNew;
-import forms.frmSubcategoriesEdit;
-import forms.frmSupplierEdit;
-import forms.frmSupplierNew;
+import forms.frmProductSubategoriesInsertForm;
+import forms.frmProductSubcategoriesEditForm;
+import forms.frmProductSupplierEditForm;
+import forms.frmProductSupplierInsertForm;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -42,7 +42,7 @@ import javax.swing.SwingUtilities;
 
 public class frmNewProduct_1 extends javax.swing.JFrame {
     ProductDAO queries = new ProductDAO();
-        GenericDAO queriesGeneric = new GenericDAO();
+    GenericDAO queriesGeneric = new GenericDAO();
     modelProducts product = new modelProducts();
     modelPrice precio = new modelPrice();
     
@@ -254,7 +254,7 @@ public class frmNewProduct_1 extends javax.swing.JFrame {
         JMenuItem item2 = new JMenuItem("Editar marca");
         
         item1.addActionListener(e -> {
-            frmBrandNew dialogo = new frmBrandNew(this, true);
+            frmProductBrandNewForm dialogo = new frmProductBrandNewForm(this, true);
             dialogo.setVisible(true);
             
             String nuevaMarca = dialogo.getMarcaCreada();
@@ -267,7 +267,7 @@ public class frmNewProduct_1 extends javax.swing.JFrame {
 
         
         item2.addActionListener(e -> {
-            frmBrandEdit dialogo = new frmBrandEdit(this, true);
+            frmProductBrandEditForm dialogo = new frmProductBrandEditForm(this, true);
             dialogo.setVisible(true);
             String nuevaMarca = dialogo.getMarcaCreada();
             queriesGeneric.llenarCombos(cboBrands,"brands");
@@ -305,7 +305,7 @@ public class frmNewProduct_1 extends javax.swing.JFrame {
         
         item1.addActionListener(e -> {
             
-            frmSupplierNew dialogo = new frmSupplierNew(this, true);
+            frmProductSupplierInsertForm dialogo = new frmProductSupplierInsertForm(this, true);
             dialogo.setVisible(true);
             
             String newSupplier = dialogo.getProveedorCreado();
@@ -318,7 +318,7 @@ public class frmNewProduct_1 extends javax.swing.JFrame {
      
         item2.addActionListener(e -> {
 
-            frmSupplierEdit dialogo = new frmSupplierEdit(this, true); 
+            frmProductSupplierEditForm dialogo = new frmProductSupplierEditForm(this, true); 
             dialogo.setVisible(true);
 
             String newSupplier = dialogo.getProveedorEditado();
@@ -358,7 +358,7 @@ public class frmNewProduct_1 extends javax.swing.JFrame {
         
         item1.addActionListener(e -> {
             
-            frmCategoriesNew dialogo = new frmCategoriesNew(this, true);
+            frmProductCategoriesInsertForm dialogo = new frmProductCategoriesInsertForm(this, true);
             dialogo.setVisible(true);
             String nuevaCategoria = dialogo.getCategoriaCreada();
             queriesGeneric.llenarCombosActivos(cboCategories,"categories");
@@ -370,7 +370,7 @@ public class frmNewProduct_1 extends javax.swing.JFrame {
      
         item2.addActionListener(e -> {
 
-            frmCategoriesEdit dialogo = new frmCategoriesEdit(this, true);
+            frmProductCategoriesEditForm dialogo = new frmProductCategoriesEditForm(this, true);
             dialogo.setVisible(true);
             String nuevaCategoria = dialogo.getCategoriaCreada();
 //            queries.llenarCombosActivos(cboCategories,"categories");
@@ -410,7 +410,7 @@ public class frmNewProduct_1 extends javax.swing.JFrame {
         JMenuItem item2 = new JMenuItem("Editar subcategoria");
         
         item1.addActionListener(e -> {           
-            frmSubategoriesNew dialogo = new frmSubategoriesNew(this, true);
+            frmProductSubategoriesInsertForm dialogo = new frmProductSubategoriesInsertForm(this, true);
             dialogo.setVisible(true);
             
             String nuevaSubcategoria = dialogo.getSubcategoriaCreada();
@@ -428,7 +428,7 @@ public class frmNewProduct_1 extends javax.swing.JFrame {
         });
      
         item2.addActionListener(e -> {
-            frmSubcategoriesEdit dialogo = new frmSubcategoriesEdit(this, true);
+            frmProductSubcategoriesEditForm dialogo = new frmProductSubcategoriesEditForm(this, true);
                 dialogo.setVisible(true);
             
                 String nuevaSubcategoria = dialogo.getSubcategoriaCreada();

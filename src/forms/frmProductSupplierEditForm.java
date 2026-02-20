@@ -4,9 +4,9 @@
  */
 package forms;
 
-import Class.GenericDAO;
-import Class.ProductDAO;
-import Class.modelSupplier;
+import dao.GenericDAO;
+import dao.ProductDAO;
+import models.modelSupplier;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;

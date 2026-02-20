@@ -4,7 +4,7 @@
  */
 package forms;
 
-import Class.GenericDAO;
+import dao.GenericDAO;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -15,8 +15,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
-import Class.modelProducts;
-import Class.ProductDAO;
+import models.modelProducts;
+import dao.ProductDAO;
 import javax.swing.JFrame;
 
 public class PageProductUpdateForm extends javax.swing.JPanel {

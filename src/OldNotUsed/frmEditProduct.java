@@ -4,28 +4,28 @@
  */
 package OldNotUsed;
 
-import Class.GenericDAO;
+import dao.GenericDAO;
 import OldNotUsed.frmProducts;
 import OldNotUsed.frmMenu;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import Class.ProductDAO;
+import dao.ProductDAO;
 import java.text.NumberFormat;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
-import Class.modelProducts;
-import Class.modelPrice;
-import forms.frmBrandEdit;
-import forms.frmBrandNew;
-import forms.frmCategoriesEdit;
-import forms.frmCategoriesNew;
+import models.modelProducts;
+import models.modelPrice;
+import forms.frmProductBrandEditForm;
+import forms.frmProductBrandNewForm;
+import forms.frmProductCategoriesEditForm;
+import forms.frmProductCategoriesInsertForm;
 import forms.frmSalesManagement;
-import forms.frmSubategoriesNew;
-import forms.frmSubcategoriesEdit;
-import forms.frmSupplierEdit;
-import forms.frmSupplierNew;
+import forms.frmProductSubategoriesInsertForm;
+import forms.frmProductSubcategoriesEditForm;
+import forms.frmProductSupplierEditForm;
+import forms.frmProductSupplierInsertForm;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -91,223 +91,7 @@ public class frmEditProduct extends javax.swing.JFrame {
         });
     }
     
-    public void popupBrand(){
-        JPopupMenu popupBrands = new JPopupMenu();
-        
-        JMenuItem item1 = new JMenuItem("Nueva marca");
-        JMenuItem item2 = new JMenuItem("Editar marca");
-        
-        item1.addActionListener(e -> {
-            frmBrandNew dialogo = new frmBrandNew(this, true);
-            dialogo.setVisible(true);
-            
-            String nuevaMarca = dialogo.getMarcaCreada();
-            queriesGeneric.llenarCombos(cboBrands,"brands");
-           
-            if (nuevaMarca != null) {
-                cboBrands.setSelectedItem(nuevaMarca);
-            }
-        });
 
-        
-        item2.addActionListener(e -> {
-            frmBrandEdit dialogo = new frmBrandEdit(this, true);
-            dialogo.setVisible(true);
-            String nuevaMarca = dialogo.getMarcaCreada();
-            queriesGeneric.llenarCombos(cboBrands,"brands");
-           
-            if (nuevaMarca != null) {
-                cboBrands.setSelectedItem(nuevaMarca);
-            }  
-        });
-     
-        Font fontMenu = new Font("Poppins", Font.BOLD, 18);
-        item1.setFont(fontMenu);
-        item2.setFont(fontMenu);
-        
-        item1.setForeground(new Color(101, 129, 171));
-        item2.setForeground(new Color(101, 129, 171));
-        
-        popupBrands.add(item1);
-        popupBrands.add(item2);
-        
-        btnBrand.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {              
-                if (SwingUtilities.isLeftMouseButton(e)) {
-                    popupBrands.show(e.getComponent(), e.getX(), e.getY());
-                }
-            }
-        });
-    }
-    
-    public void popupSupplier(){
-        JPopupMenu popupSupplier = new JPopupMenu();
-        
-        JMenuItem item1 = new JMenuItem("Nuevo proveedor");
-        JMenuItem item2 = new JMenuItem("Editar proveedor");
-        
-        item1.addActionListener(e -> {
-            
-            frmSupplierNew dialogo = new frmSupplierNew(this, true);
-            dialogo.setVisible(true);
-            
-            String newSupplier = dialogo.getProveedorCreado();
-            queriesGeneric.llenarCombos(cboSuppliers, "suppliers");
-           
-            if (newSupplier != null && !newSupplier.isEmpty()) {
-                cboSuppliers.setSelectedItem(newSupplier);
-            }
-        });
-     
-        item2.addActionListener(e -> {
-
-            frmSupplierEdit dialogo = new frmSupplierEdit(this, true); 
-            dialogo.setVisible(true);
-
-            String newSupplier = dialogo.getProveedorEditado();
-            
-            queriesGeneric.llenarCombos(cboSuppliers, "suppliers");
-
-            if (newSupplier != null && !newSupplier.isEmpty()) {
-                cboSuppliers.setSelectedItem(newSupplier);
-            }
-        });
-
-        Font fontMenu = new Font("Poppins", Font.BOLD, 18);
-        item1.setFont(fontMenu);
-        item2.setFont(fontMenu);
-        
-        item1.setForeground(new Color(101, 129, 171));
-        item2.setForeground(new Color(101, 129, 171));
-        
-        popupSupplier.add(item1);
-        popupSupplier.add(item2);
-        
-        btnSupplier.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {              
-                if (SwingUtilities.isLeftMouseButton(e)) {
-                    popupSupplier.show(e.getComponent(), e.getX(), e.getY());
-                }
-            }
-        });
-    }
-    
-    public void popupCategories(){
-        JPopupMenu popupSupplier = new JPopupMenu();
-        
-        JMenuItem item1 = new JMenuItem("Nueva categoria");
-        JMenuItem item2 = new JMenuItem("Editar categoria");
-        
-        item1.addActionListener(e -> {
-            
-            frmCategoriesNew dialogo = new frmCategoriesNew(this, true);
-            dialogo.setVisible(true);
-            String nuevaCategoria = dialogo.getCategoriaCreada();
-            queriesGeneric.llenarCombosActivos(cboCategories,"categories");
-        
-            if (nuevaCategoria != null) {
-                cboCategories.setSelectedItem(nuevaCategoria);
-            } 
-        });
-     
-        item2.addActionListener(e -> {
-
-            frmCategoriesEdit dialogo = new frmCategoriesEdit(this, true);
-            dialogo.setVisible(true);
-            String nuevaCategoria = dialogo.getCategoriaCreada();
-//            queries.llenarCombosActivos(cboCategories,"categories");
-        
-            if (nuevaCategoria != null && !nuevaCategoria.isEmpty()) {
-//                cboCategories.setSelectedItem(nuevaCategoria);
-                cboCategories.removeAllItems();
-                queriesGeneric.llenarCombosActivos(cboCategories,"categories");
-                cboCategories.setSelectedItem(nuevaCategoria);
-            } 
-        });
-        
-        Font fontMenu = new Font("Poppins", Font.BOLD, 18);
-        item1.setFont(fontMenu);
-        item2.setFont(fontMenu);
-        
-        item1.setForeground(new Color(101, 129, 171));
-        item2.setForeground(new Color(101, 129, 171));
-        
-        popupSupplier.add(item1);
-        popupSupplier.add(item2);
-        
-        btnCategory.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {              
-                if (SwingUtilities.isLeftMouseButton(e)) {
-                    popupSupplier.show(e.getComponent(), e.getX(), e.getY());
-                }
-            }
-        });
-    }
-    
-    public void popupSubcategories(){
-        JPopupMenu popupSupplier = new JPopupMenu();
-        
-        JMenuItem item1 = new JMenuItem("Nueva subcategoria");
-        JMenuItem item2 = new JMenuItem("Editar subcategoria");
-        
-        item1.addActionListener(e -> {           
-            frmSubategoriesNew dialogo = new frmSubategoriesNew(this, true);
-            dialogo.setVisible(true);
-            
-            String nuevaSubcategoria = dialogo.getSubcategoriaCreada();
-            
-            if (nuevaSubcategoria != null && !nuevaSubcategoria.isEmpty()) {
-                String categoria = (String) cboCategories.getSelectedItem();
-            
-                if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                    int idCat = queries.selectIdCategoria(categoria);
-                    cboSubcategories.removeAllItems();
-                    queries.llenarCombosSubcategories(cboSubcategories, idCat);
-                    cboSubcategories.setSelectedItem(nuevaSubcategoria);
-                }
-            }
-        });
-     
-        item2.addActionListener(e -> {
-            frmSubcategoriesEdit dialogo = new frmSubcategoriesEdit(this, true);
-                dialogo.setVisible(true);
-            
-                String nuevaSubcategoria = dialogo.getSubcategoriaCreada();
-            
-                if (nuevaSubcategoria != null && !nuevaSubcategoria.isEmpty()) {
-                    String categoria = (String) cboCategories.getSelectedItem();
-            
-                    if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                        int idCat = queries.selectIdCategoria(categoria);
-                        cboSubcategories.removeAllItems();
-                        queries.llenarCombosSubcategories(cboSubcategories, idCat);
-                        cboSubcategories.setSelectedItem(nuevaSubcategoria);
-                    }
-                }
-        });
-        
-        Font fontMenu = new Font("Poppins", Font.BOLD, 18);
-        item1.setFont(fontMenu);
-        item2.setFont(fontMenu);
-        
-        item1.setForeground(new Color(101, 129, 171));
-        item2.setForeground(new Color(101, 129, 171));
-        
-        popupSupplier.add(item1);
-        popupSupplier.add(item2);
-        
-        btnSubcategories.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {              
-                if (SwingUtilities.isLeftMouseButton(e)) {
-                    popupSupplier.show(e.getComponent(), e.getX(), e.getY());
-                }
-            }
-        });
-    }
     
     private void actionCombobox(){
         
@@ -505,7 +289,224 @@ public class frmEditProduct extends javax.swing.JFrame {
         txtSubcategory.setText("");
         
     }
+    public void popupBrand(){
+        JPopupMenu popupBrands = new JPopupMenu();
+        
+        JMenuItem item1 = new JMenuItem("Nueva marca");
+        JMenuItem item2 = new JMenuItem("Editar marca");
+        
+        item1.addActionListener(e -> {
+            frmProductBrandNewForm dialogo = new frmProductBrandNewForm(this, true);
+            dialogo.setVisible(true);
+            
+            String nuevaMarca = dialogo.getMarcaCreada();
+            queriesGeneric.llenarCombos(cboBrands,"brands");
+           
+            if (nuevaMarca != null) {
+                cboBrands.setSelectedItem(nuevaMarca);
+            }
+        });
 
+        
+        item2.addActionListener(e -> {
+            frmProductBrandEditForm dialogo = new frmProductBrandEditForm(this, true);
+            dialogo.setVisible(true);
+            String nuevaMarca = dialogo.getMarcaCreada();
+            queriesGeneric.llenarCombos(cboBrands,"brands");
+           
+            if (nuevaMarca != null) {
+                cboBrands.setSelectedItem(nuevaMarca);
+            }  
+        });
+     
+        Font fontMenu = new Font("Poppins", Font.BOLD, 18);
+        item1.setFont(fontMenu);
+        item2.setFont(fontMenu);
+        
+        item1.setForeground(new Color(101, 129, 171));
+        item2.setForeground(new Color(101, 129, 171));
+        
+        popupBrands.add(item1);
+        popupBrands.add(item2);
+        
+        btnBrand.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {              
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    popupBrands.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
+    }
+    
+    public void popupSupplier(){
+        JPopupMenu popupSupplier = new JPopupMenu();
+        
+        JMenuItem item1 = new JMenuItem("Nuevo proveedor");
+        JMenuItem item2 = new JMenuItem("Editar proveedor");
+        
+        item1.addActionListener(e -> {
+            
+            frmProductSupplierInsertForm dialogo = new frmProductSupplierInsertForm(this, true);
+            dialogo.setVisible(true);
+            
+            String newSupplier = dialogo.getProveedorCreado();
+            queriesGeneric.llenarCombos(cboSuppliers, "suppliers");
+           
+            if (newSupplier != null && !newSupplier.isEmpty()) {
+                cboSuppliers.setSelectedItem(newSupplier);
+            }
+        });
+     
+        item2.addActionListener(e -> {
+
+            frmProductSupplierEditForm dialogo = new frmProductSupplierEditForm(this, true); 
+            dialogo.setVisible(true);
+
+            String newSupplier = dialogo.getProveedorEditado();
+            
+            queriesGeneric.llenarCombos(cboSuppliers, "suppliers");
+
+            if (newSupplier != null && !newSupplier.isEmpty()) {
+                cboSuppliers.setSelectedItem(newSupplier);
+            }
+        });
+
+        Font fontMenu = new Font("Poppins", Font.BOLD, 18);
+        item1.setFont(fontMenu);
+        item2.setFont(fontMenu);
+        
+        item1.setForeground(new Color(101, 129, 171));
+        item2.setForeground(new Color(101, 129, 171));
+        
+        popupSupplier.add(item1);
+        popupSupplier.add(item2);
+        
+        btnSupplier.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {              
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    popupSupplier.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
+    }
+    
+    public void popupCategories(){
+        JPopupMenu popupSupplier = new JPopupMenu();
+        
+        JMenuItem item1 = new JMenuItem("Nueva categoria");
+        JMenuItem item2 = new JMenuItem("Editar categoria");
+        
+        item1.addActionListener(e -> {
+            
+            frmProductCategoriesInsertForm dialogo = new frmProductCategoriesInsertForm(this, true);
+            dialogo.setVisible(true);
+            String nuevaCategoria = dialogo.getCategoriaCreada();
+            queriesGeneric.llenarCombosActivos(cboCategories,"categories");
+        
+            if (nuevaCategoria != null) {
+                cboCategories.setSelectedItem(nuevaCategoria);
+            } 
+        });
+     
+        item2.addActionListener(e -> {
+
+            frmProductCategoriesEditForm dialogo = new frmProductCategoriesEditForm(this, true);
+            dialogo.setVisible(true);
+            String nuevaCategoria = dialogo.getCategoriaCreada();
+//            queries.llenarCombosActivos(cboCategories,"categories");
+        
+            if (nuevaCategoria != null && !nuevaCategoria.isEmpty()) {
+//                cboCategories.setSelectedItem(nuevaCategoria);
+                cboCategories.removeAllItems();
+                queriesGeneric.llenarCombosActivos(cboCategories,"categories");
+                cboCategories.setSelectedItem(nuevaCategoria);
+            } 
+        });
+        
+        Font fontMenu = new Font("Poppins", Font.BOLD, 18);
+        item1.setFont(fontMenu);
+        item2.setFont(fontMenu);
+        
+        item1.setForeground(new Color(101, 129, 171));
+        item2.setForeground(new Color(101, 129, 171));
+        
+        popupSupplier.add(item1);
+        popupSupplier.add(item2);
+        
+        btnCategory.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {              
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    popupSupplier.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
+    }
+    
+    public void popupSubcategories(){
+        JPopupMenu popupSupplier = new JPopupMenu();
+        
+        JMenuItem item1 = new JMenuItem("Nueva subcategoria");
+        JMenuItem item2 = new JMenuItem("Editar subcategoria");
+        
+        item1.addActionListener(e -> {           
+            frmProductSubategoriesInsertForm dialogo = new frmProductSubategoriesInsertForm(this, true);
+            dialogo.setVisible(true);
+            
+            String nuevaSubcategoria = dialogo.getSubcategoriaCreada();
+            
+            if (nuevaSubcategoria != null && !nuevaSubcategoria.isEmpty()) {
+                String categoria = (String) cboCategories.getSelectedItem();
+            
+                if (categoria != null && !categoria.equals("Seleccione una categoría")) {
+                    int idCat = queries.selectIdCategoria(categoria);
+                    cboSubcategories.removeAllItems();
+                    queries.llenarCombosSubcategories(cboSubcategories, idCat);
+                    cboSubcategories.setSelectedItem(nuevaSubcategoria);
+                }
+            }
+        });
+     
+        item2.addActionListener(e -> {
+            frmProductSubcategoriesEditForm dialogo = new frmProductSubcategoriesEditForm(this, true);
+                dialogo.setVisible(true);
+            
+                String nuevaSubcategoria = dialogo.getSubcategoriaCreada();
+            
+                if (nuevaSubcategoria != null && !nuevaSubcategoria.isEmpty()) {
+                    String categoria = (String) cboCategories.getSelectedItem();
+            
+                    if (categoria != null && !categoria.equals("Seleccione una categoría")) {
+                        int idCat = queries.selectIdCategoria(categoria);
+                        cboSubcategories.removeAllItems();
+                        queries.llenarCombosSubcategories(cboSubcategories, idCat);
+                        cboSubcategories.setSelectedItem(nuevaSubcategoria);
+                    }
+                }
+        });
+        
+        Font fontMenu = new Font("Poppins", Font.BOLD, 18);
+        item1.setFont(fontMenu);
+        item2.setFont(fontMenu);
+        
+        item1.setForeground(new Color(101, 129, 171));
+        item2.setForeground(new Color(101, 129, 171));
+        
+        popupSupplier.add(item1);
+        popupSupplier.add(item2);
+        
+        btnSubcategories.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {              
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    popupSupplier.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
+    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

@@ -6,9 +6,9 @@ package forms;
 
 import javax.swing.SwingUtilities;
 import java.awt.Frame;
-import Class.ProductDAO;
-import Class.modelPrice;
-import Class.modelStocks;
+import dao.ProductDAO;
+import models.modelPrice;
+import models.modelStocks;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import java.text.NumberFormat;

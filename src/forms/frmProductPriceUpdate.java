@@ -4,7 +4,7 @@
  */
 package forms;
 
-import Class.GenericDAO;
+import dao.GenericDAO;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.text.NumberFormat;
@@ -12,8 +12,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
-import Class.ProductDAO;
-import Class.modelPrice;
+import dao.ProductDAO;
+import models.modelPrice;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;

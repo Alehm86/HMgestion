@@ -4,7 +4,7 @@
  */
 package forms;
 
-import Class.CustomerDAO;
+import dao.CustomerDAO;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -14,6 +14,7 @@ public class dlgCustomerCambioEstadoForm extends javax.swing.JDialog {
     
     String cuitFound;
     String title;
+    boolean estado=false;
     
     public void dialogoGetCuit(String cuitFound){
         this.cuitFound = cuitFound;
@@ -34,6 +35,10 @@ public class dlgCustomerCambioEstadoForm extends javax.swing.JDialog {
             
         }    
     } 
+    
+    public boolean dialogoEstadoActualizado(){
+        return estado;
+    }
     
     public dlgCustomerCambioEstadoForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -81,6 +86,7 @@ public class dlgCustomerCambioEstadoForm extends javax.swing.JDialog {
             }
 
             queriesCustomer.updateState(cuitFound, state);
+            estado=true;
             dispose();
         });
 

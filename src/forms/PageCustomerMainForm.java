@@ -4,9 +4,9 @@
  */
 package forms;
 
-import Class.ProductDAO;
-import Class.CustomerDAO;
-import Class.GenericDAO;
+import dao.ProductDAO;
+import dao.CustomerDAO;
+import dao.GenericDAO;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -14,8 +14,10 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.regex.Pattern;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -73,14 +75,25 @@ public class PageCustomerMainForm extends javax.swing.JPanel {
             frmCustomerInsertForm fInsert = new frmCustomerInsertForm();
             fInsert.setVisible(true);
             
-//programar para que actualice la lista
         });  
         
         btnCustomerView.addActionListener(e-> {
+            
+            boolean estado = false;
+            
             if(!filaSeleccionada.isEmpty()){
-                frmCustomerViewForm fView = new frmCustomerViewForm();
-                fView.dialogoEdit(queriesCustomer.selectCUIT(filaSeleccionada));            
-                fView.setVisible(true);                
+                
+                JFrame parent2 = (JFrame) SwingUtilities.getWindowAncestor(this);
+                dlgCustomerViewForm fView = new dlgCustomerViewForm(parent2, true);
+                fView.dialogoEdit(queriesCustomer.selectCUIT(filaSeleccionada)); 
+                
+                fView.setVisible(true);
+                
+                estado = fView.dialogoClienteActualizado();                             
+
+                if(estado=true){
+                    filtrarClientes();
+                }                             
             }else{
                 JOptionPane.showMessageDialog(null, "Seleccione un cliente");
             }
