@@ -45,12 +45,12 @@ public class frmSalesManagement extends javax.swing.JFrame {
     public void menuSuperior(){
 
         jMenuNewBrand.addActionListener(e -> {
-            frmProductBrandNewForm dialogo = new frmProductBrandNewForm(this, true);
+            ProductBrandNewDialog dialogo = new ProductBrandNewDialog(this, true);
             dialogo.setVisible(true);
         });
         
         jMenuBrandEdit.addActionListener(e -> {
-            frmProductBrandEditForm dialogo = new frmProductBrandEditForm(this, true);
+            ProductBrandEditDialog dialogo = new ProductBrandEditDialog(this, true);
             dialogo.setVisible(true);
         });
 
@@ -71,7 +71,7 @@ public class frmSalesManagement extends javax.swing.JFrame {
         });
 
         jMenuAjusteDeStock.addActionListener(e -> {
-            frmProductStockAdjustmentForm stockAdj = new frmProductStockAdjustmentForm();
+            ProductStockAdjustmentFrame stockAdj = new ProductStockAdjustmentFrame();
             stockAdj.setVisible(true);
         });
 

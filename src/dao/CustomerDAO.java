@@ -668,6 +668,38 @@ public class CustomerDAO {
             JOptionPane.showMessageDialog(null, "ERROR");
         }
     }
+    
+    public void insertCustomerHistory(
+            int id_client,
+            String date,
+            String action,
+            String information
+        ){    
+    
+        String sql = "INSERT INTO customerhistory " +
+                     "(id_client, date, action, information) " +
+                     "VALUES (?,?,?,?)";        
+        
+        ConnectionDB con = new ConnectionDB();
+        Connection conexion = (Connection) con.establecerConexion();
+
+        try{
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
+            
+            pstmt.setInt(1, id_client);
+            pstmt.setString(2, date);
+            pstmt.setString(3, action);
+            pstmt.setString(4, information);
+            
+            pstmt.executeUpdate();            
+            conexion.close(); 
+            
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR AL REGISTRAR HISTORIAL");
+        }
+
+    }    
 
     
     

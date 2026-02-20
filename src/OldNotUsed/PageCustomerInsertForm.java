@@ -4,16 +4,17 @@
  */
 package OldNotUsed;
 
-import Class.modelClient;
-import Class.ProductDAO;
-import Class.GenericDAO;
-import Class.CustomerDAO;
+import dao.CustomerDAO;
+import dao.GenericDAO;
+import dao.ProductDAO;
+
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import models.modelCustomer;
 
 public class PageCustomerInsertForm extends javax.swing.JPanel {
 
@@ -21,7 +22,7 @@ public class PageCustomerInsertForm extends javax.swing.JPanel {
     GenericDAO queriesGeneric = new GenericDAO();
     CustomerDAO queriesClient = new CustomerDAO();
     
-    modelClient mClient = new modelClient();
+    modelCustomer mClient = new modelCustomer();
     String fecha=queriesGeneric.fecha();
             
     public PageCustomerInsertForm() {

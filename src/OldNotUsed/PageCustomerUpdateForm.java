@@ -5,11 +5,10 @@
 package OldNotUsed;
 
 import OldNotUsed.frmCustomerSerch;
-import Class.modelClient;
-import Class.ProductDAO;
-import Class.GenericDAO;
-import Class.CustomerDAO;
-import forms.dlgCustomerSearchForm;
+import dao.CustomerDAO;
+import dao.GenericDAO;
+import dao.ProductDAO;
+import forms.CustomerSearchDialog;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -18,6 +17,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import models.modelCustomer;
 
 public class PageCustomerUpdateForm extends javax.swing.JPanel {
 
@@ -25,7 +25,7 @@ public class PageCustomerUpdateForm extends javax.swing.JPanel {
     GenericDAO queriesGeneric = new GenericDAO();
     CustomerDAO queriesClient = new CustomerDAO();
     
-    modelClient mClient = new modelClient();
+    modelCustomer mClient = new modelCustomer();
     String fecha=queriesGeneric.fecha();
     
     public PageCustomerUpdateForm() {
@@ -113,7 +113,7 @@ public class PageCustomerUpdateForm extends javax.swing.JPanel {
     
     public void buscar(){
         clear();
-        queriesClient.selectClientEdit(txtCodeSearch.getText().trim(), txtID, txtName, txtCUIT, txtTel, txtEmail, txtStreet, txtHeight, txtCity, txtIVA, txtProvince);
+        queriesClient.selectClientEdit(txtCodeSearch.getText().trim(), txtID, txtName, txtCUIT, txtTel, txtEmail, txtStreet, txtHeight, txtCity, txtIVA, txtProvince,txtState);
         infoCombo();                      
     }
     
@@ -126,11 +126,11 @@ public class PageCustomerUpdateForm extends javax.swing.JPanel {
         btnSerchByList.addActionListener(e->{
             txtCodeSearch.setText("");
             JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-            dlgCustomerSearchForm formListCustomer = new dlgCustomerSearchForm(parent, true);
+            CustomerSearchDialog formListCustomer = new CustomerSearchDialog(parent, true);
             formListCustomer.setVisible(true);
 
             String resultCuit = formListCustomer.getCustomerSerch();
-            queriesClient.selectClientEdit(resultCuit, txtID, txtName, txtCUIT, txtTel, txtEmail, txtStreet, txtHeight, txtCity, txtIVA, txtProvince);
+            queriesClient.selectClientEdit(resultCuit, txtID, txtName, txtCUIT, txtTel, txtEmail, txtStreet, txtHeight, txtCity, txtIVA, txtProvince,txtState);
             
             infoCombo();
                       
@@ -369,6 +369,8 @@ public class PageCustomerUpdateForm extends javax.swing.JPanel {
         txtIVA = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
+        txtState = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         btnRegistrar = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
@@ -467,6 +469,13 @@ public class PageCustomerUpdateForm extends javax.swing.JPanel {
         txtID.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtID.setBorder(null);
 
+        txtState.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        txtState.setBorder(null);
+
+        jLabel8.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(101, 129, 171));
+        jLabel8.setText("Estado: ");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -502,7 +511,11 @@ public class PageCustomerUpdateForm extends javax.swing.JPanel {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtID)
-                        .addGap(388, 388, 388)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtState, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -510,7 +523,10 @@ public class PageCustomerUpdateForm extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtState, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -747,7 +763,7 @@ public class PageCustomerUpdateForm extends javax.swing.JPanel {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -861,6 +877,7 @@ public class PageCustomerUpdateForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -879,6 +896,7 @@ public class PageCustomerUpdateForm extends javax.swing.JPanel {
     private javax.swing.JTextField txtIVA;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtProvince;
+    private javax.swing.JTextField txtState;
     private javax.swing.JTextField txtStreet;
     private javax.swing.JTextField txtTel;
     // End of variables declaration//GEN-END:variables

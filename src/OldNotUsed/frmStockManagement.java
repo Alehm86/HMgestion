@@ -9,10 +9,10 @@ import OldNotUsed.frmMenu;
 import dao.ProductDAO;
 import models.modelPrice;
 import models.modelStocks;
-import forms.frmProductBrandEditForm;
-import forms.frmProductBrandNewForm;
+import forms.ProductBrandEditDialog;
+import forms.ProductBrandNewDialog;
 import forms.frmSalesManagement;
-import forms.frmProductStockAdjustmentForm;
+import forms.ProductStockAdjustmentFrame;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -225,12 +225,12 @@ public class frmStockManagement extends javax.swing.JFrame {
     public void menuSuperior(){
 
         jMenuNewBrand.addActionListener(e -> {
-            frmProductBrandNewForm dialogo = new frmProductBrandNewForm(this, true);
+            ProductBrandNewDialog dialogo = new ProductBrandNewDialog(this, true);
             dialogo.setVisible(true);
         });
         
         jMenuBrandEdit.addActionListener(e -> {
-            frmProductBrandEditForm dialogo = new frmProductBrandEditForm(this, true);
+            ProductBrandEditDialog dialogo = new ProductBrandEditDialog(this, true);
             dialogo.setVisible(true);
         });
 
@@ -251,7 +251,7 @@ public class frmStockManagement extends javax.swing.JFrame {
          });
 
          jMenuAjusteDeStock.addActionListener(e -> {
-             frmProductStockAdjustmentForm stockAdj = new frmProductStockAdjustmentForm();
+             ProductStockAdjustmentFrame stockAdj = new ProductStockAdjustmentFrame();
              stockAdj.setVisible(true);
          });
 

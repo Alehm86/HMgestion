@@ -18,14 +18,14 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 import models.modelProducts;
 import models.modelPrice;
-import forms.frmProductBrandEditForm;
-import forms.frmProductBrandNewForm;
-import forms.frmProductCategoriesEditForm;
-import forms.frmProductCategoriesInsertForm;
-import forms.frmProductSubategoriesInsertForm;
-import forms.frmProductSubcategoriesEditForm;
-import forms.frmProductSupplierEditForm;
-import forms.frmProductSupplierInsertForm;
+import forms.ProductBrandEditDialog;
+import forms.ProductBrandNewDialog;
+import forms.ProductCategoriesEditDialog;
+import forms.ProductCategoriesNewDialog;
+import forms.ProductSubategoriesNewDialog;
+import forms.ProductSubcategoriesEditDialog;
+import forms.ProductSupplierEditDialog;
+import forms.ProductSupplierNewDialog;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -237,7 +237,7 @@ public class PageProductNew extends javax.swing.JPanel {
         item1.addActionListener(e -> {
             JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-            frmProductBrandNewForm dialogo = new frmProductBrandNewForm(parent, true);
+            ProductBrandNewDialog dialogo = new ProductBrandNewDialog(parent, true);
             dialogo.setVisible(true);
 
             String nuevaMarca = dialogo.getMarcaCreada();
@@ -252,7 +252,7 @@ public class PageProductNew extends javax.swing.JPanel {
         item2.addActionListener(e -> {
             JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-            frmProductBrandEditForm dialogo = new frmProductBrandEditForm(parent, true);
+            ProductBrandEditDialog dialogo = new ProductBrandEditDialog(parent, true);
             dialogo.setVisible(true);
 
             String nuevaMarca = dialogo.getMarcaCreada();
@@ -293,7 +293,7 @@ public class PageProductNew extends javax.swing.JPanel {
 
             JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-            frmProductSupplierInsertForm dialogo = new frmProductSupplierInsertForm(parent, true);
+            ProductSupplierNewDialog dialogo = new ProductSupplierNewDialog(parent, true);
             dialogo.setVisible(true);
 
             String newSupplier = dialogo.getProveedorCreado();
@@ -308,7 +308,7 @@ public class PageProductNew extends javax.swing.JPanel {
 
             JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-            frmProductSupplierEditForm dialogo = new frmProductSupplierEditForm(parent, true);
+            ProductSupplierEditDialog dialogo = new ProductSupplierEditDialog(parent, true);
             dialogo.setVisible(true);
 
             String newSupplier = dialogo.getProveedorEditado();
@@ -349,7 +349,7 @@ public class PageProductNew extends javax.swing.JPanel {
 
             JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-            frmProductCategoriesInsertForm dialogo = new frmProductCategoriesInsertForm(parent, true);
+            ProductCategoriesNewDialog dialogo = new ProductCategoriesNewDialog(parent, true);
             dialogo.setVisible(true);
 
             String nuevaCategoria = dialogo.getCategoriaCreada();
@@ -379,7 +379,7 @@ public class PageProductNew extends javax.swing.JPanel {
 
             JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-            frmProductCategoriesEditForm dialogo = new frmProductCategoriesEditForm(parent, true);
+            ProductCategoriesEditDialog dialogo = new ProductCategoriesEditDialog(parent, true);
             dialogo.setVisible(true);
 
             String nuevaCategoria = dialogo.getCategoriaCreada();
@@ -422,7 +422,7 @@ public class PageProductNew extends javax.swing.JPanel {
 
             JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-            frmProductSubategoriesInsertForm dialogo = new frmProductSubategoriesInsertForm(parent, true);
+            ProductSubategoriesNewDialog dialogo = new ProductSubategoriesNewDialog(parent, true);
             dialogo.setVisible(true);
 
             String nuevaSubcategoria = dialogo.getSubcategoriaCreada();
@@ -443,7 +443,7 @@ public class PageProductNew extends javax.swing.JPanel {
 
             JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-            frmProductSubcategoriesEditForm dialogo = new frmProductSubcategoriesEditForm(parent, true);
+            ProductSubcategoriesEditDialog dialogo = new ProductSubcategoriesEditDialog(parent, true);
             dialogo.setVisible(true);
 
             String nuevaSubcategoria = dialogo.getSubcategoriaCreada();

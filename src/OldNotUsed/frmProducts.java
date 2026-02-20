@@ -12,11 +12,11 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import dao.ProductDAO;
-import forms.frmProductBrandEditForm;
-import forms.frmProductBrandNewForm;
-import forms.frmProductPriceUpdate;
+import forms.ProductBrandEditDialog;
+import forms.ProductBrandNewDialog;
+import forms.ProductPriceEditFrame;
 import forms.frmSalesManagement;
-import forms.frmProductStockAdjustmentForm;
+import forms.ProductStockAdjustmentFrame;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.FocusAdapter;
@@ -89,12 +89,12 @@ public class frmProducts extends javax.swing.JFrame {
     private void menuSuperior(){
 
         jMenuNewBrand.addActionListener(e -> {
-            frmProductBrandNewForm dialogo = new frmProductBrandNewForm(this, true);
+            ProductBrandNewDialog dialogo = new ProductBrandNewDialog(this, true);
             dialogo.setVisible(true);
         });
         
         jMenuBrandEdit.addActionListener(e -> {
-            frmProductBrandEditForm dialogo = new frmProductBrandEditForm(this, true);
+            ProductBrandEditDialog dialogo = new ProductBrandEditDialog(this, true);
             dialogo.setVisible(true);
         });
 
@@ -116,7 +116,7 @@ public class frmProducts extends javax.swing.JFrame {
         });
 
         jMenuAjusteDeStock.addActionListener(e -> {
-            frmProductStockAdjustmentForm stockAdj = new frmProductStockAdjustmentForm();
+            ProductStockAdjustmentFrame stockAdj = new ProductStockAdjustmentFrame();
             stockAdj.setVisible(true);
         });
          
@@ -259,7 +259,7 @@ public class frmProducts extends javax.swing.JFrame {
         btnEditPrice.addActionListener(e->{
             int id = queries.selectIdProduct(filaSeleccionada);
             
-            frmProductPriceUpdate editPrice = new frmProductPriceUpdate();
+            ProductPriceEditFrame editPrice = new ProductPriceEditFrame();
             editPrice.dialogoEdit(id);
             editPrice.setVisible(true);
         });

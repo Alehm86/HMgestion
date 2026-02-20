@@ -4,11 +4,11 @@
  */
 package OldNotUsed;
 
-import models.modelClient;
+import models.modelCustomer;
 import dao.ProductDAO;
 import dao.GenericDAO;
 import dao.CustomerDAO;
-import forms.dlgCustomerCambioEstadoForm;
+import forms.CustomerCambioEstadoDialog;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -24,7 +24,7 @@ public class frmCustomerViewForm2 extends javax.swing.JFrame {
     GenericDAO queriesGeneric = new GenericDAO();
     CustomerDAO queriesCustomer = new CustomerDAO();
     
-    modelClient mClient = new modelClient();
+    modelCustomer mClient = new modelCustomer();
     String fecha=queriesGeneric.fecha();
     
     private String cuitFound;
@@ -177,7 +177,7 @@ public class frmCustomerViewForm2 extends javax.swing.JFrame {
             String title = "Dar de baja";        
             
             JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-            dlgCustomerCambioEstadoForm dCambioEstado = new dlgCustomerCambioEstadoForm(parent, true);
+            CustomerCambioEstadoDialog dCambioEstado = new CustomerCambioEstadoDialog(parent, true);
             
             dCambioEstado.dialogoGetCuit(cuit);
             dCambioEstado.dialogoGetTitle(title);
@@ -199,7 +199,7 @@ public class frmCustomerViewForm2 extends javax.swing.JFrame {
             String title = "Suspender";
             
             JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-            dlgCustomerCambioEstadoForm dCambioEstado = new dlgCustomerCambioEstadoForm(parent, true);
+            CustomerCambioEstadoDialog dCambioEstado = new CustomerCambioEstadoDialog(parent, true);
             
             dCambioEstado.dialogoGetCuit(cuit);
             dCambioEstado.dialogoGetTitle(title);

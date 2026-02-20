@@ -7,8 +7,8 @@ package Wallpapers;
 import OldNotUsed.frmMenu;
 import OldNotUsed.frmProducts;
 import OldNotUsed.frmNewProduct_1;
-import forms.frmProductPriceUpdate;
-import forms.frmHomeForm;
+import forms.ProductPriceEditFrame;
+import forms.HomeFrame;
         
 public class wallpapers {
     
@@ -18,8 +18,8 @@ public class wallpapers {
         new frmMenu().setVisible(true);
         new frmProducts().setVisible(true);
         new frmNewProduct_1().setVisible(true);
-        new frmProductPriceUpdate().setVisible(true);
-        new frmHomeForm().setVisible(true);
+        new ProductPriceEditFrame().setVisible(true);
+        new HomeFrame().setVisible(true);
        
     }
     
