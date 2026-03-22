@@ -10,6 +10,7 @@ package models;
  */
 public class modelSupplier {
     public String name;
+    public String condicion;
     public String cuit;
     public String telefono;
     public String email;
@@ -17,22 +18,20 @@ public class modelSupplier {
     public String user;
     public String pass;
 
-    public modelSupplier(String name, String cuit, String telefono, String email, String web, String user, String pass) {
-        this.name = name;
-        this.cuit = cuit;
-        this.telefono = telefono;
-        this.email = email;
-        this.web = web;
-        this.user = user;
-        this.pass = pass;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCondicion() {
+        return condicion;
+    }
+
+    public void setCondicion(String condicion) {
+        this.condicion = condicion;
     }
 
     public String getCuit() {
@@ -43,12 +42,12 @@ public class modelSupplier {
         this.cuit = cuit;
     }
 
-    public String getTelephone() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelephone(String telephone) {
-        this.telefono = telephone;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getEmail() {
@@ -80,6 +79,17 @@ public class modelSupplier {
     }
 
     public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public modelSupplier(String name, String condicion, String cuit, String telefono, String email, String web, String user, String pass) {
+        this.name = name;
+        this.condicion = condicion;
+        this.cuit = cuit;
+        this.telefono = telefono;
+        this.email = email;
+        this.web = web;
+        this.user = user;
         this.pass = pass;
     }
     

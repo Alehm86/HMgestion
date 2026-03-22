@@ -4,22 +4,16 @@
  */
 package Wallpapers;
 
-import OldNotUsed.frmMenu;
-import OldNotUsed.frmProducts;
-import OldNotUsed.frmNewProduct_1;
-import forms.ProductPriceEditFrame;
-import forms.HomeFrame;
+import forms.productPriceEditFrame;
+import forms.homeFrame;
         
 public class wallpapers {
     
     
     public static void main(String[] args) 
     {
-        new frmMenu().setVisible(true);
-        new frmProducts().setVisible(true);
-        new frmNewProduct_1().setVisible(true);
-        new ProductPriceEditFrame().setVisible(true);
-        new HomeFrame().setVisible(true);
+        new productPriceEditFrame().setVisible(true);
+        new homeFrame().setVisible(true);
        
     }
     

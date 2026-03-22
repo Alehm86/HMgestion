@@ -4,8 +4,6 @@
  */
 package forms;
 
-import OldNotUsed.frmNewProduct_1;
-import OldNotUsed.frmMenu;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -45,12 +43,12 @@ public class frmSalesManagement extends javax.swing.JFrame {
     public void menuSuperior(){
 
         jMenuNewBrand.addActionListener(e -> {
-            ProductBrandNewDialog dialogo = new ProductBrandNewDialog(this, true);
+            productBrandNewDialog dialogo = new productBrandNewDialog(this, true);
             dialogo.setVisible(true);
         });
         
         jMenuBrandEdit.addActionListener(e -> {
-            ProductBrandEditDialog dialogo = new ProductBrandEditDialog(this, true);
+            productBrandEditDialog dialogo = new productBrandEditDialog(this, true);
             dialogo.setVisible(true);
         });
 
@@ -64,14 +62,14 @@ public class frmSalesManagement extends javax.swing.JFrame {
 //            dialogo.setVisible(true);
 //        });
 
-        jMenuNewProduct.addActionListener(e -> {
-            frmNewProduct_1 edit = new frmNewProduct_1();
-            edit.setVisible(true);
-            this.dispose();
-        });
+//        jMenuNewProduct.addActionListener(e -> {
+//            frmNewProduct_1 edit = new frmNewProduct_1();
+//            edit.setVisible(true);
+//            this.dispose();
+//        });
 
         jMenuAjusteDeStock.addActionListener(e -> {
-            ProductStockAdjustmentFrame stockAdj = new ProductStockAdjustmentFrame();
+            productStockAdjustmentFrame stockAdj = new productStockAdjustmentFrame();
             stockAdj.setVisible(true);
         });
 
@@ -1827,9 +1825,9 @@ public class frmSalesManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jMenuNewProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuNewProductActionPerformed
-        frmNewProduct_1 newProduct = new frmNewProduct_1();
-        newProduct.setVisible(true);
-        this.dispose();
+//        frmNewProduct_1 newProduct = new frmNewProduct_1();
+//        newProduct.setVisible(true);
+//        this.dispose();
 
     }//GEN-LAST:event_jMenuNewProductActionPerformed
 
@@ -1850,9 +1848,9 @@ public class frmSalesManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuAjusteDeStockActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
-        frmMenu menu = new frmMenu();
-        menu.setVisible(true);
-        this.dispose();
+//        frmMenu menu = new frmMenu();
+//        menu.setVisible(true);
+//        this.dispose();
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalesActionPerformed

@@ -13,19 +13,11 @@ public class modelProducts {
     public int id_brand;
     public int id_supplier;
     public int id_category;
+    public Integer id_promotion;
     public String model;
     public String color;
     public String productCode;
     public int state;
-
-
-    public int getId_category() {
-        return id_category;
-    }
-
-    public void setId_category(int id_category) {
-        this.id_category = id_category;
-    }
 
     public int getId_subcat() {
         return id_subcat;
@@ -49,6 +41,22 @@ public class modelProducts {
 
     public void setId_supplier(int id_supplier) {
         this.id_supplier = id_supplier;
+    }
+
+    public int getId_category() {
+        return id_category;
+    }
+
+    public void setId_category(int id_category) {
+        this.id_category = id_category;
+    }
+
+    public Integer getId_promotion() {
+        return id_promotion;
+    }
+
+    public void setId_promotion(Integer id_promotion) {
+        this.id_promotion = id_promotion;
     }
 
     public String getModel() {
@@ -83,11 +91,12 @@ public class modelProducts {
         this.state = state;
     }
 
-    public modelProducts(int id_subcat, int id_brand, int id_supplier, int id_category, String model, String color, String productCode, int state) {
+    public modelProducts(int id_subcat, int id_brand, int id_supplier, int id_category, Integer id_promotion, String model, String color, String productCode, int state) {
         this.id_subcat = id_subcat;
         this.id_brand = id_brand;
         this.id_supplier = id_supplier;
         this.id_category = id_category;
+        this.id_promotion = id_promotion;
         this.model = model;
         this.color = color;
         this.productCode = productCode;

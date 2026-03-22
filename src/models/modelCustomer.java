@@ -15,8 +15,8 @@ public class modelCustomer {
     public String email;
     public String phone;
     public String street;
-    public int height;
-    public int idProvince;
+    public Integer height;
+    public Integer idProvince;
     public String city;
     public String fechaRegistro;
     public int state;
@@ -70,19 +70,19 @@ public class modelCustomer {
         this.street = street;
     }
 
-    public int getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(Integer height) {
         this.height = height;
     }
 
-    public int getIdProvince() {
+    public Integer getIdProvince() {
         return idProvince;
     }
 
-    public void setIdProvince(int idProvince) {
+    public void setIdProvince(Integer idProvince) {
         this.idProvince = idProvince;
     }
 
@@ -118,7 +118,7 @@ public class modelCustomer {
         this.iva = iva;
     }
 
-    public modelCustomer(int ID, String name, String CUIT, String email, String phone, String street, int height, int idProvince, String city, String fechaRegistro, int state, int iva) {
+    public modelCustomer(int ID, String name, String CUIT, String email, String phone, String street, Integer height, Integer idProvince, String city, String fechaRegistro, int state, int iva) {
         this.ID = ID;
         this.name = name;
         this.CUIT = CUIT;
