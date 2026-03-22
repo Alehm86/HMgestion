@@ -1302,7 +1302,7 @@ public class productDAO {
     }
     
     public void updatePriceInStocks(int idProduct, double price){
-        String sql = "UPDATE `prices` SET `price`=? WHERE `id_product`=?";
+        String sql = "UPDATE `product_price` SET `price`=? WHERE `id_product`=?";
 
         connectionDB con = new connectionDB();
         Connection conexion = (Connection) con.establecerConexion();
