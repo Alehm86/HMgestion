@@ -5,15 +5,21 @@
 package dao;
 
 import ConnectionDB.connectionDB;
+import java.awt.Color;
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -43,7 +49,6 @@ public class serviceDAO {
             conexion.close(); 
             pstmt.close();
             
-            JOptionPane.showMessageDialog(null, "Producto registrado!");
         }
         catch(SQLException e){
             JOptionPane.showMessageDialog(null, "ERROR AL REGISTRAR DISPOSITIVO" + e.getMessage());
@@ -133,54 +138,80 @@ public class serviceDAO {
             int id_customer,
             int id_device,
             String reported_problem,
-            String status,
-            String entry_date
+            int id_status
     ){    
 
         int idGenerado = 0;
+        LocalDate fechaLocal = LocalDate.now();
 
-        String sql = "INSERT INTO service_orders " +
-                     "(id_customer, id_device, reported_problem, status, entry_date) " +
-                     "VALUES (?,?,?,?,?)";       
+        String sqlInsert = "INSERT INTO service_orders " +
+                           "(id_customer, id_device, reported_problem, id_status, entry_date) " +
+                           "VALUES (?,?,?,?,?)";
+
+        String sqlUpdate = "UPDATE service_orders SET service_number = ? WHERE id_service = ?";
 
         connectionDB con = new connectionDB();
         Connection conexion = con.establecerConexion();
 
         try{
-            PreparedStatement pstmt = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            conexion.setAutoCommit(false);
+            PreparedStatement pstmtInsert = conexion.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
 
-            pstmt.setInt(1, id_customer);
-            pstmt.setInt(2, id_device);
-            pstmt.setString(3, reported_problem);
-            pstmt.setString(4, status);
-            pstmt.setString(5, entry_date);
+            pstmtInsert.setInt(1, id_customer);
+            pstmtInsert.setInt(2, id_device);
+            pstmtInsert.setString(3, reported_problem);
+            pstmtInsert.setInt(4, id_status);
+            pstmtInsert.setDate(5, java.sql.Date.valueOf(fechaLocal));
+            
+            pstmtInsert.executeUpdate();            
 
-            pstmt.executeUpdate();            
-
-            ResultSet rs = pstmt.getGeneratedKeys();
+            ResultSet rs = pstmtInsert.getGeneratedKeys();
 
             if(rs.next()){
                 idGenerado = rs.getInt(1);
             }
 
             rs.close();
-            pstmt.close();
+            pstmtInsert.close();
+
+            if(idGenerado > 0){
+
+                int year = java.time.Year.now().getValue();
+
+                String serviceNumber = "ST-" + year + "-" + String.format("%06d", idGenerado);
+
+                PreparedStatement pstmtUpdate = conexion.prepareStatement(sqlUpdate);
+
+                pstmtUpdate.setString(1, serviceNumber);
+                pstmtUpdate.setInt(2, idGenerado);
+
+                pstmtUpdate.executeUpdate();
+                pstmtUpdate.close();
+            }
+
+            conexion.commit();
             conexion.close();
 
         } catch(SQLException e){
+            try {
+                conexion.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             System.out.println("ERROR AL REGISTRAR ORDEN: " + e.getMessage());
         }
 
         return idGenerado;
-    }    
+    }
     
     public void insertService_order_status_history(
             int id_service,
-            String status,
-            String entry_date
+            int id_status
         ){    
     
-        String sql = "INSERT INTO `service_order_status_history`(`id_service`, `status`, `date`) VALUES (?,?,?)";       
+        String sql = "INSERT INTO `service_order_status_history`(`id_service`, `id_status`, `date`) VALUES (?,?,?)";       
+        
+        LocalDate fechaLocal = LocalDate.now();
         
         connectionDB con = new connectionDB();
         Connection conexion = (Connection) con.establecerConexion();
@@ -189,8 +220,8 @@ public class serviceDAO {
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
             
             pstmt.setInt(1, id_service);
-            pstmt.setString(2, status);
-            pstmt.setString(3, entry_date);
+            pstmt.setInt(2, id_status);
+            pstmt.setDate(3, java.sql.Date.valueOf(fechaLocal));
             
             pstmt.executeUpdate();            
             conexion.close(); 
@@ -203,15 +234,16 @@ public class serviceDAO {
     
     public void listCustomerDevices(JTable jtable, int id_customer){
 
-        String sql = 
-            "SELECT d.device_type, " +
-            "COALESCE(d.brand, 'Sin dato') AS brand, " +
-            "COALESCE(d.model, 'Sin dato') AS model, " +
-            "d.serial_number, " +
-            "COALESCE(d.description, 'Sin dato') AS description " +
-            "FROM service_orders s " +
-            "INNER JOIN devices d ON s.id_device = d.id_device " +
-            "WHERE s.id_customer = ?";
+        String sql = "SELECT " +
+                    "d.device_type, " +
+                    "COALESCE(d.brand, 'S/D') AS brand, " +
+                    "COALESCE(d.model, 'S/D') AS model, " +
+                    "d.serial_number " +
+                    "FROM service_orders s " +
+                    "INNER JOIN devices d " +
+                    "ON s.id_device = d.id_device " +
+                    "WHERE s.id_customer = ?";
+        
 
         DefaultTableModel dtm = new DefaultTableModel(){
             @Override
@@ -223,13 +255,13 @@ public class serviceDAO {
         connectionDB con = new connectionDB();
         Connection conexion = con.establecerConexion();
 
-        String[] titleTable = {"Tipo de dispositivo","Marca","Modelo","Nº de serie","Descripción"};
+        String[] titleTable = {"Tipo","Marca","Modelo","Numero de serie"};
         dtm.setColumnIdentifiers(titleTable);
 
         try{
-            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
             pstmt.setInt(1, id_customer);
-
+            
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -239,17 +271,11 @@ public class serviceDAO {
                     rs.getString("brand"),
                     rs.getString("model"),
                     rs.getString("serial_number"),
-                    rs.getString("description")
                 };
-
                 dtm.addRow(row);
             }
 
             jtable.setModel(dtm);
-             
-            jtable.getColumnModel().getColumn(4).setPreferredWidth(300);
-
-            jtable.getTableHeader().setReorderingAllowed(false);
 
             rs.close();
             pstmt.close();
@@ -259,4 +285,413 @@ public class serviceDAO {
             JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
         }
     }
+    
+    public void listServices(JTable jtable){
+
+        String sql = "SELECT " +
+                "so.entry_date, " +
+                "so.service_number, " +
+                "COALESCE(so.repair_date, '') AS repair_date, " +
+                "c.name AS client_name, " +
+                "d.device_type, " +
+                "COALESCE(d.brand, 'Sin dato') AS brand, " +
+                "COALESCE(d.model, 'Sin dato') AS model, " +
+                "COALESCE(d.description, 'Sin dato') AS description, " +
+                "d.serial_number, " +
+                "s.name AS status_name " +
+                "FROM service_orders so " +
+                "INNER JOIN client c ON so.id_customer = c.id_client " +
+                "INNER JOIN devices d ON so.id_device = d.id_device " +
+                "INNER JOIN services_states s ON so.id_status = s.id_states " +
+                "WHERE so.id_status BETWEEN 1 AND 6 " +
+                "ORDER BY so.entry_date DESC;";
+        
+        Statement stmt;
+
+        DefaultTableModel dtm = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        connectionDB con = new connectionDB();
+        Connection conexion = con.establecerConexion();
+
+        String[] titleTable = {"Fecha de ingreso","Nº de servicio","Cliente","Dispositivo","Marca","Modelo","Nº de serie","Descripcion","Estado","Fecha de reparación"};
+        dtm.setColumnIdentifiers(titleTable);
+
+        try{
+            stmt = conexion.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+
+                Object[] row = {
+                    rs.getString("entry_date"),
+                    rs.getString("service_number"),
+                    rs.getString("client_name"),
+                    rs.getString("device_type"),
+                    rs.getString("brand"),       
+                    rs.getString("model"),       
+                    rs.getString("serial_number"),
+                    rs.getString("description"),
+                    rs.getString("status_name"),
+                    rs.getString("repair_date")   
+                };
+
+                dtm.addRow(row);
+            }
+            jtable.setModel(dtm);
+            jtable.setDefaultRenderer(Object.class, new StatusColorRenderer());
+
+            rs.close();
+            stmt.close();
+            conexion.close();
+
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+        }
+    }
+
+    public void listServicesForState(JTable jtable, int id_status){
+
+        String sql = "SELECT " +
+                "so.entry_date, " +
+                "so.service_number, " +
+                "COALESCE(so.repair_date, '') AS repair_date, " +
+                "c.name AS client_name, " +
+                "d.device_type, " +
+                "COALESCE(d.brand, 'Sin dato') AS brand, " +
+                "COALESCE(d.model, 'Sin dato') AS model, " +
+                "COALESCE(d.description, 'Sin dato') AS description, " +
+                "d.serial_number, " +
+                "s.name AS status_name " +
+                "FROM service_orders so " +
+                "INNER JOIN client c ON so.id_customer = c.id_client " +
+                "INNER JOIN devices d ON so.id_device = d.id_device " +
+                "INNER JOIN services_states s ON so.id_status = s.id_states " +
+                "WHERE so.id_status = " + id_status + " " +
+                "ORDER BY so.entry_date DESC;";
+        
+        Statement stmt;
+
+        DefaultTableModel dtm = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        connectionDB con = new connectionDB();
+        Connection conexion = con.establecerConexion();
+
+        String[] titleTable = {"Fecha de ingreso","Nº de servicio","Cliente","Dispositivo","Marca","Modelo","Nº de serie","Descripcion","Estado","Fecha de reparación"};
+        dtm.setColumnIdentifiers(titleTable);
+
+        try{
+            stmt = conexion.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+
+                Object[] row = {
+                    rs.getString("entry_date"),
+                    rs.getString("service_number"),
+                    rs.getString("client_name"),
+                    rs.getString("device_type"),
+                    rs.getString("brand"),       
+                    rs.getString("model"),       
+                    rs.getString("serial_number"),
+                    rs.getString("description"),
+                    rs.getString("status_name"),
+                    rs.getString("repair_date")   
+                };
+
+                dtm.addRow(row);
+            }
+            jtable.setModel(dtm);
+            jtable.setDefaultRenderer(Object.class, new StatusColorRenderer());
+
+            rs.close();
+            stmt.close();
+            conexion.close();
+
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+        }
+    }    
+    
+    public class StatusColorRenderer extends DefaultTableCellRenderer {
+
+        @Override
+        public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int column) {
+
+            Component c = super.getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, column);
+
+            String status = table.getValueAt(row, 8).toString().toUpperCase();
+
+            if (!isSelected) {
+
+                switch (status) {
+
+                    case "INGRESADO":
+                        c.setBackground(Color.decode("#FFF3CD"));
+                        break;
+
+                    case "DIAGNOSTICADO":
+                        c.setBackground(Color.decode("#FFE082"));
+                        break;
+
+                    case "ESPERANDO APROBACION":
+                        c.setBackground(Color.decode("#FFCC80"));
+                        break;
+
+                    case "NO REPARADO":
+                        c.setBackground(Color.decode("#FF8A80"));
+                        break;
+
+                    case "REPARADO":
+                        c.setBackground(Color.decode("#A5D6A7"));
+                        break;
+
+                    case "ENTREGADO":
+                        c.setBackground(Color.decode("#E0E0E0"));
+                        break;
+
+                    default:
+                        c.setBackground(Color.WHITE);
+                }
+
+                c.setForeground(Color.BLACK);
+                
+            }
+
+            return c;
+        }
+    }
+    
+    public void selectService(
+            String serviceNumber,
+            JLabel lbl_state,
+            JLabel lbl_id_service,
+            JLabel lbl_serviceNumber,
+            JLabel lbl_date,
+            JLabel lbl_name,
+            JLabel lbl_phone,
+            JLabel lbl_deviceType,
+            JLabel lbl_brand,  
+            JLabel lbl_Model,
+            JLabel lbl_sn,
+            JTextArea jTextAreaDescription,
+            JTextArea jTextAreaFalla,
+            JTextArea jTextAreaDiagnostico,
+            JTextField txtCost
+        ){  
+
+        String sql = "SELECT " +
+                "c.name AS client_name, " +
+                "c.phone, " +
+                "d.device_type, " +
+                "COALESCE(d.brand, 'Sin dato') AS brand, " +
+                "COALESCE(d.model, 'Sin dato') AS model, " +
+                "d.serial_number, " +
+                "COALESCE(d.description, 'Sin dato') AS description, " +
+                "so.id_service, " +
+                "so.reported_problem, " +
+                "so.entry_date, " +
+                "COALESCE(so.diagnosis, '') AS diagnosis, " +
+                "COALESCE(so.cost, '') AS cost, " +
+                "s.name AS status_name " +
+                "FROM service_orders so " +
+                "INNER JOIN client c ON so.id_customer = c.id_client " +
+                "INNER JOIN devices d ON so.id_device = d.id_device " +
+                "INNER JOIN services_states s ON so.id_status = s.id_states " +
+                "WHERE so.service_number = ?";
+
+        connectionDB con = new connectionDB();
+        Connection conexion = con.establecerConexion();
+
+        try{            
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setString(1, serviceNumber);
+
+            ResultSet rs = pstmt.executeQuery();     
+
+            if (rs.next()) {
+
+                lbl_state.setText(rs.getString("status_name"));
+                lbl_id_service.setText(rs.getString("id_service"));
+                lbl_serviceNumber.setText(serviceNumber);               
+                lbl_date.setText(rs.getString("entry_date"));
+                lbl_name.setText(rs.getString("client_name"));
+                lbl_phone.setText(rs.getString("phone"));
+                lbl_deviceType.setText(rs.getString("device_type"));
+                lbl_brand.setText(rs.getString("brand"));
+                lbl_Model.setText(rs.getString("model"));
+                lbl_sn.setText(rs.getString("serial_number"));
+                jTextAreaDescription.setText(rs.getString("description"));
+                jTextAreaFalla.setText(rs.getString("reported_problem"));
+                jTextAreaDiagnostico.setText(rs.getString("diagnosis"));
+                txtCost.setText(rs.getString("cost"));
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el servicio");
+            }
+
+            rs.close();
+            pstmt.close();
+            conexion.close();
+
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR " + e.getMessage());
+        } 
+    } 
+    
+    public boolean updateService(String serviceNumber, int id_status, String diagnosis , Double cost){
+        
+        String sql = "UPDATE service_orders SET diagnosis = ?, id_status = ?, cost = ?, repair_date = ? WHERE service_number = ?";
+        
+        boolean estado = false;
+        
+        LocalDate fechaLocal = LocalDate.now();
+               
+        connectionDB con = new connectionDB();
+        Connection conexion = (Connection) con.establecerConexion();
+       
+        try{
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
+            
+            pstmt.setString(1, diagnosis);
+            pstmt.setInt(2, id_status);
+            
+            if (cost == null) {
+                pstmt.setNull(3, java.sql.Types.DOUBLE);
+            } else {
+                pstmt.setDouble(3, cost);
+            }
+            
+            pstmt.setDate(4, java.sql.Date.valueOf(fechaLocal));
+            pstmt.setString(5, serviceNumber);
+            
+            pstmt.executeUpdate();
+            
+            conexion.close();
+                
+            estado = true;
+            
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR ESTADO DE SERVICIO TÉCNICO. " + e.getMessage());
+        } 
+        return estado;
+    } 
+    
+    public boolean updateServiceDespachar(String serviceNumber, String delivery_date){
+        
+        String sql = "UPDATE `service_orders` SET `id_status`=?,`delivery_date`=? WHERE `service_number`=?";
+        
+        boolean estado = false;
+        int id_state = 7;
+               
+        connectionDB con = new connectionDB();
+        Connection conexion = (Connection) con.establecerConexion();
+       
+        try{
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
+            
+            pstmt.setInt(1, id_state);
+            pstmt.setString(2, delivery_date);
+            pstmt.setString(3, serviceNumber);
+            
+            pstmt.executeUpdate();
+            
+            conexion.close();
+            
+            JOptionPane.showMessageDialog(null, "Equipo entregado!.");
+            
+            estado = true;
+            
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR -> " + e.getMessage());
+        } 
+        return estado;
+    } 
+    
+    public void selectPrintServiceOrder(
+            int id_service,
+            JLabel lbl_serviceNumber,
+            JLabel lbl_date,
+            JLabel lbl_clientId,
+            JLabel lbl_name,
+            JLabel lbl_phone,
+            JLabel lbl_deviceType,
+            JLabel lbl_brand,  
+            JLabel lbl_Model,
+            JLabel lbl_sn,
+            JLabel lblDeviceDescription,
+            JTextArea jTextAreaReportedProblem
+    ){
+        String sql = "SELECT " +
+                    "so.service_number, " +
+                    "c.name AS client_name, " +
+                    "c.id_client, " +
+                    "c.phone, " +
+                    "d.device_type, " +
+                    "COALESCE(d.brand, 'Sin dato') AS brand, " +
+                    "COALESCE(d.model, 'Sin dato') AS model, " +
+                    "d.serial_number, " +
+                    "COALESCE(d.description, 'Sin dato') AS description, " +
+                    "so.reported_problem, " +
+                    "so.entry_date " +
+                    "FROM service_orders so " +
+                    "INNER JOIN client c ON so.id_customer = c.id_client " +
+                    "INNER JOIN devices d ON so.id_device = d.id_device " +
+                    "WHERE so.id_service = ?";
+        
+        connectionDB con = new connectionDB();
+        Connection conexion = (Connection) con.establecerConexion();
+        
+        try{            
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setInt(1, id_service);
+
+            ResultSet rs = pstmt.executeQuery();     
+
+            if (rs.next()) {
+
+                lbl_serviceNumber.setText(rs.getString("service_number"));
+                lbl_date.setText(rs.getString("entry_date"));
+                lbl_clientId.setText(rs.getString("id_client"));                
+                lbl_name.setText(rs.getString("client_name"));
+                lbl_phone.setText(rs.getString("phone"));
+                lbl_deviceType.setText(rs.getString("device_type"));
+                lbl_brand.setText(rs.getString("brand"));
+                lbl_Model.setText(rs.getString("model"));
+                lbl_sn.setText(rs.getString("serial_number"));
+                lblDeviceDescription.setText(rs.getString("description"));
+                jTextAreaReportedProblem.setText(rs.getString("reported_problem"));
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el servicio");
+            }
+
+            rs.close();
+            pstmt.close();
+            conexion.close();
+
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR " + e.getMessage());
+        }
+        
+    }
+        
+        
+        
+      
+    
 }

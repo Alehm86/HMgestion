@@ -9,12 +9,13 @@ public class modelService {
     
     int id_customer;
     Integer id_device;
+    String service_number;
     String fecha;
     String reported_problem;
-    String status;
+    int id_status;
     String diagnosis;
     String repair_description;
-    double  final_cost;
+    Double  final_cost;
     String entry_date;
     String repair_date;
     String delivery_date;
@@ -37,6 +38,14 @@ public class modelService {
         this.id_device = id_device;
     }
 
+    public String getService_number() {
+        return service_number;
+    }
+
+    public void setService_number(String service_number) {
+        this.service_number = service_number;
+    }
+
     public String getFecha() {
         return fecha;
     }
@@ -53,12 +62,12 @@ public class modelService {
         this.reported_problem = reported_problem;
     }
 
-    public String getStatus() {
-        return status;
+    public int getId_status() {
+        return id_status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setId_status(int id_status) {
+        this.id_status = id_status;
     }
 
     public String getDiagnosis() {
@@ -77,11 +86,11 @@ public class modelService {
         this.repair_description = repair_description;
     }
 
-    public double getFinal_cost() {
+    public Double getFinal_cost() {
         return final_cost;
     }
 
-    public void setFinal_cost(double final_cost) {
+    public void setFinal_cost(Double final_cost) {
         this.final_cost = final_cost;
     }
 
@@ -125,12 +134,13 @@ public class modelService {
         this.observations = observations;
     }
 
-    public modelService(int id_customer, Integer id_device, String fecha, String reported_problem, String status, String diagnosis, String repair_description, double final_cost, String entry_date, String repair_date, String delivery_date, String technician, String observations) {
+    public modelService(int id_customer, Integer id_device, String service_number, String fecha, String reported_problem, int id_status, String diagnosis, String repair_description, Double final_cost, String entry_date, String repair_date, String delivery_date, String technician, String observations) {
         this.id_customer = id_customer;
         this.id_device = id_device;
+        this.service_number = service_number;
         this.fecha = fecha;
         this.reported_problem = reported_problem;
-        this.status = status;
+        this.id_status = id_status;
         this.diagnosis = diagnosis;
         this.repair_description = repair_description;
         this.final_cost = final_cost;
@@ -140,7 +150,7 @@ public class modelService {
         this.technician = technician;
         this.observations = observations;
     }
-   
+
     public modelService(){
         
     }

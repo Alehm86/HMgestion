@@ -200,10 +200,11 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(12, 83, 151));
+        jPanel1.setBackground(new java.awt.Color(101, 129, 171));
 
         jLabel8.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/dispositivos64.png"))); // NOI18N
         jLabel8.setText("Registrar dispositivo.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -212,15 +213,12 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -230,6 +228,7 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         jLabel7.setText("Nº de serie:");
 
         txtSerialNumber.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        txtSerialNumber.setForeground(new java.awt.Color(65, 65, 63));
         txtSerialNumber.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(12, 83, 151)));
 
         jLabel4.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -237,9 +236,11 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         jLabel4.setText("Equipo:");
 
         cboEquipo.setBackground(new java.awt.Color(255, 255, 255));
+        cboEquipo.setForeground(new java.awt.Color(65, 65, 63));
         cboEquipo.setBorder(null);
 
         txtEquipo.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        txtEquipo.setForeground(new java.awt.Color(65, 65, 63));
         txtEquipo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(12, 83, 151)));
 
         jLabel5.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -247,9 +248,11 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         jLabel5.setText("Marca:");
 
         txtBrand.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        txtBrand.setForeground(new java.awt.Color(65, 65, 63));
         txtBrand.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(12, 83, 151)));
 
         txtModel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        txtModel.setForeground(new java.awt.Color(65, 65, 63));
         txtModel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(12, 83, 151)));
 
         jLabel6.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -262,7 +265,7 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         btnCancel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/borrador32.png"))); // NOI18N
         btnCancel.setBorder(null);
-        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCancelMouseEntered(evt);
@@ -278,7 +281,7 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/product32.png"))); // NOI18N
         btnRegistrar.setText("Registrar");
         btnRegistrar.setBorder(null);
-        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRegistrar.setMaximumSize(new java.awt.Dimension(120, 52));
         btnRegistrar.setMinimumSize(new java.awt.Dimension(120, 52));
         btnRegistrar.setPreferredSize(new java.awt.Dimension(120, 52));
@@ -296,11 +299,11 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(189, 189, 189)
+                .addGap(192, 192, 192)
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(195, Short.MAX_VALUE))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,6 +315,7 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         );
 
         textAreaDescripcion.setColumns(20);
+        textAreaDescripcion.setForeground(new java.awt.Color(65, 65, 63));
         textAreaDescripcion.setRows(5);
         jScrollPane1.setViewportView(textAreaDescripcion);
 

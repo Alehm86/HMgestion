@@ -770,12 +770,13 @@ public class productViewPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel8.setBackground(new java.awt.Color(12, 83, 151));
+        jPanel8.setBackground(new java.awt.Color(0, 204, 204));
 
+        btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Serch32.png"))); // NOI18N
         btnBuscar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(12, 83, 151), 1, true));
         btnBuscar.setBorderPainted(false);
-        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnBuscar.setDefaultCapable(false);
         btnBuscar.setFocusPainted(false);
         btnBuscar.setFocusable(false);
@@ -786,24 +787,25 @@ public class productViewPanel extends javax.swing.JPanel {
         });
 
         txtCodProducto.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        txtCodProducto.setForeground(new java.awt.Color(65, 65, 63));
         txtCodProducto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCodProducto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(12, 83, 151)));
+        txtCodProducto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         txtCodProducto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCodProductoKeyPressed(evt);
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/barCode48.png"))); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/barcode64.png"))); // NOI18N
         jLabel9.setText("Codigo de producto");
 
         btnSearchList.setBackground(new java.awt.Color(255, 255, 255));
         btnSearchList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchlist32.png"))); // NOI18N
         btnSearchList.setBorder(null);
         btnSearchList.setBorderPainted(false);
-        btnSearchList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSearchList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSearchList.setFocusPainted(false);
         btnSearchList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -826,7 +828,7 @@ public class productViewPanel extends javax.swing.JPanel {
         btnEdit.setText("Editar");
         btnEdit.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(12, 83, 151), 1, true));
         btnEdit.setBorderPainted(false);
-        btnEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEdit.setDefaultCapable(false);
         btnEdit.setFocusPainted(false);
         btnEdit.setFocusable(false);
@@ -846,12 +848,12 @@ public class productViewPanel extends javax.swing.JPanel {
 
         btnActivePromo.setBackground(new java.awt.Color(255, 204, 0));
         btnActivePromo.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        btnActivePromo.setForeground(new java.awt.Color(255, 255, 255));
+        btnActivePromo.setForeground(new java.awt.Color(102, 102, 102));
         btnActivePromo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/promo.png"))); // NOI18N
         btnActivePromo.setText("Activar promo!");
         btnActivePromo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(12, 83, 151), 1, true));
         btnActivePromo.setBorderPainted(false);
-        btnActivePromo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActivePromo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnActivePromo.setDefaultCapable(false);
         btnActivePromo.setFocusPainted(false);
         btnActivePromo.setFocusable(false);
@@ -870,6 +872,8 @@ public class productViewPanel extends javax.swing.JPanel {
         });
 
         cboPromotion.setBackground(new java.awt.Color(255, 255, 255));
+        cboPromotion.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cboPromotion.setForeground(new java.awt.Color(65, 65, 63));
 
         btnCancelPromo.setBackground(new java.awt.Color(204, 102, 0));
         btnCancelPromo.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -879,7 +883,7 @@ public class productViewPanel extends javax.swing.JPanel {
         btnConfirmPromo.setBackground(new java.awt.Color(255, 255, 255));
         btnConfirmPromo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
         btnConfirmPromo.setBorder(null);
-        btnConfirmPromo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConfirmPromo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnConfirmPromo.setFocusPainted(false);
         btnConfirmPromo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -922,22 +926,19 @@ public class productViewPanel extends javax.swing.JPanel {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCodProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearchList, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnActivePromo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConfirmPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtCodProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                    .addComponent(btnConfirmPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -946,7 +947,7 @@ public class productViewPanel extends javax.swing.JPanel {
         btnCancel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
         btnCancel.setBorder(null);
-        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCancelMouseEntered(evt);
@@ -967,7 +968,7 @@ public class productViewPanel extends javax.swing.JPanel {
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/product32.png"))); // NOI18N
         btnRegistrar.setText("Editar");
         btnRegistrar.setBorder(null);
-        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRegistrar.setMaximumSize(new java.awt.Dimension(120, 52));
         btnRegistrar.setMinimumSize(new java.awt.Dimension(120, 52));
         btnRegistrar.setPreferredSize(new java.awt.Dimension(120, 52));
@@ -1011,8 +1012,9 @@ public class productViewPanel extends javax.swing.JPanel {
 
         cboBrands.setBackground(new java.awt.Color(255, 255, 255));
         cboBrands.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        cboBrands.setForeground(new java.awt.Color(65, 65, 63));
         cboBrands.setBorder(null);
-        cboBrands.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cboBrands.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cboBrands.setFocusable(false);
         cboBrands.setMinimumSize(new java.awt.Dimension(70, 22));
         cboBrands.setPreferredSize(new java.awt.Dimension(70, 22));
@@ -1026,7 +1028,7 @@ public class productViewPanel extends javax.swing.JPanel {
         btnBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/gear32.png"))); // NOI18N
         btnBrand.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         btnBrand.setBorderPainted(false);
-        btnBrand.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBrand.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnBrand.setFocusPainted(false);
         btnBrand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1035,6 +1037,7 @@ public class productViewPanel extends javax.swing.JPanel {
         });
 
         txtColor.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        txtColor.setForeground(new java.awt.Color(65, 65, 63));
         txtColor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtColor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         txtColor.addActionListener(new java.awt.event.ActionListener() {
@@ -1044,6 +1047,7 @@ public class productViewPanel extends javax.swing.JPanel {
         });
 
         jLabel7.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(65, 65, 63));
         jLabel7.setText("Color:");
 
         lblErrorColor.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -1053,8 +1057,9 @@ public class productViewPanel extends javax.swing.JPanel {
 
         cboSubcategories.setBackground(new java.awt.Color(255, 255, 255));
         cboSubcategories.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        cboSubcategories.setForeground(new java.awt.Color(65, 65, 63));
         cboSubcategories.setBorder(null);
-        cboSubcategories.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cboSubcategories.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cboSubcategories.setFocusable(false);
         cboSubcategories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1066,7 +1071,7 @@ public class productViewPanel extends javax.swing.JPanel {
         btnSubcategories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/gear32.png"))); // NOI18N
         btnSubcategories.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         btnSubcategories.setBorderPainted(false);
-        btnSubcategories.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSubcategories.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSubcategories.setFocusPainted(false);
         btnSubcategories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1083,10 +1088,12 @@ public class productViewPanel extends javax.swing.JPanel {
         lbl_id.setText("0");
 
         txtModel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        txtModel.setForeground(new java.awt.Color(65, 65, 63));
         txtModel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtModel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         jLabel6.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(65, 65, 63));
         jLabel6.setText("Modelo:");
 
         lblErrorModel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -1095,10 +1102,12 @@ public class productViewPanel extends javax.swing.JPanel {
         lblErrorModel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         txtProductCode.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        txtProductCode.setForeground(new java.awt.Color(65, 65, 63));
         txtProductCode.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtProductCode.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         jLabel11.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(65, 65, 63));
         jLabel11.setText("Codigo producto:");
 
         lblErrorCodeP.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -1107,6 +1116,7 @@ public class productViewPanel extends javax.swing.JPanel {
         lblErrorCodeP.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         jLabel14.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(65, 65, 63));
         jLabel14.setText("Subcategoría:");
 
         txtSubcategory.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -1118,6 +1128,7 @@ public class productViewPanel extends javax.swing.JPanel {
         jLabel12.setText("Id producto:");
 
         jLabel21.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(65, 65, 63));
         jLabel21.setText("Marca:");
 
         jLabel19.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
@@ -1156,10 +1167,11 @@ public class productViewPanel extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel8.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(65, 65, 63));
         jLabel8.setText("Alarma stock minímo:");
 
         txtMin.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        txtMin.setForeground(new java.awt.Color(255, 102, 0));
+        txtMin.setForeground(new java.awt.Color(65, 65, 63));
         txtMin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtMin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
@@ -1169,9 +1181,11 @@ public class productViewPanel extends javax.swing.JPanel {
         lblErrorStock.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         jLabel16.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(65, 65, 63));
         jLabel16.setText("Precio de costo:");
 
         txtPrecioCosto.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        txtPrecioCosto.setForeground(new java.awt.Color(65, 65, 63));
         txtPrecioCosto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtPrecioCosto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         txtPrecioCosto.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1181,6 +1195,7 @@ public class productViewPanel extends javax.swing.JPanel {
         });
 
         jLabel15.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(65, 65, 63));
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/%.png"))); // NOI18N
         jLabel15.setText("IVA:");
         jLabel15.setToolTipText("");
@@ -1189,9 +1204,10 @@ public class productViewPanel extends javax.swing.JPanel {
 
         cboIva.setBackground(new java.awt.Color(255, 255, 255));
         cboIva.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        cboIva.setForeground(new java.awt.Color(65, 65, 63));
         cboIva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "21", "10.5" }));
         cboIva.setBorder(null);
-        cboIva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cboIva.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cboIva.setFocusable(false);
         cboIva.setMinimumSize(new java.awt.Dimension(70, 22));
         cboIva.setPreferredSize(new java.awt.Dimension(70, 22));
@@ -1205,11 +1221,13 @@ public class productViewPanel extends javax.swing.JPanel {
         lbl_iva.setText("xxx");
 
         jLabel17.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(65, 65, 63));
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/%.png"))); // NOI18N
         jLabel17.setText("Beneficio:");
         jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         txtBenefit.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        txtBenefit.setForeground(new java.awt.Color(65, 65, 63));
         txtBenefit.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtBenefit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         txtBenefit.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1227,11 +1245,13 @@ public class productViewPanel extends javax.swing.JPanel {
         lblPrecioSujerido.setText("xxx");
 
         jLabel18.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(65, 65, 63));
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ProductPrice.png"))); // NOI18N
         jLabel18.setText("Precio de venta:");
         jLabel18.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         txtSalePrice.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        txtSalePrice.setForeground(new java.awt.Color(65, 65, 63));
         txtSalePrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSalePrice.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         txtSalePrice.addActionListener(new java.awt.event.ActionListener() {
@@ -1318,6 +1338,7 @@ public class productViewPanel extends javax.swing.JPanel {
         lblEnPromo.setText("xxx");
 
         jLabel10.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(65, 65, 63));
         jLabel10.setText("Categoria:");
 
         txtCategory.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -1326,15 +1347,16 @@ public class productViewPanel extends javax.swing.JPanel {
 
         cboCategories.setBackground(new java.awt.Color(255, 255, 255));
         cboCategories.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        cboCategories.setForeground(new java.awt.Color(65, 65, 63));
         cboCategories.setBorder(null);
-        cboCategories.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cboCategories.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cboCategories.setFocusable(false);
 
         btnCategory.setBackground(new java.awt.Color(255, 255, 255));
         btnCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/gear32.png"))); // NOI18N
         btnCategory.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         btnCategory.setBorderPainted(false);
-        btnCategory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCategory.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCategory.setFocusPainted(false);
         btnCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1489,8 +1511,8 @@ public class productViewPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1632,7 +1654,6 @@ public class productViewPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCancelPromo;
     private javax.swing.JButton btnCategory;
-    private javax.swing.JButton btnConfirmEdit;
     private javax.swing.JButton btnConfirmPromo;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnRegistrar;

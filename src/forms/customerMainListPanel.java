@@ -200,7 +200,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
         btnAltaCustomer.setText("Alta");
         btnAltaCustomer.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         btnAltaCustomer.setBorderPainted(false);
-        btnAltaCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAltaCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAltaCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnAltaCustomerMouseEntered(evt);
@@ -222,7 +222,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
         btnCustomerView.setText("Ver Cliente");
         btnCustomerView.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         btnCustomerView.setBorderPainted(false);
-        btnCustomerView.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCustomerView.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCustomerView.setFocusable(false);
         btnCustomerView.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -247,7 +247,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
                 .addComponent(btnCustomerView, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAltaCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(800, Short.MAX_VALUE))
+                .addContainerGap(871, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,21 +262,21 @@ public class customerMainListPanel extends javax.swing.JPanel {
         jPanelClientContent.setBackground(new java.awt.Color(255, 255, 255));
         jPanelClientContent.setPreferredSize(new java.awt.Dimension(1600, 800));
 
-        jPanel3.setBackground(new java.awt.Color(12, 83, 151));
+        jPanel3.setBackground(new java.awt.Color(101, 129, 171));
 
-        jLabel1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Cliente");
 
-        txtSerch.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtSerch.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         txtSerch.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
-        jLabel2.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Condición frente al I.V.A.");
 
         cboIVA.setBackground(new java.awt.Color(255, 255, 255));
-        cboIVA.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        cboIVA.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         cboIVA.setBorder(null);
         cboIVA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -285,10 +285,10 @@ public class customerMainListPanel extends javax.swing.JPanel {
         });
 
         cboStates.setBackground(new java.awt.Color(255, 255, 255));
-        cboStates.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        cboStates.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         cboStates.setBorder(null);
 
-        jLabel3.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Estado");
 
@@ -337,6 +337,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
 
             }
         ));
+        tableCustomer.setFillsViewportHeight(true);
         tableCustomer.setRowHeight(25);
         jScrollPane1.setViewportView(tableCustomer);
 
@@ -353,7 +354,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -361,7 +362,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanelClientContent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1104, Short.MAX_VALUE)
+            .addComponent(jPanelClientContent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1175, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

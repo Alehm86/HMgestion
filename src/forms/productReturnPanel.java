@@ -359,6 +359,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         cboEntidad = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanelProducto = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         txtProductCode = new javax.swing.JTextField();
@@ -393,18 +394,23 @@ public class productReturnPanel extends javax.swing.JPanel {
         jPanelProveedor.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel42.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel42.setForeground(new java.awt.Color(65, 65, 63));
         jLabel42.setText("C.U.I.T.");
 
         jLabel48.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel48.setForeground(new java.awt.Color(65, 65, 63));
         jLabel48.setText("Teléfono:");
 
         jLabel49.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel49.setForeground(new java.awt.Color(65, 65, 63));
         jLabel49.setText("Nº de proveedor:");
 
         lbl_id_supplier.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        lbl_id_supplier.setForeground(new java.awt.Color(65, 65, 63));
         lbl_id_supplier.setText("-");
 
         lbl_phone_supplier.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        lbl_phone_supplier.setForeground(new java.awt.Color(65, 65, 63));
         lbl_phone_supplier.setText("-");
 
         cboSupplier.setBackground(new java.awt.Color(255, 255, 255));
@@ -413,15 +419,19 @@ public class productReturnPanel extends javax.swing.JPanel {
         cboSupplier.setBorder(null);
 
         lbl_Iva_supplier.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        lbl_Iva_supplier.setForeground(new java.awt.Color(65, 65, 63));
         lbl_Iva_supplier.setText("-");
 
         jLabel44.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel44.setForeground(new java.awt.Color(65, 65, 63));
         jLabel44.setText("I.V.A. :");
 
         lbl_cuit_supplier.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        lbl_cuit_supplier.setForeground(new java.awt.Color(65, 65, 63));
         lbl_cuit_supplier.setText("-");
 
         txt_name_supplier.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        txt_name_supplier.setForeground(new java.awt.Color(65, 65, 63));
         txt_name_supplier.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txt_name_supplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -492,20 +502,26 @@ public class productReturnPanel extends javax.swing.JPanel {
         jPanelFactura.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel46.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel46.setForeground(new java.awt.Color(65, 65, 63));
         jLabel46.setText("Factura nº:");
 
+        txtFact.setForeground(new java.awt.Color(65, 65, 63));
         txtFact.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel50.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel50.setForeground(new java.awt.Color(65, 65, 63));
         jLabel50.setText("Fecha:");
 
         lblFecha.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        lblFecha.setForeground(new java.awt.Color(65, 65, 63));
         lblFecha.setText("-");
 
         jLabel52.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel52.setForeground(new java.awt.Color(65, 65, 63));
         jLabel52.setText("Comprobante");
 
         jLabel51.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel51.setForeground(new java.awt.Color(65, 65, 63));
         jLabel51.setText("Metodo de pago:");
 
         jLabel36.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -516,7 +532,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         btnSerchFact.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
         btnSerchFact.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnSerchFact.setBorderPainted(false);
-        btnSerchFact.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSerchFact.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSerchFact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSerchFactActionPerformed(evt);
@@ -527,12 +543,15 @@ public class productReturnPanel extends javax.swing.JPanel {
         lblComprobante.setText("-");
 
         lblMetPago.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        lblMetPago.setForeground(new java.awt.Color(65, 65, 63));
         lblMetPago.setText("-");
 
         jLabel53.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel53.setForeground(new java.awt.Color(65, 65, 63));
         jLabel53.setText("Total:");
 
         lblTotal.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        lblTotal.setForeground(new java.awt.Color(65, 65, 63));
         lblTotal.setText("-");
 
         checkBox.setBackground(new java.awt.Color(255, 255, 255));
@@ -612,6 +631,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         jPanelMotivo.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel30.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(65, 65, 63));
         jLabel30.setText("Tipo de compensación:");
 
         cboCompensacion.setBackground(new java.awt.Color(255, 255, 255));
@@ -630,9 +650,11 @@ public class productReturnPanel extends javax.swing.JPanel {
         jScrollPane4.setViewportView(textObservaciones);
 
         lblDescripcion.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        lblDescripcion.setForeground(new java.awt.Color(65, 65, 63));
         lblDescripcion.setText("Descripción:");
 
         labelDescripcion1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        labelDescripcion1.setForeground(new java.awt.Color(65, 65, 63));
         labelDescripcion1.setText("-");
 
         javax.swing.GroupLayout jPanelMotivoLayout = new javax.swing.GroupLayout(jPanelMotivo);
@@ -677,7 +699,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         btnCancel.setForeground(new java.awt.Color(255, 102, 102));
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/borrador32.png"))); // NOI18N
         btnCancel.setBorder(null);
-        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCancelMouseEntered(evt);
@@ -692,7 +714,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         btnRegistrarDevolucion.setForeground(new java.awt.Color(101, 129, 171));
         btnRegistrarDevolucion.setText("Confirmar devolución");
         btnRegistrarDevolucion.setBorder(null);
-        btnRegistrarDevolucion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrarDevolucion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRegistrarDevolucion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnRegistrarDevolucionMouseEntered(evt);
@@ -723,20 +745,22 @@ public class productReturnPanel extends javax.swing.JPanel {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(12, 83, 151));
+        jPanel2.setBackground(new java.awt.Color(0, 204, 204));
 
         cboEntidad.setBackground(new java.awt.Color(255, 255, 255));
-        cboEntidad.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        cboEntidad.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         cboEntidad.setForeground(new java.awt.Color(12, 83, 151));
         cboEntidad.setBorder(null);
 
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Gestión de Devoluciones");
 
         jLabel43.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        jLabel43.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel43.setForeground(new java.awt.Color(102, 102, 102));
         jLabel43.setText("Seleccione entidad:");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/product-return128.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -744,6 +768,8 @@ public class productReturnPanel extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -754,21 +780,24 @@ public class productReturnPanel extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cboEntidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9))
+                .addContainerGap())
         );
 
         jPanelProducto.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel24.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(65, 65, 63));
         jLabel24.setText("Codigo de producto: ");
 
+        txtProductCode.setForeground(new java.awt.Color(65, 65, 63));
         txtProductCode.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtProductCode.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -777,9 +806,11 @@ public class productReturnPanel extends javax.swing.JPanel {
         });
 
         jLabel25.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(65, 65, 63));
         jLabel25.setText("Descripción:");
 
         txtCantidad.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtCantidad.setForeground(new java.awt.Color(65, 65, 63));
         txtCantidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCantidad.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -789,14 +820,16 @@ public class productReturnPanel extends javax.swing.JPanel {
         });
 
         labelDescripcion.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        labelDescripcion.setForeground(new java.awt.Color(65, 65, 63));
         labelDescripcion.setText("-");
 
         btnProduct.setBackground(new java.awt.Color(255, 255, 255));
         btnProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Serch32.png"))); // NOI18N
         btnProduct.setBorder(null);
-        btnProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel28.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(65, 65, 63));
         jLabel28.setText("Cantidad: ");
         jLabel28.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -805,6 +838,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         });
 
         jLabel29.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(65, 65, 63));
         jLabel29.setText("Precio de venta:");
         jLabel29.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -813,6 +847,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         });
 
         jLabel32.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(65, 65, 63));
         jLabel32.setText("IVA:");
         jLabel32.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -821,6 +856,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         });
 
         lblIva.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        lblIva.setForeground(new java.awt.Color(65, 65, 63));
         lblIva.setText("-");
         lblIva.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -830,8 +866,9 @@ public class productReturnPanel extends javax.swing.JPanel {
 
         txtPrice.setBackground(new java.awt.Color(255, 255, 255));
         txtPrice.setBorder(null);
+        txtPrice.setForeground(new java.awt.Color(65, 65, 63));
         txtPrice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
-        txtPrice.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtPrice.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtPrice.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
         labeliva2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -902,7 +939,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         btnSerchClient.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         btnSerchClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Serch32.png"))); // NOI18N
         btnSerchClient.setBorder(null);
-        btnSerchClient.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSerchClient.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSerchClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSerchClientActionPerformed(evt);
@@ -910,12 +947,15 @@ public class productReturnPanel extends javax.swing.JPanel {
         });
 
         jLabel62.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel62.setForeground(new java.awt.Color(65, 65, 63));
         jLabel62.setText("C.U.I.T./D.N.I.");
 
         jLabel63.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel63.setForeground(new java.awt.Color(65, 65, 63));
         jLabel63.setText("Apellido y nombre/Razón social:");
 
         txtCuitClient.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        txtCuitClient.setForeground(new java.awt.Color(65, 65, 63));
         txtCuitClient.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtCuitClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -932,7 +972,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         btnSerchCuitClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
         btnSerchCuitClient.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnSerchCuitClient.setBorderPainted(false);
-        btnSerchCuitClient.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSerchCuitClient.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSerchCuitClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSerchCuitClientActionPerformed(evt);
@@ -940,9 +980,11 @@ public class productReturnPanel extends javax.swing.JPanel {
         });
 
         jLabel64.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel64.setForeground(new java.awt.Color(65, 65, 63));
         jLabel64.setText("Condición frente al I.V.A.");
 
         txtNameClient.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        txtNameClient.setForeground(new java.awt.Color(65, 65, 63));
         txtNameClient.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtNameClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -963,6 +1005,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         lbl_IdClient.setText("-");
 
         lbl_IVA_Client.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        lbl_IVA_Client.setForeground(new java.awt.Color(65, 65, 63));
         lbl_IVA_Client.setText("-");
 
         javax.swing.GroupLayout jPanelClientesLayout = new javax.swing.GroupLayout(jPanelClientes);
@@ -1082,9 +1125,9 @@ public class productReturnPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jPanelFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(jPanelSeparador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1229,6 +1272,7 @@ public class productReturnPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cboSupplier;
     private javax.swing.JCheckBox checkBox;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel28;

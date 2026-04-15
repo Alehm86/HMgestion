@@ -25,9 +25,12 @@ public class serviceNewPanel extends javax.swing.JPanel {
     modelDevice device = new modelDevice();
     modelService service = new modelService();
     
+    int id_service = -1;
     String cuitClient = "";
     String snDevice;
 
+    JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
+    
     public serviceNewPanel() {
         initComponents();
 
@@ -37,9 +40,6 @@ public class serviceNewPanel extends javax.swing.JPanel {
     }
     
     private void inicializar(){
-        
-        txtCuit.setVisible(false);
-        lbl_iva.setVisible(false);
         
         txtName.setEditable(false);
         txtPhone.setEditable(false);
@@ -56,30 +56,29 @@ public class serviceNewPanel extends javax.swing.JPanel {
                 
         btnBuscar.addActionListener(e->{
             
-            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-            customerSearchDialog pSearch = new customerSearchDialog(parent, true);
-            
+            customerSearchDialog pSearch = new customerSearchDialog(parent, true);           
             pSearch.setVisible(true);
             cuitClient = pSearch.getCustomerSerch();
             
-            queriesCustomer.selectClient(cuitClient, lbl_id, txtName, txtCuit, txtPhone, lbl_iva);
-
+            if(!cuitClient.isEmpty()){
+                queriesCustomer.selectClientSimplified(cuitClient, lbl_id, txtName, txtPhone);
+            }
         });
         
         bntSearchByCustomer.addActionListener(e->{
             
-            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-            customerDevicesDialog pCustDev = new customerDevicesDialog(parent, true);
-            
+            customerDevicesDialog pCustDev = new customerDevicesDialog(parent, true);         
             if(!lbl_id.getText().isEmpty()){
                 
-                pCustDev.setIdCustomer(Integer.parseInt(lbl_id.getText().trim()));
-                
+                int idClient = Integer.parseInt(lbl_id.getText().trim());
+                pCustDev.setIdCustomer(idClient);
                 pCustDev.setVisible(true);  
                 
                 snDevice = pCustDev.getSerialNumberDevice();
-                buscarDevice();
-                
+                if(!snDevice.isEmpty()){
+                    buscarDevice();
+                }
+                          
             }else{
                 JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente.");
             }
@@ -87,13 +86,11 @@ public class serviceNewPanel extends javax.swing.JPanel {
         
         btnNewCustomer.addActionListener(e->{
             
-            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-            customerNewDialog pNewClient = new customerNewDialog(parent, true);
-            
+            customerNewDialog pNewClient = new customerNewDialog(parent, true);           
             pNewClient.setVisible(true);
             cuitClient = pNewClient.getCuitClient();
             
-            queriesCustomer.selectClient(cuitClient, lbl_id, txtName, txtCuit, txtPhone, lbl_iva);
+            queriesCustomer.selectClientSimplified(cuitClient, lbl_id, txtName, txtPhone);
         });
         
         btnCancel.addActionListener(e->{
@@ -103,9 +100,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
         
         btnNewDevice.addActionListener(e->{
             
-            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-            serviceNewDeviceDialog pNewDevice = new serviceNewDeviceDialog(parent, true);
-            
+            serviceNewDeviceDialog pNewDevice = new serviceNewDeviceDialog(parent, true);           
             pNewDevice.setVisible(true);
             snDevice = pNewDevice.getSNDevice();
             
@@ -119,7 +114,11 @@ public class serviceNewPanel extends javax.swing.JPanel {
         });
         
         btnRegistrar.addActionListener(e->{
-            registrarServicio();
+            
+            registrarServicio();                
+            servicePrintDialog pPrintServiceOrder = new servicePrintDialog(parent, true);
+            pPrintServiceOrder.dialogoId_service(id_service);
+            pPrintServiceOrder.setVisible(true);
         });
     }
     
@@ -148,13 +147,8 @@ public class serviceNewPanel extends javax.swing.JPanel {
         
         boolean valido = true;
         
-        String estado = "Ingresado";
-        String fecha = queriesGeneric.fecha();
-        
-        int id_service = 0;
-        
-        service.setEntry_date(fecha);
-        service.setStatus(estado);                
+        int estado = 1;
+        service.setId_status(estado);
         
         if(!txtName.getText().isEmpty()){
             service.setId_customer(Integer.parseInt(lbl_id.getText().trim()));
@@ -195,15 +189,14 @@ public class serviceNewPanel extends javax.swing.JPanel {
             service.getId_customer(), 
             service.getId_device(), 
             service.getReported_problem(), 
-            service.getStatus(),
-            service.getEntry_date()
+            service.getId_status()
         );     
         
         if (id_service > 0){
-            queriesService.insertService_order_status_history(id_service, service.getStatus(), service.getEntry_date());
+            queriesService.insertService_order_status_history(id_service, service.getId_status());
         }
         
-        limpiar();      
+        limpiar();    
     }
     
     @SuppressWarnings("unchecked")
@@ -230,8 +223,6 @@ public class serviceNewPanel extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         btnCancel = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
-        txtCuit = new javax.swing.JTextField();
-        lbl_iva = new javax.swing.JLabel();
         btnNewCustomer = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         lbl_id = new javax.swing.JLabel();
@@ -249,10 +240,11 @@ public class serviceNewPanel extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         lbl_idDevice = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(12, 83, 151));
+        jPanel1.setBackground(new java.awt.Color(101, 129, 171));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ordenador-personal64.png"))); // NOI18N
         jLabel1.setText("Recepción de Equipo para Servicio Técnico");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -261,20 +253,18 @@ public class serviceNewPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 860, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(26, 26, 26))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         txtName.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        txtName.setForeground(new java.awt.Color(65, 65, 63));
         txtName.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtName.setBorder(null);
 
@@ -288,8 +278,16 @@ public class serviceNewPanel extends javax.swing.JPanel {
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Serch32.png"))); // NOI18N
         btnBuscar.setText("Buscar cliente");
         btnBuscar.setBorder(null);
-        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnBuscar.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseExited(evt);
+            }
+        });
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -301,6 +299,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
         jLabel3.setText("Teléfono:");
 
         txtPhone.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        txtPhone.setForeground(new java.awt.Color(65, 65, 63));
         txtPhone.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtPhone.setBorder(null);
         txtPhone.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -339,10 +338,12 @@ public class serviceNewPanel extends javax.swing.JPanel {
         jLabel7.setText("Nº de serie:");
 
         txtSerialNumber.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        txtSerialNumber.setForeground(new java.awt.Color(65, 65, 63));
         txtSerialNumber.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(12, 83, 151)));
 
         textAreaProblem.setColumns(20);
         textAreaProblem.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        textAreaProblem.setForeground(new java.awt.Color(65, 65, 63));
         textAreaProblem.setRows(5);
         textAreaProblem.setBorder(null);
         jScrollPane1.setViewportView(textAreaProblem);
@@ -357,7 +358,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
         btnCancel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/borrador32.png"))); // NOI18N
         btnCancel.setBorder(null);
-        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCancelMouseEntered(evt);
@@ -373,7 +374,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/product32.png"))); // NOI18N
         btnRegistrar.setText("Registrar");
         btnRegistrar.setBorder(null);
-        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRegistrar.setMaximumSize(new java.awt.Dimension(120, 52));
         btnRegistrar.setMinimumSize(new java.awt.Dimension(120, 52));
         btnRegistrar.setPreferredSize(new java.awt.Dimension(120, 52));
@@ -406,17 +407,21 @@ public class serviceNewPanel extends javax.swing.JPanel {
                 .addGap(0, 12, Short.MAX_VALUE))
         );
 
-        txtCuit.setText("cuit");
-
-        lbl_iva.setText("iva");
-
         btnNewCustomer.setBackground(new java.awt.Color(255, 255, 255));
         btnNewCustomer.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnNewCustomer.setForeground(new java.awt.Color(255, 153, 0));
         btnNewCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/more32.png"))); // NOI18N
         btnNewCustomer.setBorder(null);
-        btnNewCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNewCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnNewCustomer.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        btnNewCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnNewCustomerMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnNewCustomerMouseExited(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(12, 83, 151));
@@ -431,32 +436,51 @@ public class serviceNewPanel extends javax.swing.JPanel {
         btnSearch.setForeground(new java.awt.Color(0, 153, 255));
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Serch32.png"))); // NOI18N
         btnSearch.setBorder(null);
-        btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSearch.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSearchMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSearchMouseExited(evt);
+            }
+        });
 
         btnNewDevice.setBackground(new java.awt.Color(255, 255, 255));
         btnNewDevice.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnNewDevice.setForeground(new java.awt.Color(255, 153, 0));
         btnNewDevice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/more32.png"))); // NOI18N
         btnNewDevice.setBorder(null);
-        btnNewDevice.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNewDevice.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnNewDevice.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        btnNewDevice.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnNewDeviceMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnNewDeviceMouseExited(evt);
+            }
+        });
 
         bntSearchByCustomer.setBackground(new java.awt.Color(255, 255, 255));
         bntSearchByCustomer.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         bntSearchByCustomer.setForeground(new java.awt.Color(0, 153, 255));
         bntSearchByCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/equipClient.png"))); // NOI18N
         bntSearchByCustomer.setBorder(null);
-        bntSearchByCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bntSearchByCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bntSearchByCustomer.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         lblDevice.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        lblDevice.setForeground(new java.awt.Color(65, 65, 63));
         lblDevice.setText("xxx");
 
         lblBrand.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        lblBrand.setForeground(new java.awt.Color(65, 65, 63));
         lblBrand.setText("xxx");
 
         lblModel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        lblModel.setForeground(new java.awt.Color(65, 65, 63));
         lblModel.setText("xxx");
 
         jLabel10.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -464,6 +488,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
         jLabel10.setText("Descripción:");
 
         lblDescription.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        lblDescription.setForeground(new java.awt.Color(65, 65, 63));
         lblDescription.setText("xxx");
 
         jPanelSeparador4.setBackground(new java.awt.Color(12, 83, 151));
@@ -484,6 +509,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
         jLabel11.setText("S/N:");
 
         lblSerialNumber.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        lblSerialNumber.setForeground(new java.awt.Color(65, 65, 63));
         lblSerialNumber.setText("xxx");
 
         jLabel12.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -491,6 +517,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
         jLabel12.setText("Id dispositivo:");
 
         lbl_idDevice.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        lbl_idDevice.setForeground(new java.awt.Color(65, 65, 63));
         lbl_idDevice.setText("xxx");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -514,21 +541,14 @@ public class serviceNewPanel extends javax.swing.JPanel {
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbl_id)
-                                        .addGap(521, 521, 521)
-                                        .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(106, 106, 106)
-                                .addComponent(lbl_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_id)
+                                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -565,7 +585,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
                             .addComponent(jLabel8)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 339, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel12)
@@ -576,25 +596,19 @@ public class serviceNewPanel extends javax.swing.JPanel {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnNewCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel9)
-                                .addComponent(lbl_id)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_iva))))
+                    .addComponent(btnNewCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9)
+                        .addComponent(lbl_id)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
                 .addComponent(jPanelSeparador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -632,7 +646,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -685,6 +699,38 @@ public class serviceNewPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void btnBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseEntered
+        btnBuscar.setBackground(new Color(180,180,180));
+    }//GEN-LAST:event_btnBuscarMouseEntered
+
+    private void btnBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseExited
+        btnBuscar.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnBuscarMouseExited
+
+    private void btnNewCustomerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNewCustomerMouseEntered
+        btnNewCustomer.setBackground(new Color(180,180,180));
+    }//GEN-LAST:event_btnNewCustomerMouseEntered
+
+    private void btnNewCustomerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNewCustomerMouseExited
+        btnNewCustomer.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnNewCustomerMouseExited
+
+    private void btnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseEntered
+        btnSearch.setBackground(new Color(180,180,180));
+    }//GEN-LAST:event_btnSearchMouseEntered
+
+    private void btnSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseExited
+        btnSearch.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnSearchMouseExited
+
+    private void btnNewDeviceMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNewDeviceMouseEntered
+        btnNewDevice.setBackground(new Color(180,180,180));
+    }//GEN-LAST:event_btnNewDeviceMouseEntered
+
+    private void btnNewDeviceMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNewDeviceMouseExited
+        btnNewDevice.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnNewDeviceMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntSearchByCustomer;
@@ -710,7 +756,6 @@ public class serviceNewPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelSeparador2;
-    private javax.swing.JPanel jPanelSeparador3;
     private javax.swing.JPanel jPanelSeparador4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBrand;
@@ -720,9 +765,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblSerialNumber;
     private javax.swing.JLabel lbl_id;
     private javax.swing.JLabel lbl_idDevice;
-    private javax.swing.JLabel lbl_iva;
     private javax.swing.JTextArea textAreaProblem;
-    private javax.swing.JTextField txtCuit;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhone;
     private javax.swing.JTextField txtSerialNumber;

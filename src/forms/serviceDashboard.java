@@ -39,6 +39,13 @@ public class serviceDashboard extends javax.swing.JPanel {
             jPanelDashboard.revalidate();
             jPanelDashboard.repaint();
         });
+        
+        btnPresupuesto.addActionListener(e->{
+            budgetDialog fPresupuesto = new budgetDialog(null, true);
+            fPresupuesto.setLocationRelativeTo(null);
+            fPresupuesto.setVisible(true);
+        });
+        
     }
     
     private void listar(){
