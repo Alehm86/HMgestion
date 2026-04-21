@@ -79,6 +79,7 @@ public class customerDevicesDialog extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableDevice.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTableDevice.setFillsViewportHeight(true);
         jTableDevice.setRowHeight(25);
         jScrollPane1.setViewportView(jTableDevice);
@@ -88,6 +89,7 @@ public class customerDevicesDialog extends javax.swing.JDialog {
         btnSelect.setForeground(new java.awt.Color(101, 129, 171));
         btnSelect.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/device32.png"))); // NOI18N
         btnSelect.setText("Seleccionar");
+        btnSelect.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

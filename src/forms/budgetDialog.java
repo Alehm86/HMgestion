@@ -22,15 +22,17 @@ import javax.swing.table.DefaultTableModel;
 import models.modelBudget;
 import models.modelBudgetDetail;
 import models.modelProducts;
+import utils.utility;
 
 
 public class budgetDialog extends javax.swing.JDialog {
     
     customerDAO queriesCustomer = new customerDAO();
-    genericDAO queriesGeneric = new genericDAO();
     productDAO queriesProduct = new productDAO();
     serviceDAO queriesServices = new serviceDAO();
     budgetDAO queriesBudget = new budgetDAO();
+    
+    utility utils = new utility();
     
     modelProducts mProduct = new modelProducts();
     modelBudget mBudget = new modelBudget();
@@ -48,7 +50,7 @@ public class budgetDialog extends javax.swing.JDialog {
         }
     };    
         
-    String fecha = queriesGeneric.fecha();
+    String fecha = utils.fecha();
     String cuitClient = "";
     int id_product = -1;
     
@@ -160,7 +162,9 @@ public class budgetDialog extends javax.swing.JDialog {
             cuitClient = fSearchCustomer.getCustomerSerch();           
             
             if(!cuitClient.isEmpty()){
-               queriesCustomer.selectClientSimplified(cuitClient, lbl_id, txtName, txtPhone); 
+               queriesCustomer.selectCustomerSimplified(cuitClient, lbl_id, txtName, txtPhone); 
+            }else{
+                
             }
         });
               
@@ -547,7 +551,7 @@ public class budgetDialog extends javax.swing.JDialog {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(12, 83, 151));
         jLabel2.setText("Cliente:");
 
@@ -557,6 +561,7 @@ public class budgetDialog extends javax.swing.JDialog {
         btnCustomer.setBackground(new java.awt.Color(255, 255, 255));
         btnCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/customers32.png"))); // NOI18N
         btnCustomer.setBorder(null);
+        btnCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCustomerMouseEntered(evt);
@@ -566,7 +571,7 @@ public class budgetDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(12, 83, 151));
         jLabel3.setText("Teléfono:");
 
@@ -578,7 +583,7 @@ public class budgetDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(12, 83, 151));
         jLabel4.setText("Fecha:");
 
@@ -586,7 +591,7 @@ public class budgetDialog extends javax.swing.JDialog {
         lbl_fecha.setForeground(new java.awt.Color(65, 65, 63));
         lbl_fecha.setText("xxx");
 
-        jLabel5.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(12, 83, 151));
         jLabel5.setText("Observaciones:");
 
@@ -708,7 +713,7 @@ public class budgetDialog extends javax.swing.JDialog {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel6.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(12, 83, 151));
         jLabel6.setText("Items:");
 
@@ -718,6 +723,7 @@ public class budgetDialog extends javax.swing.JDialog {
         btnBuscarProduct.setBackground(new java.awt.Color(255, 255, 255));
         btnBuscarProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/product32_1.png"))); // NOI18N
         btnBuscarProduct.setBorder(null);
+        btnBuscarProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscarProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnBuscarProductMouseEntered(evt);
@@ -727,7 +733,7 @@ public class budgetDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(12, 83, 151));
         jLabel7.setText("Cantidad:");
 
@@ -742,7 +748,7 @@ public class budgetDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(12, 83, 151));
         jLabel8.setText("Precio:");
 
@@ -763,6 +769,7 @@ public class budgetDialog extends javax.swing.JDialog {
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/more32.png"))); // NOI18N
         btnAdd.setText("Agregar");
         btnAdd.setBorder(null);
+        btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnAddMouseEntered(evt);
@@ -775,6 +782,7 @@ public class budgetDialog extends javax.swing.JDialog {
         btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Serch32.png"))); // NOI18N
         btnBuscar.setBorder(null);
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnBuscarMouseEntered(evt);
@@ -801,7 +809,7 @@ public class budgetDialog extends javax.swing.JDialog {
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Buscar por codigo");
 
-        jLabel11.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(12, 83, 151));
         jLabel11.setText("IVA:");
 
@@ -811,6 +819,7 @@ public class budgetDialog extends javax.swing.JDialog {
         cboIVA.setBackground(new java.awt.Color(255, 255, 255));
         cboIVA.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         cboIVA.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "21.0%", "10.5%" }));
+        cboIVA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -901,6 +910,7 @@ public class budgetDialog extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTablePresupuesto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTablePresupuesto.setFillsViewportHeight(true);
         jTablePresupuesto.setRowHeight(25);
         jScrollPane3.setViewportView(jTablePresupuesto);
@@ -911,6 +921,7 @@ public class budgetDialog extends javax.swing.JDialog {
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Presupuest32.png"))); // NOI18N
         btnRegistrar.setText("Registrar");
         btnRegistrar.setBorder(null);
+        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnRegistrarMouseEntered(evt);
@@ -924,7 +935,7 @@ public class budgetDialog extends javax.swing.JDialog {
         btnCancel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
         btnCancel.setBorder(null);
-        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCancelMouseEntered(evt);
@@ -936,6 +947,7 @@ public class budgetDialog extends javax.swing.JDialog {
 
         btnDelete.setBackground(new java.awt.Color(255, 255, 255));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/eliminarCliente.png"))); // NOI18N
+        btnDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnDeleteMouseEntered(evt);
@@ -947,6 +959,7 @@ public class budgetDialog extends javax.swing.JDialog {
 
         btnEdit.setBackground(new java.awt.Color(255, 255, 255));
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/edit_121852.png"))); // NOI18N
+        btnEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnEditMouseEntered(evt);

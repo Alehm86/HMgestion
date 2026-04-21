@@ -157,6 +157,7 @@ public class productSearchDialog extends javax.swing.JDialog {
         cboCategories.setForeground(new java.awt.Color(12, 83, 151));
         cboCategories.setToolTipText("");
         cboCategories.setBorder(null);
+        cboCategories.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cboCategories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboCategoriesActionPerformed(evt);
@@ -171,6 +172,7 @@ public class productSearchDialog extends javax.swing.JDialog {
         cboSubcategories.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         cboSubcategories.setForeground(new java.awt.Color(12, 83, 151));
         cboSubcategories.setBorder(null);
+        cboSubcategories.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cboSubcategories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboSubcategoriesActionPerformed(evt);
@@ -185,6 +187,7 @@ public class productSearchDialog extends javax.swing.JDialog {
         cboBrand.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         cboBrand.setForeground(new java.awt.Color(12, 83, 151));
         cboBrand.setBorder(null);
+        cboBrand.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnSerchCode2.setBackground(new java.awt.Color(242, 242, 242));
         btnSerchCode2.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
@@ -192,7 +195,7 @@ public class productSearchDialog extends javax.swing.JDialog {
         btnSerchCode2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Serch32.png"))); // NOI18N
         btnSerchCode2.setText("Buscar");
         btnSerchCode2.setBorder(null);
-        btnSerchCode2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnSerchCode2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSerchCode2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnSerchCode2MouseEntered(evt);
@@ -266,6 +269,7 @@ public class productSearchDialog extends javax.swing.JDialog {
 
             }
         ));
+        jtablePrducts.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jtablePrducts.setGridColor(new java.awt.Color(255, 255, 255));
         jtablePrducts.setRowHeight(25);
         jtablePrducts.setSelectionBackground(new java.awt.Color(255, 204, 153));
@@ -277,7 +281,7 @@ public class productSearchDialog extends javax.swing.JDialog {
         btnSelectProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ProductAdd.png"))); // NOI18N
         btnSelectProduct.setText("Seleccionar");
         btnSelectProduct.setBorder(null);
-        btnSelectProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnSelectProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSelectProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnSelectProductMouseEntered(evt);
@@ -292,7 +296,7 @@ public class productSearchDialog extends javax.swing.JDialog {
         btnCancel.setForeground(new java.awt.Color(101, 129, 171));
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
         btnCancel.setBorder(null);
-        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.setFocusPainted(false);
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {

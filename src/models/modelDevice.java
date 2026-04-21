@@ -7,11 +7,20 @@ package models;
 
 public class modelDevice {
     
+    int id_client;
     String device_type;
     String brand;
     String model;
     String serial_number;
     String description;
+
+    public int getId_client() {
+        return id_client;
+    }
+
+    public void setId_client(int id_client) {
+        this.id_client = id_client;
+    }
 
     public String getDevice_type() {
         return device_type;
@@ -53,7 +62,8 @@ public class modelDevice {
         this.description = description;
     }
 
-    public modelDevice(String device_type, String brand, String model, String serial_number, String description) {
+    public modelDevice(int id_client, String device_type, String brand, String model, String serial_number, String description) {
+        this.id_client = id_client;
         this.device_type = device_type;
         this.brand = brand;
         this.model = model;

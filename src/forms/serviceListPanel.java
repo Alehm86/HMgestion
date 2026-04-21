@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
+import utils.utility;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -21,8 +22,9 @@ import javax.swing.SwingUtilities;
 
 public class serviceListPanel extends javax.swing.JPanel {
 
-    genericDAO queriesGeneric = new genericDAO();
-    serviceDAO queriesServices = new serviceDAO();
+    serviceDAO qServices = new serviceDAO();
+    
+    utility utils = new utility();
     
     String serviceSelected = "";
     Map<String, Integer> estadosMap = new HashMap<>();    
@@ -51,7 +53,7 @@ public class serviceListPanel extends javax.swing.JPanel {
 
                  estado = pServiceView.dialogoServiceActualizado();
                  if(estado){
-                     queriesServices.listServices(jtableServices);
+                     qServices.listServices(jtableServices);
                  }
 
             }else{
@@ -65,7 +67,7 @@ public class serviceListPanel extends javax.swing.JPanel {
         
         btnEntregar.addActionListener(e->{
             
-            String delivery_date = queriesGeneric.fecha();
+            String delivery_date = utils.fecha();
             boolean estado = false;
             
             int confirmacion = JOptionPane.showConfirmDialog(
@@ -78,7 +80,7 @@ public class serviceListPanel extends javax.swing.JPanel {
                 return;
             } 
 
-            estado = queriesServices.updateServiceDespachar(serviceSelected, delivery_date);
+            estado = qServices.updateServiceDespachar(serviceSelected, delivery_date);
             
             if(estado){
                 listar();
@@ -96,15 +98,16 @@ public class serviceListPanel extends javax.swing.JPanel {
         }
 
         if(selected.equals("Todos")){
-            queriesServices.listServices(jtableServices); 
+            qServices.listServices(jtableServices); 
         }else{
-            queriesServices.listServicesForState(jtableServices,id_status);
+            qServices.listServicesForState(jtableServices,id_status);
         }        
     }
     
     private void selectService(){
 
         jtableServices.addMouseListener(new MouseAdapter(){
+            
             public void mousePressed(MouseEvent Mouse_evt){
                 JTable tablaO =(JTable) Mouse_evt.getSource();
                 Point point = Mouse_evt.getPoint();
@@ -112,9 +115,7 @@ public class serviceListPanel extends javax.swing.JPanel {
                          
                 if(Mouse_evt.getClickCount()==1){
                     serviceSelected = String.valueOf(jtableServices.getValueAt(jtableServices.getSelectedRow(), 1).toString()); 
-                }
-//                else{
-//                }            
+                }         
             }
         });
     }
@@ -147,8 +148,6 @@ public class serviceListPanel extends javax.swing.JPanel {
         cboStates.addItem("Entregado");
         estadosMap.put("Entregado", 7);        
     }
-    
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -171,7 +170,7 @@ public class serviceListPanel extends javax.swing.JPanel {
         btnServiceView.setText("Revisar");
         btnServiceView.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         btnServiceView.setBorderPainted(false);
-        btnServiceView.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnServiceView.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnServiceView.setFocusable(false);
         btnServiceView.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -194,7 +193,7 @@ public class serviceListPanel extends javax.swing.JPanel {
         btnEntregar.setText("Entregar");
         btnEntregar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         btnEntregar.setBorderPainted(false);
-        btnEntregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnEntregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEntregar.setFocusable(false);
         btnEntregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -218,6 +217,7 @@ public class serviceListPanel extends javax.swing.JPanel {
         cboStates.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         cboStates.setForeground(new java.awt.Color(65, 65, 63));
         cboStates.setBorder(null);
+        cboStates.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -263,6 +263,8 @@ public class serviceListPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtableServices.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jtableServices.setFillsViewportHeight(true);
         jtableServices.setRowHeight(25);
         jScrollPane1.setViewportView(jtableServices);
 

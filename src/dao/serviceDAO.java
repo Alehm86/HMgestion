@@ -13,7 +13,6 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -21,34 +20,42 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import utils.config;
 
-/**
- *
- * @author Ale
- */
 public class serviceDAO {
     
-    public void insertDevice(String deviceType, String brand, String model, String serialNumber, String description){
-        
-        String sql="INSERT INTO `devices`(`device_type`, `brand`, `model`, `serial_number`, `description`) VALUES (?,?,?,?,?)";
-               
+    private Connection getConnection() {
         connectionDB con = new connectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
+        return con.establecerConexion();
+    }
+    
+    private DefaultTableModel crearModeloNoEditable() {
+        return new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+    }
+    
+    public void insertDevice(int id_customer, String deviceType, String brand, String model, String serialNumber, String description){
+        
+        String sql="INSERT INTO `devices`(`id_customer`, `device_type`, `brand`, `model`, `serial_number`, `description`) VALUES (?,?,?,?,?,?)";
+               
+        Connection conexion = getConnection();
        
         try{
-            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);  
-            
-            pstmt.setString(1, deviceType);
-            pstmt.setString(2, brand);
-            pstmt.setString(3, model);
-            pstmt.setString(4, serialNumber);
-            pstmt.setString(5, description);
-            
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);           
+            pstmt.setInt(1, id_customer);
+            pstmt.setString(2, deviceType);
+            pstmt.setString(3, brand);
+            pstmt.setString(4, model);
+            pstmt.setString(5, serialNumber);
+            pstmt.setString(6, description);           
             pstmt.executeUpdate();   
             
             conexion.close(); 
-            pstmt.close();
-            
+            pstmt.close();          
         }
         catch(SQLException e){
             JOptionPane.showMessageDialog(null, "ERROR AL REGISTRAR DISPOSITIVO" + e.getMessage());
@@ -60,15 +67,13 @@ public class serviceDAO {
         
         String sql = "SELECT * FROM devices WHERE serial_number = ?";
         
-        connectionDB con = new connectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
+        Connection conexion = getConnection();
         
         try {         
-            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
-            
-            pstmt.setString(1, serialNumber);
-        
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);          
+            pstmt.setString(1, serialNumber);       
             ResultSet rs = pstmt.executeQuery();
+            
             boolean existe = rs.next();
         
             rs.close();
@@ -92,8 +97,7 @@ public class serviceDAO {
         JLabel lblModel,
         JLabel lblDescription
         ){  
-        
-        
+          
         String sql = 
                 "SELECT " +
                 "id_device, " +
@@ -104,8 +108,7 @@ public class serviceDAO {
                 "FROM `devices` " +
                 "WHERE `serial_number`=?";
                     
-        connectionDB con = new connectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
+        Connection conexion = getConnection();
                   
         try{            
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
@@ -150,8 +153,7 @@ public class serviceDAO {
 
         String sqlUpdate = "UPDATE service_orders SET service_number = ? WHERE id_service = ?";
 
-        connectionDB con = new connectionDB();
-        Connection conexion = con.establecerConexion();
+        Connection conexion = getConnection();
 
         try{
             conexion.setAutoCommit(false);
@@ -213,19 +215,16 @@ public class serviceDAO {
         
         LocalDate fechaLocal = LocalDate.now();
         
-        connectionDB con = new connectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
+        Connection conexion = getConnection();
 
         try{
-            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
-            
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);            
             pstmt.setInt(1, id_service);
             pstmt.setInt(2, id_status);
-            pstmt.setDate(3, java.sql.Date.valueOf(fechaLocal));
+            pstmt.setDate(3, java.sql.Date.valueOf(fechaLocal));            
+            pstmt.executeUpdate();  
             
-            pstmt.executeUpdate();            
             conexion.close(); 
-
         }
         catch(SQLException e){
             JOptionPane.showMessageDialog(null, "ERROR AL REGISTRAR Service_order_status_history" + e.getMessage());
@@ -243,17 +242,10 @@ public class serviceDAO {
                     "INNER JOIN devices d " +
                     "ON s.id_device = d.id_device " +
                     "WHERE s.id_customer = ?";
-        
 
-        DefaultTableModel dtm = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        DefaultTableModel dtm = crearModeloNoEditable();
 
-        connectionDB con = new connectionDB();
-        Connection conexion = con.establecerConexion();
+        Connection conexion = getConnection();
 
         String[] titleTable = {"Tipo","Marca","Modelo","Numero de serie"};
         dtm.setColumnIdentifiers(titleTable);
@@ -276,6 +268,8 @@ public class serviceDAO {
             }
 
             jtable.setModel(dtm);
+            
+            config.TableStyleUtil.applyPoppinsHeader(jtable);
 
             rs.close();
             pstmt.close();
@@ -292,7 +286,7 @@ public class serviceDAO {
                 "so.entry_date, " +
                 "so.service_number, " +
                 "COALESCE(so.repair_date, '') AS repair_date, " +
-                "c.name AS client_name, " +
+                "c.name AS customer_name, " +
                 "d.device_type, " +
                 "COALESCE(d.brand, 'Sin dato') AS brand, " +
                 "COALESCE(d.model, 'Sin dato') AS model, " +
@@ -300,23 +294,17 @@ public class serviceDAO {
                 "d.serial_number, " +
                 "s.name AS status_name " +
                 "FROM service_orders so " +
-                "INNER JOIN client c ON so.id_customer = c.id_client " +
+                "INNER JOIN customer c ON so.id_customer = c.id_customer " +
                 "INNER JOIN devices d ON so.id_device = d.id_device " +
                 "INNER JOIN services_states s ON so.id_status = s.id_states " +
-                "WHERE so.id_status BETWEEN 1 AND 6 " +
+                "WHERE so.id_status BETWEEN 1 AND 7 " +
                 "ORDER BY so.entry_date DESC;";
         
         Statement stmt;
 
-        DefaultTableModel dtm = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        DefaultTableModel dtm = crearModeloNoEditable();
 
-        connectionDB con = new connectionDB();
-        Connection conexion = con.establecerConexion();
+        Connection conexion = getConnection();
 
         String[] titleTable = {"Fecha de ingreso","Nº de servicio","Cliente","Dispositivo","Marca","Modelo","Nº de serie","Descripcion","Estado","Fecha de reparación"};
         dtm.setColumnIdentifiers(titleTable);
@@ -330,7 +318,7 @@ public class serviceDAO {
                 Object[] row = {
                     rs.getString("entry_date"),
                     rs.getString("service_number"),
-                    rs.getString("client_name"),
+                    rs.getString("customer_name"),
                     rs.getString("device_type"),
                     rs.getString("brand"),       
                     rs.getString("model"),       
@@ -343,6 +331,9 @@ public class serviceDAO {
                 dtm.addRow(row);
             }
             jtable.setModel(dtm);
+            
+            config.TableStyleUtil.applyPoppinsHeader(jtable);
+            
             jtable.setDefaultRenderer(Object.class, new StatusColorRenderer());
 
             rs.close();
@@ -360,7 +351,7 @@ public class serviceDAO {
                 "so.entry_date, " +
                 "so.service_number, " +
                 "COALESCE(so.repair_date, '') AS repair_date, " +
-                "c.name AS client_name, " +
+                "c.name AS customer_name, " +
                 "d.device_type, " +
                 "COALESCE(d.brand, 'Sin dato') AS brand, " +
                 "COALESCE(d.model, 'Sin dato') AS model, " +
@@ -368,37 +359,30 @@ public class serviceDAO {
                 "d.serial_number, " +
                 "s.name AS status_name " +
                 "FROM service_orders so " +
-                "INNER JOIN client c ON so.id_customer = c.id_client " +
+                "INNER JOIN customer c ON so.id_customer = c.id_customer " +
                 "INNER JOIN devices d ON so.id_device = d.id_device " +
                 "INNER JOIN services_states s ON so.id_status = s.id_states " +
-                "WHERE so.id_status = " + id_status + " " +
+                "WHERE so.id_status = ?" +
                 "ORDER BY so.entry_date DESC;";
-        
-        Statement stmt;
 
-        DefaultTableModel dtm = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        DefaultTableModel dtm = crearModeloNoEditable();
 
-        connectionDB con = new connectionDB();
-        Connection conexion = con.establecerConexion();
+        Connection conexion = getConnection();
 
         String[] titleTable = {"Fecha de ingreso","Nº de servicio","Cliente","Dispositivo","Marca","Modelo","Nº de serie","Descripcion","Estado","Fecha de reparación"};
         dtm.setColumnIdentifiers(titleTable);
 
         try{
-            stmt = conexion.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
+            pstmt.setInt(1, id_status);
+            ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
 
                 Object[] row = {
                     rs.getString("entry_date"),
                     rs.getString("service_number"),
-                    rs.getString("client_name"),
+                    rs.getString("customer_name"),
                     rs.getString("device_type"),
                     rs.getString("brand"),       
                     rs.getString("model"),       
@@ -411,10 +395,12 @@ public class serviceDAO {
                 dtm.addRow(row);
             }
             jtable.setModel(dtm);
+            
+            config.TableStyleUtil.applyPoppinsHeader(jtable);
+            
             jtable.setDefaultRenderer(Object.class, new StatusColorRenderer());
 
             rs.close();
-            stmt.close();
             conexion.close();
 
         } catch(SQLException e){
@@ -429,46 +415,52 @@ public class serviceDAO {
                 JTable table, Object value, boolean isSelected,
                 boolean hasFocus, int row, int column) {
 
-            Component c = super.getTableCellRendererComponent(
-                    table, value, isSelected, hasFocus, row, column);
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
             String status = table.getValueAt(row, 8).toString().toUpperCase();
 
             if (!isSelected) {
 
-                switch (status) {
+            switch (status) {
 
-                    case "INGRESADO":
-                        c.setBackground(Color.decode("#FFF3CD"));
-                        break;
+                case "INGRESADO":
+                    c.setBackground(Color.decode("#F5F5F5")); // gris claro (neutro)
+                    break;
 
-                    case "DIAGNOSTICADO":
-                        c.setBackground(Color.decode("#FFE082"));
-                        break;
+                case "DIAGNOSTICADO":
+                    c.setBackground(Color.decode("#BBDEFB")); // azul claro
+                    break;
 
-                    case "ESPERANDO APROBACION":
-                        c.setBackground(Color.decode("#FFCC80"));
-                        break;
+                case "ESPERANDO APROBACION":
+                    c.setBackground(Color.decode("#FFE0B2")); // naranja suave
+                    break;
 
-                    case "NO REPARADO":
-                        c.setBackground(Color.decode("#FF8A80"));
-                        break;
+                case "PRESUPUESTO APROBADO":
+                    c.setBackground(Color.decode("#C8E6C9")); // verde claro
+                    break;
 
-                    case "REPARADO":
-                        c.setBackground(Color.decode("#A5D6A7"));
-                        break;
+                case "PRESUPUESTO RECHAZADO":
+                    c.setBackground(Color.decode("#FFCDD2")); // rojo claro
+                    break;
 
-                    case "ENTREGADO":
-                        c.setBackground(Color.decode("#E0E0E0"));
-                        break;
+                case "NO REPARADO":
+                    c.setBackground(Color.decode("#EF9A9A")); // rojo más fuerte
+                    break;
 
-                    default:
-                        c.setBackground(Color.WHITE);
-                }
+                case "REPARADO":
+                    c.setBackground(Color.decode("#A5D6A7")); // verde
+                    break;
 
-                c.setForeground(Color.BLACK);
-                
+                case "ENTREGADO":
+                    c.setBackground(Color.decode("#D1C4E9")); // violeta suave (cerrado)
+                    break;
+
+                default:
+                    c.setBackground(Color.WHITE);
             }
+
+            c.setForeground(Color.BLACK);
+        }
 
             return c;
         }
@@ -493,7 +485,7 @@ public class serviceDAO {
         ){  
 
         String sql = "SELECT " +
-                "c.name AS client_name, " +
+                "c.name AS customer_name, " +
                 "c.phone, " +
                 "d.device_type, " +
                 "COALESCE(d.brand, 'Sin dato') AS brand, " +
@@ -507,13 +499,12 @@ public class serviceDAO {
                 "COALESCE(so.cost, '') AS cost, " +
                 "s.name AS status_name " +
                 "FROM service_orders so " +
-                "INNER JOIN client c ON so.id_customer = c.id_client " +
+                "INNER JOIN customer c ON so.id_customer = c.id_customer " +
                 "INNER JOIN devices d ON so.id_device = d.id_device " +
                 "INNER JOIN services_states s ON so.id_status = s.id_states " +
                 "WHERE so.service_number = ?";
 
-        connectionDB con = new connectionDB();
-        Connection conexion = con.establecerConexion();
+        Connection conexion = getConnection();
 
         try{            
             PreparedStatement pstmt = conexion.prepareStatement(sql);
@@ -527,7 +518,7 @@ public class serviceDAO {
                 lbl_id_service.setText(rs.getString("id_service"));
                 lbl_serviceNumber.setText(serviceNumber);               
                 lbl_date.setText(rs.getString("entry_date"));
-                lbl_name.setText(rs.getString("client_name"));
+                lbl_name.setText(rs.getString("customer_name"));
                 lbl_phone.setText(rs.getString("phone"));
                 lbl_deviceType.setText(rs.getString("device_type"));
                 lbl_brand.setText(rs.getString("brand"));
@@ -559,8 +550,7 @@ public class serviceDAO {
         
         LocalDate fechaLocal = LocalDate.now();
                
-        connectionDB con = new connectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
+        Connection conexion = getConnection();
        
         try{
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
@@ -597,8 +587,7 @@ public class serviceDAO {
         boolean estado = false;
         int id_state = 7;
                
-        connectionDB con = new connectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
+        Connection conexion = getConnection();
        
         try{
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
@@ -626,7 +615,7 @@ public class serviceDAO {
             int id_service,
             JLabel lbl_serviceNumber,
             JLabel lbl_date,
-            JLabel lbl_clientId,
+            JLabel lbl_customerId,
             JLabel lbl_name,
             JLabel lbl_phone,
             JLabel lbl_deviceType,
@@ -638,8 +627,8 @@ public class serviceDAO {
     ){
         String sql = "SELECT " +
                     "so.service_number, " +
-                    "c.name AS client_name, " +
-                    "c.id_client, " +
+                    "c.name AS customer_name, " +
+                    "c.id_customer, " +
                     "c.phone, " +
                     "d.device_type, " +
                     "COALESCE(d.brand, 'Sin dato') AS brand, " +
@@ -649,12 +638,11 @@ public class serviceDAO {
                     "so.reported_problem, " +
                     "so.entry_date " +
                     "FROM service_orders so " +
-                    "INNER JOIN client c ON so.id_customer = c.id_client " +
+                    "INNER JOIN customer c ON so.id_customer = c.id_customer " +
                     "INNER JOIN devices d ON so.id_device = d.id_device " +
                     "WHERE so.id_service = ?";
         
-        connectionDB con = new connectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
+        Connection conexion = getConnection();
         
         try{            
             PreparedStatement pstmt = conexion.prepareStatement(sql);
@@ -666,8 +654,8 @@ public class serviceDAO {
 
                 lbl_serviceNumber.setText(rs.getString("service_number"));
                 lbl_date.setText(rs.getString("entry_date"));
-                lbl_clientId.setText(rs.getString("id_client"));                
-                lbl_name.setText(rs.getString("client_name"));
+                lbl_customerId.setText(rs.getString("id_customer"));                
+                lbl_name.setText(rs.getString("customer_name"));
                 lbl_phone.setText(rs.getString("phone"));
                 lbl_deviceType.setText(rs.getString("device_type"));
                 lbl_brand.setText(rs.getString("brand"));

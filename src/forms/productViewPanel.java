@@ -22,17 +22,22 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import models.modelPrice;
+import utils.utility;
 
 public class productViewPanel extends javax.swing.JPanel {
 
-    productDAO queriesProduct = new productDAO();
-    genericDAO queriesGeneric = new genericDAO();
+    productDAO qProduct = new productDAO();
+    genericDAO qGeneric = new genericDAO();
+    
+    utility utils = new utility();
     
     modelProducts product = new modelProducts();
     modelPrice price = new modelPrice();
 
+    JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
     
     private int idProduct;
+    private String catPadre;
     
     public void dialogoEditSearch(int idProducto){
         this.idProduct = idProducto;
@@ -86,9 +91,9 @@ public class productViewPanel extends javax.swing.JPanel {
     
     private void llenarCombos(){
         
-        queriesGeneric.llenarCombos(cboBrands,"brands");  
-        queriesGeneric.llenarCombosActivos(cboCategories,"categories");
-        queriesGeneric.llenarCombosActivos(cboPromotion,"product_promotions");        
+        qGeneric.llenarCombos(cboBrands,"brands");  
+        qGeneric.llenarCombosActivos(cboCategories,"categories");
+        qGeneric.llenarCombosActivos(cboPromotion,"product_promotions");        
     }   
     
     private void actionPromotions(){
@@ -116,8 +121,8 @@ public class productViewPanel extends javax.swing.JPanel {
             
             if (cboPromotion.getSelectedIndex() > 0) { 
                 String namePromo = cboPromotion.getSelectedItem().toString();  
-                product.id_promotion = queriesGeneric.selectId("id_promotion","product_promotions",namePromo); 
-                queriesProduct.updateProductPromotion(idProduct, product.getId_promotion());
+                product.id_promotion = qGeneric.selectId("id_promotion","product_promotions",namePromo); 
+                qProduct.updateProductPromotion(idProduct, product.getId_promotion());
             }
             
             btnActivePromo.setVisible(false);
@@ -138,7 +143,7 @@ public class productViewPanel extends javax.swing.JPanel {
             if (confirmacion != JOptionPane.YES_OPTION) {
                 return;
             }
-            queriesProduct.updateProductPromotion(Integer.parseInt(lbl_id.getText().trim()), null);
+            qProduct.updateProductPromotion(Integer.parseInt(lbl_id.getText().trim()), null);
             
             buscar();
             
@@ -149,16 +154,16 @@ public class productViewPanel extends javax.swing.JPanel {
     private void llenarSubcategorias(){
 
         String categoria = (String) cboCategories.getSelectedItem();
-        int idCat = queriesProduct.selectIdCategoria(categoria);
+        int idCat = qProduct.selectIdCategoria(categoria);
         cboSubcategories.removeAllItems();
-        queriesProduct.llenarCombosSubcategories(cboSubcategories, idCat);          
+        qProduct.llenarCombosSubcategories(cboSubcategories, idCat);          
     }    
     
     private void actions(){
         
-        queriesGeneric.clearMsjErrorTxt(txtModel, lblErrorModel);        
-        queriesGeneric.clearMsjErrorTxt(txtProductCode, lblErrorCodeP);  
-        queriesGeneric.clearMsjErrorTxt(txtColor, lblErrorColor);
+        utils.clearMsjErrorTxt(txtModel, lblErrorModel);        
+        utils.clearMsjErrorTxt(txtProductCode, lblErrorCodeP);  
+        utils.clearMsjErrorTxt(txtColor, lblErrorColor);
         
         btnRegistrar.addActionListener(new ActionListener() {
             @Override
@@ -170,7 +175,7 @@ public class productViewPanel extends javax.swing.JPanel {
         
         btnBuscar.addActionListener(e -> {
             
-            idProduct = queriesProduct.selectIdProduct(txtCodProducto.getText());
+            idProduct = qProduct.selectIdProduct(txtCodProducto.getText());
             buscar();           
         });         
         
@@ -217,6 +222,14 @@ public class productViewPanel extends javax.swing.JPanel {
                 txtSubcategory.setText(cboSubcategories.getSelectedItem().toString());
             }
         }); 
+        
+        cboCategories.addActionListener(e -> {
+            Object selected = cboCategories.getSelectedItem();
+
+            if (selected != null) {
+                catPadre = selected.toString();
+            }
+        });
         
     }
     
@@ -314,9 +327,9 @@ public class productViewPanel extends javax.swing.JPanel {
     private void buscar(){
         
         clear();
-        queriesProduct.selectProductEdit(idProduct, lbl_id, txtCategory, txtSubcategory, txtBrand, txtModel, txtColor, txtProductCode, lblEnPromo);
-        queriesProduct.selectAllTableStock(idProduct, lblStock, txtMin);
-        queriesProduct.selectProductPriceEdit(idProduct, txtPrecioCosto, txtBenefit, lbl_iva, txtSalePrice);
+        qProduct.selectProductEdit(idProduct, lbl_id, txtCategory, txtSubcategory, txtBrand, txtModel, txtColor, txtProductCode, lblEnPromo);
+        qProduct.selectAllTableStock(idProduct, lblStock, txtMin);
+        qProduct.selectProductPriceEdit(idProduct, txtPrecioCosto, txtBenefit, lbl_iva, txtSalePrice);
         
         infoComboSelected();
         
@@ -332,6 +345,8 @@ public class productViewPanel extends javax.swing.JPanel {
         }else{
             btnActivePromo.setVisible(true);
         }
+        
+        catPadre = cboCategories.getSelectedItem().toString();
   
     }    
 
@@ -370,8 +385,8 @@ public class productViewPanel extends javax.swing.JPanel {
             valido = false;
         }         
                  
-        product.id_brand = queriesGeneric.selectId("id_brand","brands",txtBrand.getText());
-        product.id_subcat = queriesGeneric.selectId("id_subcategory","subcategories",txtSubcategory.getText());  
+        product.id_brand = qGeneric.selectId("id_brand","brands",txtBrand.getText());
+        product.id_subcat = qGeneric.selectId("id_subcategory","subcategories",txtSubcategory.getText());  
                
         price.price =  Double.parseDouble(txtPrecioCosto.getText());           
         price.benefit = Double.parseDouble(txtBenefit.getText());
@@ -393,7 +408,7 @@ public class productViewPanel extends javax.swing.JPanel {
         }        
         
         //ACTUALIZA DATOS DE PRODUCTO
-        queriesProduct.updateProduct(
+        qProduct.updateProduct(
             idProduct,
             product.getId_subcat(),
             product.getId_brand(),
@@ -404,10 +419,10 @@ public class productViewPanel extends javax.swing.JPanel {
         );
         
         //ACTUALIZA ALARMA DE STOCK MINIMO
-        queriesProduct.updateAlarmStockMin(idProduct, stockMin);
+        qProduct.updateAlarmStockMin(idProduct, stockMin);
         
         //ACTUALIZA DATOS DEL PRECIO
-        queriesProduct.updatePriceProduct(idProduct, price.getPrice(), price.getBenefit(), price.getSalesPrice(), price.getIva());       
+        qProduct.updatePriceProduct(idProduct, price.getPrice(), price.getBenefit(), price.getSalesPrice(), price.getIva());       
                
         OffObjets();
         
@@ -513,7 +528,7 @@ public class productViewPanel extends javax.swing.JPanel {
             return;
         }
         
-        lblPrecioSujerido.setText(queriesProduct.calcularPrecioSugerido(
+        lblPrecioSujerido.setText(qProduct.calcularPrecioSugerido(
                 txtPrecioCosto.getText().trim(), 
                 cboIva.getSelectedItem().toString(), 
                 txtBenefit.getText().trim())
@@ -529,13 +544,12 @@ public class productViewPanel extends javax.swing.JPanel {
         JMenuItem item2 = new JMenuItem("Editar marca");
         
         item1.addActionListener(e -> {
-            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
 
             productBrandNewDialog dialogo = new productBrandNewDialog(parent, true);
             dialogo.setVisible(true);
 
             String nuevaMarca = dialogo.getMarcaCreada();
-            queriesGeneric.llenarCombos(cboBrands, "brands");
+            qGeneric.llenarCombos(cboBrands, "brands");
 
             if (nuevaMarca != null) {
                 cboBrands.setSelectedItem(nuevaMarca);
@@ -544,13 +558,12 @@ public class productViewPanel extends javax.swing.JPanel {
 
         
         item2.addActionListener(e -> {
-            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
 
             productBrandEditDialog dialogo = new productBrandEditDialog(parent, true);
             dialogo.setVisible(true);
 
             String nuevaMarca = dialogo.getMarcaCreada();
-            queriesGeneric.llenarCombos(cboBrands, "brands");
+            qGeneric.llenarCombos(cboBrands, "brands");
 
             if (nuevaMarca != null) {
                 cboBrands.setSelectedItem(nuevaMarca);
@@ -585,13 +598,11 @@ public class productViewPanel extends javax.swing.JPanel {
         
         item1.addActionListener(e -> {
 
-            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-
             productCategoriesNewDialog dialogo = new productCategoriesNewDialog(parent, true);
             dialogo.setVisible(true);
 
             String nuevaCategoria = dialogo.getCategoriaCreada();
-            queriesGeneric.llenarCombosActivos(cboCategories, "categories");
+            qGeneric.llenarCombosActivos(cboCategories, "categories");
 
             if (nuevaCategoria != null) {
                 cboCategories.setSelectedItem(nuevaCategoria);
@@ -599,8 +610,6 @@ public class productViewPanel extends javax.swing.JPanel {
         });    
 
         item2.addActionListener(e -> {
-
-            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
 
             productCategoriesEditDialog dialogo = new productCategoriesEditDialog(parent, true);
             dialogo.setVisible(true);
@@ -610,7 +619,7 @@ public class productViewPanel extends javax.swing.JPanel {
             if (nuevaCategoria != null && !nuevaCategoria.isEmpty()) {
 
                 cboCategories.removeAllItems();
-                queriesGeneric.llenarCombosActivos(cboCategories, "categories");
+                qGeneric.llenarCombosActivos(cboCategories, "categories");
                 cboCategories.setSelectedItem(nuevaCategoria);
             }
         });    
@@ -643,9 +652,8 @@ public class productViewPanel extends javax.swing.JPanel {
         
         item1.addActionListener(e -> {
 
-            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-
             productSubategoriesNewDialog dialogo = new productSubategoriesNewDialog(parent, true);
+            dialogo.setCategoriaPadre(catPadre);
             dialogo.setVisible(true);
 
             String nuevaSubcategoria = dialogo.getSubcategoriaCreada();
@@ -654,9 +662,9 @@ public class productViewPanel extends javax.swing.JPanel {
                 String categoria = (String) cboCategories.getSelectedItem();
 
                 if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                    int idCat = queriesProduct.selectIdCategoria(categoria);
+                    int idCat = qProduct.selectIdCategoria(categoria);
                     cboSubcategories.removeAllItems();
-                    queriesProduct.llenarCombosSubcategories(cboSubcategories, idCat);
+                    qProduct.llenarCombosSubcategories(cboSubcategories, idCat);
                     cboSubcategories.setSelectedItem(nuevaSubcategoria);
                 }
             }
@@ -664,9 +672,8 @@ public class productViewPanel extends javax.swing.JPanel {
 
         item2.addActionListener(e -> {
 
-            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-
             productSubcategoriesEditDialog dialogo = new productSubcategoriesEditDialog(parent, true);
+            dialogo.setCategoriaPadre(catPadre);
             dialogo.setVisible(true);
 
             String nuevaSubcategoria = dialogo.getSubcategoriaCreada();
@@ -675,9 +682,9 @@ public class productViewPanel extends javax.swing.JPanel {
                 String categoria = (String) cboCategories.getSelectedItem();
 
                 if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                    int idCat = queriesProduct.selectIdCategoria(categoria);
+                    int idCat = qProduct.selectIdCategoria(categoria);
                     cboSubcategories.removeAllItems();
-                    queriesProduct.llenarCombosSubcategories(cboSubcategories, idCat);
+                    qProduct.llenarCombosSubcategories(cboSubcategories, idCat);
                     cboSubcategories.setSelectedItem(nuevaSubcategoria);
                 }
             }
@@ -719,6 +726,7 @@ public class productViewPanel extends javax.swing.JPanel {
         cboPromotion = new javax.swing.JComboBox<>();
         btnCancelPromo = new javax.swing.JButton();
         btnConfirmPromo = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnCancel = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
@@ -776,7 +784,7 @@ public class productViewPanel extends javax.swing.JPanel {
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Serch32.png"))); // NOI18N
         btnBuscar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(12, 83, 151), 1, true));
         btnBuscar.setBorderPainted(false);
-        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.setDefaultCapable(false);
         btnBuscar.setFocusPainted(false);
         btnBuscar.setFocusable(false);
@@ -805,7 +813,7 @@ public class productViewPanel extends javax.swing.JPanel {
         btnSearchList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchlist32.png"))); // NOI18N
         btnSearchList.setBorder(null);
         btnSearchList.setBorderPainted(false);
-        btnSearchList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnSearchList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSearchList.setFocusPainted(false);
         btnSearchList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -828,7 +836,7 @@ public class productViewPanel extends javax.swing.JPanel {
         btnEdit.setText("Editar");
         btnEdit.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(12, 83, 151), 1, true));
         btnEdit.setBorderPainted(false);
-        btnEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEdit.setDefaultCapable(false);
         btnEdit.setFocusPainted(false);
         btnEdit.setFocusable(false);
@@ -853,7 +861,7 @@ public class productViewPanel extends javax.swing.JPanel {
         btnActivePromo.setText("Activar promo!");
         btnActivePromo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(12, 83, 151), 1, true));
         btnActivePromo.setBorderPainted(false);
-        btnActivePromo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnActivePromo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnActivePromo.setDefaultCapable(false);
         btnActivePromo.setFocusPainted(false);
         btnActivePromo.setFocusable(false);
@@ -874,16 +882,18 @@ public class productViewPanel extends javax.swing.JPanel {
         cboPromotion.setBackground(new java.awt.Color(255, 255, 255));
         cboPromotion.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         cboPromotion.setForeground(new java.awt.Color(65, 65, 63));
+        cboPromotion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnCancelPromo.setBackground(new java.awt.Color(204, 102, 0));
         btnCancelPromo.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnCancelPromo.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelPromo.setText("Terminar promoción.");
+        btnCancelPromo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnConfirmPromo.setBackground(new java.awt.Color(255, 255, 255));
         btnConfirmPromo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
         btnConfirmPromo.setBorder(null);
-        btnConfirmPromo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnConfirmPromo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnConfirmPromo.setFocusPainted(false);
         btnConfirmPromo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -899,12 +909,16 @@ public class productViewPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/productEdit64.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(10, 10, 10)
                 .addComponent(jLabel9)
                 .addGap(6, 6, 6)
                 .addComponent(txtCodProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -927,7 +941,7 @@ public class productViewPanel extends javax.swing.JPanel {
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCodProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -937,8 +951,9 @@ public class productViewPanel extends javax.swing.JPanel {
                     .addComponent(btnActivePromo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnConfirmPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16))
+                    .addComponent(btnCancelPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(6, 6, 6))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -947,7 +962,7 @@ public class productViewPanel extends javax.swing.JPanel {
         btnCancel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
         btnCancel.setBorder(null);
-        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCancelMouseEntered(evt);
@@ -968,7 +983,7 @@ public class productViewPanel extends javax.swing.JPanel {
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/product32.png"))); // NOI18N
         btnRegistrar.setText("Editar");
         btnRegistrar.setBorder(null);
-        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegistrar.setMaximumSize(new java.awt.Dimension(120, 52));
         btnRegistrar.setMinimumSize(new java.awt.Dimension(120, 52));
         btnRegistrar.setPreferredSize(new java.awt.Dimension(120, 52));
@@ -1014,7 +1029,7 @@ public class productViewPanel extends javax.swing.JPanel {
         cboBrands.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         cboBrands.setForeground(new java.awt.Color(65, 65, 63));
         cboBrands.setBorder(null);
-        cboBrands.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cboBrands.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cboBrands.setFocusable(false);
         cboBrands.setMinimumSize(new java.awt.Dimension(70, 22));
         cboBrands.setPreferredSize(new java.awt.Dimension(70, 22));
@@ -1025,10 +1040,10 @@ public class productViewPanel extends javax.swing.JPanel {
         });
 
         btnBrand.setBackground(new java.awt.Color(255, 255, 255));
-        btnBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/gear32.png"))); // NOI18N
+        btnBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/gear24.png"))); // NOI18N
         btnBrand.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         btnBrand.setBorderPainted(false);
-        btnBrand.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnBrand.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBrand.setFocusPainted(false);
         btnBrand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1047,7 +1062,7 @@ public class productViewPanel extends javax.swing.JPanel {
         });
 
         jLabel7.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel7.setForeground(new java.awt.Color(12, 83, 151));
         jLabel7.setText("Color:");
 
         lblErrorColor.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -1059,7 +1074,7 @@ public class productViewPanel extends javax.swing.JPanel {
         cboSubcategories.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         cboSubcategories.setForeground(new java.awt.Color(65, 65, 63));
         cboSubcategories.setBorder(null);
-        cboSubcategories.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cboSubcategories.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cboSubcategories.setFocusable(false);
         cboSubcategories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1068,10 +1083,10 @@ public class productViewPanel extends javax.swing.JPanel {
         });
 
         btnSubcategories.setBackground(new java.awt.Color(255, 255, 255));
-        btnSubcategories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/gear32.png"))); // NOI18N
+        btnSubcategories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/gear24.png"))); // NOI18N
         btnSubcategories.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         btnSubcategories.setBorderPainted(false);
-        btnSubcategories.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnSubcategories.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSubcategories.setFocusPainted(false);
         btnSubcategories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1093,7 +1108,7 @@ public class productViewPanel extends javax.swing.JPanel {
         txtModel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         jLabel6.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel6.setForeground(new java.awt.Color(12, 83, 151));
         jLabel6.setText("Modelo:");
 
         lblErrorModel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -1107,7 +1122,7 @@ public class productViewPanel extends javax.swing.JPanel {
         txtProductCode.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         jLabel11.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel11.setForeground(new java.awt.Color(12, 83, 151));
         jLabel11.setText("Codigo producto:");
 
         lblErrorCodeP.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -1116,7 +1131,7 @@ public class productViewPanel extends javax.swing.JPanel {
         lblErrorCodeP.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         jLabel14.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel14.setForeground(new java.awt.Color(12, 83, 151));
         jLabel14.setText("Subcategoría:");
 
         txtSubcategory.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -1128,7 +1143,7 @@ public class productViewPanel extends javax.swing.JPanel {
         jLabel12.setText("Id producto:");
 
         jLabel21.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel21.setForeground(new java.awt.Color(12, 83, 151));
         jLabel21.setText("Marca:");
 
         jLabel19.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
@@ -1167,7 +1182,7 @@ public class productViewPanel extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel8.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel8.setForeground(new java.awt.Color(12, 83, 151));
         jLabel8.setText("Alarma stock minímo:");
 
         txtMin.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -1181,7 +1196,7 @@ public class productViewPanel extends javax.swing.JPanel {
         lblErrorStock.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         jLabel16.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel16.setForeground(new java.awt.Color(12, 83, 151));
         jLabel16.setText("Precio de costo:");
 
         txtPrecioCosto.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -1195,7 +1210,7 @@ public class productViewPanel extends javax.swing.JPanel {
         });
 
         jLabel15.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel15.setForeground(new java.awt.Color(12, 83, 151));
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/%.png"))); // NOI18N
         jLabel15.setText("IVA:");
         jLabel15.setToolTipText("");
@@ -1207,7 +1222,7 @@ public class productViewPanel extends javax.swing.JPanel {
         cboIva.setForeground(new java.awt.Color(65, 65, 63));
         cboIva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "21", "10.5" }));
         cboIva.setBorder(null);
-        cboIva.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cboIva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cboIva.setFocusable(false);
         cboIva.setMinimumSize(new java.awt.Dimension(70, 22));
         cboIva.setPreferredSize(new java.awt.Dimension(70, 22));
@@ -1221,7 +1236,7 @@ public class productViewPanel extends javax.swing.JPanel {
         lbl_iva.setText("xxx");
 
         jLabel17.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel17.setForeground(new java.awt.Color(12, 83, 151));
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/%.png"))); // NOI18N
         jLabel17.setText("Beneficio:");
         jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
@@ -1245,7 +1260,7 @@ public class productViewPanel extends javax.swing.JPanel {
         lblPrecioSujerido.setText("xxx");
 
         jLabel18.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel18.setForeground(new java.awt.Color(12, 83, 151));
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ProductPrice.png"))); // NOI18N
         jLabel18.setText("Precio de venta:");
         jLabel18.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
@@ -1338,7 +1353,7 @@ public class productViewPanel extends javax.swing.JPanel {
         lblEnPromo.setText("xxx");
 
         jLabel10.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel10.setForeground(new java.awt.Color(12, 83, 151));
         jLabel10.setText("Categoria:");
 
         txtCategory.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -1349,14 +1364,14 @@ public class productViewPanel extends javax.swing.JPanel {
         cboCategories.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         cboCategories.setForeground(new java.awt.Color(65, 65, 63));
         cboCategories.setBorder(null);
-        cboCategories.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cboCategories.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cboCategories.setFocusable(false);
 
         btnCategory.setBackground(new java.awt.Color(255, 255, 255));
-        btnCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/gear32.png"))); // NOI18N
+        btnCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/gear24.png"))); // NOI18N
         btnCategory.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         btnCategory.setBorderPainted(false);
-        btnCategory.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCategory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCategory.setFocusPainted(false);
         btnCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1403,13 +1418,13 @@ public class productViewPanel extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBrand))
+                                .addComponent(btnBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cboCategories, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCategory)
+                                .addComponent(btnCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1433,7 +1448,7 @@ public class productViewPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cboSubcategories, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSubcategories)
+                                .addComponent(btnSubcategories, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtSubcategory, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -1463,33 +1478,33 @@ public class productViewPanel extends javax.swing.JPanel {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(cboBrands, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboBrands, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtModel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtModel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblErrorModel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtProductCode, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtProductCode, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblErrorCodeP, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblErrorColor, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(btnSubcategories, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboSubcategories, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSubcategories, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboSubcategories, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSubcategory, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboCategories, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboCategories, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1506,7 +1521,7 @@ public class productViewPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 254, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1569,7 +1584,7 @@ public class productViewPanel extends javax.swing.JPanel {
 
     private void txtCodProductoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodProductoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            idProduct = queriesProduct.selectIdProduct(txtCodProducto.getText());
+            idProduct = qProduct.selectIdProduct(txtCodProducto.getText());
             buscar(); 
         }     
     }//GEN-LAST:event_txtCodProductoKeyPressed
@@ -1664,6 +1679,7 @@ public class productViewPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cboIva;
     private javax.swing.JComboBox<String> cboPromotion;
     private javax.swing.JComboBox<String> cboSubcategories;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

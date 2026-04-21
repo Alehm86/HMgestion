@@ -25,9 +25,8 @@ import javax.swing.table.TableRowSorter;
 
 public class customerMainListPanel extends javax.swing.JPanel {
 
-    productDAO queries = new productDAO();
-    genericDAO queriesGeneric = new genericDAO();
-    customerDAO queriesCustomer= new customerDAO();
+    genericDAO qGeneric = new genericDAO();
+    customerDAO qCustomer= new customerDAO();
     
     private String filaSeleccionada = "";
     
@@ -38,10 +37,10 @@ public class customerMainListPanel extends javax.swing.JPanel {
     public customerMainListPanel() {
         initComponents();
         
-        queriesGeneric.llenarCombos(cboIVA, "iva"); 
-        queriesCustomer.ComboIdState(cboStates);
+        qGeneric.llenarCombos(cboIVA, "iva"); 
+        qCustomer.ComboIdState(cboStates);
         cboStates.setSelectedIndex(1);
-        queriesCustomer.listAllCustomerForState(tableCustomer,1);
+        qCustomer.listAllCustomerForState(tableCustomer,1);
         
         activarBuscadorTabla();     
         
@@ -94,7 +93,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
                 JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
                 customerViewDialog fView = new customerViewDialog(parent, true);
                 
-                CUIT = queriesCustomer.selectCUIT(filaSeleccionada);
+                CUIT = qCustomer.selectCUIT(filaSeleccionada);
                 fView.dialogoEdit(CUIT); 
                 
                 fView.setVisible(true);
@@ -116,24 +115,24 @@ public class customerMainListPanel extends javax.swing.JPanel {
 
         if (filtrarPorEstado && filtrarPorIva) {
 
-            int state = queriesCustomer.selectIdState(cboStates.getSelectedItem().toString());
-            int idIva = queriesCustomer.selectIdIva(cboIVA.getSelectedItem().toString());
+            int state = qCustomer.selectIdState(cboStates.getSelectedItem().toString());
+            int idIva = qCustomer.selectIdIva(cboIVA.getSelectedItem().toString());
 
-            queriesCustomer.listCustomerForIvaAndState(tableCustomer, idIva, state);
+            qCustomer.listCustomerForIvaAndState(tableCustomer, idIva, state);
 
         } else if (filtrarPorEstado) {
 
-            int state = queriesCustomer.selectIdState(cboStates.getSelectedItem().toString());
-            queriesCustomer.listAllCustomerForState(tableCustomer, state);
+            int state = qCustomer.selectIdState(cboStates.getSelectedItem().toString());
+            qCustomer.listAllCustomerForState(tableCustomer, state);
 
         } else if (filtrarPorIva) {
 
-            int idIva = queriesCustomer.selectIdIva(cboIVA.getSelectedItem().toString());
-            queriesCustomer.listCustomerForIvaComplete(tableCustomer, idIva);
+            int idIva = qCustomer.selectIdIva(cboIVA.getSelectedItem().toString());
+            qCustomer.listCustomerForIvaComplete(tableCustomer, idIva);
 
         } else {
 
-            queriesCustomer.listAllCustomerComplete(tableCustomer);
+            qCustomer.listAllCustomerComplete(tableCustomer);
         }
 
         activarBuscadorTabla();
@@ -196,11 +195,11 @@ public class customerMainListPanel extends javax.swing.JPanel {
         btnAltaCustomer.setBackground(new java.awt.Color(255,255,255));
         btnAltaCustomer.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnAltaCustomer.setForeground(new java.awt.Color(12, 83, 151));
-        btnAltaCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/altaCliente.png"))); // NOI18N
+        btnAltaCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/clientNew32.png"))); // NOI18N
         btnAltaCustomer.setText("Alta");
         btnAltaCustomer.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         btnAltaCustomer.setBorderPainted(false);
-        btnAltaCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnAltaCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAltaCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnAltaCustomerMouseEntered(evt);
@@ -218,11 +217,11 @@ public class customerMainListPanel extends javax.swing.JPanel {
         btnCustomerView.setBackground(new java.awt.Color(255, 255, 255));
         btnCustomerView.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnCustomerView.setForeground(new java.awt.Color(12, 83, 151));
-        btnCustomerView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/see32.png"))); // NOI18N
+        btnCustomerView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/clientView32.png"))); // NOI18N
         btnCustomerView.setText("Ver Cliente");
         btnCustomerView.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         btnCustomerView.setBorderPainted(false);
-        btnCustomerView.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCustomerView.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCustomerView.setFocusable(false);
         btnCustomerView.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -269,6 +268,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
         jLabel1.setText("Cliente");
 
         txtSerch.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        txtSerch.setForeground(new java.awt.Color(65, 65, 63));
         txtSerch.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         jLabel2.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
@@ -277,7 +277,9 @@ public class customerMainListPanel extends javax.swing.JPanel {
 
         cboIVA.setBackground(new java.awt.Color(255, 255, 255));
         cboIVA.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cboIVA.setForeground(new java.awt.Color(65, 65, 63));
         cboIVA.setBorder(null);
+        cboIVA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cboIVA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboIVAActionPerformed(evt);
@@ -286,7 +288,9 @@ public class customerMainListPanel extends javax.swing.JPanel {
 
         cboStates.setBackground(new java.awt.Color(255, 255, 255));
         cboStates.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cboStates.setForeground(new java.awt.Color(65, 65, 63));
         cboStates.setBorder(null);
+        cboStates.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel3.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -326,6 +330,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
         );
 
         tableCustomer.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        tableCustomer.setForeground(new java.awt.Color(65, 65, 63));
         tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -337,6 +342,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
 
             }
         ));
+        tableCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tableCustomer.setFillsViewportHeight(true);
         tableCustomer.setRowHeight(25);
         jScrollPane1.setViewportView(tableCustomer);

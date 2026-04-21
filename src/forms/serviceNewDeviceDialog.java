@@ -21,9 +21,14 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
     modelDevice device = new modelDevice();
     
     String id_SerialNumber;
+    int id_client = -1;
     
     public String getSNDevice(){
         return id_SerialNumber;
+    }
+    
+    public void setIdClient(int id_client){
+        this.id_client = id_client;   
     }
     
     public serviceNewDeviceDialog(java.awt.Frame parent, boolean modal) {
@@ -104,6 +109,8 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
     private void registrarDevice(){
     
         boolean valido = true;
+        
+        device.setId_client(id_client);
 
         if(!txtEquipo.getText().isEmpty()){
             device.setDevice_type(txtEquipo.getText().toString().toUpperCase());
@@ -162,6 +169,7 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         }
         
         queriesService.insertDevice(
+                device.getId_client(),
                 device.getDevice_type(), 
                 device.getBrand(), 
                 device.getModel(), 
@@ -223,39 +231,40 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel7.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(12, 83, 151));
         jLabel7.setText("Nº de serie:");
 
         txtSerialNumber.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         txtSerialNumber.setForeground(new java.awt.Color(65, 65, 63));
-        txtSerialNumber.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(12, 83, 151)));
+        txtSerialNumber.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(65, 65, 63)));
 
-        jLabel4.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(12, 83, 151));
         jLabel4.setText("Equipo:");
 
         cboEquipo.setBackground(new java.awt.Color(255, 255, 255));
         cboEquipo.setForeground(new java.awt.Color(65, 65, 63));
         cboEquipo.setBorder(null);
+        cboEquipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         txtEquipo.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         txtEquipo.setForeground(new java.awt.Color(65, 65, 63));
-        txtEquipo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(12, 83, 151)));
+        txtEquipo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(65, 65, 63)));
 
-        jLabel5.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(12, 83, 151));
         jLabel5.setText("Marca:");
 
         txtBrand.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         txtBrand.setForeground(new java.awt.Color(65, 65, 63));
-        txtBrand.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(12, 83, 151)));
+        txtBrand.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(65, 65, 63)));
 
         txtModel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         txtModel.setForeground(new java.awt.Color(65, 65, 63));
-        txtModel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(12, 83, 151)));
+        txtModel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(65, 65, 63)));
 
-        jLabel6.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(12, 83, 151));
         jLabel6.setText("Modelo:");
 
@@ -265,7 +274,7 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         btnCancel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/borrador32.png"))); // NOI18N
         btnCancel.setBorder(null);
-        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCancelMouseEntered(evt);
@@ -281,7 +290,7 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/product32.png"))); // NOI18N
         btnRegistrar.setText("Registrar");
         btnRegistrar.setBorder(null);
-        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegistrar.setMaximumSize(new java.awt.Dimension(120, 52));
         btnRegistrar.setMinimumSize(new java.awt.Dimension(120, 52));
         btnRegistrar.setPreferredSize(new java.awt.Dimension(120, 52));
@@ -319,12 +328,13 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         textAreaDescripcion.setRows(5);
         jScrollPane1.setViewportView(textAreaDescripcion);
 
-        jLabel9.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(12, 83, 151));
         jLabel9.setText("Descripción:");
 
         btnSerialNumber.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/dado32.png"))); // NOI18N
         btnSerialNumber.setBorder(null);
+        btnSerialNumber.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

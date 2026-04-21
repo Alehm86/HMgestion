@@ -12,8 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.Date;
-import javax.swing.DefaultCellEditor;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -23,10 +21,23 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class budgetDAO {
-   
     
+    private Connection getConnection() {
+        connectionDB con = new connectionDB();
+        return con.establecerConexion();
+    }
+    
+    private DefaultTableModel crearModeloNoEditable() {
+        return new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+    }    
+       
     public int insertBudget(
-            int id_service,
+            Integer id_service,
             LocalDate date,
             LocalDate expiration_date,
             String customer_name,
@@ -43,14 +54,17 @@ public class budgetDAO {
 
         String sqlUpdate = "UPDATE `budget` SET `nro_budget`=? WHERE `id_budget`=?";
 
-        connectionDB con = new connectionDB();
-        Connection conexion = con.establecerConexion();
+        Connection conexion = getConnection();
 
         try{
             conexion.setAutoCommit(false);
             PreparedStatement pstmtInsert = conexion.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
 
-            pstmtInsert.setInt(1, id_service);
+            if (id_service == null) {
+                pstmtInsert.setNull(1, java.sql.Types.INTEGER);
+            } else {
+                pstmtInsert.setInt(1, id_service);
+            }
             pstmtInsert.setDate(2, java.sql.Date.valueOf(date));
             pstmtInsert.setDate(3, java.sql.Date.valueOf(expiration_date));
             pstmtInsert.setString(4, customer_name);
@@ -111,8 +125,7 @@ public class budgetDAO {
         String sql ="INSERT INTO `budget_detail`(`id_budget`, `description`, `amount`, `price`, `iva`, `subtotal`) " +
                     "VALUES (?,?,?,?,?,?)";
         
-        connectionDB con = new connectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
+        Connection conexion = getConnection();
         
         try{
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);  
@@ -156,17 +169,11 @@ public class budgetDAO {
 
         String sqlCUIT = "SELECT `cuit` FROM `client` WHERE `name` = ?";
 
-        DefaultTableModel dtm = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        DefaultTableModel dtm = crearModeloNoEditable();
 
         String nameCustomer = "";
 
-        connectionDB con = new connectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
+        Connection conexion = getConnection();
 
         String[] titulo = new String[]{"Items", "Cant", "Precio Unit", "IVA","Total"};
         dtm.setColumnIdentifiers(titulo);
@@ -304,19 +311,23 @@ public class budgetDAO {
         return false;
     }
     
-    public void listBudgetInService(int id_budget, JTable jTableItems){
+    public void listItemsBudgetInService(int id_service, JTable jTableItems){
         
-        String sql = "SELECT `description`, `amount`, `price`, `iva`, `subtotal` FROM `budget_detail` WHERE `id_budget`=?";
+        String sql ="SELECT " +
+                    "b.id_budget, " +
+                    "bd.description, " +
+                    "bd.amount, " +
+                    "bd.price, " +
+                    "bd.iva, " +
+                    "bd.subtotal " +
+                    "FROM budget b " +
+                    "INNER JOIN budget_detail bd ON b.id_budget = bd.id_budget " +
+                    "WHERE b.id_service = ? " +
+                    "AND b.id_state IN (1, 2, 3, 4);";
         
-        DefaultTableModel dtm = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        DefaultTableModel dtm = crearModeloNoEditable();
 
-        connectionDB con = new connectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
+        Connection conexion = getConnection();
 
         String[] titulo = new String[]{"Items", "Cant", "Precio Unit", "IVA","Total"};
         dtm.setColumnIdentifiers(titulo);        
@@ -324,7 +335,7 @@ public class budgetDAO {
 
         try{
             PreparedStatement pstmt = conexion.prepareStatement(sql);
-            pstmt.setInt(1, id_budget);
+            pstmt.setInt(1, id_service);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -376,8 +387,7 @@ public class budgetDAO {
 
         boolean estado = false;
 
-        connectionDB con = new connectionDB();
-        Connection conexion = con.establecerConexion();
+        Connection conexion = getConnection();
 
         try{
             conexion.setAutoCommit(false);
@@ -412,9 +422,126 @@ public class budgetDAO {
             }
         }
         return estado;
-    } 
+    }     
     
+    public void listBudgets(JTable jTableItems, String filtroFecha, String filtroEstado){
 
-    
+        String sqlBase =
+            "SELECT " +
+            "b.id_budget, " +
+            "b.date, " +
+            "b.nro_budget, " +
+            "b.customer_name, " +
+            "COALESCE(s.service_number, ' ') AS service_number, " +
+            "s.id_service, " +
+            "b.total, " +
+            "b.expiration_date, " +
+            "bt.name AS state_name " +
+            "FROM budget b " +
+            "LEFT JOIN service_orders s ON b.id_service = s.id_service " +
+            "INNER JOIN budget_states bt ON b.id_state = bt.id_budget_state " +
+            "WHERE b.date >= CURDATE() - INTERVAL 1 YEAR ";
+
+        String condicionFecha = "";
+        String condicionEstado = "";
+
+        switch (filtroFecha) {
+            case "Hoy":
+                condicionFecha = "AND b.date = CURDATE() ";
+                break;
+            case "7 días":
+                condicionFecha = "AND b.date >= CURDATE() - INTERVAL 7 DAY ";
+                break;
+            case "30 días":
+                condicionFecha = "AND b.date >= CURDATE() - INTERVAL 30 DAY ";
+                break;
+            case "Último año":
+            case "Todo":
+                condicionFecha = "";
+                break;
+        }
+
+        if (!filtroEstado.equals("Todos")) {
+            condicionEstado = "AND bt.name = '" + filtroEstado + "' ";
+        }
+
+        String sql = sqlBase + condicionFecha + condicionEstado + "ORDER BY b.date DESC";
+
+        DefaultTableModel dtm = crearModeloNoEditable();
+
+        String[] titulo = {
+            "Fecha", "Presup. Nº", "Cliente", "Nº de servicio",
+            "Total", "Vencimiento", "Estado", "id_budget", "id_service"
+        };
+        dtm.setColumnIdentifiers(titulo);
+
+        Connection conexion = getConnection();
+
+        try{
+            Statement stmt = conexion.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+
+                String total = "$ " + String.format("%.2f", rs.getDouble("total"));
+
+                Object idServiceObj = rs.getObject("id_service");
+                Integer idService = (idServiceObj != null) ? (Integer) idServiceObj : null;
+
+                Object[] row = {
+                    rs.getDate("date"),
+                    rs.getString("nro_budget"),
+                    rs.getString("customer_name"),
+                    rs.getString("service_number"),
+                    total,
+                    rs.getDate("expiration_date"),
+                    rs.getString("state_name"),
+                    rs.getInt("id_budget"),
+                    idService
+                };
+
+                dtm.addRow(row);
+            }
+
+            jTableItems.setModel(dtm);
+
+            jTableItems.getTableHeader().setFont(new Font("Poppins", Font.PLAIN, 14));
+            jTableItems.getTableHeader().setResizingAllowed(false);
+
+            DefaultTableCellRenderer headerRenderer =
+                (DefaultTableCellRenderer) jTableItems.getTableHeader().getDefaultRenderer();
+            headerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+            for (int i = 0; i < jTableItems.getColumnCount(); i++) {
+                jTableItems.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+                jTableItems.getColumnModel().getColumn(i).setPreferredWidth(100);
+            }
+
+            int COL_ID_BUDGET = 7;
+            int COL_ID_SERVICE = 8;
+
+            jTableItems.getColumnModel().getColumn(COL_ID_BUDGET).setMinWidth(0);
+            jTableItems.getColumnModel().getColumn(COL_ID_BUDGET).setMaxWidth(0);
+            jTableItems.getColumnModel().getColumn(COL_ID_BUDGET).setWidth(0);
+            jTableItems.getTableHeader().getColumnModel().getColumn(COL_ID_BUDGET).setMinWidth(0);
+            jTableItems.getTableHeader().getColumnModel().getColumn(COL_ID_BUDGET).setMaxWidth(0);
+
+            jTableItems.getColumnModel().getColumn(COL_ID_SERVICE).setMinWidth(0);
+            jTableItems.getColumnModel().getColumn(COL_ID_SERVICE).setMaxWidth(0);
+            jTableItems.getColumnModel().getColumn(COL_ID_SERVICE).setWidth(0);
+            jTableItems.getTableHeader().getColumnModel().getColumn(COL_ID_SERVICE).setMinWidth(0);
+            jTableItems.getTableHeader().getColumnModel().getColumn(COL_ID_SERVICE).setMaxWidth(0);
+
+            rs.close();
+            stmt.close();
+            conexion.close();
+
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
     
 }

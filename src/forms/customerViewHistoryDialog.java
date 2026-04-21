@@ -58,11 +58,13 @@ public class customerViewHistoryDialog extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table.setFillsViewportHeight(true);
+        table.setRowHeight(25);
         jScrollPane1.setViewportView(table);
 
         jPanel1.setBackground(new java.awt.Color(101, 129, 171));
 
-        jLabel1.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/historial64.png"))); // NOI18N
         jLabel1.setText("Historial.");

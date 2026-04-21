@@ -75,7 +75,7 @@ public class serviceDashboard extends javax.swing.JPanel {
         btnNewService.setBackground(new java.awt.Color(255,255,255));
         btnNewService.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnNewService.setForeground(new java.awt.Color(12, 83, 151));
-        btnNewService.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/new_icon_176379.png"))); // NOI18N
+        btnNewService.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/serviceOrder32.png"))); // NOI18N
         btnNewService.setText(" Nuevo servicio");
         btnNewService.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         btnNewService.setBorderPainted(false);
@@ -119,7 +119,7 @@ public class serviceDashboard extends javax.swing.JPanel {
         btnPresupuesto.setBackground(new java.awt.Color(255, 255, 255));
         btnPresupuesto.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnPresupuesto.setForeground(new java.awt.Color(12, 83, 151));
-        btnPresupuesto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/presupuesto.png"))); // NOI18N
+        btnPresupuesto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/BudgetNew32.png"))); // NOI18N
         btnPresupuesto.setText("Presupuesto");
         btnPresupuesto.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         btnPresupuesto.setBorderPainted(false);
@@ -163,6 +163,7 @@ public class serviceDashboard extends javax.swing.JPanel {
         );
 
         jPanelDashboard.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanelDashboardLayout = new javax.swing.GroupLayout(jPanelDashboard);
         jPanelDashboard.setLayout(jPanelDashboardLayout);

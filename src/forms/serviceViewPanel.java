@@ -12,7 +12,6 @@ import java.awt.Frame;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.NumberFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -63,6 +62,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
     }
     
     private void leyendaBotones(){
+        
         btnPresupuesto.setToolTipText("Presupuestar");
         btnViewBudget.setToolTipText("Ver presupuesto");
         btnCancelBudget.setToolTipText("Cancelar presupuesto");
@@ -117,12 +117,54 @@ public class serviceViewPanel extends javax.swing.JDialog {
         
         cboStates.addItem("Presupuesto aprobado");
         estadosMap.put("Presupuesto aprobado", 4);
+        
+        cboStates.addItem("Presupuesto rechazado");
+        estadosMap.put("Presupuesto rechazado", 5);
 
         cboStates.addItem("No reparado");
-        estadosMap.put("No reparado", 5);
+        estadosMap.put("No reparado", 6);
 
         cboStates.addItem("Reparado");
-        estadosMap.put("Reparado", 6);
+        estadosMap.put("Reparado", 7);
+    }
+    
+    public void verificarEstado(){
+        
+        String opcion = lbl_state.getText(); 
+
+        switch(opcion){
+
+            case "Ingresado":
+                lbl_state.setForeground(new Color(65,65,63));
+                break;
+
+            case "Diagnosticado":
+                lbl_state.setForeground(new Color(0,102,204)); 
+                break;   
+
+            case "Esperando aprobación":
+                lbl_state.setForeground(new Color(255,153,0)); 
+                break; 
+
+            case "Presupuesto aprobado":
+                lbl_state.setForeground(new Color(0,153,51));
+                break;
+
+            case "Presupuesto rechazado":
+                lbl_state.setForeground(new Color(204,0,0)); 
+                break;   
+
+            case "No reparado":
+                lbl_state.setForeground(new Color(153,0,0));
+                break;   
+
+            case "Reparado":
+                lbl_state.setForeground(new Color(0,153,102));
+
+            case "Entregado":
+                lbl_state.setForeground(new Color(102,51,153));
+                break;    
+        }
     }
     
     private void existsBudget(){
@@ -244,7 +286,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
             cancelado = queriesBudget.cancelBudget(id_service);
             
             if(cancelado){
-               cargarServicio();
+                cargarServicio();
                 btnPresupuesto.setVisible(true);
                 btnViewBudget.setVisible(false);
                 btnCancelBudget.setVisible(false);
@@ -264,7 +306,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
     
     public void llenarTabla(){
         
-        queriesBudget.listBudgetInService(id_budget, jTableItems);
+        queriesBudget.listItemsBudgetInService(id_service, jTableItems);
         calcularTotales(); 
         
     }
@@ -319,6 +361,8 @@ public class serviceViewPanel extends javax.swing.JDialog {
         
         String estado = lbl_state.getText().trim();
         removeItemByText(cboStates,estado);
+        
+        verificarEstado();
         
     }
     
@@ -376,7 +420,10 @@ public class serviceViewPanel extends javax.swing.JDialog {
         
     }
     
+    
     public void removeItemByText(JComboBox combo, String texto) {
+        
+        llenarCombo();
         for (int i = 0; i < combo.getItemCount(); i++) {
             if (combo.getItemAt(i).toString().equals(texto)) {
                 combo.removeItemAt(i);
@@ -410,11 +457,14 @@ public class serviceViewPanel extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         cboStates = new javax.swing.JComboBox<>();
-        btnPresupuesto = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        btnServiceOrder = new javax.swing.JButton();
+        btnPresupuesto = new javax.swing.JButton();
         btnViewBudget = new javax.swing.JButton();
         btnCancelBudget = new javax.swing.JButton();
-        btnServiceOrder = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        btnChangeState = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lbl_name = new javax.swing.JLabel();
@@ -443,7 +493,6 @@ public class serviceViewPanel extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaDiagnostico = new javax.swing.JTextArea();
         lbl_diagnostico = new javax.swing.JLabel();
-        btnChangeState = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextAreaFalla = new javax.swing.JTextArea();
         lbl_diagnostico1 = new javax.swing.JLabel();
@@ -467,6 +516,27 @@ public class serviceViewPanel extends javax.swing.JDialog {
         cboStates.setBorder(null);
         cboStates.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        jLabel9.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel9.setText("Cambiar estado a:");
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnServiceOrder.setBackground(new java.awt.Color(255, 255, 255));
+        btnServiceOrder.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnServiceOrder.setForeground(new java.awt.Color(12, 83, 151));
+        btnServiceOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/serviceOrder32.png"))); // NOI18N
+        btnServiceOrder.setBorder(null);
+        btnServiceOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnServiceOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnServiceOrderMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnServiceOrderMouseExited(evt);
+            }
+        });
+
         btnPresupuesto.setBackground(new java.awt.Color(255, 255, 255));
         btnPresupuesto.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnPresupuesto.setForeground(new java.awt.Color(12, 83, 151));
@@ -481,10 +551,6 @@ public class serviceViewPanel extends javax.swing.JDialog {
                 btnPresupuestoMouseExited(evt);
             }
         });
-
-        jLabel9.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(12, 83, 151));
-        jLabel9.setText("Cambiar estado a:");
 
         btnViewBudget.setBackground(new java.awt.Color(255, 255, 255));
         btnViewBudget.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -516,20 +582,67 @@ public class serviceViewPanel extends javax.swing.JDialog {
             }
         });
 
-        btnServiceOrder.setBackground(new java.awt.Color(255, 255, 255));
-        btnServiceOrder.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        btnServiceOrder.setForeground(new java.awt.Color(12, 83, 151));
-        btnServiceOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/serviceOrder32.png"))); // NOI18N
-        btnServiceOrder.setBorder(null);
-        btnServiceOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnServiceOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnServiceOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnViewBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCancelBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnServiceOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnViewBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancelBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnChangeState.setBackground(new java.awt.Color(255, 255, 255));
+        btnChangeState.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnChangeState.setForeground(new java.awt.Color(12, 83, 151));
+        btnChangeState.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
+        btnChangeState.setBorder(null);
+        btnChangeState.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnChangeState.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnServiceOrderMouseEntered(evt);
+                btnChangeStateMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnServiceOrderMouseExited(evt);
+                btnChangeStateMouseExited(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnChangeState, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnChangeState, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -541,35 +654,28 @@ public class serviceViewPanel extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cboStates, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnServiceOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnViewBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancelBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnServiceOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cboStates, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9)
-                        .addComponent(btnPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnViewBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnCancelBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboStates, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(101, 129, 171)), "Datos del cliente:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Poppins", 1, 18), new java.awt.Color(101, 129, 171))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel1.setForeground(new java.awt.Color(12, 83, 151));
         jLabel1.setText("Nombre:");
 
         lbl_name.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -577,7 +683,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
         lbl_name.setText("xxx");
 
         jLabel2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel2.setForeground(new java.awt.Color(12, 83, 151));
         jLabel2.setText("Teléfono:");
 
         lbl_phone.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -617,7 +723,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(101, 129, 171)), "Datos del dispositivo:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Poppins", 1, 18), new java.awt.Color(101, 129, 171))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel3.setForeground(new java.awt.Color(12, 83, 151));
         jLabel3.setText("Tipo de dispositivo:");
 
         lbl_deviceType.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -625,7 +731,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
         lbl_deviceType.setText("xxx");
 
         jLabel4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel4.setForeground(new java.awt.Color(12, 83, 151));
         jLabel4.setText("Marca:");
 
         lbl_brand.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -633,7 +739,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
         lbl_brand.setText("xxx");
 
         jLabel5.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel5.setForeground(new java.awt.Color(12, 83, 151));
         jLabel5.setText("Modelo:");
 
         lbl_Model.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -641,7 +747,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
         lbl_Model.setText("xxx");
 
         jLabel6.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel6.setForeground(new java.awt.Color(12, 83, 151));
         jLabel6.setText("Nº de serie:");
 
         lbl_sn.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -649,7 +755,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
         lbl_sn.setText("xxx");
 
         jLabel11.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel11.setForeground(new java.awt.Color(12, 83, 151));
         jLabel11.setText("Descripción:");
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -721,7 +827,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(101, 129, 171)), "Datos del servicio:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Poppins", 1, 18), new java.awt.Color(101, 129, 171))); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel7.setForeground(new java.awt.Color(12, 83, 151));
         jLabel7.setText("Fecha:");
 
         lbl_date.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -729,7 +835,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
         lbl_date.setText("xxx");
 
         jLabel8.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel8.setForeground(new java.awt.Color(12, 83, 151));
         jLabel8.setText("Nº de servicio:");
 
         lbl_serviceNumber.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -737,7 +843,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
         lbl_serviceNumber.setText("xxx");
 
         jLabel10.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(65, 65, 63));
+        jLabel10.setForeground(new java.awt.Color(12, 83, 151));
         jLabel10.setText("Estado:");
 
         lbl_state.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -800,22 +906,6 @@ public class serviceViewPanel extends javax.swing.JDialog {
         lbl_diagnostico.setForeground(new java.awt.Color(101, 129, 171));
         lbl_diagnostico.setText("Diagnostico:");
 
-        btnChangeState.setBackground(new java.awt.Color(255, 255, 255));
-        btnChangeState.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        btnChangeState.setForeground(new java.awt.Color(12, 83, 151));
-        btnChangeState.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/state32.png"))); // NOI18N
-        btnChangeState.setText("Confirmar");
-        btnChangeState.setBorder(null);
-        btnChangeState.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnChangeState.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnChangeStateMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnChangeStateMouseExited(evt);
-            }
-        });
-
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
@@ -831,8 +921,10 @@ public class serviceViewPanel extends javax.swing.JDialog {
         lbl_diagnostico1.setText("Falla:");
 
         btnCancel.setBackground(new java.awt.Color(255, 255, 255));
-        btnCancel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
+        btnCancel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(12, 83, 151));
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/salir32.png"))); // NOI18N
+        btnCancel.setText("Salir");
         btnCancel.setBorder(null);
         btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -920,16 +1012,13 @@ public class serviceViewPanel extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_diagnostico1)
-                            .addComponent(lbl_diagnostico))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbl_CostoDeRep)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCost, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_diagnostico)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lbl_CostoDeRep)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCost, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnChangeState, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -959,9 +1048,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbl_CostoDeRep)
                         .addComponent(txtCost, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnChangeState, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(299, 299, 299))
         );
 
@@ -1108,11 +1195,13 @@ public class serviceViewPanel extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
