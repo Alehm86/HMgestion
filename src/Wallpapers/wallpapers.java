@@ -4,15 +4,12 @@
  */
 package Wallpapers;
 
-import forms.productPriceEditFrame;
 import forms.homeFrame;
         
 public class wallpapers {
-    
-    
+        
     public static void main(String[] args) 
     {
-        new productPriceEditFrame().setVisible(true);
         new homeFrame().setVisible(true);
        
     }

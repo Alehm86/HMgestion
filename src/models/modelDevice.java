@@ -7,19 +7,19 @@ package models;
 
 public class modelDevice {
     
-    int id_client;
+    int id_customer;
     String device_type;
     String brand;
     String model;
     String serial_number;
     String description;
 
-    public int getId_client() {
-        return id_client;
+    public int getId_customer() {
+        return id_customer;
     }
 
-    public void setId_client(int id_client) {
-        this.id_client = id_client;
+    public void setId_customer(int id_customer) {
+        this.id_customer = id_customer;
     }
 
     public String getDevice_type() {
@@ -62,14 +62,16 @@ public class modelDevice {
         this.description = description;
     }
 
-    public modelDevice(int id_client, String device_type, String brand, String model, String serial_number, String description) {
-        this.id_client = id_client;
+    public modelDevice(int id_customer, String device_type, String brand, String model, String serial_number, String description) {
+        this.id_customer = id_customer;
         this.device_type = device_type;
         this.brand = brand;
         this.model = model;
         this.serial_number = serial_number;
         this.description = description;
     }
+
+
     
     public modelDevice(){
         

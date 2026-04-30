@@ -4,9 +4,9 @@
  */
 package forms;
 
-import dao.budgetDAO;
-import dao.genericDAO;
-import dao.serviceDAO;
+import classDAO.budgetDAO;
+import classDAO.genericDAO;
+import classDAO.serviceDAO;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.KeyAdapter;

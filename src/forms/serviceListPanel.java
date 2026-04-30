@@ -1,8 +1,8 @@
 package forms;
 
 
-import dao.genericDAO;
-import dao.serviceDAO;
+import classDAO.genericDAO;
+import classDAO.serviceDAO;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;

@@ -4,7 +4,7 @@
  */
 package forms;
 
-import dao.serviceDAO;
+import classDAO.serviceDAO;
 import java.awt.Color;
 import java.security.SecureRandom;
 import javax.swing.JOptionPane;
@@ -21,14 +21,14 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
     modelDevice device = new modelDevice();
     
     String id_SerialNumber;
-    int id_client = -1;
+    int id_customer = -1;
     
     public String getSNDevice(){
         return id_SerialNumber;
     }
     
     public void setIdClient(int id_client){
-        this.id_client = id_client;   
+        this.id_customer = id_client;   
     }
     
     public serviceNewDeviceDialog(java.awt.Frame parent, boolean modal) {
@@ -110,8 +110,8 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
     
         boolean valido = true;
         
-        device.setId_client(id_client);
-
+        device.setId_customer(id_customer);
+                
         if(!txtEquipo.getText().isEmpty()){
             device.setDevice_type(txtEquipo.getText().toString().toUpperCase());
         }else{
@@ -169,7 +169,7 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         }
         
         queriesService.insertDevice(
-                device.getId_client(),
+                device.getId_customer(),
                 device.getDevice_type(), 
                 device.getBrand(), 
                 device.getModel(), 

@@ -4,9 +4,10 @@
  */
 package forms;
 
-import dao.productDAO;
-import dao.customerDAO;
-import dao.genericDAO;
+import classDAO.productDAO;
+import classDAO.customerDAO;
+import classDAO.genericDAO;
+import classDAO.supplierDAO;
 import javax.swing.JOptionPane;
 
 import java.awt.Color;
@@ -21,6 +22,7 @@ public class productReturnPanel extends javax.swing.JPanel {
     productDAO queriesProduct = new productDAO();
     customerDAO queriesCustomer = new customerDAO();
     genericDAO queriesGeneric = new genericDAO();
+    supplierDAO qSuppliers = new supplierDAO();
 
     private int id_product = 0; 
     private String client;
@@ -151,7 +153,7 @@ public class productReturnPanel extends javax.swing.JPanel {
 
             if(!nameSupplier.equals("Otro")){
                 txt_name_supplier.setVisible(false);
-                queriesProduct.select_supplier(nameSupplier, lbl_id_supplier, lbl_Iva_supplier, lbl_cuit_supplier, lbl_phone_supplier);
+                qSuppliers.select_supplier(nameSupplier, lbl_id_supplier, lbl_Iva_supplier, lbl_cuit_supplier, lbl_phone_supplier);
             }else{
                 txt_name_supplier.setVisible(true);
                 txt_name_supplier.requestFocus();

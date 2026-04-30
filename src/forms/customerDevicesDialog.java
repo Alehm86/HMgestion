@@ -4,7 +4,7 @@
  */
 package forms;
 
-import dao.serviceDAO;
+import classDAO.serviceDAO;
 import javax.swing.JOptionPane;
 
 public class customerDevicesDialog extends javax.swing.JDialog {
@@ -17,11 +17,6 @@ public class customerDevicesDialog extends javax.swing.JDialog {
 
         queriesServices.listCustomerDevices(jTableDevice, id_customer);
         
-        if (jTableDevice.getRowCount() > 0) {
-            btnSelect.setEnabled(true);
-        } else {
-            btnSelect.setEnabled(false);
-        }
     }
     
     public String getSerialNumberDevice(){
@@ -49,7 +44,7 @@ public class customerDevicesDialog extends javax.swing.JDialog {
             return;
         }
         serialNumberDevice = jTableDevice.getValueAt(fila, 3).toString();
-    }
+    }  
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

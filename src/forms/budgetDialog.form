@@ -45,7 +45,7 @@
               <Component id="jPanelSeparador3" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="jPanel6" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -680,8 +680,8 @@
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="271" max="-2" attributes="0"/>
-                  <Component id="btnCancel" min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="266" max="-2" attributes="0"/>
+                  <Component id="btnCancel" min="-2" pref="46" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnRegistrar" min="-2" pref="162" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
@@ -779,7 +779,7 @@
               <Font name="Poppins" size="14" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/cancelar_32.png"/>
+              <Image iconType="3" name="/Icons/salir32.png"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
@@ -787,6 +787,7 @@
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor de Mano"/>
             </Property>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
           <Events>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCancelMouseEntered"/>

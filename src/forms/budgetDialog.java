@@ -4,11 +4,11 @@
  */
 package forms;
 
-import dao.budgetDAO;
-import dao.customerDAO;
-import dao.genericDAO;
-import dao.productDAO;
-import dao.serviceDAO;
+import classDAO.budgetDAO;
+import classDAO.customerDAO;
+import classDAO.genericDAO;
+import classDAO.productDAO;
+import classDAO.serviceDAO;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.KeyAdapter;
@@ -27,10 +27,9 @@ import utils.utility;
 
 public class budgetDialog extends javax.swing.JDialog {
     
-    customerDAO queriesCustomer = new customerDAO();
-    productDAO queriesProduct = new productDAO();
-    serviceDAO queriesServices = new serviceDAO();
-    budgetDAO queriesBudget = new budgetDAO();
+    customerDAO qCustomer = new customerDAO();
+    productDAO qProduct = new productDAO();
+    budgetDAO qBudget = new budgetDAO();
     
     utility utils = new utility();
     
@@ -51,7 +50,7 @@ public class budgetDialog extends javax.swing.JDialog {
     };    
         
     String fecha = utils.fecha();
-    String cuitClient = "";
+    String cuitCustomer = "";
     int id_product = -1;
     
     String[] opcionesIVA = {"10.5%", "21%"};
@@ -85,7 +84,17 @@ public class budgetDialog extends javax.swing.JDialog {
         actions();
         inicializar();      
         formatTable();      
-
+        leyendaBotones();
+    }
+    
+    private void leyendaBotones(){
+        
+        btnCustomer.setToolTipText("Seleccionar cliente");
+        btnCancel.setToolTipText("Salir");
+        btnBuscarProduct.setToolTipText("Seleccionar producto");
+        btnBuscar.setToolTipText("Buscar por número de serie");
+        btnDelete.setToolTipText("Borrar de lista");
+        btnEdit.setToolTipText("Editar producto de lista");
     }
     
     private void inicializar(){
@@ -140,6 +149,10 @@ public class budgetDialog extends javax.swing.JDialog {
 
     private void actions(){
         
+        btnCancel.addActionListener(e -> {
+            this.dispose();
+        });
+        
         txtPrice.addActionListener(e -> {
 
             String valor = txtPrice.getText().trim();
@@ -159,10 +172,10 @@ public class budgetDialog extends javax.swing.JDialog {
             fSearchCustomer.setLocationRelativeTo(null);
             fSearchCustomer.setVisible(true);     
  
-            cuitClient = fSearchCustomer.getCustomerSerch();           
+            cuitCustomer = fSearchCustomer.getCustomerSerch();           
             
-            if(!cuitClient.isEmpty()){
-               queriesCustomer.selectCustomerSimplified(cuitClient, lbl_id, txtName, txtPhone); 
+            if(!cuitCustomer.isEmpty()){
+               qCustomer.selectCustomerSimplified(cuitCustomer, lbl_id, txtName, txtPhone); 
             }else{
                 
             }
@@ -187,8 +200,11 @@ public class budgetDialog extends javax.swing.JDialog {
         btnBuscar.addActionListener(e->{
             
             String productCode = txtProductCode.getText().trim();
-            id_product = queriesProduct.selectIdProduct(productCode);        
-            buscarCode();            
+            id_product = qProduct.selectIdProduct(productCode); 
+
+            if(id_product > 0){
+                buscarCode();
+            }            
         });
         
         btnAdd.addActionListener(e->{
@@ -276,8 +292,8 @@ public class budgetDialog extends javax.swing.JDialog {
     
     private void buscarCode(){
         
-        queriesProduct.selectProduct(id_product, lbl_product, txtProductCode);
-        queriesProduct.selectSalePriceAndIva(id_product,txtPrice,lbl_iva);
+        qProduct.selectProduct(id_product, lbl_product, txtProductCode);
+        qProduct.selectSalePriceAndIva(id_product,txtPrice,lbl_iva);
         txtProduct.setText(lbl_product.getText());
         infoCombo();      
     }   
@@ -448,7 +464,7 @@ public class budgetDialog extends javax.swing.JDialog {
             }      
         }
         
-        id_budget = queriesBudget.insertBudget(
+        id_budget = qBudget.insertBudget(
                 mBudget.getId_service(), 
                 mBudget.getDate(), 
                 mBudget.getExpiration_date(), 
@@ -480,7 +496,7 @@ public class budgetDialog extends javax.swing.JDialog {
                     subtotal
             );
 
-            queriesBudget.insertBudgetDetail(
+            qBudget.insertBudgetDetail(
                     id_budget,
                     item.getDescription(),
                     item.getAmount(),
@@ -933,9 +949,10 @@ public class budgetDialog extends javax.swing.JDialog {
 
         btnCancel.setBackground(new java.awt.Color(255, 255, 255));
         btnCancel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/salir32.png"))); // NOI18N
         btnCancel.setBorder(null);
         btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCancelMouseEntered(evt);
@@ -1056,8 +1073,8 @@ public class budgetDialog extends javax.swing.JDialog {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(271, 271, 271)
-                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(266, 266, 266)
+                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1105,7 +1122,7 @@ public class budgetDialog extends javax.swing.JDialog {
                 .addComponent(jPanelSeparador3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -1216,8 +1233,13 @@ public class budgetDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBuscarMouseExited
 
     private void txtProductCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductCodeKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            buscarCode();
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {     
+            String productCode = txtProductCode.getText().trim();
+            id_product = qProduct.selectIdProduct(productCode); 
+
+            if(id_product > 0){
+                buscarCode();
+            }
         }    
     }//GEN-LAST:event_txtProductCodeKeyPressed
 

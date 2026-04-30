@@ -4,9 +4,9 @@
  */
 package forms;
 
-import dao.productDAO;
-import dao.customerDAO;
-import dao.genericDAO;
+import classDAO.productDAO;
+import classDAO.customerDAO;
+import classDAO.genericDAO;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -93,7 +93,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
                 JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
                 customerViewDialog fView = new customerViewDialog(parent, true);
                 
-                CUIT = qCustomer.selectCUIT(filaSeleccionada);
+                CUIT = qCustomer.selectCuit("name", filaSeleccionada);
                 fView.dialogoEdit(CUIT); 
                 
                 fView.setVisible(true);

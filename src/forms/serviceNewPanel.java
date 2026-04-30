@@ -4,14 +4,15 @@
  */
 package forms;
 
-import dao.customerDAO;
-import dao.genericDAO;
-import dao.serviceDAO;
+import classDAO.customerDAO;
+import classDAO.genericDAO;
+import classDAO.serviceDAO;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import models.modelDevice;
 import models.modelService;
@@ -36,7 +37,17 @@ public class serviceNewPanel extends javax.swing.JPanel {
 
         inicializar();
         actions();
+        leyendaBotones();
         
+    }
+    
+    private void leyendaBotones(){
+        
+        btnNewCustomer.setToolTipText("Alta cliente nuevo");
+        btnCancel.setToolTipText("Borrar");
+        btnSearch.setToolTipText("Buscar por número de serie");
+        bntSearchByCustomer.setToolTipText("Seleccioná un dispositivo de la lista");
+        btnNewDevice.setToolTipText("Registrar dispositivo");
     }
     
     private void inicializar(){
@@ -56,25 +67,36 @@ public class serviceNewPanel extends javax.swing.JPanel {
     private void actions(){
                 
         btnBuscar.addActionListener(e->{
-            
+                       
             customerSearchDialog pSearch = new customerSearchDialog(parent, true);           
             pSearch.setVisible(true);
             cuitClient = pSearch.getCustomerSerch();
             
             if(!cuitClient.isEmpty()){
+                limpiar();
                 queriesCustomer.selectCustomerSimplified(cuitClient, lbl_id, txtName, txtPhone);
             }
         });
         
         bntSearchByCustomer.addActionListener(e->{
             
+            JTable tabla = new JTable();
+            boolean dato = false;
+            
+            
             customerDevicesDialog pCustDev = new customerDevicesDialog(parent, true);         
             if(!lbl_id.getText().isEmpty()){
                 
                 int idClient = Integer.parseInt(lbl_id.getText().trim());
-                pCustDev.setIdCustomer(idClient);
-                pCustDev.setVisible(true);  
+                dato = dato = queriesService.listCustomerDevices(tabla, idClient);
                 
+                if(dato){
+                    pCustDev.setIdCustomer(idClient);
+                    pCustDev.setVisible(true); 
+                }else{
+                    JOptionPane.showMessageDialog(null, "No hay dispositivos vinculados");
+                }
+
                 snDevice = pCustDev.getSerialNumberDevice();
                 if(!snDevice.isEmpty()){
                     buscarDevice();
@@ -145,6 +167,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
         lblModel.setText("");
         lblDescription.setText("");
         lbl_idDevice.setText("");
+        lblSerialNumber.setText("");
     }
     
     private void registrarServicio(){
@@ -258,7 +281,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 860, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,8 +454,8 @@ public class serviceNewPanel extends javax.swing.JPanel {
         jLabel9.setForeground(new java.awt.Color(12, 83, 151));
         jLabel9.setText("Id cliente:");
 
-        lbl_id.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        lbl_id.setForeground(new java.awt.Color(0, 153, 0));
+        lbl_id.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        lbl_id.setForeground(new java.awt.Color(65, 65, 63));
         lbl_id.setText("xxx");
 
         btnSearch.setBackground(new java.awt.Color(255, 255, 255));
@@ -588,7 +611,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
                                     .addComponent(lblDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanelSeparador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 79, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelSeparador4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

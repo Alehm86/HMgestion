@@ -4,11 +4,14 @@
  */
 package utils;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import javax.swing.UIManager;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 public class config {
     
@@ -22,14 +25,33 @@ public class config {
 
         public static void applyPoppinsHeader(JTable table) {
 
-            table.getTableHeader().setFont(POPPINS_HEADER);
+            JTableHeader header = table.getTableHeader();
 
-            table.getTableHeader().setResizingAllowed(false);
+            header.setFont(POPPINS_HEADER);
+            header.setResizingAllowed(false);
 
-            DefaultTableCellRenderer headerRenderer =
-                    (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
+            header.setDefaultRenderer(new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(
+                        JTable table, Object value, boolean isSelected,
+                        boolean hasFocus, int row, int column) {
 
-            headerRenderer.setHorizontalAlignment(JLabel.CENTER);
+                    JLabel label = (JLabel) super.getTableCellRendererComponent(
+                            table, value, isSelected, hasFocus, row, column);
+
+                    label.setBackground(new Color(101,129,171));
+                    label.setForeground(new Color(255,255,255));
+                    
+                    label.setHorizontalAlignment(JLabel.CENTER);
+                    label.setFont(POPPINS_HEADER);
+                    label.setBorder(UIManager.getBorder("TableHeader.cellBorder"));
+
+                    return label;
+                }
+            });
+
+            header.setOpaque(true);
         }
     }
+    
 }

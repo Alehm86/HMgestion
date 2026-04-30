@@ -4,7 +4,7 @@
  */
 package forms;
 
-import dao.budgetDAO;
+import classDAO.budgetDAO;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionListener;

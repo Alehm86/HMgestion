@@ -17,6 +17,7 @@ public class modelSupplier {
     public String web;
     public String user;
     public String pass;
+    public int state;
 
     public String getName() {
         return name;
@@ -82,7 +83,15 @@ public class modelSupplier {
         this.pass = pass;
     }
 
-    public modelSupplier(String name, String condicion, String cuit, String telefono, String email, String web, String user, String pass) {
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public modelSupplier(String name, String condicion, String cuit, String telefono, String email, String web, String user, String pass, int state) {
         this.name = name;
         this.condicion = condicion;
         this.cuit = cuit;
@@ -91,7 +100,10 @@ public class modelSupplier {
         this.web = web;
         this.user = user;
         this.pass = pass;
+        this.state = state;
     }
+
+
     
     public modelSupplier(){
         

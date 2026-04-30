@@ -4,7 +4,7 @@
  */
 package forms;
 
-import dao.serviceDAO;
+import classDAO.serviceDAO;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

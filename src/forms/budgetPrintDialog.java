@@ -4,7 +4,7 @@
  */
 package forms;
 
-import dao.budgetDAO;
+import classDAO.budgetDAO;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseListener;
@@ -379,7 +379,7 @@ public class budgetPrintDialog extends javax.swing.JDialog {
 
         jLabel10.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(65, 65, 63));
-        jLabel10.setText("Vencimineto:");
+        jLabel10.setText("Vencimiento:");
 
         lbl_vencimiento.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         lbl_vencimiento.setForeground(new java.awt.Color(65, 65, 63));
@@ -387,10 +387,12 @@ public class budgetPrintDialog extends javax.swing.JDialog {
 
         lbl_phone.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lbl_phone.setForeground(new java.awt.Color(65, 65, 63));
+        lbl_phone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/phone32.png"))); // NOI18N
         lbl_phone.setText("351-3181878");
 
         lbl_cuit.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lbl_cuit.setForeground(new java.awt.Color(65, 65, 63));
+        lbl_cuit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/dni32.png"))); // NOI18N
         lbl_cuit.setText("320800626");
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
@@ -633,12 +635,6 @@ public class budgetPrintDialog extends javax.swing.JDialog {
             .addGroup(jPanelPrintLayout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(jPanelPrintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelPrintLayout.createSequentialGroup()
-                        .addComponent(lbl_cuit)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanelPrintLayout.createSequentialGroup()
-                        .addComponent(lbl_phone)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPrintLayout.createSequentialGroup()
                         .addGroup(jPanelPrintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelPrintLayout.createSequentialGroup()
@@ -670,7 +666,12 @@ public class budgetPrintDialog extends javax.swing.JDialog {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelPrintLayout.createSequentialGroup()
                                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(51, 51, 51))))
+                        .addGap(51, 51, 51))
+                    .addGroup(jPanelPrintLayout.createSequentialGroup()
+                        .addGroup(jPanelPrintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_phone)
+                            .addComponent(lbl_cuit))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanelPrintLayout.setVerticalGroup(
             jPanelPrintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

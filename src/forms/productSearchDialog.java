@@ -4,8 +4,8 @@
  */
 package forms;
 
-import dao.genericDAO;
-import dao.productDAO;
+import classDAO.genericDAO;
+import classDAO.productDAO;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -16,13 +16,14 @@ import javax.swing.table.DefaultTableModel;
 
 public class productSearchDialog extends javax.swing.JDialog {
 
-    productDAO queriesProduct = new productDAO();
-    genericDAO queriesGeneric = new genericDAO();
+    productDAO qProduct = new productDAO();
+    genericDAO qGeneric = new genericDAO();
     
     DefaultTableModel tableProducts = new DefaultTableModel();
     
     private String filaSeleccionada = "";
     private int idProduct;
+    private int state = 1;
     
     public int getProduct(){        
         return idProduct;
@@ -32,60 +33,70 @@ public class productSearchDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
-        queriesGeneric.llenarCombosActivos(cboCategories,"categories");
-        queriesGeneric.llenarCombos(cboBrand,"brands");
+        qGeneric.llenarCombosActivos(cboCategories,"product_categories");
+        qGeneric.llenarCombos(cboBrand,"product_brands");
         
         llenarSubcategorias();        
         filtrarPorCombos();
         actions();
-    }
+    }   
 
     void llenarSubcategorias(){
         cboCategories.addActionListener(e -> {
             String categoria = (String) cboCategories.getSelectedItem();
 
             if (categoria != null && !categoria.equals("Seleccione una categoría")) {
-                int idCat = queriesProduct.selectIdCategoria(categoria);
+                int idCat = qProduct.selectIdCategoria(categoria);
                 cboSubcategories.removeAllItems();
-                queriesProduct.llenarCombosSubcategories(cboSubcategories, idCat);          
+                qProduct.llenarCombosSubcategories(cboSubcategories, idCat);          
             }
         });
     }
     
-    void filtrarPorCombos(){
+    private void filtrarPorCombos(){
         
         String categoria = (String) cboCategories.getSelectedItem();
         String subcategoria = (String) cboSubcategories.getSelectedItem();
         String brand = (String) cboBrand.getSelectedItem();
         
-        int idCat = queriesProduct.selectIdCategoria(categoria); 
-        int idSubcat = queriesGeneric.selectId("id_subcategory","subcategories",subcategoria);
-        int idBrand = queriesGeneric.selectId("id_brand","brands",brand);
+        int idCat = qProduct.selectIdCategoria(categoria); 
+        int idSubcat = qGeneric.selectId("id_subcategory","product_subcategories",subcategoria);
+        int idBrand = qGeneric.selectId("id_brand","product_brands",brand);
         
         if(cboBrand.getSelectedIndex() != 0){
             if(cboCategories.getSelectedIndex() != 0){               
                 if(cboSubcategories.getSelectedIndex() != 0){
-                    queriesProduct.listProdForBrandAndSubCat(jtablePrducts, idBrand, idSubcat);
+                    qProduct.listProdForBrandAndSubCat(jtablePrducts, idBrand, idSubcat, state);
                 }else{
-                    queriesProduct.listProdForBrandAndCat(jtablePrducts, idBrand, idCat);
+                    qProduct.listProdForBrandAndCat(jtablePrducts, idBrand, idCat, state);
                 }
             }else{
-                queriesProduct.listAllProdForBrand(jtablePrducts, idBrand);
+                qProduct.listAllProdForBrand(jtablePrducts, idBrand, state);
             }                     
         }else{
             if(cboCategories.getSelectedIndex() != 0){
                 if(cboSubcategories.getSelectedIndex() != 0){
-                    queriesProduct.listProdFSubcategory(jtablePrducts,idSubcat);
+                    qProduct.listProdFSubcategory(jtablePrducts,idSubcat,state);
                 }else{
-                    queriesProduct.listProdFCategory(jtablePrducts,idCat);
+                    qProduct.listProdFCategory(jtablePrducts,idCat,state);
                 }               
             }else{
-                queriesProduct.listAllProduct(jtablePrducts);
+                qProduct.listAllProduct(jtablePrducts,state);
             }
-        }      
+        }
     }
     
-        private void actions(){
+    private void actions(){
+            
+        CheckBoxInactivos.addActionListener(e->{
+
+            if(CheckBoxInactivos.isSelected()){
+                state = 0;           
+            }else{
+                state = 1;
+            } 
+            filtrarPorCombos();
+        });    
         
         btnSerchCode2.addActionListener(e -> {
             tableProducts.setRowCount(0);
@@ -95,7 +106,7 @@ public class productSearchDialog extends javax.swing.JDialog {
         btnSelectProduct.addActionListener (e->{
             
             if(!filaSeleccionada.isEmpty()){
-                idProduct = queriesProduct.selectIdProduct(filaSeleccionada);
+                idProduct = qProduct.selectIdProduct(filaSeleccionada);
                 this.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "¡Debe seleccionar un producto de la lista!"); 
@@ -137,6 +148,7 @@ public class productSearchDialog extends javax.swing.JDialog {
         cboBrand = new javax.swing.JComboBox<>();
         btnSerchCode2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        CheckBoxInactivos = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtablePrducts = new javax.swing.JTable();
         btnSelectProduct = new javax.swing.JButton();
@@ -212,6 +224,11 @@ public class productSearchDialog extends javax.swing.JDialog {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/product128.png"))); // NOI18N
 
+        CheckBoxInactivos.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        CheckBoxInactivos.setForeground(new java.awt.Color(255, 255, 255));
+        CheckBoxInactivos.setText("Mostrar inactivos");
+        CheckBoxInactivos.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -229,8 +246,13 @@ public class productSearchDialog extends javax.swing.JDialog {
                     .addComponent(cboCategories, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboSubcategories, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSerchCode2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(CheckBoxInactivos))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSerchCode2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -242,7 +264,8 @@ public class productSearchDialog extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboCategories, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cboCategories, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CheckBoxInactivos))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -430,6 +453,7 @@ public class productSearchDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox CheckBoxInactivos;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSelectProduct;
     private javax.swing.JButton btnSerchCode2;

@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -109,5 +110,24 @@ public class utility {
                 label.setText("");
             }
         });
+    }
+    
+    public String calcularPrecioSugerido(String pCosto, String pIva, String pGanancia){
+
+        try {
+            double precioCosto = Double.parseDouble(pCosto);
+            double iva = Double.parseDouble(pIva);
+            double beneficio = Double.parseDouble(pGanancia);
+
+            double precioSugerido = precioCosto * (1 + iva / 100) * (1 + beneficio / 100);
+            long precioEntero = Math.round(precioSugerido);
+
+            return "$" + precioEntero;
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, 
+                "ERROR AL CALCULAR PRECIO SUGERIDO\nVerifique los valores ingresados. "+ e.getMessage());
+            return "$0";
+        }
     }
 }
