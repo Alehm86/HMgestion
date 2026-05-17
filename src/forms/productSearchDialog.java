@@ -39,6 +39,7 @@ public class productSearchDialog extends javax.swing.JDialog {
         llenarSubcategorias();        
         filtrarPorCombos();
         actions();
+        ocultarColumnas();
     }   
 
     void llenarSubcategorias(){
@@ -84,6 +85,7 @@ public class productSearchDialog extends javax.swing.JDialog {
                 qProduct.listAllProduct(jtablePrducts,state);
             }
         }
+        ocultarColumnas();
     }
     
     private void actions(){
@@ -131,7 +133,18 @@ public class productSearchDialog extends javax.swing.JDialog {
                 }            
             }
         });
-    }    
+    }  
+    
+    private void ocultarColumnas(){
+        
+        int totalColumnas = jtablePrducts.getColumnModel().getColumnCount();
+
+        for (int i = 2; i <= 5 && i < totalColumnas; i++) {
+            jtablePrducts.getColumnModel().getColumn(i).setMinWidth(0);
+            jtablePrducts.getColumnModel().getColumn(i).setMaxWidth(0);
+            jtablePrducts.getColumnModel().getColumn(i).setPreferredWidth(0);
+        }
+    }
     
     
     @SuppressWarnings("unchecked")
@@ -204,7 +217,7 @@ public class productSearchDialog extends javax.swing.JDialog {
         btnSerchCode2.setBackground(new java.awt.Color(242, 242, 242));
         btnSerchCode2.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         btnSerchCode2.setForeground(new java.awt.Color(12, 83, 151));
-        btnSerchCode2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Serch32.png"))); // NOI18N
+        btnSerchCode2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/lupa32.png"))); // NOI18N
         btnSerchCode2.setText("Buscar");
         btnSerchCode2.setBorder(null);
         btnSerchCode2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -293,18 +306,25 @@ public class productSearchDialog extends javax.swing.JDialog {
             }
         ));
         jtablePrducts.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jtablePrducts.setFillsViewportHeight(true);
         jtablePrducts.setGridColor(new java.awt.Color(255, 255, 255));
         jtablePrducts.setRowHeight(25);
         jtablePrducts.setSelectionBackground(new java.awt.Color(255, 204, 153));
+        jtablePrducts.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtablePrductsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtablePrducts);
 
         btnSelectProduct.setBackground(new java.awt.Color(242, 242, 242));
         btnSelectProduct.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         btnSelectProduct.setForeground(new java.awt.Color(101, 129, 171));
-        btnSelectProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ProductAdd.png"))); // NOI18N
+        btnSelectProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
         btnSelectProduct.setText("Seleccionar");
         btnSelectProduct.setBorder(null);
         btnSelectProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSelectProduct.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         btnSelectProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnSelectProductMouseEntered(evt);
@@ -409,6 +429,20 @@ public class productSearchDialog extends javax.swing.JDialog {
     private void btnCancelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseExited
         btnCancel.setBackground(new Color(255,255,255));
     }//GEN-LAST:event_btnCancelMouseExited
+
+    private void jtablePrductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtablePrductsMouseClicked
+        if (evt.getClickCount() == 2) {
+
+            int fila = jtablePrducts.getSelectedRow();
+
+            if (fila != -1) {
+                idProduct = qProduct.selectIdProduct(filaSeleccionada);
+                this.dispose();     
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione una fila");
+            }
+        } 
+    }//GEN-LAST:event_jtablePrductsMouseClicked
 
     /**
      * @param args the command line arguments

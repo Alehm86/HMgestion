@@ -4,11 +4,10 @@
  */
 package forms;
 
-import classDAO.productDAO;
 import classDAO.customerDAO;
 import classDAO.genericDAO;
-import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import javax.swing.JOptionPane;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -31,13 +30,14 @@ public class customerMainListPanel extends javax.swing.JPanel {
     private String filaSeleccionada = "";
     
     private String cuitFound;  
+    
     private TableRowSorter<DefaultTableModel> sorter;
     DefaultTableModel tableProducts = new DefaultTableModel();
     
     public customerMainListPanel() {
         initComponents();
         
-        qGeneric.llenarCombos(cboIVA, "iva"); 
+        qGeneric.llenarCombos(cboIVA, "customer_iva"); 
         qCustomer.ComboIdState(cboStates);
         cboStates.setSelectedIndex(1);
         qCustomer.listAllCustomerForState(tableCustomer,1);
@@ -84,28 +84,31 @@ public class customerMainListPanel extends javax.swing.JPanel {
         });  
         
         btnCustomerView.addActionListener(e-> {
-            
-            boolean estado = false;
-            String CUIT;
-            
-            if(!filaSeleccionada.isEmpty()){
-                               
-                JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-                customerViewDialog fView = new customerViewDialog(parent, true);
-                
-                CUIT = qCustomer.selectCuit("name", filaSeleccionada);
-                fView.dialogoEdit(CUIT); 
-                
-                fView.setVisible(true);
-                
-                estado = fView.dialogoClienteActualizado();                             
-                if(estado=true){
-                    filtrarClientes();
-                }                             
-            }else{
-                JOptionPane.showMessageDialog(null, "Seleccione un cliente");
-            }    
+            viewCustomer();  
         });            
+    }
+    
+    private void viewCustomer(){
+        boolean estado = false;
+        String CUIT;
+
+        if(!filaSeleccionada.isEmpty()){
+
+            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
+            customerViewDialog fView = new customerViewDialog(parent, true);
+
+            CUIT = qCustomer.selectCuit("name", filaSeleccionada);
+            fView.dialogoEdit(CUIT); 
+
+            fView.setVisible(true);
+
+            estado = fView.dialogoClienteActualizado();                             
+            if(estado=true){
+                filtrarClientes();
+            }                             
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccione un cliente");
+        } 
     }
     
     private void filtrarClientes(){
@@ -255,13 +258,13 @@ public class customerMainListPanel extends javax.swing.JPanel {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(btnAltaCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCustomerView, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanelClientContent.setBackground(new java.awt.Color(255, 255, 255));
         jPanelClientContent.setPreferredSize(new java.awt.Dimension(1600, 800));
 
-        jPanel3.setBackground(new java.awt.Color(101, 129, 171));
+        jPanel3.setBackground(new java.awt.Color(35, 35, 38));
 
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -269,6 +272,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
 
         txtSerch.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         txtSerch.setForeground(new java.awt.Color(65, 65, 63));
+        txtSerch.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSerch.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         jLabel2.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
@@ -345,6 +349,11 @@ public class customerMainListPanel extends javax.swing.JPanel {
         tableCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tableCustomer.setFillsViewportHeight(true);
         tableCustomer.setRowHeight(25);
+        tableCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableCustomerMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableCustomer);
 
         javax.swing.GroupLayout jPanelClientContentLayout = new javax.swing.GroupLayout(jPanelClientContent);
@@ -363,6 +372,8 @@ public class customerMainListPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE))
         );
 
+        jScrollPane1.getAccessibleContext().setAccessibleParent(this);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -373,11 +384,11 @@ public class customerMainListPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanelClientContent, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -408,6 +419,19 @@ public class customerMainListPanel extends javax.swing.JPanel {
     private void cboIVAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboIVAActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboIVAActionPerformed
+
+    private void tableCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCustomerMouseClicked
+        if (evt.getClickCount() == 2) {
+
+            int fila = tableCustomer.getSelectedRow();
+
+            if (fila != -1) {
+                viewCustomer();      
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione una fila");
+            }
+        }      
+    }//GEN-LAST:event_tableCustomerMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

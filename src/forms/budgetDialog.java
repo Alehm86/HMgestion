@@ -6,9 +6,7 @@ package forms;
 
 import classDAO.budgetDAO;
 import classDAO.customerDAO;
-import classDAO.genericDAO;
 import classDAO.productDAO;
-import classDAO.serviceDAO;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.KeyAdapter;
@@ -22,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import models.modelBudget;
 import models.modelBudgetDetail;
 import models.modelProducts;
+import utils.config;
 import utils.utility;
 
 
@@ -113,6 +112,8 @@ public class budgetDialog extends javax.swing.JDialog {
         String[] titulo = new String[]{"Item", "Cant", "Precio Unit", "Iva","Total"};
         dtm.setColumnIdentifiers(titulo);
         jTablePresupuesto.setModel(dtm);
+        
+        config.TableStyleUtil.applyPoppinsHeader(jTablePresupuesto);
 
         jTablePresupuesto.getColumnModel().getColumn(0).setPreferredWidth(350);
         jTablePresupuesto.getColumnModel().getColumn(1).setPreferredWidth(40); 
@@ -488,7 +489,7 @@ public class budgetDialog extends javax.swing.JDialog {
             String iva = jTablePresupuesto.getValueAt(i, 3).toString();
             double subtotal = Double.parseDouble(jTablePresupuesto.getValueAt(i, 4).toString());
 
-            modelBudgetDetail  item = new modelBudgetDetail (
+            modelBudgetDetail item = new modelBudgetDetail (
                     descripcion,
                     cantidad,
                     precio,
@@ -568,7 +569,7 @@ public class budgetDialog extends javax.swing.JDialog {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel2.setForeground(new java.awt.Color(35, 35, 38));
         jLabel2.setText("Cliente:");
 
         txtName.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -588,11 +589,12 @@ public class budgetDialog extends javax.swing.JDialog {
         });
 
         jLabel3.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel3.setForeground(new java.awt.Color(35, 35, 38));
         jLabel3.setText("Teléfono:");
 
         txtPhone.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         txtPhone.setForeground(new java.awt.Color(65, 65, 63));
+        txtPhone.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtPhone.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPhoneKeyPressed(evt);
@@ -600,15 +602,15 @@ public class budgetDialog extends javax.swing.JDialog {
         });
 
         jLabel4.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel4.setForeground(new java.awt.Color(35, 35, 38));
         jLabel4.setText("Fecha:");
 
         lbl_fecha.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        lbl_fecha.setForeground(new java.awt.Color(65, 65, 63));
+        lbl_fecha.setForeground(new java.awt.Color(35, 35, 38));
         lbl_fecha.setText("xxx");
 
         jLabel5.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel5.setForeground(new java.awt.Color(35, 35, 38));
         jLabel5.setText("Observaciones:");
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -677,7 +679,7 @@ public class budgetDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jPanelSeparador3.setBackground(new java.awt.Color(12, 83, 151));
+        jPanelSeparador3.setBackground(new java.awt.Color(35, 35, 38));
 
         javax.swing.GroupLayout jPanelSeparador3Layout = new javax.swing.GroupLayout(jPanelSeparador3);
         jPanelSeparador3.setLayout(jPanelSeparador3Layout);
@@ -690,7 +692,7 @@ public class budgetDialog extends javax.swing.JDialog {
             .addGap(0, 5, Short.MAX_VALUE)
         );
 
-        jPanelSeparador2.setBackground(new java.awt.Color(12, 83, 151));
+        jPanelSeparador2.setBackground(new java.awt.Color(35, 35, 38));
 
         javax.swing.GroupLayout jPanelSeparador2Layout = new javax.swing.GroupLayout(jPanelSeparador2);
         jPanelSeparador2.setLayout(jPanelSeparador2Layout);
@@ -703,10 +705,10 @@ public class budgetDialog extends javax.swing.JDialog {
             .addGap(0, 5, Short.MAX_VALUE)
         );
 
-        jPanel5.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel5.setBackground(new java.awt.Color(101, 129, 171));
 
         icono.setFont(new java.awt.Font("Poppins", 1, 36)); // NOI18N
-        icono.setForeground(new java.awt.Color(102, 102, 102));
+        icono.setForeground(new java.awt.Color(255, 255, 255));
         icono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/bugdet128.png"))); // NOI18N
         icono.setText("Presupuesto.");
 
@@ -730,14 +732,14 @@ public class budgetDialog extends javax.swing.JDialog {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel6.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel6.setForeground(new java.awt.Color(35, 35, 38));
         jLabel6.setText("Items:");
 
         txtProduct.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         txtProduct.setForeground(new java.awt.Color(65, 65, 63));
 
         btnBuscarProduct.setBackground(new java.awt.Color(255, 255, 255));
-        btnBuscarProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/product32_1.png"))); // NOI18N
+        btnBuscarProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchList32_1.png"))); // NOI18N
         btnBuscarProduct.setBorder(null);
         btnBuscarProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscarProduct.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -750,11 +752,12 @@ public class budgetDialog extends javax.swing.JDialog {
         });
 
         jLabel7.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel7.setForeground(new java.awt.Color(35, 35, 38));
         jLabel7.setText("Cantidad:");
 
         txtCantidad.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         txtCantidad.setForeground(new java.awt.Color(65, 65, 63));
+        txtCantidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCantidadKeyPressed(evt);
@@ -765,11 +768,12 @@ public class budgetDialog extends javax.swing.JDialog {
         });
 
         jLabel8.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel8.setForeground(new java.awt.Color(35, 35, 38));
         jLabel8.setText("Precio:");
 
         txtPrice.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         txtPrice.setForeground(new java.awt.Color(65, 65, 63));
+        txtPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtPrice.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPriceKeyPressed(evt);
@@ -786,6 +790,7 @@ public class budgetDialog extends javax.swing.JDialog {
         btnAdd.setText("Agregar");
         btnAdd.setBorder(null);
         btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdd.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnAddMouseEntered(evt);
@@ -796,7 +801,7 @@ public class budgetDialog extends javax.swing.JDialog {
         });
 
         btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Serch32.png"))); // NOI18N
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/lupa32.png"))); // NOI18N
         btnBuscar.setBorder(null);
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -812,6 +817,7 @@ public class budgetDialog extends javax.swing.JDialog {
 
         txtProductCode.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         txtProductCode.setForeground(new java.awt.Color(65, 65, 63));
+        txtProductCode.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtProductCode.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtProductCodeKeyPressed(evt);
@@ -822,11 +828,12 @@ public class budgetDialog extends javax.swing.JDialog {
         });
 
         jLabel10.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(35, 35, 38));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Buscar por codigo");
 
         jLabel11.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel11.setForeground(new java.awt.Color(35, 35, 38));
         jLabel11.setText("IVA:");
 
         lbl_iva.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
@@ -963,7 +970,7 @@ public class budgetDialog extends javax.swing.JDialog {
         });
 
         btnDelete.setBackground(new java.awt.Color(255, 255, 255));
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/eliminarCliente.png"))); // NOI18N
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/bin32.png"))); // NOI18N
         btnDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -975,7 +982,7 @@ public class budgetDialog extends javax.swing.JDialog {
         });
 
         btnEdit.setBackground(new java.awt.Color(255, 255, 255));
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/edit_121852.png"))); // NOI18N
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/edit32.png"))); // NOI18N
         btnEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -986,29 +993,31 @@ public class budgetDialog extends javax.swing.JDialog {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel12.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel12.setForeground(new java.awt.Color(35, 35, 38));
         jLabel12.setText("Subtotal:");
 
         lblSubtotal.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         lblSubtotal.setText("xxx");
 
         jLabel13.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel13.setForeground(new java.awt.Color(35, 35, 38));
         jLabel13.setText("IVA 10.5%:");
 
         lblIva105.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         lblIva105.setText("xxx");
 
         jLabel14.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel14.setForeground(new java.awt.Color(35, 35, 38));
         jLabel14.setText("Total:");
 
         lblTotal.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         lblTotal.setText("xxx");
 
         jLabel15.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel15.setForeground(new java.awt.Color(35, 35, 38));
         jLabel15.setText("IVA 21%:");
 
         lblIva21.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N

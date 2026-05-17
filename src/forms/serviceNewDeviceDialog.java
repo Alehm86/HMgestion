@@ -10,10 +10,6 @@ import java.security.SecureRandom;
 import javax.swing.JOptionPane;
 import models.modelDevice;
 
-/**
- *
- * @author Ale
- */
 public class serviceNewDeviceDialog extends javax.swing.JDialog {
     
     serviceDAO queriesService = new serviceDAO();
@@ -208,7 +204,7 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(101, 129, 171));
+        jPanel1.setBackground(new java.awt.Color(35, 35, 38));
 
         jLabel8.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -232,40 +228,44 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel7.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel7.setForeground(new java.awt.Color(35, 35, 38));
         jLabel7.setText("Nº de serie:");
 
         txtSerialNumber.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        txtSerialNumber.setForeground(new java.awt.Color(65, 65, 63));
+        txtSerialNumber.setForeground(new java.awt.Color(35, 35, 38));
+        txtSerialNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSerialNumber.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(65, 65, 63)));
 
         jLabel4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel4.setForeground(new java.awt.Color(35, 35, 38));
         jLabel4.setText("Equipo:");
 
         cboEquipo.setBackground(new java.awt.Color(255, 255, 255));
-        cboEquipo.setForeground(new java.awt.Color(65, 65, 63));
+        cboEquipo.setForeground(new java.awt.Color(35, 35, 38));
         cboEquipo.setBorder(null);
         cboEquipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         txtEquipo.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        txtEquipo.setForeground(new java.awt.Color(65, 65, 63));
+        txtEquipo.setForeground(new java.awt.Color(35, 35, 38));
+        txtEquipo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtEquipo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(65, 65, 63)));
 
         jLabel5.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel5.setForeground(new java.awt.Color(35, 35, 38));
         jLabel5.setText("Marca:");
 
         txtBrand.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        txtBrand.setForeground(new java.awt.Color(65, 65, 63));
+        txtBrand.setForeground(new java.awt.Color(35, 35, 38));
+        txtBrand.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtBrand.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(65, 65, 63)));
 
         txtModel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        txtModel.setForeground(new java.awt.Color(65, 65, 63));
+        txtModel.setForeground(new java.awt.Color(35, 35, 38));
+        txtModel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtModel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(65, 65, 63)));
 
         jLabel6.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel6.setForeground(new java.awt.Color(35, 35, 38));
         jLabel6.setText("Modelo:");
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -329,7 +329,7 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         jScrollPane1.setViewportView(textAreaDescripcion);
 
         jLabel9.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel9.setForeground(new java.awt.Color(35, 35, 38));
         jLabel9.setText("Descripción:");
 
         btnSerialNumber.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/dado32.png"))); // NOI18N

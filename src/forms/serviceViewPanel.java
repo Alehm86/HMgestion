@@ -48,6 +48,21 @@ public class serviceViewPanel extends javax.swing.JDialog {
         }
     }
     
+    public void viewService(String serviceNumber){
+        this.serviceNumber = serviceNumber;
+
+        if(serviceNumber != null && !serviceNumber.isEmpty()){            
+            cargarServicio();      
+        }
+        
+        cboStates.setEnabled(false);
+        btnChangeState.setEnabled(false);
+        btnPresupuesto.setEnabled(false);
+        btnCancelBudget.setEnabled(false);
+        jTextAreaFalla.setEditable(false);
+        jTextAreaDiagnostico.setEditable(false);
+    }
+    
     public boolean dialogoServiceActualizado(){
         return msjEstado;
     }    
@@ -517,7 +532,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
         cboStates.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel9.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel9.setForeground(new java.awt.Color(35, 35, 38));
         jLabel9.setText("Cambiar estado a:");
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -672,22 +687,22 @@ public class serviceViewPanel extends javax.swing.JDialog {
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(101, 129, 171)), "Datos del cliente:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Poppins", 1, 18), new java.awt.Color(101, 129, 171))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(101, 129, 171)), "Datos del cliente:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Poppins", 1, 18), new java.awt.Color(35, 35, 38))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel1.setForeground(new java.awt.Color(35, 35, 38));
         jLabel1.setText("Nombre:");
 
         lbl_name.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        lbl_name.setForeground(new java.awt.Color(65, 65, 63));
+        lbl_name.setForeground(new java.awt.Color(35, 35, 38));
         lbl_name.setText("xxx");
 
         jLabel2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel2.setForeground(new java.awt.Color(35, 35, 38));
         jLabel2.setText("Teléfono:");
 
         lbl_phone.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        lbl_phone.setForeground(new java.awt.Color(65, 65, 63));
+        lbl_phone.setForeground(new java.awt.Color(35, 35, 38));
         lbl_phone.setText("xxx");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -720,42 +735,42 @@ public class serviceViewPanel extends javax.swing.JDialog {
         );
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(101, 129, 171)), "Datos del dispositivo:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Poppins", 1, 18), new java.awt.Color(101, 129, 171))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(101, 129, 171)), "Datos del dispositivo:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Poppins", 1, 18), new java.awt.Color(35, 35, 38))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel3.setForeground(new java.awt.Color(35, 35, 38));
         jLabel3.setText("Tipo de dispositivo:");
 
         lbl_deviceType.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        lbl_deviceType.setForeground(new java.awt.Color(65, 65, 63));
+        lbl_deviceType.setForeground(new java.awt.Color(35, 35, 38));
         lbl_deviceType.setText("xxx");
 
         jLabel4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel4.setForeground(new java.awt.Color(35, 35, 38));
         jLabel4.setText("Marca:");
 
         lbl_brand.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        lbl_brand.setForeground(new java.awt.Color(65, 65, 63));
+        lbl_brand.setForeground(new java.awt.Color(35, 35, 38));
         lbl_brand.setText("xxx");
 
         jLabel5.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel5.setForeground(new java.awt.Color(35, 35, 38));
         jLabel5.setText("Modelo:");
 
         lbl_Model.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        lbl_Model.setForeground(new java.awt.Color(65, 65, 63));
+        lbl_Model.setForeground(new java.awt.Color(35, 35, 38));
         lbl_Model.setText("xxx");
 
         jLabel6.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel6.setForeground(new java.awt.Color(35, 35, 38));
         jLabel6.setText("Nº de serie:");
 
         lbl_sn.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        lbl_sn.setForeground(new java.awt.Color(65, 65, 63));
+        lbl_sn.setForeground(new java.awt.Color(35, 35, 38));
         lbl_sn.setText("xxx");
 
         jLabel11.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel11.setForeground(new java.awt.Color(35, 35, 38));
         jLabel11.setText("Descripción:");
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -766,6 +781,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
         jTextAreaDescription.setColumns(20);
         jTextAreaDescription.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jTextAreaDescription.setForeground(new java.awt.Color(65, 65, 63));
+        jTextAreaDescription.setLineWrap(true);
         jTextAreaDescription.setRows(5);
         jScrollPane1.setViewportView(jTextAreaDescription);
 
@@ -824,30 +840,30 @@ public class serviceViewPanel extends javax.swing.JDialog {
         );
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(101, 129, 171)), "Datos del servicio:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Poppins", 1, 18), new java.awt.Color(101, 129, 171))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(101, 129, 171)), "Datos del servicio:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Poppins", 1, 18), new java.awt.Color(35, 35, 38))); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel7.setForeground(new java.awt.Color(35, 35, 38));
         jLabel7.setText("Fecha:");
 
         lbl_date.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        lbl_date.setForeground(new java.awt.Color(65, 65, 63));
+        lbl_date.setForeground(new java.awt.Color(35, 35, 38));
         lbl_date.setText("xxx");
 
         jLabel8.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel8.setForeground(new java.awt.Color(35, 35, 38));
         jLabel8.setText("Nº de servicio:");
 
         lbl_serviceNumber.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        lbl_serviceNumber.setForeground(new java.awt.Color(65, 65, 63));
+        lbl_serviceNumber.setForeground(new java.awt.Color(35, 35, 38));
         lbl_serviceNumber.setText("xxx");
 
         jLabel10.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel10.setForeground(new java.awt.Color(35, 35, 38));
         jLabel10.setText("Estado:");
 
         lbl_state.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        lbl_state.setForeground(new java.awt.Color(65, 65, 63));
+        lbl_state.setForeground(new java.awt.Color(35, 35, 38));
         lbl_state.setText("xxx");
 
         lbl_id_service.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -899,11 +915,11 @@ public class serviceViewPanel extends javax.swing.JDialog {
         jTextAreaDiagnostico.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jTextAreaDiagnostico.setForeground(new java.awt.Color(65, 65, 63));
         jTextAreaDiagnostico.setRows(5);
-        jTextAreaDiagnostico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(101, 129, 171)));
+        jTextAreaDiagnostico.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jScrollPane2.setViewportView(jTextAreaDiagnostico);
 
         lbl_diagnostico.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        lbl_diagnostico.setForeground(new java.awt.Color(101, 129, 171));
+        lbl_diagnostico.setForeground(new java.awt.Color(35, 35, 38));
         lbl_diagnostico.setText("Diagnostico:");
 
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -913,11 +929,11 @@ public class serviceViewPanel extends javax.swing.JDialog {
         jTextAreaFalla.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jTextAreaFalla.setForeground(new java.awt.Color(65, 65, 63));
         jTextAreaFalla.setRows(5);
-        jTextAreaFalla.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(101, 129, 171)));
+        jTextAreaFalla.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jScrollPane3.setViewportView(jTextAreaFalla);
 
         lbl_diagnostico1.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        lbl_diagnostico1.setForeground(new java.awt.Color(101, 129, 171));
+        lbl_diagnostico1.setForeground(new java.awt.Color(35, 35, 38));
         lbl_diagnostico1.setText("Falla:");
 
         btnCancel.setBackground(new java.awt.Color(255, 255, 255));
@@ -937,7 +953,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
         });
 
         lbl_CostoDeRep.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        lbl_CostoDeRep.setForeground(new java.awt.Color(101, 129, 171));
+        lbl_CostoDeRep.setForeground(new java.awt.Color(35, 35, 38));
         lbl_CostoDeRep.setText("Costo de reparación:");
 
         txtCost.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -951,10 +967,10 @@ public class serviceViewPanel extends javax.swing.JDialog {
             }
         });
 
-        jPanel7.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel7.setBackground(new java.awt.Color(101, 129, 171));
 
         icono.setFont(new java.awt.Font("Poppins", 1, 36)); // NOI18N
-        icono.setForeground(new java.awt.Color(102, 102, 102));
+        icono.setForeground(new java.awt.Color(255, 255, 255));
         icono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/soporte-tecnico128.png"))); // NOI18N
         icono.setText("Servicio técnico.");
 

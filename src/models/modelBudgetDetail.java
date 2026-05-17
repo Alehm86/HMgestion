@@ -60,6 +60,8 @@ public class modelBudgetDetail {
         this.iva = iva;
         this.subtotal = subtotal;
     }
+
+    
     
     public modelBudgetDetail(){}
     

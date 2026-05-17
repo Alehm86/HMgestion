@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import utils.config;
 
 
 public class budgetDAO {
@@ -424,7 +425,7 @@ public class budgetDAO {
         return estado;
     }     
     
-    public void listBudgets(JTable jTableItems, String filtroFecha, String filtroEstado){
+    public void listBudgets(JTable tableItems, String filtroFecha, String filtroEstado){
 
         String sqlBase =
             "SELECT " +
@@ -503,37 +504,38 @@ public class budgetDAO {
                 dtm.addRow(row);
             }
 
-            jTableItems.setModel(dtm);
+            tableItems.setModel(dtm);
+            
+            config.TableStyleUtil.applyPoppinsHeader(tableItems);
 
-            jTableItems.getTableHeader().setFont(new Font("Poppins", Font.PLAIN, 14));
-            jTableItems.getTableHeader().setResizingAllowed(false);
+            tableItems.getTableHeader().setFont(new Font("Poppins", Font.PLAIN, 14));
+            tableItems.getTableHeader().setResizingAllowed(false);
 
-            DefaultTableCellRenderer headerRenderer =
-                (DefaultTableCellRenderer) jTableItems.getTableHeader().getDefaultRenderer();
+            DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) tableItems.getTableHeader().getDefaultRenderer();
             headerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-            for (int i = 0; i < jTableItems.getColumnCount(); i++) {
-                jTableItems.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-                jTableItems.getColumnModel().getColumn(i).setPreferredWidth(100);
+            for (int i = 0; i < tableItems.getColumnCount(); i++) {
+                tableItems.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+                tableItems.getColumnModel().getColumn(i).setPreferredWidth(100);
             }
 
             int COL_ID_BUDGET = 7;
             int COL_ID_SERVICE = 8;
 
-            jTableItems.getColumnModel().getColumn(COL_ID_BUDGET).setMinWidth(0);
-            jTableItems.getColumnModel().getColumn(COL_ID_BUDGET).setMaxWidth(0);
-            jTableItems.getColumnModel().getColumn(COL_ID_BUDGET).setWidth(0);
-            jTableItems.getTableHeader().getColumnModel().getColumn(COL_ID_BUDGET).setMinWidth(0);
-            jTableItems.getTableHeader().getColumnModel().getColumn(COL_ID_BUDGET).setMaxWidth(0);
+            tableItems.getColumnModel().getColumn(COL_ID_BUDGET).setMinWidth(0);
+            tableItems.getColumnModel().getColumn(COL_ID_BUDGET).setMaxWidth(0);
+            tableItems.getColumnModel().getColumn(COL_ID_BUDGET).setWidth(0);
+            tableItems.getTableHeader().getColumnModel().getColumn(COL_ID_BUDGET).setMinWidth(0);
+            tableItems.getTableHeader().getColumnModel().getColumn(COL_ID_BUDGET).setMaxWidth(0);
 
-            jTableItems.getColumnModel().getColumn(COL_ID_SERVICE).setMinWidth(0);
-            jTableItems.getColumnModel().getColumn(COL_ID_SERVICE).setMaxWidth(0);
-            jTableItems.getColumnModel().getColumn(COL_ID_SERVICE).setWidth(0);
-            jTableItems.getTableHeader().getColumnModel().getColumn(COL_ID_SERVICE).setMinWidth(0);
-            jTableItems.getTableHeader().getColumnModel().getColumn(COL_ID_SERVICE).setMaxWidth(0);
+            tableItems.getColumnModel().getColumn(COL_ID_SERVICE).setMinWidth(0);
+            tableItems.getColumnModel().getColumn(COL_ID_SERVICE).setMaxWidth(0);
+            tableItems.getColumnModel().getColumn(COL_ID_SERVICE).setWidth(0);
+            tableItems.getTableHeader().getColumnModel().getColumn(COL_ID_SERVICE).setMinWidth(0);
+            tableItems.getTableHeader().getColumnModel().getColumn(COL_ID_SERVICE).setMaxWidth(0);
 
             rs.close();
             stmt.close();

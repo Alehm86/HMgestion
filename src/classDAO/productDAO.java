@@ -11,18 +11,21 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.function.Consumer;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import utils.config;
 import utils.config.TableStyleUtil;
+
 
 public class productDAO { 
     
@@ -485,7 +488,7 @@ public class productDAO {
         
         String sql="SELECT sc.name, b.name, model, color, product_code "
                 + "FROM products "
-                + "INNER JOIN product_subcategories sc ON products.id_subcategory = product_subcategories.id_subcategory "
+                + "INNER JOIN product_subcategories sc ON products.id_subcategory = sc.id_subcategory "
                 + "INNER JOIN product_brands b ON products.id_brand = b.id_brand "
                 + "WHERE id_product = " +idProducto;        
         
@@ -846,14 +849,13 @@ public class productDAO {
 //********************************************** END: PRICE ****************************************************************************    
     
 //********************************************** STOCKS ************************************************************************************      
-    public static int selectStock(int id_product) {
+    public int selectStockActual(int id_product) {
         
         int stock = 0;
 
         String sql = "SELECT amount FROM product_stock WHERE id_product = ?";
 
-        connectionDB con = new connectionDB();
-        Connection conexion = (Connection) con.establecerConexion();
+        Connection conexion = getConnection();
 
         try {
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
@@ -958,9 +960,11 @@ public class productDAO {
         }    
     }
     
-    public void updateStockProduct(int idProduct, double stock){
+    public boolean updateStockProduct(int idProduct, double stock){
         
         String sql = "UPDATE `product_stock` SET `amount`=? WHERE `id_product`=?";
+        
+        boolean valido = false;
 
         Connection conexion = getConnection();
 
@@ -970,12 +974,16 @@ public class productDAO {
             pstmt.setInt(2, idProduct);
 
             pstmt.executeUpdate();
+            
+            valido= true;
+            
             pstmt.close();
             conexion.close();
             
         } catch(SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR AL EDITAR PRECIO" + e.getMessage());
         } 
+        return valido;
     }
     
     //***************************************** COMBOS DE AJUSTE DE STOCK ***************************************
@@ -1386,9 +1394,321 @@ public class productDAO {
         } catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
-    } 
+    }  
     
+    public void llenarComboProducto(JComboBox combo, int factura){
+
+        String sql =
+                "SELECT " +
+                "p.id_product, " +
+                "ps.name AS scat, " +
+                "pb.name AS brand, " +
+                "p.model AS model, " +
+                "COALESCE(p.color, '') AS color " +
+                "FROM purchase_invoice_detail AS pid " +
+                "INNER JOIN products p ON pid.id_product = p.id_product " +
+                "INNER JOIN product_subcategories ps ON p.id_subcategory = ps.id_subcategory " +
+                "INNER JOIN product_brands pb ON p.id_brand = pb.id_brand " +
+                "WHERE id_purchase_invoice = ?";
+
+        Connection conexion = getConnection();
+
+        combo.removeAllItems();
+
+        try {
+
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setInt(1, factura);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while(rs.next()){
+
+                int idProduct = rs.getInt("id_product");
+
+                String subcat = rs.getString("scat");
+                String brand = rs.getString("brand");
+                String model = rs.getString("model");
+                String color = rs.getString("color");
+
+                String item = subcat + " " + brand + " " + model + " " + color;
+
+                combo.addItem(new ComboProducto(idProduct, item));
+            }
+
+            conexion.close();
+
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+        }
+    }
     
+    public class ComboProducto {
+
+        private int idProduct;
+        private String descripcion;
+
+        public ComboProducto(int idProduct, String descripcion) {
+            this.idProduct = idProduct;
+            this.descripcion = descripcion;
+        }
+
+        public int getIdProduct() {
+            return idProduct;
+        }
+
+        @Override
+        public String toString() {
+            return descripcion;
+        }
+    }
+    
+//    public void listProductSN(int id_product, int factura, JTable tabla){
+//        
+//        String sql= "SELECT " +
+//                    "ps.id_product, " +
+//                    "subc.name AS subcat, " +
+//                    "pb.name AS brand, " +
+//                    "p.model AS model, " +
+//                    "COALESCE(p.color, '') AS color, " +
+//                    "ps.serial_number AS serialNumber " +
+//                    "FROM product_serials AS ps " +
+//                    "INNER JOIN products p ON ps.id_product = p.id_product " +
+//                    "INNER JOIN product_subcategories subc ON p.id_subcategory = subc.id_subcategory " +
+//                    "INNER JOIN product_brands pb ON p.id_brand = pb.id_brand " +
+//                    "WHERE ps.id_purchase_invoice = ? AND ps.id_product = ?";
+//        
+//        Connection conexion = getConnection();
+//        
+//        DefaultTableModel dtm = crearModeloNoEditable();
+//        
+//        String[] titleTable = {"id","Producto","Numero de serie"};
+//        dtm.setColumnIdentifiers(titleTable);
+//        
+//        try {
+//
+//            PreparedStatement pstmt = conexion.prepareStatement(sql);
+//            pstmt.setInt(1, factura);
+//            pstmt.setInt(2, id_product);
+//            
+//            ResultSet rs = pstmt.executeQuery();
+//
+//            while(rs.next()){
+//
+//                int idProduct = rs.getInt("id_product");
+//
+//                String subcat = rs.getString("subcat");
+//                String brand = rs.getString("brand");
+//                String model = rs.getString("model");
+//                String color = rs.getString("color");
+//
+//                String item = subcat + " " + brand + " " + model + " " + color;
+//
+//                Object[] row = {
+//                    idProduct,
+//                    item,
+//                    rs.getString("serialNumber")
+//                };
+//                dtm.addRow(row);
+//            }
+//
+//            conexion.close();
+//
+//        } catch(SQLException e){
+//            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+//        }
+//        
+//        
+//    }
+    
+    public void listProductSN(int id_product,int factura,DefaultTableModel dtm){
+
+        String sql= "SELECT " +
+                    "ps.id_product, " +
+                    "subc.name AS subcat, " +
+                    "pb.name AS brand, " +
+                    "p.model AS model, " +
+                    "COALESCE(p.color, '') AS color, " +
+                    "ps.serial_number AS serialNumber " +
+                    "FROM product_serials AS ps " +
+                    "INNER JOIN products p ON ps.id_product = p.id_product " +
+                    "INNER JOIN product_subcategories subc ON p.id_subcategory = subc.id_subcategory " +
+                    "INNER JOIN product_brands pb ON p.id_brand = pb.id_brand " +
+                    "WHERE ps.id_purchase_invoice = ? " +
+                    "AND ps.id_product = ?";
+
+        Connection conexion = getConnection();
+
+        try {
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setInt(1, factura);
+            pstmt.setInt(2, id_product);
+            ResultSet rs = pstmt.executeQuery();
+
+            dtm.setRowCount(0);
+
+            while(rs.next()){
+
+                int idProduct = rs.getInt("id_product");
+
+                String subcat = rs.getString("subcat");
+                String brand = rs.getString("brand");
+                String model = rs.getString("model");
+                String color = rs.getString("color");
+
+                String item = subcat + " " + brand + " " + model + " " + color;
+
+                Object[] row = {idProduct, item, rs.getString("serialNumber")};
+                dtm.addRow(row);
+            }
+
+            conexion.close();
+
+        } catch(SQLException e)
+            {JOptionPane.showMessageDialog(null,"ERROR: " + e.getMessage());
+        }
+    }    
+    
+    public int obtenerStockDeCompra(int factura, int producto){
+        
+        String sql = "SELECT amount FROM `purchase_invoice_detail` WHERE `id_purchase_invoice` = ? AND `id_product` = ?";
+         
+        Connection conexion = getConnection();
+        
+        int stock = 0;
+        
+        try {
+
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setInt(1, factura);
+            pstmt.setInt(2, producto);
+            ResultSet rs = pstmt.executeQuery();
+
+            while(rs.next()){
+                stock = rs.getInt("amount");
+            }
+
+            conexion.close();
+
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+        }
+        
+        return stock;
+    }
+    
+    public boolean insertProductSerialNumber(int id_product, int id_purchase, String serialNumber, LocalDate fecha, String status, String observation){
+        
+        String sql= "INSERT INTO `product_serials`" +
+                    "(`id_product`, `id_purchase_invoice`, `serial_number`, `fecha_de_registro`, `status`, `observations`) " +
+                    "VALUES (?,?,?,?,?,?)";
+        
+        boolean valido = false;
+        
+        Connection conexion = getConnection();
+        
+        try {
+
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setInt(1, id_product);
+            pstmt.setInt(2, id_purchase);
+            pstmt.setString(3, serialNumber);
+            pstmt.setDate(4, java.sql.Date.valueOf(fecha));
+            pstmt.setString(5, status);
+            pstmt.setString(6, observation);
+            
+            int resultado = pstmt.executeUpdate();
+            
+            if(resultado > 0){
+                valido = true;
+            }
+
+            conexion.close();
+            pstmt.close();
+
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+        }
+        return valido;             
+    }
+    
+    public void selectProductSN(
+            String serialNumber,
+            JLabel lbl_status,
+            JLabel lbl_product,
+            JLabel lbl_color,
+            JLabel lbl_warranty,
+            JLabel lbl_purchase_date,
+            JLabel lbl_supplier,
+            JLabel lbl_purchase_invoice,                   
+            JLabel lbl_purchase_price,
+            JLabel lbl_iva,
+            JLabel lbl_sale_date,
+            JLabel lbl_sale_price,
+            JTextArea textAreaObservation         
+    ){
+        
+        String sql= "SELECT " +
+                    "psubcat.name AS subcategory, " +
+                    "pbrand.name AS brand, " +
+                    "p.model AS model, " +
+                    "p.color AS color, " +
+                    "pi.number AS purchase, " +
+                    "pi.fecha_compra AS purchaseDate, " +
+                    "s.name AS supplier, " +
+                    "ps.status AS estado, " +
+                    "pid.price AS purchasePrice, " +
+                    "pid.iva AS iva, " +
+                    "ps.observations " +
+                    "FROM product_serials ps " +
+                    "INNER JOIN products p ON ps.id_product = p.id_product " +
+                    "INNER JOIN product_subcategories psubcat ON p.id_subcategory = psubcat.id_subcategory " +
+                    "INNER JOIN product_brands pbrand ON p.id_brand = pbrand.id_brand " +
+                    "INNER JOIN purchase_invoice pi ON ps.id_purchase_invoice = pi.id_purchase_invoice " +
+                    "INNER JOIN suppliers s ON pi.id_supplier = s.id_supplier " +
+                    "INNER JOIN purchase_invoice_detail pid " +
+                    "ON ps.id_purchase_invoice = pid.id_purchase_invoice " +
+                    "AND ps.id_product = pid.id_product " +
+                    "WHERE ps.serial_number = ?";
+        
+        Connection conexion = getConnection();
+        
+        try {
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setString(1, serialNumber);
+            
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                
+                String subcat = rs.getString("subcategory");
+                String brand = rs.getString("brand");
+                String model = rs.getString("model");
+                String product = subcat + " " + brand + " " + model;
+                            
+                lbl_status.setText(rs.getString("estado"));
+                lbl_product.setText(product);
+                lbl_color.setText(rs.getString("color"));
+                lbl_purchase_date.setText(rs.getString("purchaseDate"));
+                lbl_supplier.setText(rs.getString("supplier"));
+                lbl_purchase_invoice.setText(rs.getString("purchase"));
+                lbl_warranty.setText("-");
+                lbl_sale_date.setText("-");
+                lbl_sale_price.setText("-");
+                lbl_iva.setText(rs.getString("iva"));
+                lbl_purchase_price.setText(rs.getString("purchasePrice"));
+                textAreaObservation.setText(rs.getString("observations"));
+                
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el producto");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar producto: " + e.getMessage());
+        }
+
+        
+    }
     
 
     

@@ -193,7 +193,6 @@ public class SupplierEditDialog extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanelDates.setBackground(new java.awt.Color(255, 255, 255));
-        jPanelDates.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Poppins", 0, 18), new java.awt.Color(255, 255, 255))); // NOI18N
 
         txtName.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtName.setForeground(new java.awt.Color(65, 65, 63));
@@ -201,31 +200,31 @@ public class SupplierEditDialog extends javax.swing.JDialog {
         txtName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         labelName.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        labelName.setForeground(new java.awt.Color(12, 83, 151));
+        labelName.setForeground(new java.awt.Color(35, 35, 38));
         labelName.setText("Nombre:");
 
         labelCuit.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        labelCuit.setForeground(new java.awt.Color(12, 83, 151));
+        labelCuit.setForeground(new java.awt.Color(35, 35, 38));
         labelCuit.setText("C.U.I.T.");
 
         labelTel.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        labelTel.setForeground(new java.awt.Color(12, 83, 151));
+        labelTel.setForeground(new java.awt.Color(35, 35, 38));
         labelTel.setText("Teléfono:");
 
         labelMail.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        labelMail.setForeground(new java.awt.Color(12, 83, 151));
+        labelMail.setForeground(new java.awt.Color(35, 35, 38));
         labelMail.setText("Correo electrónico:");
 
         labelUrl.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        labelUrl.setForeground(new java.awt.Color(12, 83, 151));
+        labelUrl.setForeground(new java.awt.Color(35, 35, 38));
         labelUrl.setText("Sitio web:");
 
         labelUser.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        labelUser.setForeground(new java.awt.Color(12, 83, 151));
+        labelUser.setForeground(new java.awt.Color(35, 35, 38));
         labelUser.setText("Usuario:");
 
         labelPass.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        labelPass.setForeground(new java.awt.Color(12, 83, 151));
+        labelPass.setForeground(new java.awt.Color(35, 35, 38));
         labelPass.setText("Contraseña:");
 
         txtTel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
@@ -263,7 +262,7 @@ public class SupplierEditDialog extends javax.swing.JDialog {
         });
 
         labelCuit1.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        labelCuit1.setForeground(new java.awt.Color(12, 83, 151));
+        labelCuit1.setForeground(new java.awt.Color(35, 35, 38));
         labelCuit1.setText("Condición:");
 
         cboIVA.setBackground(new java.awt.Color(255, 255, 255));
@@ -285,7 +284,7 @@ public class SupplierEditDialog extends javax.swing.JDialog {
         jPanelDatesLayout.setHorizontalGroup(
             jPanelDatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDatesLayout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelDatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelName)
                     .addComponent(labelCuit1)
@@ -295,7 +294,7 @@ public class SupplierEditDialog extends javax.swing.JDialog {
                     .addComponent(labelUrl)
                     .addComponent(labelUser)
                     .addComponent(labelPass))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtCondicion, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelDatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,7 +306,7 @@ public class SupplierEditDialog extends javax.swing.JDialog {
                     .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelDatesLayout.setVerticalGroup(
             jPanelDatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -472,7 +471,7 @@ public class SupplierEditDialog extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanelDates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -487,7 +486,7 @@ public class SupplierEditDialog extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

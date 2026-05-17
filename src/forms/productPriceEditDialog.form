@@ -100,6 +100,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="3f" green="41" red="41" type="rgb"/>
             </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Codigo de producto">
@@ -124,7 +125,7 @@
               <Connection code="new java.awt.Color(255, 255, 255)" type="code"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/Serch32.png"/>
+              <Image iconType="3" name="/Icons/lupa32.png"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
@@ -251,7 +252,7 @@
                       <Font name="Poppins" size="14" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="97" green="53" red="c" type="rgb"/>
+                      <Color blue="26" green="23" red="23" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Precio de costo:"/>
                   </Properties>
@@ -262,7 +263,7 @@
                       <Font name="Poppins" size="14" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="97" green="53" red="c" type="rgb"/>
+                      <Color blue="26" green="23" red="23" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="$"/>
                   </Properties>
@@ -273,7 +274,7 @@
                       <Font name="Poppins" size="14" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="97" green="53" red="c" type="rgb"/>
+                      <Color blue="26" green="23" red="23" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Beneficio:"/>
                   </Properties>
@@ -284,7 +285,7 @@
                       <Font name="Poppins" size="14" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="97" green="53" red="c" type="rgb"/>
+                      <Color blue="26" green="23" red="23" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="%"/>
                   </Properties>
@@ -306,7 +307,7 @@
                       <Font name="Poppins" size="14" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="97" green="53" red="c" type="rgb"/>
+                      <Color blue="26" green="23" red="23" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Precio de venta:"/>
                   </Properties>
@@ -317,7 +318,7 @@
                       <Font name="Poppins" size="14" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="97" green="53" red="c" type="rgb"/>
+                      <Color blue="26" green="23" red="23" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="$"/>
                   </Properties>
@@ -371,6 +372,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="3f" green="41" red="41" type="rgb"/>
                     </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                         <EtchetBorder/>
@@ -389,6 +391,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="3f" green="41" red="41" type="rgb"/>
                     </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                         <EtchetBorder/>
@@ -407,6 +410,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="3f" green="41" red="41" type="rgb"/>
                     </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                         <EtchetBorder/>
@@ -479,7 +483,7 @@
                       <Font name="Poppins" size="14" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="3f" green="41" red="41" type="rgb"/>
+                      <Color blue="26" green="23" red="23" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="I.V.A.: %"/>
                   </Properties>
@@ -491,6 +495,9 @@
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="26" green="23" red="23" type="rgb"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="0"/>
@@ -512,7 +519,7 @@
                       <Font name="Poppins" size="14" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="3f" green="41" red="41" type="rgb"/>
+                      <Color blue="26" green="23" red="23" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="0"/>
                   </Properties>
@@ -548,7 +555,7 @@
               <Connection code="new java.awt.Color(255, 255, 255)" type="code"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/searchlist32.png"/>
+              <Image iconType="3" name="/Icons/searchList32_1.png"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
@@ -669,7 +676,7 @@
         <Container class="javax.swing.JPanel" name="jPanel2">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="cc" red="0" type="rgb"/>
+              <Color blue="ab" green="81" red="65" type="rgb"/>
             </Property>
           </Properties>
 
@@ -696,10 +703,10 @@
                   <Font name="Poppins" size="24" style="1"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="66" red="66" type="rgb"/>
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Icons/productPrice48.png"/>
+                  <Image iconType="3" name="/Icons/priceTag64.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Editar precio."/>
               </Properties>

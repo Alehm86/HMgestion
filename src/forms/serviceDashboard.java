@@ -7,15 +7,8 @@ package forms;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
-/**
- *
- * @author Ale
- */
 public class serviceDashboard extends javax.swing.JPanel {
 
-    /**
-     * Creates new form serviceListDashboard
-     */
     public serviceDashboard() {
         initComponents();
         actions();

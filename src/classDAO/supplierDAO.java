@@ -91,10 +91,10 @@ public class supplierDAO {
 
         try {
 
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setString(1, name);
+            PreparedStatement pstm = conexion.prepareStatement(sql);
+            pstm.setString(1, name);
 
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs = pstm.executeQuery();
 
             if (rs.next()) {
 
@@ -112,7 +112,7 @@ public class supplierDAO {
             }
 
             rs.close();
-            ps.close();
+            pstm.close();
             conexion.close();
 
         } catch (SQLException e) {
@@ -215,7 +215,7 @@ public class supplierDAO {
             conexion.close();
         }
         catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Ya existe otro proveedor con ese nombre.");
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
     }
     
@@ -243,10 +243,34 @@ public class supplierDAO {
             conexion.close();
         }
         catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "ERROR AL REGISTRAR PROVEEDOR" + e.getMessage() );
+            JOptionPane.showMessageDialog(null, "ERROR AL REGISTRAR PROVEEDOR" + e.getMessage());
         }    
     }
       
-//******************** END: SUPPLIERS || COMIENZA --> CATEGORIES*******************************
+    public int getIdSupplier(String name){
+        
+        String sql = "SELECT `id_supplier` FROM `suppliers` WHERE `name` = ?";
+        
+        int idSupplier = -1;
+        
+        Connection conexion = getConnection();
+        
+        try{
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
+            pstmt.setString(1, name);
+            ResultSet rs = pstmt.executeQuery();
+            
+            
+            
+            while(rs.next()){
+                idSupplier = (rs.getInt("id_supplier"));            
+            }
+            
+            
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR" + e.getMessage());
+        }
+        return idSupplier;
+    }
     
 }

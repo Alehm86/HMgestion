@@ -14,13 +14,8 @@ import static java.awt.print.Printable.NO_SUCH_PAGE;
 import static java.awt.print.Printable.PAGE_EXISTS;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Ale
- */
 public class servicePrintDialog extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(servicePrintDialog.class.getName());

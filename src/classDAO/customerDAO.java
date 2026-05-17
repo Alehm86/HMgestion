@@ -37,6 +37,34 @@ public class customerDAO {
         };
     }
     
+    public void nameCustomer(int id_customer, JLabel titulo){
+        
+        String sql = "SELECT `name` FROM `customer` WHERE `id_customer` = ?";
+        
+        Connection conexion = getConnection();
+        
+        try{
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setInt(1, id_customer);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                String nombre = rs.getString("name");
+                String title = "Dispositivos de " + nombre;
+                
+                titulo.setText(title);
+            }
+
+            rs.close();
+            pstmt.close();
+            conexion.close();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+        }
+        
+    }
+    
     
     public int insertCustomer(
             String name,
@@ -209,7 +237,7 @@ public class customerDAO {
             "SELECT " +
             "c.name AS customer_name, " +
             "c.id_customer, " +            
-            "iva.name AS iva_name, " +
+            "ci.name AS iva_name, " +
             "c.cuit, " +
             "COALESCE(c.email, 'Sin dato') AS email, " +
             "c.phone, " +
@@ -219,9 +247,9 @@ public class customerDAO {
             "COALESCE(provinces.name, '25') AS province_name, " +
             "cs.name AS cs_name " +
             "FROM customer c " +
-            "INNER JOIN iva ON c.id_iva = iva.id_iva " +
+            "INNER JOIN customer_iva ci ON c.id_iva = ci.id_iva " +
             "INNER JOIN provinces ON c.id_province = provinces.id_province " +
-            "INNER JOIN customer_State cs ON c.id_state = cs.id_state " +
+            "INNER JOIN customer_state cs ON c.id_state = cs.id_state " +
             "WHERE c.cuit = ?";
                   
         Connection conexion = getConnection();
@@ -270,12 +298,12 @@ public class customerDAO {
         String sql =
                 "SELECT " +
                 "c.name AS customer_name, " +
-                "c.id_customer, " +
-                "iva.name AS iva_name, " +
+                "c.id_customer AS idCustomer, " +
+                "ci.name AS iva_name, " +
                 "c.cuit, " +
                 "c.phone " +
-                "FROM customer c " +
-                "INNER JOIN iva ON customer.id_iva = iva.id_iva " +
+                "FROM customer AS c " +
+                "INNER JOIN customer_iva ci ON c.id_iva = ci.id_iva " +
                 "WHERE c.cuit =?";
                      
         Connection conexion = getConnection();
@@ -287,7 +315,7 @@ public class customerDAO {
             
             if (rs.next()) {
                 
-                lbl_ID.setText(rs.getString("id_customer"));                 
+                lbl_ID.setText(rs.getString("idCustomer"));                 
                 txtName.setText(rs.getString("customer_name"));               
                 txtCUIT.setText(rs.getString("cuit"));
                 txtTel.setText(rs.getString("phone"));
@@ -406,14 +434,14 @@ public class customerDAO {
         
         String sql = 
                 "SELECT customer.name AS customer_name, " +
-                "iva.name AS iva_name, " +
+                "ci.name AS iva_name, " +
                 "customer.cuit, " +
                 "customer.email, " +
                 "customer.phone, " +
                 "customer.city, " +
                 "cs.name AS cs_name " +
                 "FROM customer " +
-                "INNER JOIN iva ON customer.id_iva = iva.id_iva " +
+                "INNER JOIN customer_iva ci ON customer.id_iva = ci.id_iva " +
                 "INNER JOIN customer_state cs ON customer.id_state = cs.id_state";
         
         Statement stmt;
@@ -465,14 +493,14 @@ public class customerDAO {
         
         String sql = 
                 "SELECT c.name AS customer_name, " +
-                "iva.name AS iva_name, " +
+                "ci.name AS iva_name, " +
                 "c.cuit, " +
                 "c.email, " +
                 "c.phone, " +
                 "c.city, " +
                 "cs.name AS cs_name " +
                 "FROM customer c " +
-                "INNER JOIN iva ON c.id_iva = iva.id_iva " +
+                "INNER JOIN customer_iva ci ON c.id_iva = ci.id_iva " +
                 "INNER JOIN customer_state cs ON c.id_state = cs.id_state " +
                 "WHERE c.id_state = ?";
         
@@ -521,7 +549,7 @@ public class customerDAO {
         }
     }
     
-    public void listCustomerForIva(JTable jtable, int iva){                     //no lo estoy usando (revisar y borrar)
+    public void listCustomerForIva(JTable jtable, int iva){        
         
         String sql="SELECT `name`, `cuit` FROM `customer` WHERE `id_state`= 1 AND `id_iva`= ?";
         
@@ -567,14 +595,14 @@ public class customerDAO {
         
         String sql =
                 "SELECT c.name AS customer_name, " +
-                "iva.name AS iva_name, " +
+                "ci.name AS iva_name, " +
                 "c.cuit, " +
                 "c.email, " +
                 "c.phone, " +
                 "c.city, " +
                 "cs.name AS cs_name " +
                 "FROM customer c " +
-                "INNER JOIN iva ON c.id_iva = iva.id_iva " +
+                "INNER JOIN customer_iva ci ON c.id_iva = ci.id_iva " +
                 "INNER JOIN customer_state cs ON c.id_state = cs.id_state " +
                 "WHERE c.id_iva = ?";
         
@@ -626,14 +654,14 @@ public class customerDAO {
         
         String sql =
                 "SELECT c.name AS customer_name, " +
-                "iva.name AS iva_name, " +
+                "ci.name AS iva_name, " +
                 "c.cuit, " +
                 "c.email, " +
                 "c.phone, " +
                 "c.city, " +
                 "cs.name AS cs_name " +
                 "FROM customer c " +
-                "INNER JOIN iva ON c.id_iva = iva.id_iva " +
+                "INNER JOIN customer_iva ci ON c.id_iva = ci.id_iva " +
                 "INNER JOIN customer_state cs ON c.id_state = cs.id_state " +
                 "WHERE c.id_state = ? AND c.id_iva = ?";
 
@@ -683,7 +711,7 @@ public class customerDAO {
     }        
     
     public static int selectIdIva(String valor){
-        String sql = "SELECT id_iva FROM iva WHERE name = ?";
+        String sql = "SELECT id_iva FROM customer_iva WHERE name = ?";
         int id = 0;
 
         connectionDB con = new connectionDB();
@@ -873,6 +901,60 @@ public class customerDAO {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
     }   
+    
+    public boolean listCustomerDevices(JTable jtable, int id_customer){
+
+        String sql = "SELECT DISTINCT " +
+                    "d.device_type, " +
+                    "COALESCE(d.brand, 'S/D') AS brand, " +
+                    "COALESCE(d.model, 'S/D') AS model, " +
+                    "d.serial_number " +
+                    "FROM service_orders s " +
+                    "INNER JOIN devices d " +
+                    "ON s.id_device = d.id_device " +
+                    "WHERE s.id_customer = ?";
+        
+        boolean dato = false;
+
+        DefaultTableModel dtm = crearModeloNoEditable();
+
+        Connection conexion = getConnection();
+
+        String[] titleTable = {"Tipo","Marca","Modelo","Numero de serie"};
+        dtm.setColumnIdentifiers(titleTable);
+
+        try{
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
+            pstmt.setInt(1, id_customer);
+            
+            ResultSet rs = pstmt.executeQuery(); 
+
+            while (rs.next()) {
+
+                dato = true;
+                
+                Object[] row = {
+                    rs.getString("device_type"),
+                    rs.getString("brand"),
+                    rs.getString("model"),
+                    rs.getString("serial_number"),
+                };
+                dtm.addRow(row);
+            }
+
+            jtable.setModel(dtm);
+            
+            config.TableStyleUtil.applyPoppinsHeader(jtable);
+
+            rs.close();
+            pstmt.close();
+            conexion.close();
+
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+        }
+        return dato;
+    }    
     
     
     

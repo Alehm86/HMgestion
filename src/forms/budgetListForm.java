@@ -6,14 +6,11 @@ package forms;
 
 import classDAO.budgetDAO;
 import java.awt.Color;
-import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
 
 public class budgetListForm extends javax.swing.JFrame {
     
@@ -36,10 +33,7 @@ public class budgetListForm extends javax.swing.JFrame {
         leyendaBotones();       
         actions();
         listadoInicial();
-        
-        
-
-        
+   
     }
     
     private void listadoInicial(){
@@ -100,18 +94,7 @@ public class budgetListForm extends javax.swing.JFrame {
         });
         
         btnViewBudget.addActionListener(e->{
-            
-            this.setVisible(false);
-            
-            budgetPrintDialog fViewBudget = new budgetPrintDialog(null, true);
-            
-            fViewBudget.dialogoIdBudget(id_budget);
-            
-            fViewBudget.setLocationRelativeTo(null);
-            fViewBudget.setVisible(true);
-            
-            this.setVisible(true);
-            
+            viewBudget();
         });         
         
         btnCancelBudget.addActionListener(e->{
@@ -135,6 +118,19 @@ public class budgetListForm extends javax.swing.JFrame {
           
         });
         
+    }
+    
+    public void viewBudget(){
+        this.setVisible(false);
+
+        budgetPrintDialog fViewBudget = new budgetPrintDialog(null, true);
+
+        fViewBudget.dialogoIdBudget(id_budget);
+
+        fViewBudget.setLocationRelativeTo(null);
+        fViewBudget.setVisible(true);
+
+        this.setVisible(true);
     }
 
 
@@ -186,7 +182,7 @@ public class budgetListForm extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         btnViewBudget.setBackground(new java.awt.Color(255, 255, 255));
-        btnViewBudget.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/revisar32.png"))); // NOI18N
+        btnViewBudget.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchList32_1.png"))); // NOI18N
         btnViewBudget.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnViewBudget.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -281,6 +277,11 @@ public class budgetListForm extends javax.swing.JFrame {
         jTableBudgets.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTableBudgets.setFillsViewportHeight(true);
         jTableBudgets.setRowHeight(25);
+        jTableBudgets.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableBudgetsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableBudgets);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -341,6 +342,19 @@ public class budgetListForm extends javax.swing.JFrame {
     private void cboFiltroEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboFiltroEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboFiltroEstadoActionPerformed
+
+    private void jTableBudgetsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableBudgetsMouseClicked
+        if (evt.getClickCount() == 2) {
+
+            int fila = jTableBudgets.getSelectedRow();
+
+            if (fila != -1) {
+                viewBudget();      
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione una fila");
+            }
+        } 
+    }//GEN-LAST:event_jTableBudgetsMouseClicked
 
 
     public static void main(String args[]) {

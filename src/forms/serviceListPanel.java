@@ -1,7 +1,5 @@
 package forms;
 
-
-import classDAO.genericDAO;
 import classDAO.serviceDAO;
 import java.awt.Color;
 import java.awt.Point;
@@ -41,24 +39,7 @@ public class serviceListPanel extends javax.swing.JPanel {
     private void actions(){
         
         btnServiceView.addActionListener(e->{
-
-            boolean estado = false;
-
-            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-            serviceViewPanel pServiceView = new serviceViewPanel(parent, true);
-
-            if(!serviceSelected.isEmpty()){
-                 pServiceView.setService(serviceSelected);
-                 pServiceView.setVisible(true);
-
-                 estado = pServiceView.dialogoServiceActualizado();
-                 if(estado){
-                     qServices.listServices(jtableServices);
-                 }
-
-            }else{
-                JOptionPane.showMessageDialog(null, "Seleccione un servicio.");
-            }
+            viewService();
         });
        
         cboStates.addActionListener(e->{
@@ -86,6 +67,26 @@ public class serviceListPanel extends javax.swing.JPanel {
                 listar();
             }
         });
+    }
+    
+    private void viewService(){
+        boolean estado = false;
+
+        JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
+        serviceViewPanel pServiceView = new serviceViewPanel(parent, true);
+
+        if(!serviceSelected.isEmpty()){
+             pServiceView.setService(serviceSelected);
+             pServiceView.setVisible(true);
+
+             estado = pServiceView.dialogoServiceActualizado();
+             if(estado){
+                 qServices.listServices(jtableServices);
+             }
+
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccione un servicio.");
+        }
     }
     
     private void listar(){
@@ -161,7 +162,7 @@ public class serviceListPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtableServices = new javax.swing.JTable();
 
-        jPanel1.setBackground(new java.awt.Color(101, 129, 171));
+        jPanel1.setBackground(new java.awt.Color(35, 35, 38));
 
         btnServiceView.setBackground(new java.awt.Color(255, 255, 255));
         btnServiceView.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -266,6 +267,11 @@ public class serviceListPanel extends javax.swing.JPanel {
         jtableServices.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jtableServices.setFillsViewportHeight(true);
         jtableServices.setRowHeight(25);
+        jtableServices.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtableServicesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtableServices);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -307,6 +313,19 @@ public class serviceListPanel extends javax.swing.JPanel {
     private void btnEntregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntregarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEntregarActionPerformed
+
+    private void jtableServicesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableServicesMouseClicked
+        if (evt.getClickCount() == 2) {
+
+            int fila = jtableServices.getSelectedRow();
+
+            if (fila != -1) {
+                viewService();      
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione una fila");
+            }
+        } 
+    }//GEN-LAST:event_jtableServicesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
