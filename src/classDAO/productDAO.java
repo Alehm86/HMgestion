@@ -617,7 +617,7 @@ public class productDAO {
         
         String sql = "SELECT p.product_code, " +
                      "CONCAT(sc.name, ' ', b.name, ' ', p.model, ' Color ', p.color) AS descripcion, " +
-                     "st.amount, pr.iva, pr.salePrice " +
+                     "st.quantity, pr.iva, pr.salePrice " +
                      "FROM products p " +
                      "INNER JOIN product_subcategories sc ON p.id_subcategory = sc.id_subcategory " +
                      "INNER JOIN product_brands b ON p.id_brand = b.id_brand " +
@@ -642,7 +642,7 @@ public class productDAO {
                 Object[] row = {
                     rs.getString("product_code"),
                     rs.getString("descripcion"),
-                    rs.getInt("amount"),
+                    rs.getInt("quantity"),
                     rs.getDouble("iva"),
                     rs.getDouble("salePrice")
                 };
@@ -853,7 +853,7 @@ public class productDAO {
         
         int stock = 0;
 
-        String sql = "SELECT amount FROM product_stock WHERE id_product = ?";
+        String sql = "SELECT quantity FROM product_stock WHERE id_product = ?";
 
         Connection conexion = getConnection();
 
@@ -864,7 +864,7 @@ public class productDAO {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                stock = rs.getInt("amount");
+                stock = rs.getInt("quantity");
             }
 
             rs.close();
@@ -880,7 +880,7 @@ public class productDAO {
     
     public void selectAllTableStock(int idproduct, JLabel lblStock, JTextField txtMin){
         
-        String sql = "SELECT `amount`, `min` FROM `product_stock` WHERE `id_product` = ?";
+        String sql = "SELECT `quantity`, `min` FROM `product_stock` WHERE `id_product` = ?";
         
         Connection conexion = getConnection();             
 
@@ -891,7 +891,7 @@ public class productDAO {
            
            if (rs.next()) {
                
-                lblStock.setText(rs.getString("amount"));
+                lblStock.setText(rs.getString("quantity"));
                 txtMin.setText(rs.getString("min"));          
             } 
            
@@ -908,17 +908,17 @@ public class productDAO {
     //inserta el stock = 0 al igual que la configuracion básica al dar de alta un producto nuevo
     public void insertInitialStock(int id_product){
         
-        String sql="INSERT INTO `product_stock`(`id_product`, `amount`, `min`) VALUES (?,?,?)";
+        String sql="INSERT INTO `product_stock`(`id_product`, `quantity`, `min`) VALUES (?,?,?)";
 
         int min = 0;
-        int amount = 0;
+        int quantity = 0;
         
         Connection conexion = getConnection();
        
         try{
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
             pstmt.setInt(1, id_product);
-            pstmt.setInt(2, amount);
+            pstmt.setInt(2, quantity);
             pstmt.setInt(3, min);
             pstmt.executeUpdate();
             
@@ -962,7 +962,7 @@ public class productDAO {
     
     public boolean updateStockProduct(int idProduct, double stock){
         
-        String sql = "UPDATE `product_stock` SET `amount`=? WHERE `id_product`=?";
+        String sql = "UPDATE product_stock SET quantity = ? WHERE id_product = ?";
         
         boolean valido = false;
 
@@ -1123,7 +1123,7 @@ public class productDAO {
                 Object[] row = {
                     rs.getString("product_code"),
                     rs.getString("descripcion"),
-                    rs.getInt("amount"),
+                    rs.getInt("quantity"),
                     rs.getString("promotion_name"),
                     rs.getDouble("iva"),
                     precioAMostrar
@@ -1152,7 +1152,7 @@ public class productDAO {
                     "p.model, " +
                     "IF(p.color IS NOT NULL AND p.color != '', CONCAT(' Color ', p.color), '')\n" +
                     ") AS descripcion, " +
-                    "st.amount, " +
+                    "st.quantity, " +
                     "pr.iva, " +
                     "pr.salePrice, " +
                     "COALESCE(pp.name, ' ') AS promotion_name, " +
@@ -1180,7 +1180,7 @@ public class productDAO {
                     "p.model, " +
                     "IF(p.color IS NOT NULL AND p.color != '', CONCAT(' Color ', p.color), '')\n" +
                     ") AS descripcion, " +
-                    "st.amount, " +
+                    "st.quantity, " +
                     "pr.iva, " +
                     "pr.salePrice, " +
                     "COALESCE(pp.name, 'Sin promo') AS promotion_name, " +
@@ -1211,7 +1211,7 @@ public class productDAO {
                     "p.model, " +
                     "IF(p.color IS NOT NULL AND p.color != '', CONCAT(' Color ', p.color), '')\n" +
                     ") AS descripcion, " +
-                    "st.amount, " +
+                    "st.quantity, " +
                     "pr.iva, " +
                     "pr.salePrice, " +
                     "COALESCE(pp.name, 'Sin promo') AS promotion_name, " +
@@ -1242,7 +1242,7 @@ public class productDAO {
                     "p.model, " +
                     "IF(p.color IS NOT NULL AND p.color != '', CONCAT(' Color ', p.color), '')\n" +
                     ") AS descripcion, " +
-                    "st.amount, " +
+                    "st.quantity, " +
                     "pr.iva, " +
                     "pr.salePrice, " +
                     "COALESCE(pp.name, 'Sin promo') AS promotion_name, " +
@@ -1274,7 +1274,7 @@ public class productDAO {
                     "p.model, " +
                     "IF(p.color IS NOT NULL AND p.color != '', CONCAT(' Color ', p.color), '')\n" +
                     ") AS descripcion, " +
-                    "st.amount, " +
+                    "st.quantity, " +
                     "pr.iva, " +
                     "pr.salePrice, " +
                     "COALESCE(pp.name, 'Sin promo') AS promotion_name, " +
@@ -1305,7 +1305,7 @@ public class productDAO {
                     "p.model, " +
                     "IF(p.color IS NOT NULL AND p.color != '', CONCAT(' Color ', p.color), '')\n" +
                     ") AS descripcion, " +
-                    "st.amount, " +
+                    "st.quantity, " +
                     "pr.iva, " +
                     "pr.salePrice, " +
                     "COALESCE(pp.name, 'Sin promo') AS promotion_name, " +
@@ -1571,7 +1571,7 @@ public class productDAO {
     
     public int obtenerStockDeCompra(int factura, int producto){
         
-        String sql = "SELECT amount FROM `purchase_invoice_detail` WHERE `id_purchase_invoice` = ? AND `id_product` = ?";
+        String sql = "SELECT quantity FROM purchase_invoice_detail WHERE id_purchase_invoice = ? AND id_product = ?";
          
         Connection conexion = getConnection();
         
@@ -1585,7 +1585,7 @@ public class productDAO {
             ResultSet rs = pstmt.executeQuery();
 
             while(rs.next()){
-                stock = rs.getInt("amount");
+                stock = rs.getInt("quantity");
             }
 
             conexion.close();

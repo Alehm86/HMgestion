@@ -17,16 +17,16 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import models.modelDevice;
-import models.modelService;
+import models.Device;
+import models.Service;
 
 public class serviceNewPanel extends javax.swing.JPanel {
 
     customerDAO qCustomer = new customerDAO();
     serviceDAO qService = new serviceDAO();
     
-    modelDevice device = new modelDevice();
-    modelService service = new modelService();
+    Device device = new Device();
+    Service service = new Service();
     
     int id_service = -1;
     String cuitClient = "";

@@ -6,7 +6,7 @@ package models;
 
 import java.util.Date;
 
-public class modelPurchaseInvoice {
+public class PurchaseInvoice {
     
     String type;
     String number;
@@ -135,7 +135,7 @@ public class modelPurchaseInvoice {
         this.created_at = created_at;
     }
 
-    public modelPurchaseInvoice(String type, String number, int supplier_id, Date fechaCompra, double subtotal, Double discount, Double iva_10_5, Double iva_21, Double percepciones, Double impInterno, double total, String status, String notes, Date created_at) {
+    public PurchaseInvoice(String type, String number, int supplier_id, Date fechaCompra, double subtotal, Double discount, Double iva_10_5, Double iva_21, Double percepciones, Double impInterno, double total, String status, String notes, Date created_at) {
         this.type = type;
         this.number = number;
         this.supplier_id = supplier_id;
@@ -152,7 +152,7 @@ public class modelPurchaseInvoice {
         this.created_at = created_at;
     }
 
-    public modelPurchaseInvoice(){}
+    public PurchaseInvoice(){}
     
     
 }

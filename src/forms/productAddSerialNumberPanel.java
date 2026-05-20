@@ -17,7 +17,7 @@ import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import models.modelProductSerialNumber;
+import models.ProductSerialNumber;
 import utils.config;
 
 
@@ -289,8 +289,8 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
 
             String observations = "Sin observaciones";
 
-            modelProductSerialNumber item =
-                    new modelProductSerialNumber(
+            ProductSerialNumber item =
+                    new ProductSerialNumber(
                             idProduct,
                             idPurchase,
                             serialNumber,
@@ -421,6 +421,7 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
             }
         ));
         tableItems.setFillsViewportHeight(true);
+        tableItems.setRowHeight(30);
         tableItems.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableItemsMouseClicked(evt);

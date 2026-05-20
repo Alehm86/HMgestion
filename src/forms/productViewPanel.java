@@ -15,13 +15,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
-import models.modelProducts;
+import models.Products;
 import classDAO.productDAO;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
-import models.modelPrice;
+import models.Price;
 import utils.utility;
 
 public class productViewPanel extends javax.swing.JPanel {
@@ -31,8 +31,8 @@ public class productViewPanel extends javax.swing.JPanel {
     
     utility utils = new utility();
     
-    modelProducts product = new modelProducts();
-    modelPrice price = new modelPrice();
+    Products product = new Products();
+    Price price = new Price();
 
     JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
     
@@ -328,7 +328,7 @@ public class productViewPanel extends javax.swing.JPanel {
         
         btnHistory.addActionListener(e->{
             
-            ViewHistoryDialog fHistory = new ViewHistoryDialog(parent, true);
+            viewHistoryDialog fHistory = new viewHistoryDialog(parent, true);
                         
             fHistory.dialogoId_Product(idProduct);
             fHistory.setVisible(true);

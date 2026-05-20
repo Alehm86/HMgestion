@@ -25,6 +25,7 @@ public class serviceListPanel extends javax.swing.JPanel {
     utility utils = new utility();
     
     String serviceSelected = "";
+    
     Map<String, Integer> estadosMap = new HashMap<>();    
     
     public serviceListPanel() {
@@ -141,13 +142,13 @@ public class serviceListPanel extends javax.swing.JPanel {
         estadosMap.put("Presupuesto aprobado", 4);
 
         cboStates.addItem("No reparado");
-        estadosMap.put("No reparado", 5);
+        estadosMap.put("No reparado", 6);
 
         cboStates.addItem("Reparado");
-        estadosMap.put("Reparado", 6);
+        estadosMap.put("Reparado", 7);
         
         cboStates.addItem("Entregado");
-        estadosMap.put("Entregado", 7);        
+        estadosMap.put("Entregado", 8);        
     }
 
     @SuppressWarnings("unchecked")
@@ -255,18 +256,18 @@ public class serviceListPanel extends javax.swing.JPanel {
         jtableServices.setForeground(new java.awt.Color(65, 65, 63));
         jtableServices.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jtableServices.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jtableServices.setFillsViewportHeight(true);
-        jtableServices.setRowHeight(25);
+        jtableServices.setRowHeight(30);
         jtableServices.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtableServicesMouseClicked(evt);

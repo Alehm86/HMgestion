@@ -276,7 +276,7 @@ public class budgetListForm extends javax.swing.JFrame {
         ));
         jTableBudgets.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTableBudgets.setFillsViewportHeight(true);
-        jTableBudgets.setRowHeight(25);
+        jTableBudgets.setRowHeight(30);
         jTableBudgets.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableBudgetsMouseClicked(evt);

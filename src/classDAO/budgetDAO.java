@@ -117,13 +117,13 @@ public class budgetDAO {
     public void insertBudgetDetail(
             int id_budget,
             String description,
-            int amount,
+            int quantity,
             double price,
             String iva,
             double subtotal        
         ){
         
-        String sql ="INSERT INTO `budget_detail`(`id_budget`, `description`, `amount`, `price`, `iva`, `subtotal`) " +
+        String sql ="INSERT INTO `budget_detail`(`id_budget`, `description`, `quantity`, `price`, `iva`, `subtotal`) " +
                     "VALUES (?,?,?,?,?,?)";
         
         Connection conexion = getConnection();
@@ -133,7 +133,7 @@ public class budgetDAO {
             
             pstmt.setInt(1, id_budget);
             pstmt.setString(2, description);
-            pstmt.setInt(3, amount);
+            pstmt.setInt(3, quantity);
             pstmt.setDouble(4, price);
             pstmt.setString(5, iva);
             pstmt.setDouble(6, subtotal);
@@ -166,7 +166,7 @@ public class budgetDAO {
                             "FROM `budget` " +
                             "WHERE `id_budget` =?";
 
-        String sqlDetail = "SELECT `description`, `amount`, `price`, `iva`, `subtotal` FROM `budget_detail` WHERE `id_budget`=?";
+        String sqlDetail = "SELECT `description`, `quantity`, `price`, `iva`, `subtotal` FROM `budget_detail` WHERE `id_budget`=?";
 
         String sqlCUIT = "SELECT `cuit` FROM `customer` WHERE `name` = ?";
 
@@ -205,7 +205,7 @@ public class budgetDAO {
             while (rs2.next()) {
                 Object[] row = {
                     rs2.getString("description"),
-                    rs2.getInt("amount"),
+                    rs2.getInt("quantity"),
                     rs2.getDouble("price"),
                     rs2.getString("iva"),
                     rs2.getDouble("subtotal"),
@@ -317,7 +317,7 @@ public class budgetDAO {
         String sql ="SELECT " +
                     "b.id_budget, " +
                     "bd.description, " +
-                    "bd.amount, " +
+                    "bd.quantity, " +
                     "bd.price, " +
                     "bd.iva, " +
                     "bd.subtotal " +
@@ -342,7 +342,7 @@ public class budgetDAO {
             while (rs.next()) {
                 Object[] row = {
                     rs.getString("description"),
-                    rs.getInt("amount"),
+                    rs.getInt("quantity"),
                     rs.getDouble("price"),
                     rs.getString("iva"),
                     rs.getDouble("subtotal"),

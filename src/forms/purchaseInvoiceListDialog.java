@@ -106,17 +106,17 @@ public class purchaseInvoiceListDialog extends javax.swing.JDialog {
         tablePurchaseInvoice.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         tablePurchaseInvoice.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         tablePurchaseInvoice.setFillsViewportHeight(true);
-        tablePurchaseInvoice.setRowHeight(25);
+        tablePurchaseInvoice.setRowHeight(30);
         jScrollPane1.setViewportView(tablePurchaseInvoice);
 
         btnCancel.setBackground(new java.awt.Color(255, 255, 255));

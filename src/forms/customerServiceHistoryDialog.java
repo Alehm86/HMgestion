@@ -92,18 +92,18 @@ public class customerServiceHistoryDialog extends javax.swing.JDialog {
         tableServices.setForeground(new java.awt.Color(65, 65, 63));
         tableServices.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         tableServices.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tableServices.setFillsViewportHeight(true);
-        tableServices.setRowHeight(25);
+        tableServices.setRowHeight(30);
         tableServices.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableServicesMouseClicked(evt);

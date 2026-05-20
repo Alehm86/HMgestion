@@ -138,7 +138,7 @@ public class purchaseInvoiceDAO {
     public boolean insertPurchaceInvoiceDetail(
             int id_Purchase_invoice,
             int id_product,
-            int amount,
+            int quantity,
             double price,
             String iva,
             double total
@@ -147,7 +147,7 @@ public class purchaseInvoiceDAO {
         boolean status = false;
         
         String sql ="INSERT INTO `purchase_invoice_detail`" +
-                    "(`id_purchase_invoice`, `id_product`, `amount`, `price`, `iva`, `total`) " +
+                    "(`id_purchase_invoice`, `id_product`, `quantity`, `price`, `iva`, `total`) " +
                     "VALUES (?,?,?,?,?,?)";
         
         Connection conexion = getConnection();
@@ -157,7 +157,7 @@ public class purchaseInvoiceDAO {
             
             pstmt.setInt(1, id_Purchase_invoice);
             pstmt.setInt(2, id_product);
-            pstmt.setInt(3, amount);
+            pstmt.setInt(3, quantity);
             pstmt.setDouble(4, price);
             pstmt.setString(5, iva);
             pstmt.setDouble(6, total);
@@ -356,7 +356,7 @@ public class purchaseInvoiceDAO {
                 "p.model AS model, " +
                 "COALESCE(p.color, '') AS color, " +
                 "pid.id_product AS idProduct, " +
-                "pid.amount AS cantidad " +              
+                "pid.quantity AS cantidad " +              
                 "FROM purchase_invoice_detail AS pid " +
                 "INNER JOIN products p ON pid.id_product = p.id_product " +
                 "INNER JOIN product_subcategories ps ON p.id_subcategory = ps.id_subcategory " +

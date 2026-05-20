@@ -17,9 +17,9 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import models.modelBudget;
-import models.modelBudgetDetail;
-import models.modelProducts;
+import models.Budget;
+import models.BudgetDetail;
+import models.Products;
 import utils.config;
 import utils.utility;
 
@@ -32,9 +32,9 @@ public class budgetDialog extends javax.swing.JDialog {
     
     utility utils = new utility();
     
-    modelProducts mProduct = new modelProducts();
-    modelBudget mBudget = new modelBudget();
-    modelBudgetDetail mBdetail = new modelBudgetDetail();
+    Products mProduct = new Products();
+    Budget mBudget = new Budget();
+    BudgetDetail mBdetail = new BudgetDetail();
 
     Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
     
@@ -336,7 +336,7 @@ public class budgetDialog extends javax.swing.JDialog {
             amount = Integer.parseInt(txtCantidad.getText().trim());
             
             if(amount > 0){     
-                mBdetail.setAmount(amount);
+                mBdetail.setQuantity(amount);
                 mBudget.setTotal(amount * price);
             }               
         }else{
@@ -350,7 +350,7 @@ public class budgetDialog extends javax.swing.JDialog {
             
             addFile(
                     mBdetail.getDescription(),
-                    mBdetail.getAmount(),
+                    mBdetail.getQuantity(),
                     mBdetail.getPrice(),
                     mBdetail.getIva(),
                     mBudget.getTotal()
@@ -489,7 +489,7 @@ public class budgetDialog extends javax.swing.JDialog {
             String iva = jTablePresupuesto.getValueAt(i, 3).toString();
             double subtotal = Double.parseDouble(jTablePresupuesto.getValueAt(i, 4).toString());
 
-            modelBudgetDetail item = new modelBudgetDetail (
+            BudgetDetail item = new BudgetDetail (
                     descripcion,
                     cantidad,
                     precio,
@@ -500,7 +500,7 @@ public class budgetDialog extends javax.swing.JDialog {
             qBudget.insertBudgetDetail(
                     id_budget,
                     item.getDescription(),
-                    item.getAmount(),
+                    item.getQuantity(),
                     item.getPrice(),
                     item.getIva(),
                     item.getSubtotal()
@@ -924,18 +924,18 @@ public class budgetDialog extends javax.swing.JDialog {
         jTablePresupuesto.setForeground(new java.awt.Color(65, 65, 63));
         jTablePresupuesto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jTablePresupuesto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTablePresupuesto.setFillsViewportHeight(true);
-        jTablePresupuesto.setRowHeight(25);
+        jTablePresupuesto.setRowHeight(30);
         jScrollPane3.setViewportView(jTablePresupuesto);
 
         btnRegistrar.setBackground(new java.awt.Color(255, 255, 255));

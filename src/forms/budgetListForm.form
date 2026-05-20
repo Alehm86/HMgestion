@@ -286,7 +286,7 @@
                   <Color id="Cursor de Mano"/>
                 </Property>
                 <Property name="fillsViewportHeight" type="boolean" value="true"/>
-                <Property name="rowHeight" type="int" value="25"/>
+                <Property name="rowHeight" type="int" value="30"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableBudgetsMouseClicked"/>

@@ -7,7 +7,6 @@ package forms;
 import classDAO.customerDAO;
 import classDAO.genericDAO;
 import java.awt.Color;
-import java.awt.Component;
 import javax.swing.JOptionPane;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -348,7 +347,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
         ));
         tableCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tableCustomer.setFillsViewportHeight(true);
-        tableCustomer.setRowHeight(25);
+        tableCustomer.setRowHeight(30);
         tableCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableCustomerMouseClicked(evt);

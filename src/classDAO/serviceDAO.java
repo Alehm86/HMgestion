@@ -315,7 +315,7 @@ public class serviceDAO {
                 "INNER JOIN customer c ON so.id_customer = c.id_customer " +
                 "INNER JOIN devices d ON so.id_device = d.id_device " +
                 "INNER JOIN services_states s ON so.id_status = s.id_states " +
-                "WHERE so.id_status = ?" +
+                "WHERE so.id_status = ? " +
                 "ORDER BY so.entry_date DESC;";
 
         DefaultTableModel dtm = crearModeloNoEditable();

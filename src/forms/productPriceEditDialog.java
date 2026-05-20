@@ -5,7 +5,7 @@
 package forms;
 
 import classDAO.productDAO;
-import models.modelPrice;
+import models.Price;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -27,7 +27,7 @@ public class productPriceEditDialog extends javax.swing.JDialog {
     
     utility utils = new utility();
     
-    modelPrice price = new modelPrice();  
+    Price price = new Price();  
     
     private int idProducto = -1;
     private double finalPrice = 0;

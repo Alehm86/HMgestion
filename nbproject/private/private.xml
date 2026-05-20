@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Desktop/SEMINARIO2/Proyectos/IntHMG/src/forms/productAddSerialNumberPanel.java</file>
-            <file>file:/E:/Desktop/SEMINARIO2/Proyectos/IntHMG/src/classDAO/purchaseInvoiceDAO.java</file>
-            <file>file:/E:/Desktop/SEMINARIO2/Proyectos/IntHMG/src/classDAO/productDAO.java</file>
-            <file>file:/E:/Desktop/SEMINARIO2/Proyectos/IntHMG/src/forms/budgetDialog.java</file>
+            <file>file:/E:/Desktop/SEMINARIO2/Proyectos/IntHMG/src/forms/salesPanel.java</file>
+            <file>file:/E:/Desktop/SEMINARIO2/Proyectos/IntHMG/src/forms/productListPanel.java</file>
+            <file>file:/E:/Desktop/SEMINARIO2/Proyectos/IntHMG/src/forms/serviceSearchListDialog.java</file>
+            <file>file:/E:/Desktop/SEMINARIO2/Proyectos/IntHMG/src/forms/serviceViewPanel.java</file>
+            <file>file:/E:/Desktop/SEMINARIO2/Proyectos/IntHMG/src/forms/serviceListPanel.java</file>
         </group>
     </open-files>
 </project-private>

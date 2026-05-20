@@ -308,8 +308,7 @@ public class productSearchDialog extends javax.swing.JDialog {
         jtablePrducts.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jtablePrducts.setFillsViewportHeight(true);
         jtablePrducts.setGridColor(new java.awt.Color(255, 255, 255));
-        jtablePrducts.setRowHeight(25);
-        jtablePrducts.setSelectionBackground(new java.awt.Color(255, 204, 153));
+        jtablePrducts.setRowHeight(30);
         jtablePrducts.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtablePrductsMouseClicked(evt);

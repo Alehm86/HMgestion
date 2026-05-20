@@ -76,7 +76,7 @@ public class customerDevicesDialog extends javax.swing.JDialog {
         ));
         tableDevice.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tableDevice.setFillsViewportHeight(true);
-        tableDevice.setRowHeight(25);
+        tableDevice.setRowHeight(30);
         tableDevice.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableDeviceMouseClicked(evt);

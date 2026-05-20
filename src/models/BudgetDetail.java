@@ -5,10 +5,10 @@
 package models;
 
 
-public class modelBudgetDetail {
+public class BudgetDetail {
     
     String description;
-    int amount;
+    int quantity;
     double price;
     String iva;
     double subtotal;
@@ -21,12 +21,12 @@ public class modelBudgetDetail {
         this.description = description;
     }
 
-    public int getAmount() {
-        return amount;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public double getPrice() {
@@ -53,16 +53,16 @@ public class modelBudgetDetail {
         this.subtotal = subtotal;
     }
 
-    public modelBudgetDetail(String description, int amount, double price, String iva, double subtotal) {
+    public BudgetDetail(String description, int quantity, double price, String iva, double subtotal) {
         this.description = description;
-        this.amount = amount;
+        this.quantity = quantity;
         this.price = price;
         this.iva = iva;
         this.subtotal = subtotal;
     }
 
+
     
-    
-    public modelBudgetDetail(){}
+    public BudgetDetail(){}
     
 }

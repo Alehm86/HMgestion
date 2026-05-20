@@ -24,11 +24,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-import models.modelBudget;
-import models.modelBudgetDetail;
-import models.modelProducts;
-import models.modelPurchaseInvoice;
-import models.modelPurchaseInvoiceDetail;
+import models.Budget;
+import models.BudgetDetail;
+import models.Products;
+import models.PurchaseInvoice;
+import models.PurchaseInvoiceDetail;
 import utils.config;
 import utils.utility;
 
@@ -44,11 +44,11 @@ public class purchaseInvoiceDialog extends javax.swing.JDialog {
     
     utility utils = new utility();
     
-    modelPurchaseInvoice mPinvoice = new modelPurchaseInvoice();
-    modelPurchaseInvoiceDetail mPdetail = new modelPurchaseInvoiceDetail();
-    modelProducts mProduct = new modelProducts();
-    modelBudget mBudget = new modelBudget();
-    modelBudgetDetail mBdetail = new modelBudgetDetail();
+    PurchaseInvoice mPinvoice = new PurchaseInvoice();
+    PurchaseInvoiceDetail mPdetail = new PurchaseInvoiceDetail();
+    Products mProduct = new Products();
+    Budget mBudget = new Budget();
+    BudgetDetail mBdetail = new BudgetDetail();
 
     genericDAO qGeneric = new genericDAO();
     
@@ -372,7 +372,7 @@ public class purchaseInvoiceDialog extends javax.swing.JDialog {
             amount = Integer.parseInt(txtCantidad.getText().trim());
             
             if(amount > 0){     
-                mBdetail.setAmount(amount);
+                mBdetail.setQuantity(amount);
                 mBudget.setTotal(amount * price);
             }               
         }else{
@@ -387,7 +387,7 @@ public class purchaseInvoiceDialog extends javax.swing.JDialog {
             addFile(
                     codeProduct,
                     mBdetail.getDescription(),
-                    mBdetail.getAmount(),
+                    mBdetail.getQuantity(),
                     mBdetail.getPrice(),
                     mBdetail.getIva(),
                     mBudget.getTotal()
@@ -606,7 +606,7 @@ public class purchaseInvoiceDialog extends javax.swing.JDialog {
             String iva = tableItems.getValueAt(i, 4).toString();
             double total = Double.parseDouble(tableItems.getValueAt(i, 5).toString());
 
-            modelPurchaseInvoiceDetail  item = new modelPurchaseInvoiceDetail (
+            PurchaseInvoiceDetail  item = new PurchaseInvoiceDetail (
                     idProduct,
                     cantidad,
                     precio,
@@ -617,7 +617,7 @@ public class purchaseInvoiceDialog extends javax.swing.JDialog {
             status = qPurchase.insertPurchaceInvoiceDetail(
                     id_purchase_invoice,
                     item.getId_product(),
-                    item.getAmount(),
+                    item.getQuantity(),
                     item.getPrice(),
                     item.getIva(),
                     item.getTotal()
@@ -1034,18 +1034,18 @@ public class purchaseInvoiceDialog extends javax.swing.JDialog {
         tableItems.setForeground(new java.awt.Color(65, 65, 63));
         tableItems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         tableItems.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tableItems.setFillsViewportHeight(true);
-        tableItems.setRowHeight(25);
+        tableItems.setRowHeight(30);
         jScrollPane3.setViewportView(tableItems);
 
         btnEdit.setBackground(new java.awt.Color(255, 255, 255));

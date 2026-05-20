@@ -5,10 +5,10 @@
 package models;
 
 
-public class modelPurchaseInvoiceDetail {
+public class PurchaseInvoiceDetail {
     
     int id_product;
-    int amount;
+    int quantity;
     double price;
     String iva;
     double total;
@@ -21,12 +21,12 @@ public class modelPurchaseInvoiceDetail {
         this.id_product = id_product;
     }
 
-    public int getAmount() {
-        return amount;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public double getPrice() {
@@ -53,13 +53,15 @@ public class modelPurchaseInvoiceDetail {
         this.total = total;
     }
 
-    public modelPurchaseInvoiceDetail(int id_product, int amount, double price, String iva, double total) {
+    public PurchaseInvoiceDetail(int id_product, int quantity, double price, String iva, double total) {
         this.id_product = id_product;
-        this.amount = amount;
+        this.quantity = quantity;
         this.price = price;
         this.iva = iva;
         this.total = total;
     }
 
-    public modelPurchaseInvoiceDetail(){}
+  
+
+    public PurchaseInvoiceDetail(){}
 }

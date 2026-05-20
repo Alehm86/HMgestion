@@ -7,7 +7,7 @@ package models;
 import java.time.LocalDate;
 
 
-public class modelBudget {
+public class Budget {
     
     int id_budget;
     String nro_budget;
@@ -100,7 +100,7 @@ public class modelBudget {
         this.total = total;
     }
 
-    public modelBudget(int id_budget, String nro_budget, LocalDate date, LocalDate expiration_date, String customer_name, String customer_phone, int state, String observations, Integer id_service, double total) {
+    public Budget(int id_budget, String nro_budget, LocalDate date, LocalDate expiration_date, String customer_name, String customer_phone, int state, String observations, Integer id_service, double total) {
         this.id_budget = id_budget;
         this.nro_budget = nro_budget;
         this.date = date;
@@ -115,5 +115,5 @@ public class modelBudget {
 
 
     
-    public modelBudget(){}
+    public Budget(){}
 }

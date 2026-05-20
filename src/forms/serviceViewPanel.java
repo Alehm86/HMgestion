@@ -19,7 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import models.modelService;
+import models.Service;
 
 public class serviceViewPanel extends javax.swing.JDialog {
 
@@ -27,7 +27,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
     serviceDAO queriesServices = new serviceDAO();
     budgetDAO queriesBudget = new budgetDAO();
     
-    modelService mService = new modelService();
+    Service mService = new Service();
     
     private boolean msjEstado = false;
     
@@ -993,7 +993,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
 
         jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jTableItems.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        jTableItems.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jTableItems.setForeground(new java.awt.Color(65, 65, 63));
         jTableItems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1007,7 +1007,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
             }
         ));
         jTableItems.setFillsViewportHeight(true);
-        jTableItems.setRowHeight(25);
+        jTableItems.setRowHeight(30);
         jScrollPane4.setViewportView(jTableItems);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
