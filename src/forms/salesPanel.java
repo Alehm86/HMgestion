@@ -64,6 +64,7 @@ public class salesPanel extends javax.swing.JPanel {
     }
     
     private void panelProduct(boolean state){
+        
         jLabel19.setEnabled(state);
         lbl_description.setEnabled(state);
         jLabel22.setEnabled(state);

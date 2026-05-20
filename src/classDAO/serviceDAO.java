@@ -412,7 +412,7 @@ public class serviceDAO {
                     c.setBackground(Color.WHITE);
             }
 
-            c.setForeground(Color.BLACK);
+            c.setForeground(new Color(65,65,63));
         }
 
             return c;
