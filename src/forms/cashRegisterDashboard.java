@@ -44,10 +44,9 @@ public class cashRegisterDashboard extends javax.swing.JPanel {
         btnSales.setBackground(new java.awt.Color(255,255,255));
         btnSales.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnSales.setForeground(new java.awt.Color(12, 83, 151));
-        btnSales.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/sales32.png"))); // NOI18N
+        btnSales.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cart32.png"))); // NOI18N
         btnSales.setText("Ventas");
-        btnSales.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        btnSales.setBorderPainted(false);
+        btnSales.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnSales.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSales.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -64,8 +63,7 @@ public class cashRegisterDashboard extends javax.swing.JPanel {
         btnBook.setForeground(new java.awt.Color(12, 83, 151));
         btnBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/libroDiario32.png"))); // NOI18N
         btnBook.setText("Libro diario");
-        btnBook.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        btnBook.setBorderPainted(false);
+        btnBook.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnBook.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBook.setFocusable(false);
         btnBook.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -129,7 +127,7 @@ public class cashRegisterDashboard extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalesMouseEntered
-        btnSales.setBackground(new Color(180,180,180));
+        btnSales.setBackground(new Color(245, 248, 255));
     }//GEN-LAST:event_btnSalesMouseEntered
 
     private void btnSalesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalesMouseExited
@@ -141,7 +139,7 @@ public class cashRegisterDashboard extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSalesActionPerformed
 
     private void btnBookMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookMouseEntered
-        btnBook.setBackground(new Color(180,180,180));
+        btnBook.setBackground(new Color(245, 248, 255));
     }//GEN-LAST:event_btnBookMouseEntered
 
     private void btnBookMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookMouseExited

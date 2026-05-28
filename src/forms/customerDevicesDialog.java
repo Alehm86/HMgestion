@@ -6,6 +6,7 @@ package forms;
 
 import classDAO.customerDAO;
 import classDAO.serviceDAO;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 public class customerDevicesDialog extends javax.swing.JDialog {
@@ -65,13 +66,13 @@ public class customerDevicesDialog extends javax.swing.JDialog {
         tableDevice.setForeground(new java.awt.Color(65, 65, 63));
         tableDevice.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         tableDevice.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -89,32 +90,43 @@ public class customerDevicesDialog extends javax.swing.JDialog {
         btnSelect.setForeground(new java.awt.Color(101, 129, 171));
         btnSelect.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/device32.png"))); // NOI18N
         btnSelect.setText("Seleccionar");
+        btnSelect.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnSelect.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSelect.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSelectMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSelectMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSelect)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 699, Short.MAX_VALUE)
+                        .addComponent(btnSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSelect)
+                .addComponent(btnSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(35, 35, 38));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         lbl_titulo.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_titulo.setForeground(new java.awt.Color(35, 35, 38));
         lbl_titulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/historial-de-Dispositivos64.png"))); // NOI18N
         lbl_titulo.setText("Historial de dispositivos ingresados.");
 
@@ -166,6 +178,14 @@ public class customerDevicesDialog extends javax.swing.JDialog {
             }
         } 
     }//GEN-LAST:event_tableDeviceMouseClicked
+
+    private void btnSelectMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelectMouseEntered
+        btnSelect.setBackground(new Color(245, 248, 255));
+    }//GEN-LAST:event_btnSelectMouseEntered
+
+    private void btnSelectMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelectMouseExited
+        btnSelect.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnSelectMouseExited
 
 
     public static void main(String args[]) {

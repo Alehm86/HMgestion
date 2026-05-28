@@ -179,7 +179,7 @@ public class productSearchDialog extends javax.swing.JDialog {
 
         cboCategories.setBackground(new java.awt.Color(255, 255, 255));
         cboCategories.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        cboCategories.setForeground(new java.awt.Color(12, 83, 151));
+        cboCategories.setForeground(new java.awt.Color(35, 35, 38));
         cboCategories.setToolTipText("");
         cboCategories.setBorder(null);
         cboCategories.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -195,7 +195,7 @@ public class productSearchDialog extends javax.swing.JDialog {
 
         cboSubcategories.setBackground(new java.awt.Color(255, 255, 255));
         cboSubcategories.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        cboSubcategories.setForeground(new java.awt.Color(12, 83, 151));
+        cboSubcategories.setForeground(new java.awt.Color(35, 35, 38));
         cboSubcategories.setBorder(null);
         cboSubcategories.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cboSubcategories.addActionListener(new java.awt.event.ActionListener() {
@@ -210,11 +210,10 @@ public class productSearchDialog extends javax.swing.JDialog {
 
         cboBrand.setBackground(new java.awt.Color(255, 255, 255));
         cboBrand.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        cboBrand.setForeground(new java.awt.Color(12, 83, 151));
+        cboBrand.setForeground(new java.awt.Color(35, 35, 38));
         cboBrand.setBorder(null);
         cboBrand.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        btnSerchCode2.setBackground(new java.awt.Color(242, 242, 242));
         btnSerchCode2.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         btnSerchCode2.setForeground(new java.awt.Color(12, 83, 151));
         btnSerchCode2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/lupa32.png"))); // NOI18N
@@ -316,12 +315,11 @@ public class productSearchDialog extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jtablePrducts);
 
-        btnSelectProduct.setBackground(new java.awt.Color(242, 242, 242));
         btnSelectProduct.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         btnSelectProduct.setForeground(new java.awt.Color(101, 129, 171));
         btnSelectProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
         btnSelectProduct.setText("Seleccionar");
-        btnSelectProduct.setBorder(null);
+        btnSelectProduct.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnSelectProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSelectProduct.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         btnSelectProduct.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -333,11 +331,10 @@ public class productSearchDialog extends javax.swing.JDialog {
             }
         });
 
-        btnCancel.setBackground(new java.awt.Color(255, 255, 255));
         btnCancel.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         btnCancel.setForeground(new java.awt.Color(101, 129, 171));
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
-        btnCancel.setBorder(null);
+        btnCancel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.setFocusPainted(false);
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -402,7 +399,7 @@ public class productSearchDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_cboSubcategoriesActionPerformed
 
     private void btnSerchCode2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSerchCode2MouseEntered
-        btnSerchCode2.setBackground(new Color(180,180,180));
+        btnSerchCode2.setBackground(new Color(245,248,255));
     }//GEN-LAST:event_btnSerchCode2MouseEntered
 
     private void btnSerchCode2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSerchCode2MouseExited
@@ -443,37 +440,12 @@ public class productSearchDialog extends javax.swing.JDialog {
         } 
     }//GEN-LAST:event_jtablePrductsMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(productSearchDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(productSearchDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(productSearchDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(productSearchDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                productSearchDialog dialog = new productSearchDialog(new javax.swing.JFrame(), true);
+                customerCambioEstadoDialog dialog = new customerCambioEstadoDialog(new javax.swing.JFrame(),true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -484,7 +456,6 @@ public class productSearchDialog extends javax.swing.JDialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox CheckBoxInactivos;
     private javax.swing.JButton btnCancel;

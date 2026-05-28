@@ -67,7 +67,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="45" max="32767" attributes="0"/>
+              <EmptySpace pref="49" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -171,7 +171,16 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Icons/searchList32_1.png"/>
             </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+            </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnBuscarFacturaMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnBuscarFacturaMouseExited"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel39">
           <Properties>
@@ -323,7 +332,16 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Icons/lupa32.png"/>
             </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+            </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnBuscarMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnBuscarMouseExited"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -362,16 +380,16 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="cboCompensacion" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="cboCompensacion" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="jLabel30" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="labelDescripcion1" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="labelDescripcion1" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="lblDescripcion" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane4" pref="205" max="32767" attributes="0"/>
+                  <Component id="jScrollPane4" pref="206" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -403,7 +421,9 @@
               </StringArray>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor de Mano"/>
@@ -510,7 +530,9 @@
               <Image iconType="3" name="/Icons/borrador32.png"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor de Mano"/>
@@ -534,7 +556,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Confirmar devoluci&#xf3;n"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor de Mano"/>
@@ -605,7 +629,9 @@
               <StringArray count="0"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
             </Property>
           </Properties>
           <AuxValues>
@@ -626,7 +652,7 @@
         <Component class="javax.swing.JLabel" name="jLabel43">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Poppins" size="18" style="1"/>
+              <Font name="Poppins" size="18" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="26" green="23" red="23" type="rgb"/>
@@ -661,7 +687,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtProductCode" min="-2" pref="216" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnProduct" min="-2" pref="36" max="-2" attributes="0"/>
+                          <Component id="btnProduct" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnBuscarProduct" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace pref="245" max="32767" attributes="0"/>
@@ -702,28 +728,28 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="btnProduct" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="btnProduct" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="jLabel24" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="txtProductCode" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="txtProductCode" alignment="1" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="btnBuscarProduct" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
                       <Component id="jLabel28" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="txtCantidad" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="txtCantidad" alignment="1" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
                       <Component id="jLabel25" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="labelDescripcion" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="labelDescripcion" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="txtPrice" alignment="2" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="txtPrice" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="jLabel29" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
                       <Component id="jLabel32" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="lblIva" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="labeliva2" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="lblIva" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="labeliva2" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="132" max="32767" attributes="0"/>
               </Group>
@@ -807,12 +833,18 @@
               <Image iconType="3" name="/Icons/lupa32.png"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor de Mano"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnProductMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnProductMouseExited"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel28">
           <Properties>
@@ -909,7 +941,9 @@
               <Image iconType="3" name="/Icons/product32_1.png"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor de Mano"/>
@@ -952,7 +986,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnSerchCuitClient" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnSerchClient" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="btnSerchClient" min="-2" pref="40" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -986,23 +1020,23 @@
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel66" alignment="2" min="-2" pref="36" max="-2" attributes="0"/>
-                      <Component id="lbl_IdClient" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="lbl_IdClient" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="jLabel62" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="txtCuitClient" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="txtCuitClient" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="btnSerchCuitClient" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="btnSerchClient" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="btnSerchClient" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
                       <Component id="jLabel64" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="lbl_IVA_Client" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="lbl_IVA_Client" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="jLabel65" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="txtTelClient" alignment="2" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="txtTelClient" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel63" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="txtNameClient" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="txtNameClient" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="29" max="32767" attributes="0"/>
               </Group>
@@ -1022,13 +1056,17 @@
               <Image iconType="3" name="/Icons/clientView32.png"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor Por defecto"/>
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSerchClientMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSerchClientMouseExited"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSerchClientActionPerformed"/>
           </Events>
         </Component>
@@ -1178,7 +1216,7 @@
     <Container class="javax.swing.JPanel" name="jPanelSeparador2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="97" green="53" red="c" type="rgb"/>
+          <Color blue="26" green="23" red="23" type="rgb"/>
         </Property>
       </Properties>
 
@@ -1190,7 +1228,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="5" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -1198,7 +1236,7 @@
     <Container class="javax.swing.JPanel" name="jPanelSeparador3">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="97" green="53" red="c" type="rgb"/>
+          <Color blue="26" green="23" red="23" type="rgb"/>
         </Property>
       </Properties>
 
@@ -1210,7 +1248,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="5" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

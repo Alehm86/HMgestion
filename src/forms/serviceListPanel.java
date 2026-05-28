@@ -267,7 +267,7 @@ public class serviceListPanel extends javax.swing.JPanel {
         ));
         jtableServices.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jtableServices.setFillsViewportHeight(true);
-        jtableServices.setRowHeight(30);
+        jtableServices.setRowHeight(28);
         jtableServices.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtableServicesMouseClicked(evt);

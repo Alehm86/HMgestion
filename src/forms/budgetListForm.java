@@ -183,6 +183,7 @@ public class budgetListForm extends javax.swing.JFrame {
 
         btnViewBudget.setBackground(new java.awt.Color(255, 255, 255));
         btnViewBudget.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchList32_1.png"))); // NOI18N
+        btnViewBudget.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnViewBudget.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnViewBudget.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -195,6 +196,7 @@ public class budgetListForm extends javax.swing.JFrame {
 
         btnCancelBudget.setBackground(new java.awt.Color(255, 255, 255));
         btnCancelBudget.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelBudget32.png"))); // NOI18N
+        btnCancelBudget.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnCancelBudget.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelBudget.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -207,7 +209,8 @@ public class budgetListForm extends javax.swing.JFrame {
 
         cboFiltroFecha.setBackground(new java.awt.Color(255, 255, 255));
         cboFiltroFecha.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        cboFiltroFecha.setBorder(null);
+        cboFiltroFecha.setForeground(new java.awt.Color(65, 65, 63));
+        cboFiltroFecha.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         cboFiltroFecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cboFiltroFecha.setFocusable(false);
         cboFiltroFecha.addActionListener(this::cboFiltroFechaActionPerformed);
@@ -219,14 +222,16 @@ public class budgetListForm extends javax.swing.JFrame {
 
         cboFiltroEstado.setBackground(new java.awt.Color(255, 255, 255));
         cboFiltroEstado.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        cboFiltroEstado.setBorder(null);
+        cboFiltroEstado.setForeground(new java.awt.Color(65, 65, 63));
+        cboFiltroEstado.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         cboFiltroEstado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cboFiltroEstado.setFocusable(false);
         cboFiltroEstado.addActionListener(this::cboFiltroEstadoActionPerformed);
 
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/gear24.png"))); // NOI18N
         jLabel2.setLabelFor(cboFiltroEstado);
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

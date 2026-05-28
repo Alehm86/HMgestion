@@ -84,7 +84,11 @@
               <Image iconType="3" name="/Icons/print32_1.png"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder>
+                  <Color PropertyName="color" blue="ab" green="81" red="65" type="rgb"/>
+                </LineBorder>
+              </Border>
             </Property>
           </Properties>
           <Events>
@@ -115,7 +119,11 @@
               <Image iconType="3" name="/Icons/pdf32.png"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder>
+                  <Color PropertyName="color" blue="ab" green="81" red="65" type="rgb"/>
+                </LineBorder>
+              </Border>
             </Property>
           </Properties>
           <Events>

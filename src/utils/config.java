@@ -6,7 +6,9 @@ package utils;
 
 import java.awt.Color;
 import java.awt.Component;
+
 import java.awt.Font;
+
 import javax.swing.UIManager;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -53,5 +55,7 @@ public class config {
             header.setOpaque(true);
         }
     }
+    
+
     
 }

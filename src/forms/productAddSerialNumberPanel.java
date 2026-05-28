@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.SwingUtilities;
 import classDAO.productDAO.ComboProducto;
 import java.awt.Component;
+import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
@@ -62,14 +63,18 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
             buscar();
         });
         
-        btnBuscarFacturaLista.addActionListener(e->{
+        btnBuscarFacturaLista.addActionListener(e -> {
 
-            Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
-            purchaseInvoiceListDialog fPurchaseInv = new purchaseInvoiceListDialog(parent, true, 2);
+            Window parent = SwingUtilities.getWindowAncestor(this);
+
+            purchaseInvoiceListDialog fPurchaseInv = new purchaseInvoiceListDialog((Frame) null, true, 2);
+
+            fPurchaseInv.setLocationRelativeTo(parent);
             fPurchaseInv.setVisible(true);
+
             idPurchase = fPurchaseInv.getIdPurchase();
-            
-            if(idPurchase > 0){
+
+            if (idPurchase > 0) {
                 buscar();
             }
         });
@@ -344,6 +349,7 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
         btnEditSN = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jPanelSeparador4 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -365,7 +371,7 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
 
         btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/lupa32.png"))); // NOI18N
-        btnBuscar.setBorder(null);
+        btnBuscar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -389,7 +395,7 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
 
         btnBuscarFacturaLista.setBackground(new java.awt.Color(255, 255, 255));
         btnBuscarFacturaLista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchList32_1.png"))); // NOI18N
-        btnBuscarFacturaLista.setBorder(null);
+        btnBuscarFacturaLista.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnBuscarFacturaLista.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscarFacturaLista.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -407,6 +413,7 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
         cboProduct.setBackground(new java.awt.Color(255, 255, 255));
         cboProduct.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         cboProduct.setForeground(new java.awt.Color(35, 35, 38));
+        cboProduct.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         cboProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         tableItems.setModel(new javax.swing.table.DefaultTableModel(
@@ -434,7 +441,7 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
         btnRegistrar.setForeground(new java.awt.Color(101, 129, 171));
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
         btnRegistrar.setText("Registrar");
-        btnRegistrar.setBorder(null);
+        btnRegistrar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegistrar.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         btnRegistrar.setMaximumSize(new java.awt.Dimension(120, 52));
@@ -453,7 +460,7 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
         btnCancel.setBackground(new java.awt.Color(255, 255, 255));
         btnCancel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
-        btnCancel.setBorder(null);
+        btnCancel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -495,7 +502,7 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
 
         btnAddSN.setBackground(new java.awt.Color(255, 255, 255));
         btnAddSN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/add32.png"))); // NOI18N
-        btnAddSN.setBorder(null);
+        btnAddSN.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnAddSN.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAddSN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -508,7 +515,7 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
 
         btnEditSN.setBackground(new java.awt.Color(255, 255, 255));
         btnEditSN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/edit32.png"))); // NOI18N
-        btnEditSN.setBorder(null);
+        btnEditSN.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnEditSN.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditSN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -606,20 +613,33 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
                     .addComponent(btnAddSN, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditSN, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jPanel3.setBackground(new java.awt.Color(35, 35, 38));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Poppins", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Poppins", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(35, 35, 38));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/barcode64.png"))); // NOI18N
         jLabel1.setText("Ingresar numero de serie");
+
+        jPanelSeparador4.setBackground(new java.awt.Color(35, 35, 38));
+
+        javax.swing.GroupLayout jPanelSeparador4Layout = new javax.swing.GroupLayout(jPanelSeparador4);
+        jPanelSeparador4.setLayout(jPanelSeparador4Layout);
+        jPanelSeparador4Layout.setHorizontalGroup(
+            jPanelSeparador4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 591, Short.MAX_VALUE)
+        );
+        jPanelSeparador4Layout.setVerticalGroup(
+            jPanelSeparador4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 3, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -627,7 +647,9 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jPanelSeparador4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -635,6 +657,8 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelSeparador4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -650,13 +674,12 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseEntered
-        btnBuscar.setBackground(new Color(180,180,180));
+        btnBuscar.setBackground(new Color(245,248,255));
     }//GEN-LAST:event_btnBuscarMouseEntered
 
     private void btnBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseExited
@@ -664,7 +687,7 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBuscarMouseExited
 
     private void btnBuscarFacturaListaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarFacturaListaMouseEntered
-        btnBuscarFacturaLista.setBackground(new Color(180,180,180));
+        btnBuscarFacturaLista.setBackground(new Color(245,248,255));
     }//GEN-LAST:event_btnBuscarFacturaListaMouseEntered
 
     private void btnBuscarFacturaListaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarFacturaListaMouseExited
@@ -696,11 +719,11 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnAddSNMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddSNMouseEntered
-        // TODO add your handling code here:
+        btnAddSN.setBackground(new Color(245,248,255));
     }//GEN-LAST:event_btnAddSNMouseEntered
 
     private void btnAddSNMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddSNMouseExited
-        // TODO add your handling code here:
+        btnAddSN.setBackground(new Color(255,255,255));
     }//GEN-LAST:event_btnAddSNMouseExited
 
     private void txtNumberKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumberKeyPressed
@@ -711,11 +734,11 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNumberKeyPressed
 
     private void btnEditSNMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditSNMouseEntered
-        // TODO add your handling code here:
+        btnEditSN.setBackground(new Color(245,248,255));
     }//GEN-LAST:event_btnEditSNMouseEntered
 
     private void btnEditSNMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditSNMouseExited
-        // TODO add your handling code here:
+        btnEditSN.setBackground(new Color(255,255,255));
     }//GEN-LAST:event_btnEditSNMouseExited
 
     private void tableItemsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableItemsMouseClicked
@@ -766,6 +789,9 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanelSeparador2;
+    private javax.swing.JPanel jPanelSeparador3;
+    private javax.swing.JPanel jPanelSeparador4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_Fecha;
     private javax.swing.JLabel lbl_number;

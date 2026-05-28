@@ -186,9 +186,9 @@ public class customerMainListPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         txtSerch = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        cboIVA = new javax.swing.JComboBox<>();
         cboStates = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
+        cboIVA = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableCustomer = new javax.swing.JTable();
 
@@ -199,8 +199,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
         btnAltaCustomer.setForeground(new java.awt.Color(12, 83, 151));
         btnAltaCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/clientNew32.png"))); // NOI18N
         btnAltaCustomer.setText("Alta");
-        btnAltaCustomer.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        btnAltaCustomer.setBorderPainted(false);
+        btnAltaCustomer.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnAltaCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAltaCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -221,8 +220,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
         btnCustomerView.setForeground(new java.awt.Color(12, 83, 151));
         btnCustomerView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/clientView32.png"))); // NOI18N
         btnCustomerView.setText("Ver Cliente");
-        btnCustomerView.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        btnCustomerView.setBorderPainted(false);
+        btnCustomerView.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnCustomerView.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCustomerView.setFocusable(false);
         btnCustomerView.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -263,10 +261,10 @@ public class customerMainListPanel extends javax.swing.JPanel {
         jPanelClientContent.setBackground(new java.awt.Color(255, 255, 255));
         jPanelClientContent.setPreferredSize(new java.awt.Dimension(1600, 800));
 
-        jPanel3.setBackground(new java.awt.Color(35, 35, 38));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(35, 35, 38));
         jLabel1.setText("Cliente");
 
         txtSerch.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -275,29 +273,24 @@ public class customerMainListPanel extends javax.swing.JPanel {
         txtSerch.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         jLabel2.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(35, 35, 38));
         jLabel2.setText("Condición frente al I.V.A.");
-
-        cboIVA.setBackground(new java.awt.Color(255, 255, 255));
-        cboIVA.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        cboIVA.setForeground(new java.awt.Color(65, 65, 63));
-        cboIVA.setBorder(null);
-        cboIVA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cboIVA.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboIVAActionPerformed(evt);
-            }
-        });
 
         cboStates.setBackground(new java.awt.Color(255, 255, 255));
         cboStates.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         cboStates.setForeground(new java.awt.Color(65, 65, 63));
-        cboStates.setBorder(null);
+        cboStates.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         cboStates.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel3.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(35, 35, 38));
         jLabel3.setText("Estado");
+
+        cboIVA.setBackground(new java.awt.Color(255, 255, 255));
+        cboIVA.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cboIVA.setForeground(new java.awt.Color(65, 65, 63));
+        cboIVA.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        cboIVA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -310,11 +303,11 @@ public class customerMainListPanel extends javax.swing.JPanel {
                 .addComponent(txtSerch, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cboIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cboIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cboStates, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -325,10 +318,10 @@ public class customerMainListPanel extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtSerch, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(cboStates, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -347,7 +340,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
         ));
         tableCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tableCustomer.setFillsViewportHeight(true);
-        tableCustomer.setRowHeight(30);
+        tableCustomer.setRowHeight(28);
         tableCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableCustomerMouseClicked(evt);
@@ -392,7 +385,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAltaCustomerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAltaCustomerMouseEntered
-        btnAltaCustomer.setBackground(new Color(180,180,180));
+        btnAltaCustomer.setBackground(new Color(245,248,255));
     }//GEN-LAST:event_btnAltaCustomerMouseEntered
 
     private void btnAltaCustomerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAltaCustomerMouseExited
@@ -404,7 +397,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAltaCustomerActionPerformed
 
     private void btnCustomerViewMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCustomerViewMouseEntered
-        btnCustomerView.setBackground(new Color(180,180,180));
+        btnCustomerView.setBackground(new Color(245,248,255));
     }//GEN-LAST:event_btnCustomerViewMouseEntered
 
     private void btnCustomerViewMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCustomerViewMouseExited
@@ -414,10 +407,6 @@ public class customerMainListPanel extends javax.swing.JPanel {
     private void btnCustomerViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerViewActionPerformed
 
     }//GEN-LAST:event_btnCustomerViewActionPerformed
-
-    private void cboIVAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboIVAActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboIVAActionPerformed
 
     private void tableCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCustomerMouseClicked
         if (evt.getClickCount() == 2) {

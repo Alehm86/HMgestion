@@ -572,7 +572,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
         bntSearchByCustomer.setBackground(new java.awt.Color(255, 255, 255));
         bntSearchByCustomer.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         bntSearchByCustomer.setForeground(new java.awt.Color(0, 153, 255));
-        bntSearchByCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/equipClient.png"))); // NOI18N
+        bntSearchByCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/device32.png"))); // NOI18N
         bntSearchByCustomer.setBorder(null);
         bntSearchByCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bntSearchByCustomer.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);

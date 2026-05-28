@@ -369,6 +369,15 @@ public class productReturnPanel extends javax.swing.JPanel {
         btnBuscarFactura.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnBuscarFactura.setForeground(new java.awt.Color(35, 35, 38));
         btnBuscarFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchList32_1.png"))); // NOI18N
+        btnBuscarFactura.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnBuscarFactura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBuscarFacturaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnBuscarFacturaMouseExited(evt);
+            }
+        });
 
         jLabel39.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(35, 35, 38));
@@ -435,6 +444,15 @@ public class productReturnPanel extends javax.swing.JPanel {
         btnBuscar.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(35, 35, 38));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/lupa32.png"))); // NOI18N
+        btnBuscar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelFacturaLayout = new javax.swing.GroupLayout(jPanelFactura);
         jPanelFactura.setLayout(jPanelFacturaLayout);
@@ -504,7 +522,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         cboCompensacion.setBackground(new java.awt.Color(255, 255, 255));
         cboCompensacion.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         cboCompensacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción" }));
-        cboCompensacion.setBorder(null);
+        cboCompensacion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         cboCompensacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cboCompensacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -549,14 +567,14 @@ public class productReturnPanel extends javax.swing.JPanel {
             .addGroup(jPanelMotivoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelMotivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(cboCompensacion, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboCompensacion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelMotivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(labelDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -566,7 +584,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         btnCancel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnCancel.setForeground(new java.awt.Color(255, 102, 102));
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/borrador32.png"))); // NOI18N
-        btnCancel.setBorder(null);
+        btnCancel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -581,7 +599,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         btnRegistrarDevolucion.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnRegistrarDevolucion.setForeground(new java.awt.Color(101, 129, 171));
         btnRegistrarDevolucion.setText("Confirmar devolución");
-        btnRegistrarDevolucion.setBorder(null);
+        btnRegistrarDevolucion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnRegistrarDevolucion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegistrarDevolucion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -618,13 +636,13 @@ public class productReturnPanel extends javax.swing.JPanel {
         cboEntidad.setBackground(new java.awt.Color(255, 255, 255));
         cboEntidad.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         cboEntidad.setForeground(new java.awt.Color(65, 65, 63));
-        cboEntidad.setBorder(null);
+        cboEntidad.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(35, 35, 38));
         jLabel1.setText("Gestión de Devoluciones");
 
-        jLabel43.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        jLabel43.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         jLabel43.setForeground(new java.awt.Color(35, 35, 38));
         jLabel43.setText("Seleccione entidad:");
 
@@ -693,8 +711,16 @@ public class productReturnPanel extends javax.swing.JPanel {
 
         btnProduct.setBackground(new java.awt.Color(255, 255, 255));
         btnProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/lupa32.png"))); // NOI18N
-        btnProduct.setBorder(null);
+        btnProduct.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnProduct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnProductMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnProductMouseExited(evt);
+            }
+        });
 
         jLabel28.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(35, 35, 38));
@@ -744,7 +770,7 @@ public class productReturnPanel extends javax.swing.JPanel {
 
         btnBuscarProduct.setBackground(new java.awt.Color(255, 255, 255));
         btnBuscarProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/product32_1.png"))); // NOI18N
-        btnBuscarProduct.setBorder(null);
+        btnBuscarProduct.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnBuscarProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscarProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -767,7 +793,7 @@ public class productReturnPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtProductCode, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscarProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(245, Short.MAX_VALUE))
@@ -799,25 +825,25 @@ public class productReturnPanel extends javax.swing.JPanel {
             jPanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelProductoLayout.createSequentialGroup()
                 .addGroup(jPanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(btnProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtProductCode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtProductCode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscarProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(jPanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(jPanelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblIva, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labeliva2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblIva, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labeliva2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(132, Short.MAX_VALUE))
         );
 
@@ -826,8 +852,16 @@ public class productReturnPanel extends javax.swing.JPanel {
         btnSerchClient.setBackground(new java.awt.Color(255, 255, 255));
         btnSerchClient.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         btnSerchClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/clientView32.png"))); // NOI18N
-        btnSerchClient.setBorder(null);
+        btnSerchClient.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnSerchClient.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnSerchClient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSerchClientMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSerchClientMouseExited(evt);
+            }
+        });
         btnSerchClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSerchClientActionPerformed(evt);
@@ -920,7 +954,7 @@ public class productReturnPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSerchCuitClient)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSerchClient, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnSerchClient, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelClientesLayout.createSequentialGroup()
@@ -944,25 +978,25 @@ public class productReturnPanel extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addGroup(jPanelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel66, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_IdClient, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_IdClient, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel62, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCuitClient, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCuitClient, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSerchCuitClient, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSerchClient, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSerchClient, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel64, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_IVA_Client, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_IVA_Client, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel65, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTelClient, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTelClient, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel63, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNameClient, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNameClient, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        jPanelSeparador2.setBackground(new java.awt.Color(12, 83, 151));
+        jPanelSeparador2.setBackground(new java.awt.Color(35, 35, 38));
 
         javax.swing.GroupLayout jPanelSeparador2Layout = new javax.swing.GroupLayout(jPanelSeparador2);
         jPanelSeparador2.setLayout(jPanelSeparador2Layout);
@@ -972,10 +1006,10 @@ public class productReturnPanel extends javax.swing.JPanel {
         );
         jPanelSeparador2Layout.setVerticalGroup(
             jPanelSeparador2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 5, Short.MAX_VALUE)
+            .addGap(0, 3, Short.MAX_VALUE)
         );
 
-        jPanelSeparador3.setBackground(new java.awt.Color(12, 83, 151));
+        jPanelSeparador3.setBackground(new java.awt.Color(35, 35, 38));
 
         javax.swing.GroupLayout jPanelSeparador3Layout = new javax.swing.GroupLayout(jPanelSeparador3);
         jPanelSeparador3.setLayout(jPanelSeparador3Layout);
@@ -985,7 +1019,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         );
         jPanelSeparador3Layout.setVerticalGroup(
             jPanelSeparador3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 5, Short.MAX_VALUE)
+            .addGap(0, 3, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -1028,7 +1062,7 @@ public class productReturnPanel extends javax.swing.JPanel {
                     .addComponent(jPanelProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1129,7 +1163,7 @@ public class productReturnPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtProductCodeKeyPressed
 
     private void btnBuscarProductMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProductMouseEntered
-        btnBuscarProduct.setBackground(new Color(180,180,180));
+        btnBuscarProduct.setBackground(new Color(245,248,255));
     }//GEN-LAST:event_btnBuscarProductMouseEntered
 
     private void btnBuscarProductMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarProductMouseExited
@@ -1173,6 +1207,38 @@ public class productReturnPanel extends javax.swing.JPanel {
             }
         });
     }//GEN-LAST:event_txtFacturaKeyTyped
+
+    private void btnBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseEntered
+        btnBuscar.setBackground(new Color(245,248,255));
+    }//GEN-LAST:event_btnBuscarMouseEntered
+
+    private void btnBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseExited
+        btnBuscar.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnBuscarMouseExited
+
+    private void btnBuscarFacturaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarFacturaMouseEntered
+        btnBuscarFactura.setBackground(new Color(245,248,255));
+    }//GEN-LAST:event_btnBuscarFacturaMouseEntered
+
+    private void btnBuscarFacturaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarFacturaMouseExited
+        btnBuscarFactura.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnBuscarFacturaMouseExited
+
+    private void btnSerchClientMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSerchClientMouseEntered
+        btnSerchClient.setBackground(new Color(245,248,255));
+    }//GEN-LAST:event_btnSerchClientMouseEntered
+
+    private void btnSerchClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSerchClientMouseExited
+        btnSerchClient.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnSerchClientMouseExited
+
+    private void btnProductMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProductMouseEntered
+        btnProduct.setBackground(new Color(245,248,255));
+    }//GEN-LAST:event_btnProductMouseEntered
+
+    private void btnProductMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProductMouseExited
+        btnProduct.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnProductMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

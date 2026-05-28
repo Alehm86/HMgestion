@@ -4,17 +4,23 @@
  */
 package inthmg;
 
-/**
- *
- * @author Ale
- */
+import com.formdev.flatlaf.FlatLightLaf;
+import forms.homeFrame;
+import utils.themeConfig;
+
 public class IntHMG {
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        themeConfig.applyTheme();
+
+        java.awt.EventQueue.invokeLater(() -> {
+            new homeFrame().setVisible(true);
+        });
+        
     }
+    
+    
     
 }

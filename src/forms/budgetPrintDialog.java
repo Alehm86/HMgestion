@@ -275,7 +275,7 @@ public class budgetPrintDialog extends javax.swing.JDialog {
 
         btnPrint.setBackground(new java.awt.Color(255, 255, 255));
         btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/print32_1.png"))); // NOI18N
-        btnPrint.setBorder(null);
+        btnPrint.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(101, 129, 171)));
         btnPrint.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnPrintMouseEntered(evt);
@@ -292,7 +292,7 @@ public class budgetPrintDialog extends javax.swing.JDialog {
 
         btnPrintPdf.setBackground(new java.awt.Color(255, 255, 255));
         btnPrintPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/pdf32.png"))); // NOI18N
-        btnPrintPdf.setBorder(null);
+        btnPrintPdf.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(101, 129, 171)));
         btnPrintPdf.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnPrintPdfMouseEntered(evt);

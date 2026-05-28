@@ -45,13 +45,14 @@ public class calendarDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(35, 35, 38));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jCalendar.setBackground(new java.awt.Color(255, 255, 255));
         jCalendar.setForeground(new java.awt.Color(35, 35, 38));
 
         btnSelect.setBackground(new java.awt.Color(255, 255, 255));
         btnSelect.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
+        btnSelect.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnSelect.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnSelectMouseEntered(evt);
@@ -63,6 +64,7 @@ public class calendarDialog extends javax.swing.JDialog {
 
         btnCancel.setBackground(new java.awt.Color(255, 255, 255));
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
+        btnCancel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCancelMouseEntered(evt);
@@ -112,6 +114,7 @@ public class calendarDialog extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseEntered

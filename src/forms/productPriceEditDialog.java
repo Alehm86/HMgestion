@@ -62,14 +62,7 @@ public class productPriceEditDialog extends javax.swing.JDialog {
         
         txtBenefit.setText("0");
         txtPrice.setText("0");
-        
-        if (idProducto > 0) {          
-            BuscarProducto();
-            calcularPrecioSugerido();
-         }else{
-            btnRegistrar.setEnabled(false);          
-        }
-        
+       
         actions();
         leyendaBotones();
     }
@@ -273,8 +266,6 @@ public class productPriceEditDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtProductCode = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
         labelDescripcion = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -295,49 +286,24 @@ public class productPriceEditDialog extends javax.swing.JDialog {
         cbo_iva = new javax.swing.JComboBox<>();
         lbl_iva = new javax.swing.JLabel();
         btnRefresh = new javax.swing.JButton();
-        btnSearchList = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         btnCancel = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        txtProductCode = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        btnSearchList = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        txtProductCode.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        txtProductCode.setForeground(new java.awt.Color(65, 65, 63));
-        txtProductCode.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtProductCode.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(101, 129, 171)), "Codigo de producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Poppins", 1, 12), new java.awt.Color(0, 153, 255))); // NOI18N
-        txtProductCode.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtProductCodeKeyPressed(evt);
-            }
-        });
-
-        btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/lupa32.png"))); // NOI18N
-        btnBuscar.setBorder(null);
-        btnBuscar.setBorderPainted(false);
-        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBuscar.setFocusPainted(false);
-        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnBuscarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnBuscarMouseExited(evt);
-            }
-        });
-        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
-
         labelDescripcion.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         labelDescripcion.setForeground(new java.awt.Color(0, 153, 255));
-        labelDescripcion.setText("-");
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(12, 83, 151)));
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -468,7 +434,7 @@ public class productPriceEditDialog extends javax.swing.JDialog {
                 .addComponent(labelPrecioSujerido, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtFinalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -480,7 +446,7 @@ public class productPriceEditDialog extends javax.swing.JDialog {
         cbo_iva.setBackground(new java.awt.Color(255, 255, 255));
         cbo_iva.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         cbo_iva.setForeground(new java.awt.Color(35, 35, 38));
-        cbo_iva.setBorder(null);
+        cbo_iva.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         cbo_iva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         lbl_iva.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -489,11 +455,9 @@ public class productPriceEditDialog extends javax.swing.JDialog {
 
         btnRefresh.setBackground(new java.awt.Color(255, 255, 255));
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/calc32.png"))); // NOI18N
+        btnRefresh.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnRefresh.setBorderPainted(false);
-        btnRefresh.setContentAreaFilled(false);
         btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRefresh.setFocusPainted(false);
-        btnRefresh.setFocusable(false);
         btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnRefreshMouseEntered(evt);
@@ -552,29 +516,13 @@ public class productPriceEditDialog extends javax.swing.JDialog {
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        btnSearchList.setBackground(new java.awt.Color(255, 255, 255));
-        btnSearchList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchList32_1.png"))); // NOI18N
-        btnSearchList.setBorder(null);
-        btnSearchList.setBorderPainted(false);
-        btnSearchList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSearchList.setFocusPainted(false);
-        btnSearchList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnSearchListMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnSearchListMouseExited(evt);
-            }
-        });
-        btnSearchList.addActionListener(this::btnSearchListActionPerformed);
-
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
         btnCancel.setBackground(new java.awt.Color(255, 255, 255));
         btnCancel.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         btnCancel.setForeground(new java.awt.Color(101, 129, 171));
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/salir32.png"))); // NOI18N
-        btnCancel.setBorder(null);
+        btnCancel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.setFocusPainted(false);
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -587,14 +535,12 @@ public class productPriceEditDialog extends javax.swing.JDialog {
         });
         btnCancel.addActionListener(this::btnCancelActionPerformed);
 
-        btnRegistrar.setBackground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(101, 129, 171));
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
         btnRegistrar.setText("Registrar");
-        btnRegistrar.setBorder(null);
+        btnRegistrar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRegistrar.setFocusPainted(false);
         btnRegistrar.setMaximumSize(new java.awt.Dimension(120, 52));
         btnRegistrar.setMinimumSize(new java.awt.Dimension(120, 52));
         btnRegistrar.setPreferredSize(new java.awt.Dimension(120, 52));
@@ -650,6 +596,72 @@ public class productPriceEditDialog extends javax.swing.JDialog {
             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtProductCode.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        txtProductCode.setForeground(new java.awt.Color(65, 65, 63));
+        txtProductCode.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtProductCode.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(101, 129, 171)), "Codigo de producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Poppins", 1, 12), new java.awt.Color(0, 153, 255))); // NOI18N
+        txtProductCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtProductCodeKeyPressed(evt);
+            }
+        });
+
+        btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/lupa32.png"))); // NOI18N
+        btnBuscar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.setFocusPainted(false);
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseExited(evt);
+            }
+        });
+        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
+
+        btnSearchList.setBackground(new java.awt.Color(255, 255, 255));
+        btnSearchList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchList32_1.png"))); // NOI18N
+        btnSearchList.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnSearchList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSearchList.setFocusPainted(false);
+        btnSearchList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSearchListMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSearchListMouseExited(evt);
+            }
+        });
+        btnSearchList.addActionListener(this::btnSearchListActionPerformed);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtProductCode, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSearchList, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtProductCode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -658,16 +670,12 @@ public class productPriceEditDialog extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtProductCode, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSearchList, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(labelDescripcion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -678,12 +686,9 @@ public class productPriceEditDialog extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearchList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtProductCode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -700,7 +705,9 @@ public class productPriceEditDialog extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -741,11 +748,11 @@ public class productPriceEditDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtFinalPriceKeyTyped
 
     private void btnRefreshMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefreshMouseEntered
-        // TODO add your handling code here:
+        btnRefresh.setBackground(new Color(245,248,255));
     }//GEN-LAST:event_btnRefreshMouseEntered
 
     private void btnRefreshMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefreshMouseExited
-        // TODO add your handling code here:
+        btnRefresh.setBackground(new Color(255,255,255));
     }//GEN-LAST:event_btnRefreshMouseExited
 
     private void btnSearchListMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchListMouseEntered
@@ -773,7 +780,11 @@ public class productPriceEditDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnRegistrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseEntered
-        btnRegistrar.setBackground(new Color(255,215,0));
+        if (btnRegistrar.isEnabled()) {
+            btnRegistrar.setBackground(new Color(255,215,0));
+        } else {
+            btnRegistrar.setBackground(new Color(255,255,255));
+        }
     }//GEN-LAST:event_btnRegistrarMouseEntered
 
     private void btnRegistrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseExited
@@ -790,32 +801,12 @@ public class productPriceEditDialog extends javax.swing.JDialog {
         }  
     }//GEN-LAST:event_txtProductCodeKeyPressed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                productPriceEditDialog dialog = new productPriceEditDialog(new javax.swing.JFrame(), true);
+                customerCambioEstadoDialog dialog = new customerCambioEstadoDialog(new javax.swing.JFrame(),true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -826,7 +817,6 @@ public class productPriceEditDialog extends javax.swing.JDialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancel;
@@ -847,6 +837,7 @@ public class productPriceEditDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JLabel labelDescripcion;
     private javax.swing.JLabel labelPrecioSujerido;
     private javax.swing.JLabel labeliva1;
