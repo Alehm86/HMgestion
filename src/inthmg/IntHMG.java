@@ -5,7 +5,7 @@
 package inthmg;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import forms.homeFrame;
+import views.homeFrame;
 import utils.themeConfig;
 
 public class IntHMG {
