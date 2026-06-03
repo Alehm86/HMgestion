@@ -62,7 +62,7 @@ public class serviceDashboard extends javax.swing.JPanel {
         btnNewService = new javax.swing.JButton();
         btnPresupuesto = new javax.swing.JButton();
 
-        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel10.setBackground(new java.awt.Color(245, 248, 255));
 
         jPanelDashboard.setBackground(new java.awt.Color(255, 255, 255));
         jPanelDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -78,17 +78,17 @@ public class serviceDashboard extends javax.swing.JPanel {
             .addGap(0, 808, Short.MAX_VALUE)
         );
 
-        btnListar.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnListar.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnListar.setForeground(new java.awt.Color(12, 83, 151));
         btnListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/service32.png"))); // NOI18N
         btnListar.setText("Servicios técnicos");
 
-        btnNewService.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnNewService.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnNewService.setForeground(new java.awt.Color(12, 83, 151));
         btnNewService.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/serviceOrder32.png"))); // NOI18N
         btnNewService.setText("Registrar servicio");
 
-        btnPresupuesto.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnPresupuesto.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnPresupuesto.setForeground(new java.awt.Color(12, 83, 151));
         btnPresupuesto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/BudgetNew32.png"))); // NOI18N
         btnPresupuesto.setText("Presupuestar");

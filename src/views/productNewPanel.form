@@ -95,7 +95,7 @@
               <Color blue="97" green="53" red="c" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/addProduct32.png"/>
+              <Image iconType="3" name="/Icons/ok32.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Registrar"/>
             <Property name="horizontalTextPosition" type="int" value="10"/>
@@ -424,22 +424,25 @@
         <Component class="javax.swing.JButton" name="btnCategory">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/gear24.png"/>
+              <Image iconType="3" name="/Icons/menu32.png"/>
             </Property>
+            <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnBrand">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/gear24.png"/>
+              <Image iconType="3" name="/Icons/menu32.png"/>
             </Property>
+            <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnSubcategories">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/gear24.png"/>
+              <Image iconType="3" name="/Icons/menu32.png"/>
             </Property>
+            <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>

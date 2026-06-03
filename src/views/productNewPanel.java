@@ -247,12 +247,12 @@ public class productNewPanel extends javax.swing.JPanel {
             }
         });
      
-        Font fontMenu = new Font("Poppins", Font.BOLD, 18);
+        Font fontMenu = new Font("Poppins", Font.PLAIN, 18);
         item1.setFont(fontMenu);
         item2.setFont(fontMenu);
         
-        item1.setForeground(new Color(101, 129, 171));
-        item2.setForeground(new Color(101, 129, 171));
+        item1.setForeground(new Color(12,83,151));
+        item2.setForeground(new Color(12,83,151));
         
         popupBrands.add(item1);
         popupBrands.add(item2);
@@ -301,12 +301,12 @@ public class productNewPanel extends javax.swing.JPanel {
             }
         });    
         
-        Font fontMenu = new Font("Poppins", Font.BOLD, 18);
+        Font fontMenu = new Font("Poppins", Font.PLAIN, 18);
         item1.setFont(fontMenu);
         item2.setFont(fontMenu);
         
-        item1.setForeground(new Color(101, 129, 171));
-        item2.setForeground(new Color(101, 129, 171));
+        item1.setForeground(new Color(12,83,151));
+        item2.setForeground(new Color(12,83,151));
         
         popupSupplier.add(item1);
         popupSupplier.add(item2);
@@ -368,12 +368,12 @@ public class productNewPanel extends javax.swing.JPanel {
             }
         });
         
-        Font fontMenu = new Font("Poppins", Font.BOLD, 18);
+        Font fontMenu = new Font("Poppins", Font.PLAIN, 18);
         item1.setFont(fontMenu);
         item2.setFont(fontMenu);
         
-        item1.setForeground(new Color(101, 129, 171));
-        item2.setForeground(new Color(101, 129, 171));
+        item1.setForeground(new Color(12,83,151));
+        item2.setForeground(new Color(12,83,151));
         
         popupSupplier.add(item1);
         popupSupplier.add(item2);
@@ -428,7 +428,7 @@ public class productNewPanel extends javax.swing.JPanel {
 
         btnRegistrar.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(12, 83, 151));
-        btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/addProduct32.png"))); // NOI18N
+        btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
         btnRegistrar.setText("Registrar");
         btnRegistrar.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
@@ -529,11 +529,14 @@ public class productNewPanel extends javax.swing.JPanel {
 
         txtColor.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
-        btnCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/gear24.png"))); // NOI18N
+        btnCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/menu32.png"))); // NOI18N
+        btnCategory.setBorderPainted(false);
 
-        btnBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/gear24.png"))); // NOI18N
+        btnBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/menu32.png"))); // NOI18N
+        btnBrand.setBorderPainted(false);
 
-        btnSubcategories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/gear24.png"))); // NOI18N
+        btnSubcategories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/menu32.png"))); // NOI18N
+        btnSubcategories.setBorderPainted(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

@@ -5,7 +5,6 @@
 package views;
 
 import dao.budgetDAO;
-import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -140,25 +139,41 @@ public class budgetListForm extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        jPanelSeparador4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         btnViewBudget = new javax.swing.JButton();
         btnCancelBudget = new javax.swing.JButton();
         cboFiltroFecha = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
         cboFiltroEstado = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableBudgets = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Hm Gestión - Historial presupuestos");
 
-        jPanel1.setBackground(new java.awt.Color(101, 129, 171));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setForeground(new java.awt.Color(12, 83, 151));
 
-        jLabel8.setFont(new java.awt.Font("Poppins", 1, 36)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/bugdet128.png"))); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Poppins", 0, 36)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/budget64_1.png"))); // NOI18N
         jLabel8.setText("Presupuestos");
+
+        jPanelSeparador4.setBackground(new java.awt.Color(12, 83, 151));
+
+        javax.swing.GroupLayout jPanelSeparador4Layout = new javax.swing.GroupLayout(jPanelSeparador4);
+        jPanelSeparador4.setLayout(jPanelSeparador4Layout);
+        jPanelSeparador4Layout.setHorizontalGroup(
+            jPanelSeparador4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanelSeparador4Layout.setVerticalGroup(
+            jPanelSeparador4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 3, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -166,72 +181,40 @@ public class budgetListForm extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelSeparador4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(0, 748, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelSeparador4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnViewBudget.setBackground(new java.awt.Color(255, 255, 255));
-        btnViewBudget.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchList32_1.png"))); // NOI18N
-        btnViewBudget.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnViewBudget.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnViewBudget.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnViewBudgetMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnViewBudgetMouseExited(evt);
-            }
-        });
-
-        btnCancelBudget.setBackground(new java.awt.Color(255, 255, 255));
-        btnCancelBudget.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelBudget32.png"))); // NOI18N
-        btnCancelBudget.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnCancelBudget.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCancelBudget.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCancelBudgetMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCancelBudgetMouseExited(evt);
-            }
-        });
-
-        cboFiltroFecha.setBackground(new java.awt.Color(255, 255, 255));
-        cboFiltroFecha.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        cboFiltroFecha.setForeground(new java.awt.Color(65, 65, 63));
-        cboFiltroFecha.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        cboFiltroFecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cboFiltroFecha.setFocusable(false);
-        cboFiltroFecha.addActionListener(this::cboFiltroFechaActionPerformed);
-
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/calendar32.png"))); // NOI18N
         jLabel1.setLabelFor(cboFiltroFecha);
         jLabel1.setFocusable(false);
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        cboFiltroEstado.setBackground(new java.awt.Color(255, 255, 255));
-        cboFiltroEstado.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        cboFiltroEstado.setForeground(new java.awt.Color(65, 65, 63));
-        cboFiltroEstado.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        cboFiltroEstado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cboFiltroEstado.setFocusable(false);
-        cboFiltroEstado.addActionListener(this::cboFiltroEstadoActionPerformed);
-
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/gear24.png"))); // NOI18N
         jLabel2.setLabelFor(cboFiltroEstado);
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        btnViewBudget.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchList32_1.png"))); // NOI18N
+
+        btnCancelBudget.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelBudget32.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -249,7 +232,7 @@ public class budgetListForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cboFiltroEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboFiltroEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -257,12 +240,12 @@ public class budgetListForm extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(btnCancelBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnViewBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboFiltroEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnViewBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboFiltroFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboFiltroEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6))
         );
 
@@ -317,36 +300,12 @@ public class budgetListForm extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnViewBudgetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewBudgetMouseEntered
-        btnViewBudget.setBackground(new Color(255,215,0));
-    }//GEN-LAST:event_btnViewBudgetMouseEntered
-
-    private void btnViewBudgetMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnViewBudgetMouseExited
-        btnViewBudget.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_btnViewBudgetMouseExited
-
-    private void btnCancelBudgetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelBudgetMouseEntered
-        btnCancelBudget.setBackground(new Color(255,127,39));
-    }//GEN-LAST:event_btnCancelBudgetMouseEntered
-
-    private void btnCancelBudgetMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelBudgetMouseExited
-        btnCancelBudget.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_btnCancelBudgetMouseExited
-
-    private void cboFiltroFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboFiltroFechaActionPerformed
-
-    }//GEN-LAST:event_cboFiltroFechaActionPerformed
-
-    private void cboFiltroEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboFiltroEstadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboFiltroEstadoActionPerformed
 
     private void jTableBudgetsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableBudgetsMouseClicked
         if (evt.getClickCount() == 2) {
@@ -378,6 +337,7 @@ public class budgetListForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanelSeparador4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableBudgets;
     // End of variables declaration//GEN-END:variables

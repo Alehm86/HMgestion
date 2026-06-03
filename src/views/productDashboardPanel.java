@@ -119,14 +119,14 @@ public class productDashboardPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1253, 877));
 
-        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel10.setBackground(new java.awt.Color(245, 248, 255));
 
-        btnAddSN.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnAddSN.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnAddSN.setForeground(new java.awt.Color(12, 83, 151));
         btnAddSN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/barcode32.png"))); // NOI18N
         btnAddSN.setText("Registrar S/N");
 
-        btnRerturnProduct.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnRerturnProduct.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnRerturnProduct.setForeground(new java.awt.Color(12, 83, 151));
         btnRerturnProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/pReturn32.png"))); // NOI18N
         btnRerturnProduct.setText("Devolución");
@@ -145,22 +145,22 @@ public class productDashboardPanel extends javax.swing.JPanel {
             .addGap(0, 809, Short.MAX_VALUE)
         );
 
-        btnAddStock.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnAddStock.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnAddStock.setForeground(new java.awt.Color(12, 83, 151));
         btnAddStock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/pStock32.png"))); // NOI18N
         btnAddStock.setText("Stock");
 
-        btnView.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnView.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnView.setForeground(new java.awt.Color(12, 83, 151));
         btnView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/pView32.png"))); // NOI18N
         btnView.setText("Ver producto");
 
-        btnNewProduct.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnNewProduct.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnNewProduct.setForeground(new java.awt.Color(12, 83, 151));
         btnNewProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/pNew32.png"))); // NOI18N
         btnNewProduct.setText("Nuevo");
 
-        btnProdHome.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnProdHome.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         btnProdHome.setForeground(new java.awt.Color(12, 83, 151));
         btnProdHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/pList32.png"))); // NOI18N
         btnProdHome.setText("Listar productos");
