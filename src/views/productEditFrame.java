@@ -51,6 +51,7 @@ public class productEditFrame extends javax.swing.JFrame {
         jPanelEdit = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("HM Gestión - Editar producto");
         setLocationByPlatform(true);
 
         javax.swing.GroupLayout jPanelEditLayout = new javax.swing.GroupLayout(jPanelEdit);

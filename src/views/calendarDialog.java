@@ -43,7 +43,7 @@ public class calendarDialog extends javax.swing.JDialog {
         btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Hm Gestión - Calendario");
+        setTitle("HM Gestión - Calendario");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

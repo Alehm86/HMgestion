@@ -114,7 +114,7 @@ public class customerCambioEstadoDialog extends javax.swing.JDialog {
         textAreaMotivo = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Hm Gestión");
+        setTitle("HM Gestión");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

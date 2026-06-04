@@ -237,27 +237,27 @@ public class productSubcategoriesEditDialog extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableCategory = new javax.swing.JTable();
         btnActDes = new javax.swing.JButton();
-        txtNameEdit = new javax.swing.JTextField();
-        btnConfirmEdit = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
+        txtNameEdit = new javax.swing.JTextField();
         btnCancelEdit = new javax.swing.JButton();
-        cboCatPEdit = new javax.swing.JComboBox<>();
+        btnConfirmEdit = new javax.swing.JButton();
         labelTitleEdit2 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         checkBoxCambiarCatP = new javax.swing.JCheckBox();
         labelTitleChaCatP = new javax.swing.JLabel();
         cboChaCatP = new javax.swing.JComboBox<>();
         btnConfirmChaCatP = new javax.swing.JButton();
+        cboCatPEdit = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Editar categorias.");
+        setTitle("HM Gestión - Editar categorias.");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
-        jPanel7.setBackground(new java.awt.Color(101, 129, 171));
+        jPanel7.setBackground(new java.awt.Color(245, 248, 255));
 
-        jLabel1.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Poppins", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(12, 83, 151));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/registrarse64.png"))); // NOI18N
         jLabel1.setText("Editar Subcategorías.");
@@ -300,87 +300,19 @@ public class productSubcategoriesEditDialog extends javax.swing.JDialog {
 
         btnActDes.setBackground(new java.awt.Color(255, 255, 204));
         btnActDes.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        btnActDes.setForeground(new java.awt.Color(102, 102, 102));
         btnActDes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/switch32.png"))); // NOI18N
         btnActDes.setText("Activar/Desactivar");
-        btnActDes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnActDes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnActDes.setFocusPainted(false);
-        btnActDes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnActDesMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnActDesMouseExited(evt);
-            }
-        });
-        btnActDes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActDesActionPerformed(evt);
-            }
-        });
+
+        btnEdit.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/editar-32.png"))); // NOI18N
 
         txtNameEdit.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        txtNameEdit.setForeground(new java.awt.Color(35, 35, 38));
-        txtNameEdit.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNameEdit.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btnConfirmEdit.setBackground(new java.awt.Color(255, 255, 255));
+        btnCancelEdit.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnCancelEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/borrador32.png"))); // NOI18N
+
+        btnConfirmEdit.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         btnConfirmEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
-        btnConfirmEdit.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnConfirmEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnConfirmEdit.setFocusPainted(false);
-        btnConfirmEdit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnConfirmEditMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnConfirmEditMouseExited(evt);
-            }
-        });
-        btnConfirmEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmEditActionPerformed(evt);
-            }
-        });
-
-        btnEdit.setBackground(new java.awt.Color(255, 255, 255));
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/edit32.png"))); // NOI18N
-        btnEdit.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEdit.setPreferredSize(new java.awt.Dimension(35, 39));
-        btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnEditMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnEditMouseExited(evt);
-            }
-        });
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
-
-        btnCancelEdit.setBackground(new java.awt.Color(255, 255, 255));
-        btnCancelEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
-        btnCancelEdit.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnCancelEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCancelEdit.setFocusPainted(false);
-        btnCancelEdit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCancelEditMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCancelEditMouseExited(evt);
-            }
-        });
-        btnCancelEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelEditActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -389,17 +321,17 @@ public class productSubcategoriesEditDialog extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(btnActDes, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(btnActDes, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNameEdit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(btnConfirmEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCancelEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnConfirmEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -407,22 +339,15 @@ public class productSubcategoriesEditDialog extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(btnConfirmEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNameEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnActDes, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                    .addComponent(btnCancelEdit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnConfirmEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNameEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActDes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        cboCatPEdit.setBackground(new java.awt.Color(255, 255, 255));
-        cboCatPEdit.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        cboCatPEdit.setForeground(new java.awt.Color(35, 35, 38));
-        cboCatPEdit.setToolTipText("");
-        cboCatPEdit.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        cboCatPEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         labelTitleEdit2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         labelTitleEdit2.setForeground(new java.awt.Color(35, 35, 38));
@@ -441,31 +366,10 @@ public class productSubcategoriesEditDialog extends javax.swing.JDialog {
         labelTitleChaCatP.setForeground(new java.awt.Color(35, 35, 38));
         labelTitleChaCatP.setText("Categoría padre:");
 
-        cboChaCatP.setBackground(new java.awt.Color(255, 255, 255));
         cboChaCatP.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        cboChaCatP.setForeground(new java.awt.Color(35, 35, 38));
-        cboChaCatP.setToolTipText("");
-        cboChaCatP.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        cboChaCatP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        btnConfirmChaCatP.setBackground(new java.awt.Color(255, 255, 255));
+        btnConfirmChaCatP.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         btnConfirmChaCatP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
-        btnConfirmChaCatP.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnConfirmChaCatP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnConfirmChaCatP.setFocusPainted(false);
-        btnConfirmChaCatP.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnConfirmChaCatPMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnConfirmChaCatPMouseExited(evt);
-            }
-        });
-        btnConfirmChaCatP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmChaCatPActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -480,20 +384,19 @@ public class productSubcategoriesEditDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboChaCatP, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnConfirmChaCatP, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(133, Short.MAX_VALUE))
+                        .addComponent(btnConfirmChaCatP, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(checkBoxCambiarCatP)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(labelTitleChaCatP, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cboChaCatP, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnConfirmChaCatP, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btnConfirmChaCatP, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboChaCatP, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelTitleChaCatP, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -505,7 +408,7 @@ public class productSubcategoriesEditDialog extends javax.swing.JDialog {
                 .addGap(7, 7, 7)
                 .addComponent(labelTitleEdit2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cboCatPEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboCatPEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -519,7 +422,7 @@ public class productSubcategoriesEditDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelTitleEdit2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboCatPEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboCatPEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -545,87 +448,6 @@ public class productSubcategoriesEditDialog extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void btnConfirmEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmEditActionPerformed
-
-    }//GEN-LAST:event_btnConfirmEditActionPerformed
-
-    private void btnActDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActDesActionPerformed
-
-    }//GEN-LAST:event_btnActDesActionPerformed
-
-    private void btnActDesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActDesMouseEntered
-        if (btnActDes.isEnabled()) {
-            btnActDes.setBackground(new Color(245,248,255));
-        } else {
-            btnActDes.setBackground(new Color(255,255,204));
-        }
-    }//GEN-LAST:event_btnActDesMouseEntered
-
-    private void btnActDesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActDesMouseExited
-        btnActDes.setBackground(new Color(255,255,204));
-    }//GEN-LAST:event_btnActDesMouseExited
-
-    private void btnEditMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseEntered
-        if (btnEdit.isEnabled()) {
-            btnEdit.setBackground(new Color(245,248,255));
-        } else {
-            btnEdit.setBackground(new Color(255,255,255));
-        }
-        
-    }//GEN-LAST:event_btnEditMouseEntered
-
-    private void btnEditMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseExited
-        btnEdit.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_btnEditMouseExited
-
-    private void btnConfirmEditMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmEditMouseEntered
-        if (btnConfirmEdit.isEnabled()) {
-            btnConfirmEdit.setBackground(new Color(255,215,0));
-        } else {
-            btnConfirmEdit.setBackground(new Color(255,255,255));
-        }
-    }//GEN-LAST:event_btnConfirmEditMouseEntered
-
-    private void btnConfirmEditMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmEditMouseExited
-        btnConfirmEdit.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_btnConfirmEditMouseExited
-
-    private void btnCancelEditMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelEditMouseEntered
-        if (btnCancelEdit.isEnabled()) {
-            btnCancelEdit.setBackground(new Color(255,127,39));
-        } else {
-            btnCancelEdit.setBackground(new Color(255,255,255));
-        }
-    }//GEN-LAST:event_btnCancelEditMouseEntered
-
-    private void btnCancelEditMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelEditMouseExited
-        btnCancelEdit.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_btnCancelEditMouseExited
-
-    private void btnCancelEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelEditActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCancelEditActionPerformed
-
-    private void btnConfirmChaCatPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmChaCatPActionPerformed
-
-    }//GEN-LAST:event_btnConfirmChaCatPActionPerformed
-
-    private void btnConfirmChaCatPMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmChaCatPMouseEntered
-        if (btnConfirmChaCatP.isEnabled()) {
-            btnConfirmChaCatP.setBackground(new Color(255,215,0));
-        } else {
-            btnConfirmChaCatP.setBackground(new Color(255,255,255));
-        }
-    }//GEN-LAST:event_btnConfirmChaCatPMouseEntered
-
-    private void btnConfirmChaCatPMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmChaCatPMouseExited
-        btnConfirmChaCatP.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_btnConfirmChaCatPMouseExited
 
     public static void main(String args[]) {
 

@@ -546,5 +546,74 @@ public class purchaseInvoiceDAO {
         }
     }
     
+    public void listItemsPurchase(int id_purchase, JTable jtable){
+        
+        String sql= "SELECT " +
+                    "ps.name AS subcat, " +
+                    "b.name AS brand, " +
+                    "p.model AS model, " +
+                    "COALESCE(p.color, '') AS color, " +
+                    "pid.quantity AS cant, " +
+                    "pid.price AS pCosto, " +
+                    "pid.iva, " +
+                    "pid.total " +
+                    "FROM purchase_invoice_detail AS pid " +
+                    "INNER JOIN products p ON pid.id_product = p.id_product " +
+                    "INNER JOIN product_subcategories ps ON p.id_subcategory = ps.id_subcategory " +
+                    "INNER JOIN product_brands b ON p.id_brand = b.id_brand " +
+                    "WHERE pid.id_purchase_invoice = ?";
+        
+        Connection conexion = getConnection();
+        DefaultTableModel dtm = crearModeloNoEditable();
+        
+        String[] titleTable = {"Producto","Cant","P.Costo","IVA","Total"};
+        dtm.setColumnIdentifiers(titleTable);
+        
+        try{
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
+            pstmt.setInt(1, id_purchase);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                String tipo = rs.getString("subcat");
+                String marca = rs.getString("brand");
+                String modelo = rs.getString("model");  
+                String color = rs.getString("color"); 
+                        
+                String dispositivo = tipo + " " + marca + " " + modelo;
+
+                if (color != null && !color.trim().isEmpty()) {
+                    dispositivo += " color " + color;
+                }
+                
+                Object[] row = {
+                    dispositivo,
+                    rs.getString("cant"),
+                    rs.getString("pCosto"),
+                    rs.getString("iva"),
+                    rs.getString("total")   
+                };
+
+                dtm.addRow(row);
+            }
+            jtable.setModel(dtm);
+            
+            tableStyleUtil.applyPoppinsHeader(jtable);    
+            
+            jtable.getColumnModel().getColumn(0).setPreferredWidth(400);
+            jtable.getColumnModel().getColumn(1).setPreferredWidth(50);
+            jtable.getColumnModel().getColumn(2).setPreferredWidth(150);
+            jtable.getColumnModel().getColumn(3).setPreferredWidth(50);
+            jtable.getColumnModel().getColumn(4).setPreferredWidth(150);
+
+            rs.close();
+            conexion.close();
+            
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+        }
+    }
+    
     
 }

@@ -42,6 +42,7 @@ public class productNewDialog extends javax.swing.JDialog {
         jpanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("HM Gestión - Registrar producto");
 
         jpanel.setPreferredSize(new java.awt.Dimension(840, 470));
 

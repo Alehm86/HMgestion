@@ -529,7 +529,7 @@ public class customerViewDialog extends javax.swing.JDialog {
         icono = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Hm Gestión - Editar cliente");
+        setTitle("HM Gestión - Editar cliente");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

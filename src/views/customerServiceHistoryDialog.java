@@ -86,7 +86,7 @@ public class customerServiceHistoryDialog extends javax.swing.JDialog {
         jPanelSeparador2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Hm Gestión - Historial");
+        setTitle("HM Gestión - Historial");
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 

@@ -794,13 +794,15 @@
                                   <Component id="jScrollPane1" alignment="0" pref="860" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="btnAddProduct" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="btnAddProduct" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="btnEditProduct" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="btnDeleteProduct" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                           <Component id="jLabel32" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnEditProduct" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnDeleteProduct" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
@@ -813,10 +815,10 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel32" min="-2" pref="28" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btnAddProduct" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnEditProduct" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnDeleteProduct" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="2" attributes="0">
+                                  <Component id="btnDeleteProduct" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnEditProduct" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnAddProduct" alignment="2" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jScrollPane1" min="-2" pref="139" max="-2" attributes="0"/>
@@ -853,7 +855,6 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/Icons/add16.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Agregar producto"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnEditProduct">
@@ -867,7 +868,6 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/Icons/edit16.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Editar"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnDeleteProduct">
@@ -881,7 +881,6 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/Icons/bin16.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Eliminar"/>
                       </Properties>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -1050,7 +1049,6 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/Icons/add16.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Agregar servicio t&#xe9;cnico"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnEditService">
@@ -1064,7 +1062,6 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/Icons/edit16.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Editar"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnDeleteService">
@@ -1078,7 +1075,6 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/Icons/bin16.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Eliminar"/>
                       </Properties>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -1247,7 +1243,6 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/Icons/add16.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Agregar presupuesto"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnEditService1">
@@ -1261,7 +1256,6 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/Icons/edit16.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Editar"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnDeleteService1">
@@ -1275,7 +1269,6 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/Icons/bin16.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Eliminar"/>
                       </Properties>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane3">

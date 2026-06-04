@@ -536,17 +536,14 @@ public class salesPanel extends javax.swing.JPanel {
         btnAddProduct.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnAddProduct.setForeground(new java.awt.Color(35, 35, 38));
         btnAddProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/add16.png"))); // NOI18N
-        btnAddProduct.setText("Agregar producto");
 
         btnEditProduct.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnEditProduct.setForeground(new java.awt.Color(35, 35, 38));
         btnEditProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/edit16.png"))); // NOI18N
-        btnEditProduct.setText("Editar");
 
         btnDeleteProduct.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnDeleteProduct.setForeground(new java.awt.Color(35, 35, 38));
         btnDeleteProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/bin16.png"))); // NOI18N
-        btnDeleteProduct.setText("Eliminar");
 
         tableProducts.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         tableProducts.setModel(new javax.swing.table.DefaultTableModel(
@@ -604,12 +601,13 @@ public class salesPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelProductLayout.createSequentialGroup()
                         .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAddProduct)
+                            .addGroup(panelProductLayout.createSequentialGroup()
+                                .addComponent(btnAddProduct)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEditProduct)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDeleteProduct))
                             .addComponent(jLabel32))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditProduct)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDeleteProduct)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -618,10 +616,10 @@ public class salesPanel extends javax.swing.JPanel {
             .addGroup(panelProductLayout.createSequentialGroup()
                 .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddProduct)
+                .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btnDeleteProduct)
                     .addComponent(btnEditProduct)
-                    .addComponent(btnDeleteProduct))
+                    .addComponent(btnAddProduct))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -639,17 +637,14 @@ public class salesPanel extends javax.swing.JPanel {
         btnAddService.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnAddService.setForeground(new java.awt.Color(35, 35, 38));
         btnAddService.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/add16.png"))); // NOI18N
-        btnAddService.setText("Agregar servicio técnico");
 
         btnEditService.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnEditService.setForeground(new java.awt.Color(35, 35, 38));
         btnEditService.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/edit16.png"))); // NOI18N
-        btnEditService.setText("Editar");
 
         btnDeleteService.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnDeleteService.setForeground(new java.awt.Color(35, 35, 38));
         btnDeleteService.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/bin16.png"))); // NOI18N
-        btnDeleteService.setText("Eliminar");
 
         tableService.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         tableService.setModel(new javax.swing.table.DefaultTableModel(
@@ -743,17 +738,14 @@ public class salesPanel extends javax.swing.JPanel {
         btnAddService1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnAddService1.setForeground(new java.awt.Color(35, 35, 38));
         btnAddService1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/add16.png"))); // NOI18N
-        btnAddService1.setText("Agregar presupuesto");
 
         btnEditService1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnEditService1.setForeground(new java.awt.Color(35, 35, 38));
         btnEditService1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/edit16.png"))); // NOI18N
-        btnEditService1.setText("Editar");
 
         btnDeleteService1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnDeleteService1.setForeground(new java.awt.Color(35, 35, 38));
         btnDeleteService1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/bin16.png"))); // NOI18N
-        btnDeleteService1.setText("Eliminar");
 
         tableService1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         tableService1.setModel(new javax.swing.table.DefaultTableModel(

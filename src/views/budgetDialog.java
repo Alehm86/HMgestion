@@ -583,7 +583,7 @@ public class budgetDialog extends javax.swing.JDialog {
         lbl_address = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Hm Gestión - Presupuesto");
+        setTitle("HM Gestión - Presupuesto");
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1095,23 +1095,23 @@ public class budgetDialog extends javax.swing.JDialog {
         char c = evt.getKeyChar();
 
         if (!Character.isDigit(c)
-                    && c != '.'
-                    && c != ','
-                    && c != KeyEvent.VK_BACK_SPACE
-                    && c != KeyEvent.VK_DELETE) {
-                evt.consume();
-            }
+                && c != '.'
+                && c != ','
+                && c != KeyEvent.VK_BACK_SPACE
+                && c != KeyEvent.VK_DELETE) {
+            evt.consume();
+        }
 
-            if ((c == '.' || c == ',')
-                    && (txtCantidad.getText().contains(".")
-                    || txtCantidad.getText().contains(","))) {
-                evt.consume();
-            }
+        if ((c == '.' || c == ',')
+                && (txtPrice.getText().contains(".")
+                || txtPrice.getText().contains(","))) {
+            evt.consume();
+        }
 
-            if (txtCantidad.getText().length() >= 3
-                    && Character.isDigit(c)) {
-                evt.consume();
-            }
+        if (txtPrice.getText().length() >= 3
+                && Character.isDigit(c)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtPriceKeyTyped
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped

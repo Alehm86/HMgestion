@@ -271,7 +271,7 @@ public class budgetPrintDialog extends javax.swing.JDialog {
         jTextAreaObservation = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Hm Gestión - Presupuesto");
+        setTitle("HM Gestión - Presupuesto");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

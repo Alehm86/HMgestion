@@ -91,21 +91,20 @@ public class productCategoriesNewDialog extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         labelTitleNameNew = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
         labelState = new javax.swing.JLabel();
         checkState = new javax.swing.JCheckBox();
-        btnCancelEdit = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
-        jPanelSeparador4 = new javax.swing.JPanel();
+        txtName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("HM Gestión - Crear categoria");
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setBackground(new java.awt.Color(245, 248, 255));
 
-        jLabel1.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(35, 35, 38));
+        jLabel1.setFont(new java.awt.Font("Poppins", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(12, 83, 151));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/registro64.png"))); // NOI18N
         jLabel1.setText("Crear categorías.");
@@ -126,77 +125,27 @@ public class productCategoriesNewDialog extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        labelTitleNameNew.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        labelTitleNameNew.setForeground(new java.awt.Color(65, 65, 63));
+        labelTitleNameNew.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        labelTitleNameNew.setForeground(new java.awt.Color(12, 83, 151));
         labelTitleNameNew.setText("Nombre:");
 
-        txtName.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        txtName.setForeground(new java.awt.Color(65, 65, 63));
-        txtName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        labelState.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        labelState.setForeground(new java.awt.Color(65, 65, 63));
+        labelState.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        labelState.setForeground(new java.awt.Color(12, 83, 151));
         labelState.setText("Estado:");
 
         checkState.setBackground(new java.awt.Color(255, 255, 255));
         checkState.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        checkState.setForeground(new java.awt.Color(65, 65, 63));
+        checkState.setForeground(new java.awt.Color(0, 153, 51));
         checkState.setText("Activa");
         checkState.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         checkState.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         checkState.setFocusPainted(false);
 
-        btnCancelEdit.setBackground(new java.awt.Color(255, 255, 255));
-        btnCancelEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
-        btnCancelEdit.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnCancelEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCancelEdit.setFocusPainted(false);
-        btnCancelEdit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCancelEditMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCancelEditMouseExited(evt);
-            }
-        });
-        btnCancelEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelEditActionPerformed(evt);
-            }
-        });
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
 
-        btnRegistrar.setBackground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
-        btnRegistrar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRegistrar.setFocusPainted(false);
-        btnRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnRegistrarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnRegistrarMouseExited(evt);
-            }
-        });
-        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarActionPerformed(evt);
-            }
-        });
 
-        jPanelSeparador4.setBackground(new java.awt.Color(35, 35, 38));
-
-        javax.swing.GroupLayout jPanelSeparador4Layout = new javax.swing.GroupLayout(jPanelSeparador4);
-        jPanelSeparador4.setLayout(jPanelSeparador4Layout);
-        jPanelSeparador4Layout.setHorizontalGroup(
-            jPanelSeparador4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanelSeparador4Layout.setVerticalGroup(
-            jPanelSeparador4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 3, Short.MAX_VALUE)
-        );
+        txtName.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -206,33 +155,27 @@ public class productCategoriesNewDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(labelState)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkState, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(labelTitleNameNew)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCancelEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 3, Short.MAX_VALUE))
-                    .addComponent(jPanelSeparador4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addComponent(labelState)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkState, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(labelTitleNameNew)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelSeparador4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(btnCancelEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelTitleNameNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -260,38 +203,6 @@ public class productCategoriesNewDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelEditMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelEditMouseEntered
-        if (btnCancelEdit.isEnabled()) {
-            btnCancelEdit.setBackground(new Color(255,127,39));
-        } else {
-            btnCancelEdit.setBackground(new Color(255,255,255));
-        }
-    }//GEN-LAST:event_btnCancelEditMouseEntered
-
-    private void btnCancelEditMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelEditMouseExited
-        btnCancelEdit.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_btnCancelEditMouseExited
-
-    private void btnCancelEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelEditActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCancelEditActionPerformed
-
-    private void btnRegistrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseEntered
-        if (btnRegistrar.isEnabled()) {
-            btnRegistrar.setBackground(new Color(255,215,0));
-        } else {
-            btnRegistrar.setBackground(new Color(255,255,255));
-        }
-    }//GEN-LAST:event_btnRegistrarMouseEntered
-
-    private void btnRegistrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseExited
-        btnRegistrar.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_btnRegistrarMouseExited
-
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-
-    }//GEN-LAST:event_btnRegistrarActionPerformed
-
 
     public static void main(String args[]) {
 
@@ -310,13 +221,12 @@ public class productCategoriesNewDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelEdit;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JCheckBox checkState;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanelSeparador4;
     private javax.swing.JLabel labelState;
     private javax.swing.JLabel labelTitleNameNew;
     private javax.swing.JTextField txtName;

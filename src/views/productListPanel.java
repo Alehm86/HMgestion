@@ -342,7 +342,7 @@ public class productListPanel extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/edit32.png"))); // NOI18N
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/editar-32.png"))); // NOI18N
 
         btnEditPrice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/priceTag32.png"))); // NOI18N
 

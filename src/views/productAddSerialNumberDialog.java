@@ -36,6 +36,7 @@ public class productAddSerialNumberDialog extends javax.swing.JDialog {
         panelContent = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("HM Gestión - Cargar numeros de serie.");
         setResizable(false);
 
         panelContent.setBackground(new java.awt.Color(255, 255, 255));

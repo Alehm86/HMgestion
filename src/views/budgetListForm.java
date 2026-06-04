@@ -152,7 +152,7 @@ public class budgetListForm extends javax.swing.JFrame {
         jTableBudgets = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Hm Gestión - Historial presupuestos");
+        setTitle("HM Gestión - Historial presupuestos");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(12, 83, 151));
