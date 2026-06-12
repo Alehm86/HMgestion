@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package views;
 
@@ -10,21 +10,41 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
-public class budgetListForm extends javax.swing.JFrame {
+public class budgetListDialog extends javax.swing.JDialog {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(budgetListForm.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(budgetListDialog.class.getName());
     
     budgetDAO qService = new budgetDAO();
     
     int id_budget;
     int id_service;
+    int status = 0;
     
     String filtroFecha;
     String filtroEstado;
-
-    public budgetListForm() {
+    
+    
+    public void setConfigPage(int status){      
+        this.status = status;
+        if(status == 1){
+            btnSelectProduct.setVisible(true);
+            btnCancel.setVisible(true);
+            btnCancelBudget.setVisible(false);
+        }           
+    }
+    
+    public int getIdBudget(){
+        return id_budget;
+    }
+    
+    public budgetListDialog(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
+        
+        btnSelectProduct.setVisible(false);
+        btnCancel.setVisible(false);
         
         combo();
         cboFiltroFecha.setSelectedIndex(2);
@@ -32,9 +52,8 @@ public class budgetListForm extends javax.swing.JFrame {
         leyendaBotones();       
         actions();
         listadoInicial();
-   
     }
-    
+
     private void listadoInicial(){
         qService.listBudgets(jTableBudgets, "30 días", "Todos");
     }
@@ -60,13 +79,30 @@ public class budgetListForm extends javax.swing.JFrame {
         btnCancelBudget.setToolTipText("Cancelar presupuesto");
     }
     
+    private void filtrarPresupuestos(){
+        
+        DefaultTableModel dtm = (DefaultTableModel) jTableBudgets.getModel();
+
+        for (int i = dtm.getRowCount() - 1; i >= 0; i--) {
+            Object valor = dtm.getValueAt(i, 3);
+            if (valor != null && !valor.toString().trim().isEmpty()) {
+                dtm.removeRow(i);
+            }
+        }
+    }
+    
     private void actions(){
            
         ActionListener filtroListener = e -> {
             String fecha = cboFiltroFecha.getSelectedItem().toString();
             String estado = cboFiltroEstado.getSelectedItem().toString();
-
-            qService.listBudgets(jTableBudgets, fecha, estado);
+ 
+            if(status>0){
+                qService.listBudgets(jTableBudgets, fecha, estado);
+                filtrarPresupuestos();
+            }else{
+                qService.listBudgets(jTableBudgets, fecha, estado);
+            }
         };
 
         cboFiltroFecha.addActionListener(filtroListener);
@@ -117,6 +153,15 @@ public class budgetListForm extends javax.swing.JFrame {
           
         });
         
+        btnSelectProduct.addActionListener(e->{
+            this.dispose();
+        });
+        
+        btnCancel.addActionListener(e->{
+            id_budget = -1;          
+            this.dispose();
+        });
+        
     }
     
     public void viewBudget(){
@@ -131,8 +176,6 @@ public class budgetListForm extends javax.swing.JFrame {
 
         this.setVisible(true);
     }
-
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -150,6 +193,8 @@ public class budgetListForm extends javax.swing.JFrame {
         cboFiltroEstado = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableBudgets = new javax.swing.JTable();
+        btnSelectProduct = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("HM Gestión - Historial presupuestos");
@@ -203,13 +248,11 @@ public class budgetListForm extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/calendar32.png"))); // NOI18N
-        jLabel1.setLabelFor(cboFiltroFecha);
         jLabel1.setFocusable(false);
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/gear24.png"))); // NOI18N
-        jLabel2.setLabelFor(cboFiltroEstado);
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         btnViewBudget.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchList32_1.png"))); // NOI18N
@@ -272,19 +315,39 @@ public class budgetListForm extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableBudgets);
 
+        btnSelectProduct.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnSelectProduct.setForeground(new java.awt.Color(12, 83, 151));
+        btnSelectProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
+        btnSelectProduct.setText("Seleccionar");
+        btnSelectProduct.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/exit-32.png"))); // NOI18N
+        btnCancel.addActionListener(this::btnCancelActionPerformed);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1069, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSelectProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSelectProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -313,21 +376,58 @@ public class budgetListForm extends javax.swing.JFrame {
             int fila = jTableBudgets.getSelectedRow();
 
             if (fila != -1) {
-                viewBudget();      
+                viewBudget();
             } else {
                 JOptionPane.showMessageDialog(null, "Seleccione una fila");
             }
-        } 
+        }
     }//GEN-LAST:event_jTableBudgetsMouseClicked
 
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-        java.awt.EventQueue.invokeLater(() -> new budgetListForm().setVisible(true));
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                budgetListDialog dialog = new budgetListDialog(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCancelBudget;
+    private javax.swing.JButton btnSelectProduct;
     private javax.swing.JButton btnViewBudget;
     private javax.swing.JComboBox<String> cboFiltroEstado;
     private javax.swing.JComboBox<String> cboFiltroFecha;

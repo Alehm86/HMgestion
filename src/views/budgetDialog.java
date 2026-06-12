@@ -97,10 +97,16 @@ public class budgetDialog extends javax.swing.JDialog {
     
     private void inicializar(){
         
+        cboType.addItem("Selecione un tipo");
+        cboType.addItem("Producto");
+        cboType.addItem("Servicio");
+        
         cboIVA.setSelectedIndex(-1);
         lbl_fecha.setText("");
         lbl_iva.setText("");
         lbl_id.setVisible(false);
+        lbl_idProduct.setVisible(false);
+        lbl_idProduct.setText("0");
         lbl_product.setVisible(false);
         lbl_iva.setVisible(false);
         lbl_fecha.setText(fecha);   
@@ -118,17 +124,26 @@ public class budgetDialog extends javax.swing.JDialog {
     
     private void formatTable(){
 
-        String[] titulo = new String[]{"Item", "Cant", "Precio Unit", "Iva","Total"};
+        String[] titulo = new String[]{"Item", "Cant", "P. Unit. IVA Inc.", "Iva","Total","tipo","idProduct"};
         dtm.setColumnIdentifiers(titulo);
         jTablePresupuesto.setModel(dtm);
         
         tableStyleUtil.applyPoppinsHeader(jTablePresupuesto);
+        
+        jTablePresupuesto.getColumnModel().getColumn(5).setMinWidth(0);
+        jTablePresupuesto.getColumnModel().getColumn(5).setMaxWidth(0);
+        jTablePresupuesto.getColumnModel().getColumn(5).setPreferredWidth(0);
+        
+        jTablePresupuesto.getColumnModel().getColumn(6).setMinWidth(0);
+        jTablePresupuesto.getColumnModel().getColumn(6).setMaxWidth(0);
+        jTablePresupuesto.getColumnModel().getColumn(6).setPreferredWidth(0);
 
         jTablePresupuesto.getColumnModel().getColumn(0).setPreferredWidth(350);
         jTablePresupuesto.getColumnModel().getColumn(1).setPreferredWidth(40); 
         jTablePresupuesto.getColumnModel().getColumn(2).setPreferredWidth(100); 
         jTablePresupuesto.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(comboIVA)); 
         jTablePresupuesto.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTablePresupuesto.getColumnModel().getColumn(5).setPreferredWidth(0);
         
 
 
@@ -227,7 +242,9 @@ public class budgetDialog extends javax.swing.JDialog {
             txtPrice.setText("");
             txtCantidad.setText("");
             txtProductCode.requestFocus();
-            cboIVA.setSelectedIndex(-1);    
+            cboIVA.setSelectedIndex(-1);  
+            lbl_idProduct.setText("0");
+            cboType.setSelectedIndex(-1);
         });
         
         btnDelete.addActionListener(e->{  
@@ -254,26 +271,42 @@ public class budgetDialog extends javax.swing.JDialog {
         });
         
         btnRegistrar.addActionListener(e->{
-            insertBudget();
+            boolean status = false;
             
-            int confirmacion = JOptionPane.showConfirmDialog(
-                null,
-                "¿Desea imprimir el presupuesto?",
-                "Confirmación",
-                JOptionPane.YES_NO_OPTION
-            );                   
-            if (confirmacion != JOptionPane.YES_OPTION) {
-                return;
+            status = insertBudget();
+            
+            if(status){
+                int confirmacion = JOptionPane.showConfirmDialog(
+                    null,
+                    "¿Desea imprimir el presupuesto?",
+                    "Confirmación",
+                    JOptionPane.YES_NO_OPTION
+                );                   
+                if (confirmacion != JOptionPane.YES_OPTION) {
+                    return;
+                }
+
+                budgetPrintDialog fPrint = new budgetPrintDialog(null, true);
+                fPrint.setLocationRelativeTo(null);
+
+                fPrint.dialogoIdBudget(id_budget);
+
+                fPrint.setVisible(true);
+
+                this.dispose();
+            } 
+        });
+        
+        cboType.addActionListener(e->{
+           
+            int tipo = cboType.getSelectedIndex();
+            
+            if(tipo == 2){
+                cboIVA.setSelectedIndex(0);
+                cboIVA.setEnabled(false);
+            }else{
+                cboIVA.setEnabled(true);
             }
-            
-            budgetPrintDialog fPrint = new budgetPrintDialog(null, true);
-            fPrint.setLocationRelativeTo(null);
-
-            fPrint.dialogoIdBudget(id_budget);
-
-            fPrint.setVisible(true);
-
-            this.dispose();
         });
     }
     
@@ -282,7 +315,7 @@ public class budgetDialog extends javax.swing.JDialog {
         int fila = jTablePresupuesto.getSelectedRow();
         
         if(fila == -1){   
-           JOptionPane.showMessageDialog(null, "SELECCIONE UNA OPCION"); 
+           JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA"); 
         }
         else{
            dtm.removeRow(fila); 
@@ -306,11 +339,13 @@ public class budgetDialog extends javax.swing.JDialog {
         qProduct.selectProduct(id_product, lbl_product, txtProductCode);
         qProduct.selectSalePriceAndIva(id_product,txtPrice,lbl_iva);
         txtProduct.setText(lbl_product.getText());
+        lbl_idProduct.setText(String.valueOf(id_product));
+        cboType.setSelectedIndex(1);
         infoCombo();      
     }   
     
-    void addFile(String descripcion, int amount, double precio, String iva, double total){
-        dtm.addRow(new Object[]{descripcion,amount,precio,iva,total});
+    void addFile(String descripcion, int amount, double precio, String iva, double total, String type, int idProduct){
+        dtm.addRow(new Object[]{descripcion,amount,precio,iva,total,type,idProduct});
     }
     
     private void addToList(){
@@ -321,16 +356,24 @@ public class budgetDialog extends javax.swing.JDialog {
         double price = 0;        
         double total = 0;
         String iva;
+        String type;
+        int idProd = -1;
+        
+        idProd = Integer.parseInt(lbl_idProduct.getText().trim());
   
         if(!txtProduct.getText().isEmpty()){
             
-            price = Double.parseDouble(txtPrice.getText().trim());
-         
             mBdetail.setDescription(txtProduct.getText().toUpperCase().trim()); 
-            mBdetail.setPrice(price);
-          
-        }else{
+            price = Double.parseDouble(txtPrice.getText().trim());
             
+            if(cboType.getSelectedIndex() == 2){
+                price = price * 1.21;
+                mBdetail.setPrice(price);
+            }else{
+                mBdetail.setPrice(price);
+            }
+            
+        }else{           
             JOptionPane.showMessageDialog(null, "Ingresar un producto o servicio.");
             estado = false;
         }  
@@ -339,13 +382,16 @@ public class budgetDialog extends javax.swing.JDialog {
             
             iva = cboIVA.getSelectedItem().toString().trim();
             mBdetail.setIva(iva);
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe selecionar el tipo de IVA");
+            estado = false;
         }
         
         if(!txtCantidad.getText().trim().isEmpty()){
             
             amount = Integer.parseInt(txtCantidad.getText().trim());
             
-            if(amount > 0){     
+            if(amount > 0){            
                 mBdetail.setQuantity(amount);
                 mBudget.setTotal(amount * price);
             }               
@@ -353,6 +399,22 @@ public class budgetDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "El campo cantidad está vacío");
             estado = false;
         }  
+        
+        if(cboType.getSelectedIndex()>-1){
+            
+            type = cboType.getSelectedItem().toString().trim();
+            mBdetail.setType(type);
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe selecionar el tipo Item");
+            estado = false;
+        }
+        
+        if(idProd > 0){
+            
+            mBdetail.setIdProduct(idProd);
+        }else{
+            mBdetail.setIdProduct(0);
+        }
         
         if(!estado){
            return; 
@@ -363,7 +425,9 @@ public class budgetDialog extends javax.swing.JDialog {
                     mBdetail.getQuantity(),
                     mBdetail.getPrice(),
                     mBdetail.getIva(),
-                    mBudget.getTotal()
+                    mBudget.getTotal(),
+                    mBdetail.getType(),
+                    mBdetail.getIdProduct()
             );
         }
         calcularTotales();
@@ -413,9 +477,10 @@ public class budgetDialog extends javax.swing.JDialog {
         lblTotal.setText("$ " + String.format("%.2f", total));
     } 
     
-    private void insertBudget(){
+    private boolean insertBudget(){
         
         boolean valido = true;
+        boolean status = false;
         
         LocalDate fecha = LocalDate.now();
         LocalDate vencimiento = fecha.plusDays(10);
@@ -462,7 +527,7 @@ public class budgetDialog extends javax.swing.JDialog {
         }
         
         if (!valido) {
-            return;
+            return false;
         }else{
             int confirmacion = JOptionPane.showConfirmDialog(
                 null,
@@ -471,7 +536,7 @@ public class budgetDialog extends javax.swing.JDialog {
                 JOptionPane.YES_NO_OPTION
             );                   
             if (confirmacion != JOptionPane.YES_OPTION) {
-                return;
+                return false;
             }      
         }
         
@@ -488,7 +553,7 @@ public class budgetDialog extends javax.swing.JDialog {
         
         if(id_budget <= 0){
             JOptionPane.showMessageDialog(null, "Error al registrar el presupuesto.");
-            return;
+            return false;
         }
         
         for(int i = 0; i < jTablePresupuesto.getRowCount(); i++){
@@ -498,18 +563,24 @@ public class budgetDialog extends javax.swing.JDialog {
             double precio = Double.parseDouble(jTablePresupuesto.getValueAt(i, 2).toString());
             String iva = jTablePresupuesto.getValueAt(i, 3).toString();
             double subtotal = Double.parseDouble(jTablePresupuesto.getValueAt(i, 4).toString());
-
+            String type = jTablePresupuesto.getValueAt(i, 5).toString();
+            int idProd = Integer.parseInt(jTablePresupuesto.getValueAt(i, 6).toString());
+            
             BudgetDetail item = new BudgetDetail (
                     descripcion,
                     cantidad,
                     precio,
                     iva,
-                    subtotal
+                    subtotal,
+                    type,
+                    idProd
             );
 
-            qBudget.insertBudgetDetail(
+            status = qBudget.insertBudgetDetail(
                     id_budget,
                     item.getDescription(),
+                    item.getType(),
+                    item.getIdProduct(),
                     item.getQuantity(),
                     item.getPrice(),
                     item.getIva(),
@@ -518,6 +589,7 @@ public class budgetDialog extends javax.swing.JDialog {
         }       
         JOptionPane.showMessageDialog(null, "Presupuesto registrado correctamente.");
   
+        return status;
     }
     
             
@@ -532,7 +604,6 @@ public class budgetDialog extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        lbl_id = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         txtAddress = new javax.swing.JTextField();
@@ -561,6 +632,9 @@ public class budgetDialog extends javax.swing.JDialog {
         txtCantidad = new javax.swing.JTextField();
         cboIVA = new javax.swing.JComboBox<>();
         btnAdd = new javax.swing.JButton();
+        lbl_idProduct = new javax.swing.JLabel();
+        lbl_id = new javax.swing.JLabel();
+        cboType = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTablePresupuesto = new javax.swing.JTable();
@@ -598,8 +672,6 @@ public class budgetDialog extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(35, 35, 38));
         jLabel5.setText("Observaciones:");
-
-        lbl_id.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
         jLabel16.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(35, 35, 38));
@@ -652,32 +724,27 @@ public class budgetDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtAddress))
                     .addComponent(jScrollPane2))
-                .addGap(10, 10, 10)
-                .addComponent(lbl_id)
-                .addContainerGap())
+                .addGap(24, 24, 24))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbl_id, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnNewCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16)
-                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNewCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
@@ -762,6 +829,14 @@ public class budgetDialog extends javax.swing.JDialog {
         btnBuscarProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchList32_1.png"))); // NOI18N
 
         txtProductCode.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtProductCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtProductCodeKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtProductCodeKeyTyped(evt);
+            }
+        });
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchBarCode32.png"))); // NOI18N
 
@@ -787,14 +862,22 @@ public class budgetDialog extends javax.swing.JDialog {
         btnAdd.setText("Agregar");
         btnAdd.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
+        lbl_idProduct.setText("idProduct");
+
+        lbl_id.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+
+        cboType.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cboType, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -811,21 +894,27 @@ public class budgetDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAdd))
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(txtProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscarProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbl_product)))
-                        .addGap(56, 56, 56)
+                                .addComponent(lbl_idProduct)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbl_product)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbl_id, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(339, 339, 339))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(txtProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscarProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtProductCode))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -833,10 +922,13 @@ public class budgetDialog extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel6)
-                        .addComponent(lbl_product))
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lbl_id, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(lbl_product)
+                            .addComponent(lbl_idProduct))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(txtProductCode, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -845,15 +937,16 @@ public class budgetDialog extends javax.swing.JDialog {
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(cboType, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel7)
-                    .addComponent(lbl_iva)
                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
                     .addComponent(cboIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_iva)
                     .addComponent(btnAdd))
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -981,7 +1074,7 @@ public class budgetDialog extends javax.swing.JDialog {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1108,7 +1201,7 @@ public class budgetDialog extends javax.swing.JDialog {
             evt.consume();
         }
 
-        if (txtPrice.getText().length() >= 3
+        if (txtPrice.getText().length() >= 10
                 && Character.isDigit(c)) {
             evt.consume();
         }
@@ -1121,6 +1214,17 @@ public class budgetDialog extends javax.swing.JDialog {
             evt.consume();
         }
     }//GEN-LAST:event_txtCantidadKeyTyped
+
+    private void txtProductCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductCodeKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProductCodeKeyTyped
+
+    private void txtProductCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductCodeKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) { 
+            id_product = qProduct.selectIdProduct(txtProductCode.getText());
+            buscarCode();           
+        }
+    }//GEN-LAST:event_txtProductCodeKeyPressed
 
     public static void main(String args[]) {
 
@@ -1149,6 +1253,7 @@ public class budgetDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnNewCustomer;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> cboIVA;
+    private javax.swing.JComboBox<String> cboType;
     private javax.swing.JLabel icono;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1183,6 +1288,7 @@ public class budgetDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lbl_address;
     private javax.swing.JLabel lbl_fecha;
     private javax.swing.JLabel lbl_id;
+    private javax.swing.JLabel lbl_idProduct;
     private javax.swing.JLabel lbl_iva;
     private javax.swing.JLabel lbl_product;
     private javax.swing.JTextField txtAddress;

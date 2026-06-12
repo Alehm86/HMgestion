@@ -379,7 +379,7 @@ public class customerDAO {
                 String ciudad = rs.getString("city");
                 String provincia = rs.getString("province");
                 
-                String direccion = calle + altura + ciudad + " provincia de " +provincia;
+                String direccion = "Calle " + calle + " Nº " + altura + ", " + ciudad + " provincia de " + provincia;
                 
                 lbl_address.setText(direccion); 
                 

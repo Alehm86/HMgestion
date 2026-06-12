@@ -1128,6 +1128,17 @@ public class productViewPanel extends javax.swing.JPanel {
             }
         });
 
+        txtMin.setForeground(new java.awt.Color(35, 35, 38));
+
+        txtPrecioCosto.setForeground(new java.awt.Color(35, 35, 38));
+
+        txtBenefit.setForeground(new java.awt.Color(35, 35, 38));
+
+        txtSalePrice.setForeground(new java.awt.Color(35, 35, 38));
+
+        cboIva.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        cboIva.setForeground(new java.awt.Color(35, 35, 38));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -1222,9 +1233,14 @@ public class productViewPanel extends javax.swing.JPanel {
         lbl_state.setForeground(new java.awt.Color(12, 83, 151));
         lbl_state.setText("xxx");
 
+        cboBrands.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        cboBrands.setForeground(new java.awt.Color(35, 35, 38));
+
         btnBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/menu32.png"))); // NOI18N
         btnBrand.setBorderPainted(false);
 
+        cboCategories.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        cboCategories.setForeground(new java.awt.Color(35, 35, 38));
         cboCategories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboCategoriesActionPerformed(evt);
@@ -1234,6 +1250,14 @@ public class productViewPanel extends javax.swing.JPanel {
         btnCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/menu32.png"))); // NOI18N
         btnCategory.setBorderPainted(false);
 
+        txtColor.setForeground(new java.awt.Color(35, 35, 38));
+
+        txtModel.setForeground(new java.awt.Color(35, 35, 38));
+
+        txtProductCode.setForeground(new java.awt.Color(35, 35, 38));
+
+        cboSubcategories.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        cboSubcategories.setForeground(new java.awt.Color(35, 35, 38));
         cboSubcategories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboSubcategoriesActionPerformed(evt);
@@ -1373,11 +1397,21 @@ public class productViewPanel extends javax.swing.JPanel {
 
         btnActivePromo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/descuento-32.png"))); // NOI18N
 
+        cboPromotion.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        cboPromotion.setForeground(new java.awt.Color(35, 35, 38));
+
         btnConfirmPromo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
 
         btnCancelPromo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/endPromotion32.png"))); // NOI18N
 
         btnBajaAlta.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnBajaAlta.setForeground(new java.awt.Color(35, 35, 38));
+
+        cboMotivoAlta.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        cboMotivoAlta.setForeground(new java.awt.Color(35, 35, 38));
+
+        cboMotivoBaja.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        cboMotivoBaja.setForeground(new java.awt.Color(35, 35, 38));
 
         btnConfirmBajaAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
 
@@ -1427,9 +1461,13 @@ public class productViewPanel extends javax.swing.JPanel {
 
         panelSearchCode.setBackground(new java.awt.Color(255, 255, 255));
 
+        txtCodProducto.setForeground(new java.awt.Color(35, 35, 38));
         txtCodProducto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCodProductoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodProductoKeyTyped(evt);
             }
         });
 
@@ -1512,6 +1550,10 @@ public class productViewPanel extends javax.swing.JPanel {
             buscar();           
         }
     }//GEN-LAST:event_txtCodProductoKeyPressed
+
+    private void txtCodProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodProductoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodProductoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

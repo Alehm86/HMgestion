@@ -388,6 +388,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/product-return128.png"))); // NOI18N
 
         cboEntidad.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        cboEntidad.setForeground(new java.awt.Color(35, 35, 38));
 
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/exit-32.png"))); // NOI18N
 
@@ -443,6 +444,8 @@ public class productReturnPanel extends javax.swing.JPanel {
         jLabel30.setText("Tipo de compensación:");
 
         textObservaciones.setColumns(20);
+        textObservaciones.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        textObservaciones.setForeground(new java.awt.Color(35, 35, 38));
         textObservaciones.setRows(5);
         textObservaciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(101, 129, 171)));
         jScrollPane4.setViewportView(textObservaciones);
@@ -468,6 +471,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         });
 
         txtCantidad.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtCantidad.setForeground(new java.awt.Color(35, 35, 38));
         txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCantidadKeyTyped(evt);
@@ -567,6 +571,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         jLabel24.setText("Codigo de producto: ");
 
         txtProductCode.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtProductCode.setForeground(new java.awt.Color(35, 35, 38));
         txtProductCode.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtProductCodeKeyPressed(evt);
@@ -635,6 +640,8 @@ public class productReturnPanel extends javax.swing.JPanel {
 
         panelTableItems.setBackground(new java.awt.Color(255, 255, 255));
 
+        tableItems.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        tableItems.setForeground(new java.awt.Color(35, 35, 38));
         tableItems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -728,12 +735,14 @@ public class productReturnPanel extends javax.swing.JPanel {
         labelFecha.setText("-");
 
         txtSerie.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtSerie.setForeground(new java.awt.Color(35, 35, 38));
 
         lbl_product.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         lbl_product.setForeground(new java.awt.Color(35, 35, 38));
         lbl_product.setText("-");
 
         txtFactura.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtFactura.setForeground(new java.awt.Color(35, 35, 38));
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/search32.png"))); // NOI18N
 
@@ -823,6 +832,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         lbl_IVA_Client.setText("-");
 
         txtCuitClient.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtCuitClient.setForeground(new java.awt.Color(35, 35, 38));
         txtCuitClient.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCuitClientKeyTyped(evt);
@@ -834,6 +844,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         btnSerchClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/clientView32.png"))); // NOI18N
 
         txtTelClient.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtTelClient.setForeground(new java.awt.Color(35, 35, 38));
         txtTelClient.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtTelClientKeyTyped(evt);
@@ -841,6 +852,7 @@ public class productReturnPanel extends javax.swing.JPanel {
         });
 
         txtNameClient.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtNameClient.setForeground(new java.awt.Color(35, 35, 38));
 
         jLabel66.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         jLabel66.setText("Id cliente:");
@@ -892,21 +904,19 @@ public class productReturnPanel extends javax.swing.JPanel {
                     .addComponent(jLabel62, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCuitClient, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSerchCuitClient, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(btnSerchClient, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel64, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(lbl_IVA_Client, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel66, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_IdClient, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(btnSerchClient, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel64, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_IVA_Client, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel66, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_IdClient, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addGroup(jPanelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel63, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNameClient, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel65, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtTelClient, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtTelClient, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel63, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNameClient, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 

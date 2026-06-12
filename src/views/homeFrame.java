@@ -222,7 +222,7 @@ public class homeFrame extends javax.swing.JFrame {
         });
         
         jMenuListPresupuesto.addActionListener(e -> {
-            budgetListForm fListBudget = new budgetListForm();
+            budgetListDialog fListBudget = new budgetListDialog(null, true);
             fListBudget.setLocationRelativeTo(null);
             fListBudget.setVisible(true);
         });
@@ -332,7 +332,7 @@ public class homeFrame extends javax.swing.JFrame {
 
         btnProducts.setBackground(new java.awt.Color(101, 129, 171));
         btnProducts.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        btnProducts.setForeground(new java.awt.Color(240, 240, 242));
+        btnProducts.setForeground(new java.awt.Color(210, 215, 223));
         btnProducts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/homeProduct32.png"))); // NOI18N
         btnProducts.setText("Productos");
         btnProducts.setBorder(null);
@@ -356,7 +356,7 @@ public class homeFrame extends javax.swing.JFrame {
 
         btnCashRegister.setBackground(new java.awt.Color(101, 129, 171));
         btnCashRegister.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        btnCashRegister.setForeground(new java.awt.Color(240, 240, 242));
+        btnCashRegister.setForeground(new java.awt.Color(210, 215, 223));
         btnCashRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/homeSales32.png"))); // NOI18N
         btnCashRegister.setText("Ventas");
         btnCashRegister.setBorder(null);
@@ -380,8 +380,8 @@ public class homeFrame extends javax.swing.JFrame {
 
         btnClient.setBackground(new java.awt.Color(101, 129, 171));
         btnClient.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        btnClient.setForeground(new java.awt.Color(240, 240, 242));
-        btnClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/customers32_1.png"))); // NOI18N
+        btnClient.setForeground(new java.awt.Color(210, 215, 223));
+        btnClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/clientes32.png"))); // NOI18N
         btnClient.setText("Clientes");
         btnClient.setBorder(null);
         btnClient.setBorderPainted(false);
@@ -402,7 +402,7 @@ public class homeFrame extends javax.swing.JFrame {
 
         btnCtaCte.setBackground(new java.awt.Color(101, 129, 171));
         btnCtaCte.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        btnCtaCte.setForeground(new java.awt.Color(240, 240, 242));
+        btnCtaCte.setForeground(new java.awt.Color(210, 215, 223));
         btnCtaCte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/iconDashboard32-CtaCte.png"))); // NOI18N
         btnCtaCte.setText("Cta. Cte.");
         btnCtaCte.setBorder(null);
@@ -426,7 +426,7 @@ public class homeFrame extends javax.swing.JFrame {
 
         btnServiceTec.setBackground(new java.awt.Color(101, 129, 171));
         btnServiceTec.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        btnServiceTec.setForeground(new java.awt.Color(240, 240, 242));
+        btnServiceTec.setForeground(new java.awt.Color(210, 215, 223));
         btnServiceTec.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/homeService32.png"))); // NOI18N
         btnServiceTec.setText("Servicio");
         btnServiceTec.setBorder(null);
@@ -451,7 +451,7 @@ public class homeFrame extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(35, 35, 38));
 
         jLabelUser.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        jLabelUser.setForeground(new java.awt.Color(240, 240, 242));
+        jLabelUser.setForeground(new java.awt.Color(210, 215, 223));
         jLabelUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/user48.png"))); // NOI18N
         jLabelUser.setText("Usuario");
 
@@ -496,7 +496,7 @@ public class homeFrame extends javax.swing.JFrame {
 
         btnHome.setBackground(new java.awt.Color(101, 129, 171));
         btnHome.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
-        btnHome.setForeground(new java.awt.Color(240, 240, 242));
+        btnHome.setForeground(new java.awt.Color(210, 215, 223));
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/homeHome32.png"))); // NOI18N
         btnHome.setText("Home");
         btnHome.setBorder(null);
@@ -592,12 +592,12 @@ public class homeFrame extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(35, 35, 38));
 
-        jLabelHora.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        jLabelHora.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelHora.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabelHora.setForeground(new java.awt.Color(210, 215, 223));
         jLabelHora.setText("Hora");
 
-        jLabelFecha.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        jLabelFecha.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelFecha.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabelFecha.setForeground(new java.awt.Color(210, 215, 223));
         jLabelFecha.setText("Fecha");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -622,8 +622,8 @@ public class homeFrame extends javax.swing.JFrame {
         );
 
         jLabelTitle.setFont(new java.awt.Font("Poppins", 1, 36)); // NOI18N
-        jLabelTitle.setForeground(new java.awt.Color(0, 119, 182));
-        jLabelTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/OnOff(1).png"))); // NOI18N
+        jLabelTitle.setForeground(new java.awt.Color(12, 96, 197));
+        jLabelTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/OnOFF_64_2.png"))); // NOI18N
         jLabelTitle.setText("HmGestión");
 
         jPanelContent.setBackground(new java.awt.Color(255, 255, 255));
@@ -801,7 +801,7 @@ public class homeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProductsMouseEntered
 
     private void btnProductsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProductsMouseExited
-        btnProducts.setForeground(new Color(255,255,255));
+        btnProducts.setForeground(new Color(210,215,223));
     }//GEN-LAST:event_btnProductsMouseExited
 
     private void btnProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductsActionPerformed
@@ -813,7 +813,7 @@ public class homeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCashRegisterMouseEntered
 
     private void btnCashRegisterMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCashRegisterMouseExited
-        btnCashRegister.setForeground(new Color(255,255,255));
+        btnCashRegister.setForeground(new Color(210,215,223));
     }//GEN-LAST:event_btnCashRegisterMouseExited
 
     private void btnCashRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCashRegisterActionPerformed
@@ -825,7 +825,7 @@ public class homeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClientMouseEntered
 
     private void btnClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClientMouseExited
-        btnClient.setForeground(new Color(255,255,255));
+        btnClient.setForeground(new Color(210,215,223));
     }//GEN-LAST:event_btnClientMouseExited
 
     private void btnClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientActionPerformed
@@ -837,7 +837,7 @@ public class homeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCtaCteMouseEntered
 
     private void btnCtaCteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCtaCteMouseExited
-        btnCtaCte.setForeground(new Color(255,255,255));
+        btnCtaCte.setForeground(new Color(210,215,223));
     }//GEN-LAST:event_btnCtaCteMouseExited
 
     private void btnCtaCteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCtaCteActionPerformed
@@ -849,7 +849,7 @@ public class homeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnServiceTecMouseEntered
 
     private void btnServiceTecMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnServiceTecMouseExited
-        btnServiceTec.setForeground(new Color(255,255,255));
+        btnServiceTec.setForeground(new Color(210,215,223));
     }//GEN-LAST:event_btnServiceTecMouseExited
 
     private void btnServiceTecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServiceTecActionPerformed
@@ -861,7 +861,7 @@ public class homeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitMouseEntered
 
     private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
-        btnExit.setForeground(new Color(255,255,255));
+        btnExit.setForeground(new Color(210,215,223));
     }//GEN-LAST:event_btnExitMouseExited
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -873,7 +873,7 @@ public class homeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHomeMouseEntered
 
     private void btnHomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseExited
-        btnHome.setForeground(new Color(255,255,255));
+        btnHome.setForeground(new Color(210,215,223));
     }//GEN-LAST:event_btnHomeMouseExited
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed

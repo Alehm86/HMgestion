@@ -60,6 +60,7 @@ public class serviceListPanel extends javax.swing.JPanel {
              pServiceView.setVisible(true);
 
              estado = pServiceView.dialogoServiceActualizado();
+             
              if(estado){
                  qServices.listServices(jtableServices);
              }

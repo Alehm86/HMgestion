@@ -179,19 +179,20 @@ public class servicePrintDialog extends javax.swing.JDialog {
         lblDeviceDescription2 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
-        btnPrint = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        btnPrint = new javax.swing.JButton();
 
         lblName3.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         lblName3.setText("xxx");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("HM Gestión");
 
         jPanelPrint.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Wallpapers/Logo HM computacion.jpg"))); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Poppins", 0, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(65, 65, 63));
         jLabel6.setText("Orden de reparación");
 
@@ -468,7 +469,7 @@ public class servicePrintDialog extends javax.swing.JDialog {
         lblDate2.setForeground(new java.awt.Color(65, 65, 63));
         lblDate2.setText("xxx");
 
-        jLabel23.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Poppins", 0, 24)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(65, 65, 63));
         jLabel23.setText("Orden de reparación");
 
@@ -754,24 +755,14 @@ public class servicePrintDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jPanel8.setBackground(new java.awt.Color(101, 129, 171));
+        jPanel8.setBackground(new java.awt.Color(245, 248, 255));
 
-        btnPrint.setBackground(new java.awt.Color(255, 255, 255));
-        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/print32_1.png"))); // NOI18N
-        btnPrint.setBorder(null);
-        btnPrint.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnPrintMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnPrintMouseExited(evt);
-            }
-        });
-
-        jLabel8.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setFont(new java.awt.Font("Poppins", 0, 24)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(12, 83, 151));
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/serviceOrder64.png"))); // NOI18N
         jLabel8.setText("Orden de servicio técnico");
+
+        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/print32_1.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -789,8 +780,8 @@ public class servicePrintDialog extends javax.swing.JDialog {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel8)
-                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -813,14 +804,6 @@ public class servicePrintDialog extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnPrintMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseEntered
-        btnPrint.setBackground(new Color(255,215,0));
-    }//GEN-LAST:event_btnPrintMouseEntered
-
-    private void btnPrintMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseExited
-        btnPrint.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_btnPrintMouseExited
 
     public static void main(String args[]) {
 

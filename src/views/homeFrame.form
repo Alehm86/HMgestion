@@ -371,7 +371,7 @@
                   <Font name="Poppins" size="18" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="f2" green="f0" red="f0" type="rgb"/>
+                  <Color blue="df" green="d7" red="d2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Icons/homeProduct32.png"/>
@@ -412,7 +412,7 @@
                   <Font name="Poppins" size="18" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="f2" green="f0" red="f0" type="rgb"/>
+                  <Color blue="df" green="d7" red="d2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Icons/homeSales32.png"/>
@@ -453,10 +453,10 @@
                   <Font name="Poppins" size="18" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="f2" green="f0" red="f0" type="rgb"/>
+                  <Color blue="df" green="d7" red="d2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Icons/customers32_1.png"/>
+                  <Image iconType="3" name="/Icons/clientes32.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Clientes"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -488,7 +488,7 @@
                   <Font name="Poppins" size="18" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="f2" green="f0" red="f0" type="rgb"/>
+                  <Color blue="df" green="d7" red="d2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Icons/iconDashboard32-CtaCte.png"/>
@@ -529,7 +529,7 @@
                   <Font name="Poppins" size="18" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="f2" green="f0" red="f0" type="rgb"/>
+                  <Color blue="df" green="d7" red="d2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Icons/homeService32.png"/>
@@ -601,7 +601,7 @@
                       <Font name="Poppins" size="18" style="1"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="f2" green="f0" red="f0" type="rgb"/>
+                      <Color blue="df" green="d7" red="d2" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/Icons/user48.png"/>
@@ -657,7 +657,7 @@
                   <Font name="Poppins" size="18" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="f2" green="f0" red="f0" type="rgb"/>
+                  <Color blue="df" green="d7" red="d2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Icons/homeHome32.png"/>
@@ -761,10 +761,10 @@
             <Component class="javax.swing.JLabel" name="jLabelHora">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Poppins" size="18" style="1"/>
+                  <Font name="Poppins" size="18" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                  <Color blue="df" green="d7" red="d2" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Hora"/>
               </Properties>
@@ -772,10 +772,10 @@
             <Component class="javax.swing.JLabel" name="jLabelFecha">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Poppins" size="18" style="1"/>
+                  <Font name="Poppins" size="18" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                  <Color blue="df" green="d7" red="d2" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Fecha"/>
               </Properties>
@@ -788,10 +788,10 @@
               <Font name="Poppins" size="36" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="b6" green="77" red="0" type="rgb"/>
+              <Color blue="c5" green="60" red="c" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icons/OnOff(1).png"/>
+              <Image iconType="3" name="/Icons/OnOFF_64_2.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="HmGesti&#xf3;n"/>
           </Properties>

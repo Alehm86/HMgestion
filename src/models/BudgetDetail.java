@@ -12,6 +12,8 @@ public class BudgetDetail {
     double price;
     String iva;
     double subtotal;
+    String type;
+    Integer idProduct;
 
     public String getDescription() {
         return description;
@@ -53,16 +55,32 @@ public class BudgetDetail {
         this.subtotal = subtotal;
     }
 
-    public BudgetDetail(String description, int quantity, double price, String iva, double subtotal) {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Integer getIdProduct() {
+        return idProduct;
+    }
+
+    public void setIdProduct(Integer idProduct) {
+        this.idProduct = idProduct;
+    }
+
+    public BudgetDetail(String description, int quantity, double price, String iva, double subtotal, String type, Integer idProduct) {
         this.description = description;
         this.quantity = quantity;
         this.price = price;
         this.iva = iva;
         this.subtotal = subtotal;
+        this.type = type;
+        this.idProduct = idProduct;
     }
-
-
-    
+ 
     public BudgetDetail(){}
     
 }

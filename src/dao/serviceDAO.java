@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -470,7 +471,7 @@ public class serviceDAO {
                 lbl_state.setText(rs.getString("status_name"));
                 lbl_id_service.setText(rs.getString("id_service"));
                 lbl_serviceNumber.setText(serviceNumber);               
-                lbl_date.setText(rs.getString("entry_date"));
+                lbl_date.setText(rs.getDate("entry_date").toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 lbl_name.setText(rs.getString("customer_name"));
                 lbl_phone.setText(rs.getString("phone"));
                 lbl_deviceType.setText(rs.getString("device_type"));

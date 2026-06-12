@@ -145,7 +145,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
             buscarDevice();  
         });
         
-        btnCancel.addActionListener(e->{
+        btnRegistrar.addActionListener(e->{
             
             registrarServicio();                
             servicePrintDialog pPrintServiceOrder = new servicePrintDialog(parent, true);
@@ -546,8 +546,10 @@ public class serviceNewPanel extends javax.swing.JPanel {
         chkboxGarantia.setText("En garantia");
 
         txtParteA.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtParteA.setForeground(new java.awt.Color(35, 35, 38));
 
         txtParteB.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtParteB.setForeground(new java.awt.Color(35, 35, 38));
 
         btnSearchServiceOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/search32.png"))); // NOI18N
 
@@ -600,6 +602,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
         btnNewCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/clientNew32.png"))); // NOI18N
 
         txtSerialNumber.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtSerialNumber.setForeground(new java.awt.Color(35, 35, 38));
         txtSerialNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchBarCode32.png"))); // NOI18N
@@ -609,6 +612,8 @@ public class serviceNewPanel extends javax.swing.JPanel {
         btnNewDevice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/deviceAdd32.png"))); // NOI18N
 
         textAreaProblem.setColumns(20);
+        textAreaProblem.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        textAreaProblem.setForeground(new java.awt.Color(35, 35, 38));
         textAreaProblem.setRows(5);
         jScrollPane2.setViewportView(textAreaProblem);
 

@@ -114,17 +114,21 @@ public class budgetDAO {
         return idGenerado;
     } 
     
-    public void insertBudgetDetail(
+    public boolean insertBudgetDetail(
             int id_budget,
             String description,
+            String type,
+            int idProd,
             int quantity,
             double price,
             String iva,
-            double subtotal        
+            double subtotal    
         ){
         
-        String sql ="INSERT INTO `budget_detail`(`id_budget`, `description`, `quantity`, `price`, `iva`, `subtotal`) " +
-                    "VALUES (?,?,?,?,?,?)";
+        boolean status = false;
+        
+        String sql ="INSERT INTO `budget_detail`(`id_budget`, `description`, `type`, `id_product`, `quantity`, `price`, `iva`, `subtotal`) " +
+                    "VALUES (?,?,?,?,?,?,?,?)";
         
         Connection conexion = getConnection();
         
@@ -133,12 +137,22 @@ public class budgetDAO {
             
             pstmt.setInt(1, id_budget);
             pstmt.setString(2, description);
-            pstmt.setInt(3, quantity);
-            pstmt.setDouble(4, price);
-            pstmt.setString(5, iva);
-            pstmt.setDouble(6, subtotal);
+            pstmt.setString(3, type);
+            
+            if (idProd > 0) {
+                pstmt.setInt(4, idProd);
+            } else {
+                pstmt.setNull(4, java.sql.Types.INTEGER);
+            }
+            
+            pstmt.setInt(5, quantity);
+            pstmt.setDouble(6, price);
+            pstmt.setString(7, iva);
+            pstmt.setDouble(8, subtotal);
             
             pstmt.executeUpdate();   
+            
+            status = true;
             
             conexion.close(); 
             pstmt.close();
@@ -147,7 +161,7 @@ public class budgetDAO {
         catch(SQLException e){
             JOptionPane.showMessageDialog(null, "ERROR AL REGISTRAR DETALLE: " + e.getMessage());
         }
-        
+        return status;
     }
     
     public void selectBudget(      
@@ -176,7 +190,7 @@ public class budgetDAO {
 
         Connection conexion = getConnection();
 
-        String[] titulo = new String[]{"Items", "Cant", "Precio Unit", "IVA","Total"};
+        String[] titulo = new String[]{"Items", "Cant", "P. Unit. IVA Inc.", "IVA","Total"};
         dtm.setColumnIdentifiers(titulo);
 
         try{

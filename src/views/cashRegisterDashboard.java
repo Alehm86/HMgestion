@@ -16,7 +16,7 @@ public class cashRegisterDashboard extends javax.swing.JPanel {
         initComponents();
         
         btnSales.addActionListener(e->{
-            salesPanel pSales = new salesPanel();
+            salesRegisterPanel pSales = new salesRegisterPanel();
             pSales.setSize(1750, 800);
             pSales.setLocation(0, 0);
 
