@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -504,12 +505,12 @@ public class budgetDAO {
                 Integer idService = (idServiceObj != null) ? (Integer) idServiceObj : null;
 
                 Object[] row = {
-                    rs.getDate("date"),
+                    rs.getDate("date").toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     rs.getString("nro_budget"),
                     rs.getString("customer_name"),
                     rs.getString("service_number"),
                     total,
-                    rs.getDate("expiration_date"),
+                    rs.getDate("expiration_date").toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     rs.getString("state_name"),
                     rs.getInt("id_budget"),
                     idService
@@ -558,6 +559,24 @@ public class budgetDAO {
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
+    }
+    
+    public void actualizarPresupuestosVencidos(){
+        
+        String sql= "UPDATE budget SET id_state  = 4 WHERE expiration_date < CURDATE() AND id_state  = 1";
+        
+        Connection conexion = getConnection();
+        
+        try{
+            PreparedStatement pstmt = conexion.prepareStatement(sql);           
+            pstmt.executeUpdate();
+            
+            //aca tenemos que agregarlo al dashboard informativo
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+       
     }
     
 }

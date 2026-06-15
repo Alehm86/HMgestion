@@ -403,7 +403,13 @@ public class budgetDialog extends javax.swing.JDialog {
         if(cboType.getSelectedIndex()>-1){
             
             type = cboType.getSelectedItem().toString().trim();
-            mBdetail.setType(type);
+            
+            if("Producto".equals(type)){
+                mBdetail.setType("product");
+            }else if("Servicio".equals(type)){
+                mBdetail.setType("service");
+            }
+         
         }else{
             JOptionPane.showMessageDialog(null, "Debe selecionar el tipo Item");
             estado = false;

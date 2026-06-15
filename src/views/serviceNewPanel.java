@@ -5,6 +5,7 @@
 package views;
 
 import dao.customerDAO;
+import dao.devicesDAO;
 import dao.serviceDAO;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
@@ -19,6 +20,7 @@ import models.Service;
 public class serviceNewPanel extends javax.swing.JPanel {
 
     customerDAO qCustomer = new customerDAO();
+    devicesDAO qDevices = new devicesDAO();
     serviceDAO qService = new serviceDAO();
     
     Device device = new Device();
@@ -26,7 +28,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
     
     int id_service = -1;
     String cuitClient = "";
-    String snDevice;
+    String snDevice = "";
 
     JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
     
@@ -43,8 +45,8 @@ public class serviceNewPanel extends javax.swing.JPanel {
         
         btnNewCustomer.setToolTipText("Alta cliente nuevo");
         btnCancel.setToolTipText("Borrar");
-        btnSearch.setToolTipText("Buscar por número de serie");
-        bntSearchByCustomer.setToolTipText("Seleccioná un dispositivo de la lista");
+        btnSearchDeviceSN.setToolTipText("Buscar por número de serie");
+        bntDeviceCustomer.setToolTipText("Seleccioná un dispositivo de la lista");
         btnNewDevice.setToolTipText("Registrar dispositivo");
     }
     
@@ -55,7 +57,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
         txtName.setEditable(false);
         txtPhone.setEditable(false);
         
-        lbl_id.setText("");       
+        lbl_id.setText("0");       
         lblDevice.setText("");
         lblBrand.setText("");
         lblModel.setText("");
@@ -84,30 +86,35 @@ public class serviceNewPanel extends javax.swing.JPanel {
             }
         });
         
-        bntSearchByCustomer.addActionListener(e->{
+        bntDeviceCustomer.addActionListener(e->{
             
-            JTable tabla = new JTable();
-            boolean dato = false;
+//            JTable tabla = new JTable();
+            boolean deviceExist = false;
             
+            int idClient = Integer.parseInt(lbl_id.getText().trim());   
             
-            customerDevicesDialog pCustDev = new customerDevicesDialog(parent, true);         
-            if(!lbl_id.getText().isEmpty()){
+            if(idClient > 0){   
+                         
+                deviceExist = qDevices.deviceExist(idClient);
                 
-                int idClient = Integer.parseInt(lbl_id.getText().trim());
-                dato = dato = qCustomer.listCustomerDevices(tabla, idClient);
-                
-                if(dato){
+                if(deviceExist){
+                    
+                    customerDevicesDialog pCustDev = new customerDevicesDialog(parent, true);   
+                    
                     pCustDev.setIdCustomer(idClient);
+                    
                     pCustDev.setVisible(true); 
+                    
+                    snDevice = pCustDev.getSerialNumberDevice();
+                
+                    if(!snDevice.isEmpty()){
+                        buscarDevice();
+                    }
+                    
                 }else{
                     JOptionPane.showMessageDialog(null, "No hay dispositivos vinculados");
                 }
-
-                snDevice = pCustDev.getSerialNumberDevice();
-                if(!snDevice.isEmpty()){
-                    buscarDevice();
-                }
-                          
+                
             }else{
                 JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente.");
             }
@@ -131,15 +138,25 @@ public class serviceNewPanel extends javax.swing.JPanel {
             
             int idClient = Integer.parseInt(lbl_id.getText().trim());
             
-            serviceNewDeviceDialog pNewDevice = new serviceNewDeviceDialog(parent, true);   
-            pNewDevice.setIdClient(idClient);
-            pNewDevice.setVisible(true);
-            snDevice = pNewDevice.getSNDevice();
-            
-            buscarDevice();
+            if(idClient > 0){
+                serviceNewDeviceDialog pNewDevice = new serviceNewDeviceDialog(parent, true);   
+                
+                pNewDevice.setIdClient(idClient);
+                
+                pNewDevice.setVisible(true);
+                
+                snDevice = pNewDevice.getSNDevice();
+                
+                if(!snDevice.isEmpty()){
+                    buscarDevice();
+                }
+                
+            }else{
+                JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente.");
+            }                  
         });
         
-        btnSearch.addActionListener(e->{
+        btnSearchDeviceSN.addActionListener(e->{
             
             snDevice = txtSerialNumber.getText().toString().trim();
             buscarDevice();  
@@ -167,8 +184,8 @@ public class serviceNewPanel extends javax.swing.JPanel {
                 btnBuscar.setEnabled(false);
                 btnNewCustomer.setEnabled(false);
                 txtSerialNumber.setEnabled(false);
-                btnSearch.setEnabled(false);
-                bntSearchByCustomer.setEnabled(false);
+                btnSearchDeviceSN.setEnabled(false);
+                bntDeviceCustomer.setEnabled(false);
                 btnNewDevice.setEnabled(false);
                 
             }else{
@@ -180,8 +197,8 @@ public class serviceNewPanel extends javax.swing.JPanel {
                 btnBuscar.setEnabled(true);
                 btnNewCustomer.setEnabled(true);
                 txtSerialNumber.setEnabled(true);
-                btnSearch.setEnabled(true);
-                bntSearchByCustomer.setEnabled(true);
+                btnSearchDeviceSN.setEnabled(true);
+                bntDeviceCustomer.setEnabled(true);
                 btnNewDevice.setEnabled(true);
             }
         });
@@ -340,8 +357,8 @@ public class serviceNewPanel extends javax.swing.JPanel {
         btnBuscar = new javax.swing.JButton();
         btnNewCustomer = new javax.swing.JButton();
         txtSerialNumber = new javax.swing.JTextField();
-        btnSearch = new javax.swing.JButton();
-        bntSearchByCustomer = new javax.swing.JButton();
+        btnSearchDeviceSN = new javax.swing.JButton();
+        bntDeviceCustomer = new javax.swing.JButton();
         btnNewDevice = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         textAreaProblem = new javax.swing.JTextArea();
@@ -605,9 +622,9 @@ public class serviceNewPanel extends javax.swing.JPanel {
         txtSerialNumber.setForeground(new java.awt.Color(35, 35, 38));
         txtSerialNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchBarCode32.png"))); // NOI18N
+        btnSearchDeviceSN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchBarCode32.png"))); // NOI18N
 
-        bntSearchByCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/device32_1.png"))); // NOI18N
+        bntDeviceCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/device32_1.png"))); // NOI18N
 
         btnNewDevice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/deviceAdd32.png"))); // NOI18N
 
@@ -652,9 +669,9 @@ public class serviceNewPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtSerialNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSearchDeviceSN, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bntSearchByCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bntDeviceCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnNewDevice, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -721,8 +738,8 @@ public class serviceNewPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel7)
                     .addComponent(txtSerialNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bntSearchByCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchDeviceSN, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bntDeviceCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNewDevice, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -804,7 +821,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
                     e.consume();
                 }
             }
-        });        // TODO add your handling code here:
+        });  
     }//GEN-LAST:event_txtPhoneKeyPressed
 
     private void btnRegistrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseEntered
@@ -827,13 +844,13 @@ public class serviceNewPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bntSearchByCustomer;
+    private javax.swing.JButton bntDeviceCustomer;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnNewCustomer;
     private javax.swing.JButton btnNewDevice;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnSearchDeviceSN;
     private javax.swing.JButton btnSearchServiceOrder;
     private javax.swing.JCheckBox chkboxGarantia;
     private javax.swing.JLabel jLabel1;

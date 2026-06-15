@@ -6,7 +6,6 @@ package views;
 
 import dao.genericDAO;
 import dao.productDAO;
-import java.awt.Color;
 import javax.swing.JOptionPane;
 
 public class productCategoriesNewDialog extends javax.swing.JDialog {
@@ -32,12 +31,12 @@ public class productCategoriesNewDialog extends javax.swing.JDialog {
   
     void newCategory(){
         
-        if(!qGeneric.nameExists(txtName.getText(), "categories")){
+        if(!qGeneric.nameExists(txtName.getText(), "product_categories")){
             
             categoriaCreada = txtName.getText().toUpperCase();
-            qProduct.insertCategory(txtName.getText().toUpperCase(), state);
+            qProduct.insertCategory(categoriaCreada, state);
             
-            JOptionPane.showMessageDialog(null, "Categoria creada");
+//            JOptionPane.showMessageDialog(null, "Categoria creada");
             
             int msjNuevo = JOptionPane.showConfirmDialog(
                 this,

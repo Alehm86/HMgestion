@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -176,7 +177,7 @@ public class customerDAO {
     
     public void updateState(int id_customer, int state){    
     
-        String sql = "UPDATE customer SET id_state=? WHERE id_customer =?";      
+        String sql = "UPDATE customer SET id_state = ? WHERE id_customer = ?";      
         
         Connection conexion = getConnection();  
         
@@ -893,7 +894,7 @@ public class customerDAO {
 
             while (rs.next()) {
                 Object[] row = {
-                    rs.getString("date"),
+                    rs.getDate("date").toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     rs.getString("action"),
                     rs.getString("information")
                 };
@@ -918,61 +919,9 @@ public class customerDAO {
         }
     }   
     
-    public boolean listCustomerDevices(JTable jtable, int id_customer){
-
-        String sql = "SELECT DISTINCT " +
-                    "d.device_type, " +
-                    "COALESCE(d.brand, 'S/D') AS brand, " +
-                    "COALESCE(d.model, 'S/D') AS model, " +
-                    "d.serial_number " +
-                    "FROM service_orders s " +
-                    "INNER JOIN devices d " +
-                    "ON s.id_device = d.id_device " +
-                    "WHERE s.id_customer = ?";
-        
-        boolean dato = false;
-
-        DefaultTableModel dtm = crearModeloNoEditable();
-
-        Connection conexion = getConnection();
-
-        String[] titleTable = {"Tipo","Marca","Modelo","Numero de serie"};
-        dtm.setColumnIdentifiers(titleTable);
-
-        try{
-            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
-            pstmt.setInt(1, id_customer);
-            
-            ResultSet rs = pstmt.executeQuery(); 
-
-            while (rs.next()) {
-
-                dato = true;
-                
-                Object[] row = {
-                    rs.getString("device_type"),
-                    rs.getString("brand"),
-                    rs.getString("model"),
-                    rs.getString("serial_number"),
-                };
-                dtm.addRow(row);
-            }
-
-            jtable.setModel(dtm);
-            
-            tableStyleUtil.applyPoppinsHeader(jtable);
-
-            rs.close();
-            pstmt.close();
-            conexion.close();
-
-        } catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
-        }
-        return dato;
-    }    
     
     
     
+
     
 }

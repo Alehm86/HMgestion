@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Frame;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.regex.Pattern;
@@ -158,13 +159,18 @@ public class productListPanel extends javax.swing.JPanel {
 
         btnEdit.addActionListener(e->{
             
-            int id = qProduct.selectIdProduct(filaSeleccionada);
+            if(!filaSeleccionada.isEmpty()){
+                int id = qProduct.selectIdProduct(filaSeleccionada);
             
-            productEditFrame editP = new productEditFrame();
-            editP.dialogoEdit(id);
-            editP.setVisible(true);
+                productEditFrame editP = new productEditFrame();
+                editP.dialogoEdit(id);
+                editP.setVisible(true);
+
+                filtrarPorCombos();
+            }else{
+                JOptionPane.showMessageDialog(null, "¡Debe seleccionar un producto de la lista!");
+            }
             
-            filtrarPorCombos();
         });
         
         btnEditPrice.addActionListener(e->{
@@ -190,17 +196,7 @@ public class productListPanel extends javax.swing.JPanel {
         });
                        
         btnSerchCode.addActionListener(e -> { 
-            
-            tableProducts.setRowCount(0);
-            String productCode = txtCodProduct.getText().trim();
-
-            if (!productCode.isEmpty() && !productCode.equals("código de producto.")) {
-                qProduct.listTableProducts(jtablePrducts, productCode);
-                txtCodProduct.setText("");
-            } else {
-                JOptionPane.showMessageDialog(null, "¡Debe ingresar un código de producto!");
-                txtCodProduct.requestFocus();
-            }
+            buscarProduct();          
         });
         
         btnSerchCode2.addActionListener(e -> {
@@ -225,7 +221,20 @@ public class productListPanel extends javax.swing.JPanel {
                 }            
             }
         });
-    }    
+    }  
+    
+    private void buscarProduct(){
+        tableProducts.setRowCount(0);
+            String productCode = txtCodProduct.getText().trim();
+
+            if (!productCode.isEmpty() && !productCode.equals("código de producto.")) {
+                qProduct.listTableProducts(jtablePrducts, productCode);
+                txtCodProduct.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "¡Debe ingresar un código de producto!");
+                txtCodProduct.requestFocus();
+            }
+    }
     
     public class ColorRenderPrecio extends DefaultTableCellRenderer {
         @Override
@@ -333,14 +342,14 @@ public class productListPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1750, 865));
 
-        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setBackground(new java.awt.Color(245, 248, 255));
 
         jLabel5.setFont(new java.awt.Font("Poppins", 0, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(12, 83, 151));
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/productosCatalogo64.png"))); // NOI18N
         jLabel5.setText("Productos");
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(245, 248, 255));
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/editar-32.png"))); // NOI18N
 
@@ -367,7 +376,7 @@ public class productListPanel extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(245, 248, 255));
 
         jLabel1.setFont(new java.awt.Font("Raleway", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(12, 83, 151));
@@ -398,6 +407,11 @@ public class productListPanel extends javax.swing.JPanel {
 
         txtCodProduct.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtCodProduct.setForeground(new java.awt.Color(35, 35, 38));
+        txtCodProduct.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCodProductKeyPressed(evt);
+            }
+        });
 
         btnSerchCode.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/search32.png"))); // NOI18N
 
@@ -530,6 +544,12 @@ public class productListPanel extends javax.swing.JPanel {
     private void cboSubcategoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSubcategoriesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboSubcategoriesActionPerformed
+
+    private void txtCodProductKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodProductKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) { 
+            buscarProduct();          
+        }
+    }//GEN-LAST:event_txtCodProductKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

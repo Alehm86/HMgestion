@@ -5,17 +5,19 @@
 package views;
 
 import dao.customerDAO;
+import dao.devicesDAO;
 import javax.swing.JOptionPane;
 
 public class customerDevicesDialog extends javax.swing.JDialog {
 
     customerDAO qCustomer = new customerDAO(); 
+    devicesDAO qDevices = new devicesDAO();
     
     String serialNumberDevice = "";
 
     public void setIdCustomer(int id_customer){
         qCustomer.nameCustomer(id_customer, lbl_titulo);
-        qCustomer.listCustomerDevices(tableDevice, id_customer);     
+        qDevices.listCustomerDevices(tableDevice, id_customer);     
     }
     
     public String getSerialNumberDevice(){

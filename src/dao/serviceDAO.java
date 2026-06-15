@@ -271,6 +271,7 @@ public class serviceDAO {
 
                 Object[] row = {
                     rs.getString("entry_date"),
+//                    .toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
                     rs.getString("service_number"),
                     rs.getString("customer_name"),
                     rs.getString("device_type"),
@@ -378,35 +379,35 @@ public class serviceDAO {
             switch (status) {
 
                 case "INGRESADO":
-                    c.setBackground(Color.decode("#F5F5F5")); // gris claro (neutro)
+                    c.setBackground(Color.decode("#F5F5F5")); 
                     break;
 
                 case "DIAGNOSTICADO":
-                    c.setBackground(Color.decode("#BBDEFB")); // azul claro
+                    c.setBackground(Color.decode("#BBDEFB"));
                     break;
 
                 case "ESPERANDO APROBACION":
-                    c.setBackground(Color.decode("#FFE0B2")); // naranja suave
+                    c.setBackground(Color.decode("#FFE0B2")); 
                     break;
 
                 case "PRESUPUESTO APROBADO":
-                    c.setBackground(Color.decode("#C8E6C9")); // verde claro
+                    c.setBackground(Color.decode("#C8E6C9")); 
                     break;
 
                 case "PRESUPUESTO RECHAZADO":
-                    c.setBackground(Color.decode("#FFCDD2")); // rojo claro
+                    c.setBackground(Color.decode("#FFCDD2"));
                     break;
 
                 case "NO REPARADO":
-                    c.setBackground(Color.decode("#EF9A9A")); // rojo más fuerte
+                    c.setBackground(Color.decode("#EF9A9A")); 
                     break;
 
                 case "REPARADO":
-                    c.setBackground(Color.decode("#A5D6A7")); // verde
+                    c.setBackground(Color.decode("#A5D6A7")); 
                     break;
 
                 case "ENTREGADO":
-                    c.setBackground(Color.decode("#D1C4E9")); // violeta suave (cerrado)
+                    c.setBackground(Color.decode("#D1C4E9"));
                     break;
 
                 default:
@@ -711,8 +712,7 @@ public class serviceDAO {
                     "FROM service_orders AS so " +
                     "INNER JOIN customer c ON so.id_customer = c.id_customer " +
                     "INNER JOIN devices d ON so.id_device = d.id_device " +
-                    "WHERE so.service_number = ? AND so.id_status = 8";
-        
+                    "WHERE so.service_number = ? AND so.id_status = 8";        
         
         Connection conexion = getConnection();
             
@@ -738,7 +738,6 @@ public class serviceDAO {
                 lblModel.setText(rs.getString("model"));
                 lblDescription.setText(rs.getString("description"));
                 textAreaProblem.setText(texto);
-
 
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró servicio técnico");

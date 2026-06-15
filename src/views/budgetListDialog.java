@@ -5,18 +5,25 @@
 package views;
 
 import dao.budgetDAO;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
 
 public class budgetListDialog extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(budgetListDialog.class.getName());
     
-    budgetDAO qService = new budgetDAO();
+    budgetDAO qBudget = new budgetDAO();
     
     int id_budget;
     int id_service;
@@ -51,11 +58,15 @@ public class budgetListDialog extends javax.swing.JDialog {
         
         leyendaBotones();       
         actions();
-        listadoInicial();
+        listadoInicial();   
+        
+
+        
     }
 
     private void listadoInicial(){
-        qService.listBudgets(jTableBudgets, "30 días", "Todos");
+        qBudget.listBudgets(jTableBudgets, "30 días", "Todos");
+        jTableBudgets.getColumnModel().getColumn(5).setCellRenderer(new vencimientoColorRenderer());
     }
     
     private void combo(){
@@ -94,15 +105,18 @@ public class budgetListDialog extends javax.swing.JDialog {
     private void actions(){
            
         ActionListener filtroListener = e -> {
+            
             String fecha = cboFiltroFecha.getSelectedItem().toString();
             String estado = cboFiltroEstado.getSelectedItem().toString();
  
-            if(status>0){
-                qService.listBudgets(jTableBudgets, fecha, estado);
-                filtrarPresupuestos();
+            if(status > 0){
+                qBudget.listBudgets(jTableBudgets, fecha, estado);
+                filtrarPresupuestos();             
             }else{
-                qService.listBudgets(jTableBudgets, fecha, estado);
+                qBudget.listBudgets(jTableBudgets, fecha, estado);
             }
+            jTableBudgets.getColumnModel().getColumn(5).setCellRenderer(new vencimientoColorRenderer());
+            jTableBudgets.getColumnModel().getColumn(6).setCellRenderer(new colorRenderEstado());
         };
 
         cboFiltroFecha.addActionListener(filtroListener);
@@ -148,7 +162,7 @@ public class budgetListDialog extends javax.swing.JDialog {
                 return;
             }
             
-            qService.cancelBudget(id_service);
+            qBudget.cancelBudget(id_service);
             listadoInicial();
           
         });
@@ -176,6 +190,62 @@ public class budgetListDialog extends javax.swing.JDialog {
 
         this.setVisible(true);
     }
+    
+    public class vencimientoColorRenderer extends DefaultTableCellRenderer {
+
+        private final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        @Override
+        public Component getTableCellRendererComponent(
+                JTable table,
+                Object value,
+                boolean isSelected,
+                boolean hasFocus,
+                int row,
+                int column) {
+
+            setHorizontalAlignment(SwingConstants.CENTER);
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            c.setForeground(new Color(65,65,63));
+
+            try {
+
+                LocalDate hoy = LocalDate.now();
+                LocalDate vencimiento = LocalDate.parse(value.toString(), formato);
+
+                if (vencimiento.isBefore(hoy)) {
+                    c.setForeground(Color.RED);
+                } else {
+                    c.setForeground(new Color(65,65,63));
+                }
+
+            } catch (Exception e) {
+                System.out.println("ERROR: " + e.getMessage());
+            }
+
+            return c;
+        }
+    }
+    
+    public class colorRenderEstado extends DefaultTableCellRenderer {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, 
+                boolean isSelected, boolean hasFocus, int row, int column) {
+
+            setHorizontalAlignment(SwingConstants.CENTER);
+            Component estado = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            if (value != null && "Vencido".equals(value.toString())) {
+                estado.setForeground(Color.RED);
+            } else {
+                estado.setForeground(isSelected ? table.getSelectionForeground() : table.getForeground());
+            }
+
+            return estado;
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -236,11 +306,10 @@ public class budgetListDialog extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelSeparador4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanelSeparador4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -342,12 +411,12 @@ public class budgetListDialog extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnSelectProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -361,8 +430,8 @@ public class budgetListDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -387,28 +456,8 @@ public class budgetListDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {

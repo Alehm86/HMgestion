@@ -5,16 +5,12 @@
 package views;
 
 import dao.serviceDAO;
-import java.awt.Color;
 import java.awt.Point;
-import java.awt.Window;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 
 public class serviceSearchListDialog extends javax.swing.JDialog {
     

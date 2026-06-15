@@ -127,7 +127,7 @@ public class productDAO {
 
     public void insertCategory(String name, int state){
         
-        String sql="INSERT INTO `product_categories`(`name`, `state`) VALUES (?,?)";
+        String sql="INSERT INTO product_categories(name, state) VALUES (?,?)";
         
         Connection conexion = getConnection();
        
@@ -623,8 +623,7 @@ public class productDAO {
                      "INNER JOIN product_brands b ON p.id_brand = b.id_brand " +
                      "INNER JOIN product_price pr ON p.id_product = pr.id_product " +
                      "INNER JOIN product_stock st ON p.id_product = st.id_product " +
-                     "WHERE p.product_code = ? " +
-                     "ORDER BY name ASC";
+                     "WHERE p.product_code = ? ";
 
         DefaultTableModel dtm = crearModeloNoEditable();
         
@@ -1462,64 +1461,6 @@ public class productDAO {
             return descripcion;
         }
     }
-    
-//    public void listProductSN(int id_product, int factura, JTable tabla){
-//        
-//        String sql= "SELECT " +
-//                    "ps.id_product, " +
-//                    "subc.name AS subcat, " +
-//                    "pb.name AS brand, " +
-//                    "p.model AS model, " +
-//                    "COALESCE(p.color, '') AS color, " +
-//                    "ps.serial_number AS serialNumber " +
-//                    "FROM product_serials AS ps " +
-//                    "INNER JOIN products p ON ps.id_product = p.id_product " +
-//                    "INNER JOIN product_subcategories subc ON p.id_subcategory = subc.id_subcategory " +
-//                    "INNER JOIN product_brands pb ON p.id_brand = pb.id_brand " +
-//                    "WHERE ps.id_purchase_invoice = ? AND ps.id_product = ?";
-//        
-//        Connection conexion = getConnection();
-//        
-//        DefaultTableModel dtm = crearModeloNoEditable();
-//        
-//        String[] titleTable = {"id","Producto","Numero de serie"};
-//        dtm.setColumnIdentifiers(titleTable);
-//        
-//        try {
-//
-//            PreparedStatement pstmt = conexion.prepareStatement(sql);
-//            pstmt.setInt(1, factura);
-//            pstmt.setInt(2, id_product);
-//            
-//            ResultSet rs = pstmt.executeQuery();
-//
-//            while(rs.next()){
-//
-//                int idProduct = rs.getInt("id_product");
-//
-//                String subcat = rs.getString("subcat");
-//                String brand = rs.getString("brand");
-//                String model = rs.getString("model");
-//                String color = rs.getString("color");
-//
-//                String item = subcat + " " + brand + " " + model + " " + color;
-//
-//                Object[] row = {
-//                    idProduct,
-//                    item,
-//                    rs.getString("serialNumber")
-//                };
-//                dtm.addRow(row);
-//            }
-//
-//            conexion.close();
-//
-//        } catch(SQLException e){
-//            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
-//        }
-//        
-//        
-//    }
     
     public void listProductSN(int id_product,int factura,DefaultTableModel dtm){
 

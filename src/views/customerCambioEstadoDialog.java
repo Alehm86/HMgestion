@@ -10,7 +10,7 @@ import utils.utility;
 
 public class customerCambioEstadoDialog extends javax.swing.JDialog {
 
-    customerDAO queriesCustomer= new customerDAO();
+    customerDAO qCustomer= new customerDAO();
     
     utility utils = new utility();    
     
@@ -49,7 +49,7 @@ public class customerCambioEstadoDialog extends javax.swing.JDialog {
 
     public void actions(){
 
-        btnCambioEstado.addActionListener(e -> {
+        btnConfirm.addActionListener(e -> {
 
             int state = -1;
             String action;
@@ -89,8 +89,8 @@ public class customerCambioEstadoDialog extends javax.swing.JDialog {
                 return;
             }
 
-            queriesCustomer.updateState(id_client, state);
-            queriesCustomer.insertCustomerHistory(id_client, action, detalle);
+            qCustomer.updateState(id_client, state);
+            qCustomer.insertCustomerHistory(id_client, action, detalle);
             
             estado=true;
             dispose();
@@ -109,7 +109,7 @@ public class customerCambioEstadoDialog extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
         btnCancel = new javax.swing.JButton();
-        btnCambioEstado = new javax.swing.JButton();
+        btnConfirm = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         textAreaMotivo = new javax.swing.JTextArea();
 
@@ -137,14 +137,14 @@ public class customerCambioEstadoDialog extends javax.swing.JDialog {
             }
         });
 
-        btnCambioEstado.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        btnCambioEstado.setForeground(new java.awt.Color(12, 83, 151));
-        btnCambioEstado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
-        btnCambioEstado.setText("Confirmar");
-        btnCambioEstado.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        btnCambioEstado.addActionListener(new java.awt.event.ActionListener() {
+        btnConfirm.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnConfirm.setForeground(new java.awt.Color(12, 83, 151));
+        btnConfirm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ok32.png"))); // NOI18N
+        btnConfirm.setText("Confirmar");
+        btnConfirm.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCambioEstadoActionPerformed(evt);
+                btnConfirmActionPerformed(evt);
             }
         });
 
@@ -158,22 +158,23 @@ public class customerCambioEstadoDialog extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnCambioEstado))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(lblTitle))
-                                .addComponent(jLabel1))
-                            .addGap(247, 247, 247))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTitle))
+                            .addComponent(jLabel1)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnConfirm))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -187,18 +188,18 @@ public class customerCambioEstadoDialog extends javax.swing.JDialog {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCambioEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,9 +214,9 @@ public class customerCambioEstadoDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void btnCambioEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambioEstadoActionPerformed
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCambioEstadoActionPerformed
+    }//GEN-LAST:event_btnConfirmActionPerformed
 
     public static void main(String args[]) {
 
@@ -235,8 +236,8 @@ public class customerCambioEstadoDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCambioEstado;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnConfirm;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

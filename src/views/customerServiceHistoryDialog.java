@@ -4,6 +4,7 @@
  */
 package views;
 
+import dao.customerDAO;
 import dao.serviceDAO;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -24,7 +25,7 @@ public class customerServiceHistoryDialog extends javax.swing.JDialog {
     
     public boolean getServices(int id_customer){      
         boolean valido = false;
-        valido = qServices.serviceHistory(id_customer, tableServices);
+        valido = qServices.serviceHistory(id_customer, tableHistory);
         
         if(!valido){
             this.dispose();            
@@ -36,14 +37,14 @@ public class customerServiceHistoryDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
-        tableServices.addMouseListener(new MouseAdapter(){
+        tableHistory.addMouseListener(new MouseAdapter(){
             public void mousePressed(MouseEvent Mouse_evt){
                 JTable tablaO =(JTable) Mouse_evt.getSource();
                 Point point = Mouse_evt.getPoint();
                 int row = tablaO.rowAtPoint(point);
                          
                 if(Mouse_evt.getClickCount()==1){
-                    serviceSelected = String.valueOf(tableServices.getValueAt(tableServices.getSelectedRow(), 1).toString()); 
+                    serviceSelected = String.valueOf(tableHistory.getValueAt(tableHistory.getSelectedRow(), 1).toString()); 
                 }
                 else{
                 }            
@@ -79,7 +80,7 @@ public class customerServiceHistoryDialog extends javax.swing.JDialog {
 
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tableServices = new javax.swing.JTable();
+        tableHistory = new javax.swing.JTable();
         btnSelect = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -90,9 +91,9 @@ public class customerServiceHistoryDialog extends javax.swing.JDialog {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        tableServices.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        tableServices.setForeground(new java.awt.Color(65, 65, 63));
-        tableServices.setModel(new javax.swing.table.DefaultTableModel(
+        tableHistory.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        tableHistory.setForeground(new java.awt.Color(65, 65, 63));
+        tableHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -103,15 +104,15 @@ public class customerServiceHistoryDialog extends javax.swing.JDialog {
 
             }
         ));
-        tableServices.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tableServices.setFillsViewportHeight(true);
-        tableServices.setRowHeight(30);
-        tableServices.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableHistory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tableHistory.setFillsViewportHeight(true);
+        tableHistory.setRowHeight(30);
+        tableHistory.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableServicesMouseClicked(evt);
+                tableHistoryMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(tableServices);
+        jScrollPane3.setViewportView(tableHistory);
 
         btnSelect.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnSelect.setForeground(new java.awt.Color(12, 83, 151));
@@ -203,10 +204,10 @@ public class customerServiceHistoryDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tableServicesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableServicesMouseClicked
+    private void tableHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableHistoryMouseClicked
         if (evt.getClickCount() == 2) {
 
-            int fila = tableServices.getSelectedRow();
+            int fila = tableHistory.getSelectedRow();
 
             if (fila != -1) {
                 viewService();      
@@ -214,7 +215,7 @@ public class customerServiceHistoryDialog extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "Seleccione una fila");
             }
         }         // TODO add your handling code here:
-    }//GEN-LAST:event_tableServicesMouseClicked
+    }//GEN-LAST:event_tableHistoryMouseClicked
 
     public static void main(String args[]) {
 
@@ -240,6 +241,6 @@ public class customerServiceHistoryDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanelSeparador2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable tableServices;
+    private javax.swing.JTable tableHistory;
     // End of variables declaration//GEN-END:variables
 }

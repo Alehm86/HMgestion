@@ -31,6 +31,16 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
+        inicializar();
+        actions();
+    }
+    
+    private void inicializar(){
+        
+        txtEquipo.setVisible(false);
+
+        cboEquipo.removeAllItems();
+        
         cboEquipo.addItem("Seleccionar");
         cboEquipo.addItem("PC");
         cboEquipo.addItem("Notebook");
@@ -43,15 +53,6 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         cboEquipo.setSelectedIndex(0);
         
         btnSerialNumber.setToolTipText("Generar número aleatorio.");
-        
-        inicializar();
-        actions();
-    }
-    
-    private void inicializar(){
-        
-        txtEquipo.setVisible(false);
-
     }
     
     private void actions(){
@@ -68,15 +69,8 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
             }
         });
         
-        btnCancel.addActionListener(e->{
-            
-            cboEquipo.setSelectedIndex(0);
-            
-            txtEquipo.setText("");
-            txtBrand.setText("");
-            txtModel.setText("");
-            txtSerialNumber.setText("");
-            textAreaDescripcion.setText("");
+        btnExit.addActionListener(e->{
+            this.dispose();
         });
         
         btnRegistrar.addActionListener(e->{
@@ -195,7 +189,7 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        btnCancel = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         textAreaDescripcion = new javax.swing.JTextArea();
@@ -255,7 +249,7 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/exit-32.png"))); // NOI18N
 
         btnRegistrar.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(12, 83, 151));
@@ -269,7 +263,7 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancel)
+                .addComponent(btnExit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -280,7 +274,7 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -409,7 +403,7 @@ public class serviceNewDeviceDialog extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnSerialNumber;
     private javax.swing.JComboBox<String> cboEquipo;

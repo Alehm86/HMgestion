@@ -4,6 +4,7 @@
  */
 package views;
 
+import dao.budgetDAO;
 import dao.customerDAO;
 import java.awt.Color;
 import java.awt.Frame;
@@ -24,6 +25,7 @@ public class homeFrame extends javax.swing.JFrame {
     
     configMensajes config = new configMensajes();
     customerDAO qCustomer = new customerDAO();
+    budgetDAO qBudget = new budgetDAO();
     
     public homeFrame() {
         initComponents();
@@ -34,6 +36,8 @@ public class homeFrame extends javax.swing.JFrame {
         menuSuperior();
         paginaDeInicio();
         actionButtons();
+        
+        qBudget.actualizarPresupuestosVencidos();
         
     }
 
@@ -234,14 +238,12 @@ public class homeFrame extends javax.swing.JFrame {
         });
         
         jMenuItemViewCustomer.addActionListener(e->{
-            
-            String CUIT;
-            String NumCliente = JOptionPane.showInputDialog(null, "Ingrese el número de cliente:");
+                   
+            String CUIT = JOptionPane.showInputDialog(null, "Ingrese el número de cliente:");
 
-            if (NumCliente != null && !NumCliente.trim().isEmpty()) {
+            if (!CUIT.trim().isEmpty()) {
                 
-                CUIT = qCustomer.selectCuit("id_customer", NumCliente);
-                customerViewDialog fView = new customerViewDialog(parent, true);
+                customerViewDialog fView = new customerViewDialog(homeFrame.this, true);
                 fView.dialogoEdit(CUIT);
                 fView.setVisible(true);
                 

@@ -89,14 +89,18 @@ public class salesRegisterPanel extends javax.swing.JPanel {
 
     private void formatTableProducts(){
 
-        String[] titulo = new String[]{"Comprobante","Id", "Producto", "cant.", "Unit. c/IVA","I.V.A", "Total"};
+        String[] titulo = new String[]{"Id","Comprobante","Producto", "cant.", "Unit. c/IVA","I.V.A", "Total"};
         dtmProduct.setColumnIdentifiers(titulo);
         tableProducts.setModel(dtmProduct);
         
         tableStyleUtil.applyPoppinsHeader(tableProducts);
+        
+        tableProducts.getColumnModel().getColumn(0).setMinWidth(0);
+        tableProducts.getColumnModel().getColumn(0).setMaxWidth(0);
+        tableProducts.getColumnModel().getColumn(0).setPreferredWidth(0);
 
-        tableProducts.getColumnModel().getColumn(0).setPreferredWidth(100);
-        tableProducts.getColumnModel().getColumn(1).setPreferredWidth(40);
+        tableProducts.getColumnModel().getColumn(0).setPreferredWidth(40);
+        tableProducts.getColumnModel().getColumn(1).setPreferredWidth(100);
         tableProducts.getColumnModel().getColumn(2).setPreferredWidth(450); 
         tableProducts.getColumnModel().getColumn(3).setPreferredWidth(40); 
         tableProducts.getColumnModel().getColumn(4).setPreferredWidth(100); 
@@ -191,7 +195,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                 serviceNumber = fListServices.getService();
                 
                 if(!serviceNumber.isEmpty()){
-                    qCReg.listServiceOperation(serviceNumber,dtmOperation);
+                    qCReg.listServiceOperation(serviceNumber,dtmOperation,dtmProduct,dtmService);
                 }
                 
             }else if(opcion.equals("Presupuesto")){

@@ -105,6 +105,7 @@ public class productPriceEditDialog extends javax.swing.JDialog {
         qProduct.selectProductPriceEdit(idProducto, txtPrice, txtBenefit, lbl_iva, txtFinalPrice);
         qProduct.selectProduct(idProducto, labelDescripcion, txtProductCode);
         infoCombo();
+        calcularPrecioSugerido();
     }
     
     private void buscarPorCodigoDeProducto(){
@@ -205,6 +206,10 @@ public class productPriceEditDialog extends javax.swing.JDialog {
             public void actualizar() {
                 calcularPrecioSugerido();
             }
+        });
+        
+        btnCancel.addActionListener(e->{
+            this.dispose();
         });
     }
     
@@ -528,6 +533,14 @@ public class productPriceEditDialog extends javax.swing.JDialog {
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
         txtProductCode.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtProductCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtProductCodeKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtProductCodeKeyTyped(evt);
+            }
+        });
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/searchBarCode32.png"))); // NOI18N
 
@@ -622,7 +635,7 @@ public class productPriceEditDialog extends javax.swing.JDialog {
             evt.consume();
         }
 
-        if (txtPrice.getText().length() >= 3
+        if (txtPrice.getText().length() >= 8
                 && Character.isDigit(c)) {
             evt.consume();
         }
@@ -631,7 +644,7 @@ public class productPriceEditDialog extends javax.swing.JDialog {
     private void txtBenefitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBenefitKeyTyped
         char c = evt.getKeyChar();
 
-        if (!Character.isDigit(c) || txtBenefit.getText().length() >= 3) {
+        if (!Character.isDigit(c) || txtBenefit.getText().length() >= 4) {
             evt.consume();
         }
     }//GEN-LAST:event_txtBenefitKeyTyped
@@ -653,7 +666,7 @@ public class productPriceEditDialog extends javax.swing.JDialog {
             evt.consume();
         }
 
-        if (txtFinalPrice.getText().length() >= 3
+        if (txtFinalPrice.getText().length() >= 8
                 && Character.isDigit(c)) {
             evt.consume();
         }
@@ -662,6 +675,16 @@ public class productPriceEditDialog extends javax.swing.JDialog {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void txtProductCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductCodeKeyTyped
+        
+    }//GEN-LAST:event_txtProductCodeKeyTyped
+
+    private void txtProductCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductCodeKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) { 
+            buscarPorCodigoDeProducto();           
+        }
+    }//GEN-LAST:event_txtProductCodeKeyPressed
 
     public static void main(String args[]) {
 

@@ -7,6 +7,7 @@ package views;
 import models.Customer;
 import dao.genericDAO;
 import dao.customerDAO;
+import dao.devicesDAO;
 import dao.serviceDAO;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
@@ -24,6 +25,7 @@ public class customerViewDialog extends javax.swing.JDialog {
     genericDAO qGeneric = new genericDAO();
     customerDAO qCustomer = new customerDAO();
     serviceDAO qService = new serviceDAO();
+    devicesDAO qDevice = new devicesDAO();
     
     utility utils = new utility();
     
@@ -41,6 +43,7 @@ public class customerViewDialog extends javax.swing.JDialog {
         this.cuitFound = cuit;               
         if(cuit != null && !cuitFound.isEmpty()){
             cargarCliente();
+            offObjets();
         }   
     }
     
@@ -58,8 +61,8 @@ public class customerViewDialog extends javax.swing.JDialog {
         txtProvince.setEnabled(false);
         txtProvince.setVisible(false);
 
-        btnRegistrar.setEnabled(false);
-        btnCancel.setEnabled(false);          
+        btnRegistrar.setEnabled(false);     
+        btnCancel.setEnabled(false);    
         
         inicializar();
         startMsjs();
@@ -163,34 +166,56 @@ public class customerViewDialog extends javax.swing.JDialog {
     }
     
     private void offObjets(){
-        cboIVA.setEnabled(false);
-        txtName.setEnabled(false);
-        txtCUIT.setEnabled(false);
-        txtTel.setEnabled(false);
-        txtEmail.setEnabled(false);
-        txtStreet.setEnabled(false);
-        txtHeight.setEnabled(false);
-        txtCity.setEnabled(false);
-        cboProvinces.setEnabled(false);
+//        cboIVA.setEnabled(false);
+//        txtName.setEnabled(false);
+//        txtCUIT.setEnabled(false);
+//        txtTel.setEnabled(false);
+//        txtEmail.setEnabled(false);
+//        txtStreet.setEnabled(false);
+//        txtHeight.setEnabled(false);
+//        txtCity.setEnabled(false);
+//        cboProvinces.setEnabled(false);
+        
+        cboIVA.setEditable(false);
+        txtName.setEditable(false);
+        txtCUIT.setEditable(false);
+        txtTel.setEditable(false);
+        txtEmail.setEditable(false);
+        txtStreet.setEditable(false);
+        txtHeight.setEditable(false);
+        txtCity.setEditable(false);
+        cboProvinces.setEditable(false);
+        
     }    
     
     private void onObjets(){
-        cboIVA.setEnabled(true);
-        txtName.setEnabled(true);
-        txtCUIT.setEnabled(true);
-        txtTel.setEnabled(true);
-        txtEmail.setEnabled(true);
-        txtStreet.setEnabled(true);
-        txtHeight.setEnabled(true);
-        txtCity.setEnabled(true);
-        cboProvinces.setEnabled(true);
+//        cboIVA.setEnabled(true);
+//        txtName.setEnabled(true);
+//        txtCUIT.setEnabled(true);
+//        txtTel.setEnabled(true);
+//        txtEmail.setEnabled(true);
+//        txtStreet.setEnabled(true);
+//        txtHeight.setEnabled(true);
+//        txtCity.setEnabled(true);
+//        cboProvinces.setEnabled(true);
+        
+        cboIVA.setEditable(true);
+        txtName.setEditable(true);
+        txtCUIT.setEditable(true);
+        txtTel.setEditable(true);
+        txtEmail.setEditable(true);
+        txtStreet.setEditable(true);
+        txtHeight.setEditable(true);
+        txtCity.setEditable(true);
+        cboProvinces.setEditable(true);
     }     
     
     private void actions(){       
         
         btnEditClient.addActionListener(e->{
-            btnRegistrar.setEnabled(true);
-            btnCancel.setEnabled(true);          
+            btnRegistrar.setEnabled(true); 
+            btnCancel.setEnabled(true); 
+            onObjets();
         });
         
         btnBaja.addActionListener(e->{
@@ -284,8 +309,13 @@ public class customerViewDialog extends javax.swing.JDialog {
         utils.clearMsjErrorTxt(txtTel, lblErrorTel);         
         
         btnCancel.addActionListener(e-> {
-            btnRegistrar.setEnabled(false);
-            btnCancel.setEnabled(false);             
+            btnRegistrar.setEnabled(false);           
+            offObjets();
+            cargarCliente();
+        });
+        
+        btnExit.addActionListener(e-> {
+            this.dispose();
         });
         
         btnRegistrar.addActionListener(e-> {           
@@ -348,16 +378,14 @@ public class customerViewDialog extends javax.swing.JDialog {
             customerDevicesDialog pCustDev = new customerDevicesDialog(parent, true);         
                           
             int idClient = Integer.parseInt(txtID.getText().trim());
-            dato = dato = qCustomer.listCustomerDevices(tabla, idClient);
+            dato = dato = qDevice.listCustomerDevices(tabla, idClient);
 
             if(dato){
                 pCustDev.setIdCustomer(idClient);
                 pCustDev.setVisible(true); 
             }else{
                 JOptionPane.showMessageDialog(null, "No hay dispositivos vinculados");
-            }
-                          
-            
+            }       
         });
         
     }   
@@ -509,6 +537,7 @@ public class customerViewDialog extends javax.swing.JDialog {
         jPanel4 = new javax.swing.JPanel();
         btnRegistrar = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtProvince = new javax.swing.JTextField();
@@ -721,14 +750,18 @@ public class customerViewDialog extends javax.swing.JDialog {
         btnRegistrar.setText("Editar");
         btnRegistrar.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
-        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/exit-32.png"))); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelar_32.png"))); // NOI18N
+
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/exit-32.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(245, 245, 245)
+                .addGap(199, 199, 199)
+                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -739,6 +772,7 @@ public class customerViewDialog extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -989,6 +1023,7 @@ public class customerViewDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnDevices;
     private javax.swing.JButton btnEditClient;
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnHistory;
     private javax.swing.JButton btnReactivar;
     private javax.swing.JButton btnRegistrar;
