@@ -15,13 +15,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
-import models.Products;
+import models.mProducts;
 import dao.productDAO;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
-import models.Price;
+import models.mPrice;
 import utils.utility;
 
 public class productViewPanel extends javax.swing.JPanel {
@@ -31,8 +31,8 @@ public class productViewPanel extends javax.swing.JPanel {
     
     utility utils = new utility();
     
-    Products product = new Products();
-    Price price = new Price();
+    mProducts product = new mProducts();
+    mPrice price = new mPrice();
 
     JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
     
@@ -66,13 +66,17 @@ public class productViewPanel extends javax.swing.JPanel {
         txtSubcategory.setEditable(false);
         lbl_iva.setVisible(false);
         
+        lbl_discount_percentage.setVisible(false);
+        lbl_discount_percentage.setText("0");
+        
         btnEdit.setEnabled(false);
         btnHistory.setEnabled(false);
         
         cboIva.addItem("21");
         cboIva.addItem("10.5");
                
-        actions();         
+        actions();   
+        
     }  
     
     private void leyendaBotones(){
@@ -144,7 +148,7 @@ public class productViewPanel extends javax.swing.JPanel {
         });        
         
         btnConfirmPromo.addActionListener(e->{
-            //ACTUALIZA LA PROMOCIÓN
+       
             int confirmacion = JOptionPane.showConfirmDialog(
                 null,
                 "¿Confirma activar promoción?",
@@ -268,11 +272,9 @@ public class productViewPanel extends javax.swing.JPanel {
         btnCancel.setVisible(true);
         btnRegistrar.setVisible(true);
         
-        //datos de stock
         txtMin.setEditable(true);
         cboIva.setEnabled(true);
         
-        //datos de precio
         txtPrecioCosto.setEditable(true);
         txtBenefit.setEditable(true);
         txtSalePrice.setEditable(true);
@@ -302,7 +304,7 @@ public class productViewPanel extends javax.swing.JPanel {
         OffObjets(); 
         clear();
         
-        qProduct.selectProductEdit(idProduct, lbl_id, txtCategory, txtSubcategory, txtBrand, txtModel, txtColor, txtProductCode, lbl_state, lblEnPromo);
+        qProduct.selectProductEdit(idProduct, lbl_id, txtCategory, txtSubcategory, txtBrand, txtModel, txtColor, txtProductCode, lbl_state, lblEnPromo,lbl_discount_percentage);
         qProduct.selectAllTableStock(idProduct, lblStock, txtMinHidden);
         qProduct.selectProductPriceEdit(idProduct, txtPrecioCosto, txtBenefit, lbl_iva, txtSalePriceHidden);
         
@@ -312,7 +314,7 @@ public class productViewPanel extends javax.swing.JPanel {
         infoComboSelected();
         
         colorLabelStock();
-        
+        calcularPrecioConPromo();
 
         
         if(!txtProductCode.getText().isEmpty()){
@@ -680,6 +682,20 @@ public class productViewPanel extends javax.swing.JPanel {
         lblPrecioSujerido.setVisible(true);
     }
     
+    private void calcularPrecioConPromo(){
+        
+        Double promo = Double.parseDouble(lbl_discount_percentage.getText().trim());
+        Double precioVenta = Double.parseDouble(txtSalePriceHidden.getText().trim());
+        
+        if(promo > 0){
+            
+            double precioPromo = precioVenta - (precioVenta * promo / 100); 
+            txtSalePrice.setText(String.format("%.2f", precioPromo));            
+            txtSalePrice.setForeground(new Color(0,128,0));
+        }
+                  
+    }
+    
     public void popupBrand(){
         JPopupMenu popupBrands = new JPopupMenu();
         
@@ -910,6 +926,7 @@ public class productViewPanel extends javax.swing.JPanel {
         txtProductCode = new javax.swing.JTextField();
         cboSubcategories = new javax.swing.JComboBox<>();
         btnSubcategories = new javax.swing.JButton();
+        lbl_discount_percentage = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         btnHistory = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
@@ -1267,6 +1284,10 @@ public class productViewPanel extends javax.swing.JPanel {
         btnSubcategories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/menu32.png"))); // NOI18N
         btnSubcategories.setBorderPainted(false);
 
+        lbl_discount_percentage.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        lbl_discount_percentage.setForeground(new java.awt.Color(12, 83, 151));
+        lbl_discount_percentage.setText("xxx");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -1336,7 +1357,9 @@ public class productViewPanel extends javax.swing.JPanel {
                         .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblEnPromo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(155, 155, 155)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_discount_percentage, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -1350,7 +1373,8 @@ public class productViewPanel extends javax.swing.JPanel {
                         .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblStock, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblEnPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblEnPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_discount_percentage, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lbl_id, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1608,6 +1632,7 @@ public class productViewPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblErrorStock;
     private javax.swing.JLabel lblPrecioSujerido;
     private javax.swing.JLabel lblStock;
+    private javax.swing.JLabel lbl_discount_percentage;
     private javax.swing.JLabel lbl_id;
     private javax.swing.JLabel lbl_iva;
     private javax.swing.JLabel lbl_state;

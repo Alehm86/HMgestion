@@ -8,13 +8,13 @@ import dao.serviceDAO;
 import java.awt.Color;
 import java.security.SecureRandom;
 import javax.swing.JOptionPane;
-import models.Device;
+import models.mDevice;
 
 public class serviceNewDeviceDialog extends javax.swing.JDialog {
     
     serviceDAO queriesService = new serviceDAO();
 
-    Device device = new Device();
+    mDevice device = new mDevice();
     
     String id_SerialNumber;
     int id_customer = -1;

@@ -5,7 +5,7 @@
 package models;
 
 
-public class PurchaseInvoiceDetail {
+public class mPurchaseInvoiceDetail {
     
     int id_product;
     int quantity;
@@ -53,7 +53,7 @@ public class PurchaseInvoiceDetail {
         this.total = total;
     }
 
-    public PurchaseInvoiceDetail(int id_product, int quantity, double price, String iva, double total) {
+    public mPurchaseInvoiceDetail(int id_product, int quantity, double price, String iva, double total) {
         this.id_product = id_product;
         this.quantity = quantity;
         this.price = price;
@@ -63,5 +63,5 @@ public class PurchaseInvoiceDetail {
 
   
 
-    public PurchaseInvoiceDetail(){}
+    public mPurchaseInvoiceDetail(){}
 }

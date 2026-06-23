@@ -8,7 +8,7 @@ package models;
  *
  * @author Ale
  */
-public class Supplier {
+public class mSupplier {
     public String name;
     public String condicion;
     public String cuit;
@@ -91,7 +91,7 @@ public class Supplier {
         this.state = state;
     }
 
-    public Supplier(String name, String condicion, String cuit, String telefono, String email, String web, String user, String pass, int state) {
+    public mSupplier(String name, String condicion, String cuit, String telefono, String email, String web, String user, String pass, int state) {
         this.name = name;
         this.condicion = condicion;
         this.cuit = cuit;
@@ -105,7 +105,7 @@ public class Supplier {
 
 
     
-    public Supplier(){
+    public mSupplier(){
         
     }
 }

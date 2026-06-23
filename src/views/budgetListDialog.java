@@ -8,15 +8,22 @@ import dao.budgetDAO;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import utils.utility;
 
 
 public class budgetListDialog extends javax.swing.JDialog {
@@ -24,6 +31,7 @@ public class budgetListDialog extends javax.swing.JDialog {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(budgetListDialog.class.getName());
     
     budgetDAO qBudget = new budgetDAO();
+    utility utils = new utility();
     
     int id_budget;
     int id_service;
@@ -32,6 +40,7 @@ public class budgetListDialog extends javax.swing.JDialog {
     String filtroFecha;
     String filtroEstado;
     
+    private TableRowSorter<DefaultTableModel> sorter;
     
     public void setConfigPage(int status){      
         this.status = status;
@@ -59,14 +68,14 @@ public class budgetListDialog extends javax.swing.JDialog {
         leyendaBotones();       
         actions();
         listadoInicial();   
-        
-
+             
+        utils.agregarPlaceholderN(txtBuscar, "Filtrar...");        
         
     }
 
     private void listadoInicial(){
-        qBudget.listBudgets(jTableBudgets, "30 días", "Todos");
-        jTableBudgets.getColumnModel().getColumn(5).setCellRenderer(new vencimientoColorRenderer());
+        qBudget.listBudgets(tableBudgets, "30 días", "Todos");
+        tableBudgets.getColumnModel().getColumn(5).setCellRenderer(new vencimientoColorRenderer());
     }
     
     private void combo(){
@@ -92,7 +101,7 @@ public class budgetListDialog extends javax.swing.JDialog {
     
     private void filtrarPresupuestos(){
         
-        DefaultTableModel dtm = (DefaultTableModel) jTableBudgets.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) tableBudgets.getModel();
 
         for (int i = dtm.getRowCount() - 1; i >= 0; i--) {
             Object valor = dtm.getValueAt(i, 3);
@@ -110,19 +119,19 @@ public class budgetListDialog extends javax.swing.JDialog {
             String estado = cboFiltroEstado.getSelectedItem().toString();
  
             if(status > 0){
-                qBudget.listBudgets(jTableBudgets, fecha, estado);
+                qBudget.listBudgets(tableBudgets, fecha, estado);
                 filtrarPresupuestos();             
             }else{
-                qBudget.listBudgets(jTableBudgets, fecha, estado);
+                qBudget.listBudgets(tableBudgets, fecha, estado);
             }
-            jTableBudgets.getColumnModel().getColumn(5).setCellRenderer(new vencimientoColorRenderer());
-            jTableBudgets.getColumnModel().getColumn(6).setCellRenderer(new colorRenderEstado());
+            tableBudgets.getColumnModel().getColumn(5).setCellRenderer(new vencimientoColorRenderer());
+            tableBudgets.getColumnModel().getColumn(6).setCellRenderer(new colorRenderEstado());
         };
 
         cboFiltroFecha.addActionListener(filtroListener);
         cboFiltroEstado.addActionListener(filtroListener);
 
-        jTableBudgets.addMouseListener(new MouseAdapter(){
+        tableBudgets.addMouseListener(new MouseAdapter(){
             @Override
             public void mousePressed(MouseEvent evt){
 
@@ -174,6 +183,10 @@ public class budgetListDialog extends javax.swing.JDialog {
         btnCancel.addActionListener(e->{
             id_budget = -1;          
             this.dispose();
+        });
+        
+        btnBuscarFiltro.addActionListener(e->{
+            buscadorTabla();
         });
         
     }
@@ -246,6 +259,21 @@ public class budgetListDialog extends javax.swing.JDialog {
         }
     }
     
+    private void buscadorTabla() {
+        
+        DefaultTableModel modelo = (DefaultTableModel) tableBudgets.getModel();
+        sorter = new TableRowSorter<>(modelo);
+        tableBudgets.setRowSorter(sorter);
+     
+        String texto = txtBuscar.getText();
+        if (texto.trim().length() == 0) {
+            sorter.setRowFilter(null);
+        } else {
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + Pattern.quote(texto)));
+        }
+        
+    } 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -261,8 +289,11 @@ public class budgetListDialog extends javax.swing.JDialog {
         btnCancelBudget = new javax.swing.JButton();
         cboFiltroFecha = new javax.swing.JComboBox<>();
         cboFiltroEstado = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        btnBuscarFiltro = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableBudgets = new javax.swing.JTable();
+        tableBudgets = new javax.swing.JTable();
         btnSelectProduct = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
 
@@ -328,6 +359,20 @@ public class budgetListDialog extends javax.swing.JDialog {
 
         btnCancelBudget.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cancelBudget32.png"))); // NOI18N
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(12, 83, 151));
+        jLabel6.setText("|");
+
+        txtBuscar.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtBuscar.setForeground(new java.awt.Color(35, 35, 38));
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+        });
+
+        btnBuscarFiltro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/search32.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -337,6 +382,12 @@ public class budgetListDialog extends javax.swing.JDialog {
                 .addComponent(btnViewBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuscarFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -357,13 +408,16 @@ public class budgetListDialog extends javax.swing.JDialog {
                     .addComponent(btnViewBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboFiltroFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboFiltroEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboFiltroEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6))
         );
 
-        jTableBudgets.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jTableBudgets.setForeground(new java.awt.Color(65, 65, 63));
-        jTableBudgets.setModel(new javax.swing.table.DefaultTableModel(
+        tableBudgets.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        tableBudgets.setForeground(new java.awt.Color(65, 65, 63));
+        tableBudgets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -374,15 +428,15 @@ public class budgetListDialog extends javax.swing.JDialog {
 
             }
         ));
-        jTableBudgets.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jTableBudgets.setFillsViewportHeight(true);
-        jTableBudgets.setRowHeight(30);
-        jTableBudgets.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableBudgets.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tableBudgets.setFillsViewportHeight(true);
+        tableBudgets.setRowHeight(30);
+        tableBudgets.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableBudgetsMouseClicked(evt);
+                tableBudgetsMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableBudgets);
+        jScrollPane1.setViewportView(tableBudgets);
 
         btnSelectProduct.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnSelectProduct.setForeground(new java.awt.Color(12, 83, 151));
@@ -398,21 +452,24 @@ public class budgetListDialog extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1069, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSelectProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSelectProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1057, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnSelectProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -439,10 +496,10 @@ public class budgetListDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTableBudgetsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableBudgetsMouseClicked
+    private void tableBudgetsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBudgetsMouseClicked
         if (evt.getClickCount() == 2) {
 
-            int fila = jTableBudgets.getSelectedRow();
+            int fila = tableBudgets.getSelectedRow();
 
             if (fila != -1) {
                 viewBudget();
@@ -450,11 +507,17 @@ public class budgetListDialog extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "Seleccione una fila");
             }
         }
-    }//GEN-LAST:event_jTableBudgetsMouseClicked
+    }//GEN-LAST:event_tableBudgetsMouseClicked
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            buscadorTabla();
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
 
     public static void main(String args[]) {
 
@@ -474,6 +537,7 @@ public class budgetListDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarFiltro;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCancelBudget;
     private javax.swing.JButton btnSelectProduct;
@@ -482,12 +546,14 @@ public class budgetListDialog extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cboFiltroFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelSeparador4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableBudgets;
+    private javax.swing.JTable tableBudgets;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SaleItem {
+public class mSaleItem {
     
     private int idProduct;
     private String productCode;
@@ -84,7 +84,7 @@ public class SaleItem {
         this.serialNumbers = serialNumbers;
     }
 
-    public SaleItem(int idProduct, String productCode, String description, int quantity, double price, double iva, double total) {
+    public mSaleItem(int idProduct, String productCode, String description, int quantity, double price, double iva, double total) {
         this.idProduct = idProduct;
         this.productCode = productCode;
         this.description = description;
@@ -96,7 +96,7 @@ public class SaleItem {
 
 
     
-    public SaleItem(){
+    public mSaleItem(){
         
     }
 

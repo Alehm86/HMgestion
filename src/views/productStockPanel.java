@@ -8,8 +8,8 @@ import dao.productDAO;
 import javax.swing.SwingUtilities;
 import java.awt.Frame;
 import dao.purchaseInvoiceDAO;
-import models.Price;
-import models.Stocks;
+import models.mPrice;
+import models.mStocks;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -24,8 +24,8 @@ public class productStockPanel extends javax.swing.JPanel {
     purchaseInvoiceDAO qPurchase = new purchaseInvoiceDAO(); 
     productDAO qProduct = new productDAO();
     
-    Price price = new Price();
-    Stocks mStock = new Stocks();
+    mPrice price = new mPrice();
+    mStocks mStock = new mStocks();
        
     int idPurchase = -1;
     String numfact = "";

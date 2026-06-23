@@ -6,15 +6,19 @@ package views;
 
 import dao.budgetDAO;
 import dao.customerDAO;
+import dao.userDAO;
 import java.awt.Color;
 import java.awt.Frame;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+import models.mUser;
+import session.session;
 import utils.configMensajes;
 
 public class homeFrame extends javax.swing.JFrame {
@@ -26,9 +30,16 @@ public class homeFrame extends javax.swing.JFrame {
     configMensajes config = new configMensajes();
     customerDAO qCustomer = new customerDAO();
     budgetDAO qBudget = new budgetDAO();
+    userDAO qUser = new userDAO();
     
     public homeFrame() {
         initComponents();
+        
+        loadUser();
+        
+        lbl_user.setText(session.getCurrentUser().getUsername());
+        
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         
         this.setExtendedState(6);
         homeFrame.FechaHora.iniciarFecha(jLabelFecha);
@@ -38,7 +49,15 @@ public class homeFrame extends javax.swing.JFrame {
         actionButtons();
         
         qBudget.actualizarPresupuestosVencidos();
+
         
+    }
+    
+    private void loadUser(){
+
+        mUser user = qUser.getUserById(1);
+
+        session.setCurrentUser(user);
     }
 
     public void paginaDeInicio(){
@@ -105,7 +124,7 @@ public class homeFrame extends javax.swing.JFrame {
         });
         
         btnClient.addActionListener(e -> {
-            customerMainListPanel pClient = new customerMainListPanel();
+            customerListPanel pClient = new customerListPanel();
             pClient.setSize(1700, 877);
             pClient.setLocation(0, 0);
 
@@ -284,7 +303,7 @@ public class homeFrame extends javax.swing.JFrame {
         btnCtaCte = new javax.swing.JButton();
         btnServiceTec = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jLabelUser = new javax.swing.JLabel();
+        lbl_user = new javax.swing.JLabel();
         jLabelLineaBlanca = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
@@ -327,6 +346,7 @@ public class homeFrame extends javax.swing.JFrame {
         jMenuAjusteDeStock = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -452,10 +472,13 @@ public class homeFrame extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(35, 35, 38));
 
-        jLabelUser.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        jLabelUser.setForeground(new java.awt.Color(210, 215, 223));
-        jLabelUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/user48.png"))); // NOI18N
-        jLabelUser.setText("Usuario");
+        lbl_user.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        lbl_user.setForeground(new java.awt.Color(210, 215, 223));
+        lbl_user.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/user48.png"))); // NOI18N
+        lbl_user.setText("Ale");
+        lbl_user.setMaximumSize(new java.awt.Dimension(176, 48));
+        lbl_user.setMinimumSize(new java.awt.Dimension(176, 48));
 
         jLabelLineaBlanca.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLineaBlanca.setForeground(new java.awt.Color(240, 240, 242));
@@ -466,19 +489,17 @@ public class homeFrame extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabelUser)
-                .addContainerGap(34, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelLineaBlanca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelLineaBlanca, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                    .addComponent(lbl_user, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelUser)
+                .addComponent(lbl_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addComponent(jLabelLineaBlanca))
         );
@@ -951,7 +972,6 @@ public class homeFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelHora;
     private javax.swing.JLabel jLabelLineaBlanca;
     private javax.swing.JLabel jLabelTitle;
-    private javax.swing.JLabel jLabelUser;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -989,5 +1009,6 @@ public class homeFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelContent;
+    private javax.swing.JLabel lbl_user;
     // End of variables declaration//GEN-END:variables
 }

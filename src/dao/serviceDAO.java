@@ -535,34 +535,36 @@ public class serviceDAO {
         return estado;
     } 
     
-    public boolean updateServiceDespachar(String serviceNumber, String delivery_date){
+    public boolean updateServiceDespachar(String serviceNumber){
         
-        String sql = "UPDATE `service_orders` SET `id_status`=?,`delivery_date`=? WHERE `service_number`=?";
+        String sql = "UPDATE `service_orders` SET `id_status`= 8 ,`delivery_date`= ? WHERE `service_number` = ?";
         
         boolean estado = false;
-        int id_state = 7;
-               
+        LocalDate fechaLocal = LocalDate.now();
+        
         Connection conexion = getConnection();
        
         try{
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
-            
-            pstmt.setInt(1, id_state);
-            pstmt.setString(2, delivery_date);
-            pstmt.setString(3, serviceNumber);
-            
+           
+            pstmt.setDate(1, java.sql.Date.valueOf(fechaLocal));
+            pstmt.setString(2, serviceNumber);
+
             pstmt.executeUpdate();
-            
+              
+            pstmt.close();
             conexion.close();
-            
-            JOptionPane.showMessageDialog(null, "Equipo entregado!.");
-            
             estado = true;
             
         }
         catch(SQLException e){
             JOptionPane.showMessageDialog(null, "ERROR -> " + e.getMessage());
         } 
+        
+        if(estado){
+            JOptionPane.showMessageDialog(null, "Equipo entregado!.");
+        }
+        
         return estado;
     } 
     

@@ -24,11 +24,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-import models.Budget;
-import models.BudgetDetail;
-import models.Products;
-import models.PurchaseInvoice;
-import models.PurchaseInvoiceDetail;
+import models.mBudget;
+import models.mBudgetDetail;
+import models.mProducts;
+import models.mPurchaseInvoice;
+import models.mPurchaseInvoiceDetail;
 import utils.tableStyleUtil;
 import utils.utility;
 
@@ -44,11 +44,11 @@ public class purchaseInvoiceDialog extends javax.swing.JDialog {
     
     utility utils = new utility();
     
-    PurchaseInvoice mPinvoice = new PurchaseInvoice();
-    PurchaseInvoiceDetail mPdetail = new PurchaseInvoiceDetail();
-    Products mProduct = new Products();
-    Budget mBudget = new Budget();
-    BudgetDetail mBdetail = new BudgetDetail();
+    mPurchaseInvoice mPinvoice = new mPurchaseInvoice();
+    mPurchaseInvoiceDetail mPdetail = new mPurchaseInvoiceDetail();
+    mProducts mProduct = new mProducts();
+    mBudget mBudget = new mBudget();
+    mBudgetDetail mBdetail = new mBudgetDetail();
 
     genericDAO qGeneric = new genericDAO();
     
@@ -611,7 +611,7 @@ public class purchaseInvoiceDialog extends javax.swing.JDialog {
             String iva = tableItems.getValueAt(i, 4).toString();
             double total = Double.parseDouble(tableItems.getValueAt(i, 5).toString());
 
-            PurchaseInvoiceDetail  item = new PurchaseInvoiceDetail (
+            mPurchaseInvoiceDetail  item = new mPurchaseInvoiceDetail (
                     idProduct,
                     cantidad,
                     precio,

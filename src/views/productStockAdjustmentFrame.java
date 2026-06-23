@@ -5,8 +5,8 @@
 package views;
 
 import dao.productDAO;
-import models.Products;
-import models.Stocks;
+import models.mProducts;
+import models.mStocks;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -14,8 +14,8 @@ import javax.swing.JOptionPane;
 public class productStockAdjustmentFrame extends javax.swing.JFrame {
     
     productDAO qProduct = new productDAO();
-    Products producto = new Products();
-    Stocks stock = new Stocks();
+    mProducts producto = new mProducts();
+    mStocks stock = new mStocks();
     
     private int stockProd = 0;
     private int id_product = 0;

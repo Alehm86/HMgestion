@@ -6,7 +6,7 @@ package views;
 
 import dao.genericDAO;
 import dao.productDAO;
-import models.Brands;
+import models.mBrands;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -26,7 +26,7 @@ public class productBrandEditDialog extends javax.swing.JDialog {
     productDAO qProduct = new productDAO();
     genericDAO qGeneric = new genericDAO();
     
-    Brands classBrand = new Brands();
+    mBrands classBrand = new mBrands();
     
     utility utils = new utility();
     

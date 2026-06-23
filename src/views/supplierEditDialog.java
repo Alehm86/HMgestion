@@ -6,7 +6,7 @@ package views;
 
 import dao.productDAO;
 import dao.supplierDAO;
-import models.Supplier;
+import models.mSupplier;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.FocusAdapter;
@@ -24,7 +24,7 @@ public class supplierEditDialog extends javax.swing.JDialog {
     productDAO qProduct = new productDAO();
     supplierDAO qSuppliers = new supplierDAO();
     
-    Supplier mSupplier = new Supplier();
+    mSupplier mSupplier = new mSupplier();
     
     private String SupplierSelected = "";
     private String proveedorEditado;

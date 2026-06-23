@@ -415,24 +415,26 @@ public class productDAO {
             JTextField txtColor,  
             JTextField txtProductCode,
             JLabel lbl_state,
-            JLabel lblPromotion
+            JLabel lblPromotion,
+            JLabel lbl_discount_percentage
         ) {    
         
         String sql = 
                 "SELECT " + 
-                "product_categories.name AS category, " +
-                "product_subcategories.name AS subcategory, " +
+                "pc.name AS category, " +
+                "ps.name AS subcategory, " +
                 "b.name AS brand, " + // 👈 también corregido
                 "p.model, " +
                 "p.color, " +
                 "p.product_code, " +
-                "COALESCE(product_promotions.name, 'Sin promoción') AS promotion, " +
+                "COALESCE(pp.name, 'Sin promoción') AS promotion, " +
+                "COALESCE(pp.discount_percentage, '0') AS discount, " +
                 "p.state " +
                 "FROM products p " +
-                "INNER JOIN product_subcategories ON p.id_subcategory = product_subcategories.id_subcategory " +
-                "INNER JOIN product_categories ON product_subcategories.id_category = product_categories.id_category " +
+                "INNER JOIN product_subcategories ps ON p.id_subcategory = ps.id_subcategory " +
+                "INNER JOIN product_categories pc ON ps.id_category = pc.id_category " +
                 "INNER JOIN product_brands b ON p.id_brand = b.id_brand " +
-                "LEFT JOIN product_promotions ON p.id_promotion = product_promotions.id_promotion " +
+                "LEFT JOIN product_promotions pp ON p.id_promotion = pp.id_promotion " +
                 "WHERE p.id_product = ?";
 
         Connection conexion = getConnection();
@@ -457,6 +459,7 @@ public class productDAO {
                 txtSubcategories.setText(rs.getString("subcategory"));
                 txtCategories.setText(rs.getString("category"));
                 lblPromotion.setText(rs.getString("promotion"));
+                lbl_discount_percentage.setText(rs.getString("discount"));
                 state = Integer.parseInt(rs.getString("state"));
                 
                 if(state == 0){

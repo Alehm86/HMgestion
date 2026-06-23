@@ -14,8 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
-import models.Device;
-import models.Service;
+import models.mDevice;
+import models.mService;
 
 public class serviceNewPanel extends javax.swing.JPanel {
 
@@ -23,8 +23,8 @@ public class serviceNewPanel extends javax.swing.JPanel {
     devicesDAO qDevices = new devicesDAO();
     serviceDAO qService = new serviceDAO();
     
-    Device device = new Device();
-    Service service = new Service();
+    mDevice device = new mDevice();
+    mService service = new mService();
     
     int id_service = -1;
     String cuitClient = "";
@@ -287,12 +287,7 @@ public class serviceNewPanel extends javax.swing.JPanel {
         if (!valido) {
             return;
         }else{
-            int confirmacion = JOptionPane.showConfirmDialog(
-                null,
-                "¿Confirma el registro?",
-                "Confirmación",
-                JOptionPane.YES_NO_OPTION
-            );                   
+            int confirmacion = JOptionPane.showConfirmDialog(null,"¿Confirma el registro?","Confirmación",JOptionPane.YES_NO_OPTION);                  
             if (confirmacion != JOptionPane.YES_OPTION) {
                 return;
             }      

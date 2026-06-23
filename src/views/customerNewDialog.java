@@ -6,7 +6,7 @@ package views;
 
 import dao.customerDAO;
 import dao.genericDAO;
-import models.Customer;
+import models.mCustomer;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.JOptionPane;
@@ -20,7 +20,7 @@ public class customerNewDialog extends javax.swing.JDialog {
     
     utility utils = new utility();
     
-    Customer mCustomer = new Customer();
+    mCustomer mCustomer = new mCustomer();
   
     String cuitCustomer = "";
     String fecha = utils.fecha();

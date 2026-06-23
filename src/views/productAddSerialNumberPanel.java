@@ -18,7 +18,7 @@ import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import models.ProductSerialNumber;
+import models.mProductSerialNumber;
 import utils.tableStyleUtil;
 
 
@@ -294,8 +294,8 @@ public class productAddSerialNumberPanel extends javax.swing.JPanel {
 
             String observations = "Sin observaciones";
 
-            ProductSerialNumber item =
-                    new ProductSerialNumber(
+            mProductSerialNumber item =
+                    new mProductSerialNumber(
                             idProduct,
                             idPurchase,
                             serialNumber,

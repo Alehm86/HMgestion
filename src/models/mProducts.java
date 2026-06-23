@@ -8,7 +8,7 @@ package models;
  *
  * @author Ale
  */
-public class Products {
+public class mProducts {
     public int id_subcat;
     public int id_brand;
     public int id_supplier;
@@ -91,7 +91,7 @@ public class Products {
         this.state = state;
     }
 
-    public Products(int id_subcat, int id_brand, int id_supplier, int id_category, Integer id_promotion, String model, String color, String productCode, int state) {
+    public mProducts(int id_subcat, int id_brand, int id_supplier, int id_category, Integer id_promotion, String model, String color, String productCode, int state) {
         this.id_subcat = id_subcat;
         this.id_brand = id_brand;
         this.id_supplier = id_supplier;
@@ -103,7 +103,7 @@ public class Products {
         this.state = state;
     }
    
-    public Products() {
+    public mProducts() {
 
     }
     

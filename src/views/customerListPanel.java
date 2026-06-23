@@ -20,7 +20,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-public class customerMainListPanel extends javax.swing.JPanel {
+public class customerListPanel extends javax.swing.JPanel {
 
     genericDAO qGeneric = new genericDAO();
     customerDAO qCustomer= new customerDAO();
@@ -32,7 +32,7 @@ public class customerMainListPanel extends javax.swing.JPanel {
     private TableRowSorter<DefaultTableModel> sorter;
     DefaultTableModel tableProducts = new DefaultTableModel();
     
-    public customerMainListPanel() {
+    public customerListPanel() {
         initComponents();
         
         qGeneric.llenarCombos(cboIVA, "customer_iva"); 

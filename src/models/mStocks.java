@@ -8,7 +8,7 @@ package models;
  *
  * @author Ale
  */
-public class Stocks {
+public class mStocks {
     public int idProduct;
     public int stock;
     public int max;
@@ -46,14 +46,14 @@ public class Stocks {
         this.min = min;
     }
 
-    public Stocks(int idProduct, int stock, int max, int min) {
+    public mStocks(int idProduct, int stock, int max, int min) {
         this.idProduct = idProduct;
         this.stock = stock;
         this.max = max;
         this.min = min;
     }
     
-    public Stocks(){
+    public mStocks(){
         
     }
 }

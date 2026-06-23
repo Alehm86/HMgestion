@@ -4,7 +4,7 @@
  */
 package views;
 
-import models.Customer;
+import models.mCustomer;
 import dao.genericDAO;
 import dao.customerDAO;
 import dao.devicesDAO;
@@ -29,7 +29,7 @@ public class customerViewDialog extends javax.swing.JDialog {
     
     utility utils = new utility();
     
-    Customer mClient = new Customer();
+    mCustomer mClient = new mCustomer();
     
     String fecha = utils.fecha();
     

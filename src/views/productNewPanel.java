@@ -7,8 +7,8 @@ package views;
 import dao.genericDAO;
 import java.awt.Color;
 import dao.productDAO;
-import models.Products;
-import models.Price;
+import models.mProducts;
+import models.mPrice;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,8 +26,8 @@ public class productNewPanel extends javax.swing.JPanel {
     
     utility utils = new utility();
     
-    Products product = new Products();
-    Price precio = new Price();
+    mProducts product = new mProducts();
+    mPrice precio = new mPrice();
     
     JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
     

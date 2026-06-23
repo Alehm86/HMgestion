@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 
-public class ProductSerialNumber {
+public class mProductSerialNumber {
     
     int id_product;
     int id_purchase;
@@ -65,7 +65,7 @@ public class ProductSerialNumber {
         this.observations = observations;
     }
 
-    public ProductSerialNumber(int id_product, int id_purchase, String serialNumber, LocalDate fechaRegistro, String status, String observations) {
+    public mProductSerialNumber(int id_product, int id_purchase, String serialNumber, LocalDate fechaRegistro, String status, String observations) {
         this.id_product = id_product;
         this.id_purchase = id_purchase;
         this.serialNumber = serialNumber;

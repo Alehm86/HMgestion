@@ -5,7 +5,7 @@
 package models;
 
 
-public class Device {
+public class mDevice {
     
     int id_customer;
     String device_type;
@@ -62,7 +62,7 @@ public class Device {
         this.description = description;
     }
 
-    public Device(int id_customer, String device_type, String brand, String model, String serial_number, String description) {
+    public mDevice(int id_customer, String device_type, String brand, String model, String serial_number, String description) {
         this.id_customer = id_customer;
         this.device_type = device_type;
         this.brand = brand;
@@ -73,7 +73,7 @@ public class Device {
 
 
     
-    public Device(){
+    public mDevice(){
         
     }
 }

@@ -5,7 +5,7 @@
 package models;
 
 
-public class Service {
+public class mService {
     
     int id_customer;
     Integer id_device;
@@ -134,7 +134,7 @@ public class Service {
         this.observations = observations;
     }
 
-    public Service(int id_customer, Integer id_device, String service_number, String fecha, String reported_problem, int id_status, String diagnosis, String repair_description, Double final_cost, String entry_date, String repair_date, String delivery_date, String technician, String observations) {
+    public mService(int id_customer, Integer id_device, String service_number, String fecha, String reported_problem, int id_status, String diagnosis, String repair_description, Double final_cost, String entry_date, String repair_date, String delivery_date, String technician, String observations) {
         this.id_customer = id_customer;
         this.id_device = id_device;
         this.service_number = service_number;
@@ -151,7 +151,7 @@ public class Service {
         this.observations = observations;
     }
 
-    public Service(){
+    public mService(){
         
     }
     

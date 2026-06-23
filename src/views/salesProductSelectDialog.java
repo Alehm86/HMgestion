@@ -4,16 +4,13 @@
  */
 package views;
 
-import dao.genericDAO;
 import dao.productDAO;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableModel;
 import utils.utility;
 
 public class salesProductSelectDialog extends javax.swing.JDialog {
@@ -32,8 +29,8 @@ public class salesProductSelectDialog extends javax.swing.JDialog {
 
     public Object[] getProduct(){
         return new Object[]{
-            "N/A",
             id_product,
+            "Ninguno",
             prod,
             cant,
             price,

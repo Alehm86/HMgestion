@@ -402,7 +402,7 @@ public class productListPanel extends javax.swing.JPanel {
         btnSerchCode2.setText("Buscar filtro");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(35, 35, 38));
+        jLabel3.setForeground(new java.awt.Color(12, 83, 151));
         jLabel3.setText("|");
 
         txtCodProduct.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
@@ -416,7 +416,7 @@ public class productListPanel extends javax.swing.JPanel {
         btnSerchCode.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/search32.png"))); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(35, 35, 38));
+        jLabel6.setForeground(new java.awt.Color(12, 83, 151));
         jLabel6.setText("|");
 
         CheckBoxInactivos.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N

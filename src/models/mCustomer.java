@@ -7,7 +7,7 @@ package models;
 import java.time.LocalDateTime;
 
 
-public class Customer {
+public class mCustomer {
     
     public int ID;
     public String name;
@@ -118,7 +118,7 @@ public class Customer {
         this.iva = iva;
     }
 
-    public Customer(int ID, String name, String CUIT, String email, String phone, String street, Integer height, Integer idProvince, String city, String fechaRegistro, int state, int iva) {
+    public mCustomer(int ID, String name, String CUIT, String email, String phone, String street, Integer height, Integer idProvince, String city, String fechaRegistro, int state, int iva) {
         this.ID = ID;
         this.name = name;
         this.CUIT = CUIT;
@@ -133,7 +133,7 @@ public class Customer {
         this.iva = iva;
     }
     
-    public Customer() {
+    public mCustomer() {
 
     }
 }

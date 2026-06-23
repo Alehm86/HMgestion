@@ -8,7 +8,7 @@ package models;
  *
  * @author Ale
  */
-public class Price {
+public class mPrice {
     public int id_product;
     public double price;
     public double benefit;
@@ -55,7 +55,7 @@ public class Price {
         this.iva = iva;
     }
 
-    public Price(int id_product, double price, double benefit, double iva, double salesPrice) {
+    public mPrice(int id_product, double price, double benefit, double iva, double salesPrice) {
         this.id_product = id_product;
         this.price = price;
         this.benefit = benefit;
@@ -63,7 +63,7 @@ public class Price {
         this.salesPrice = salesPrice;
     }
 
-    public Price() {
+    public mPrice() {
 
     }
 }

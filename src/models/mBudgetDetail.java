@@ -5,7 +5,7 @@
 package models;
 
 
-public class BudgetDetail {
+public class mBudgetDetail {
     
     String description;
     int quantity;
@@ -71,7 +71,7 @@ public class BudgetDetail {
         this.idProduct = idProduct;
     }
 
-    public BudgetDetail(String description, int quantity, double price, String iva, double subtotal, String type, Integer idProduct) {
+    public mBudgetDetail(String description, int quantity, double price, String iva, double subtotal, String type, Integer idProduct) {
         this.description = description;
         this.quantity = quantity;
         this.price = price;
@@ -81,6 +81,6 @@ public class BudgetDetail {
         this.idProduct = idProduct;
     }
  
-    public BudgetDetail(){}
+    public mBudgetDetail(){}
     
 }

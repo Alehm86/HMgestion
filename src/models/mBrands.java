@@ -8,10 +8,10 @@ package models;
  *
  * @author Ale
  */
-public class Brands {
+public class mBrands {
     public String name;
 
-    public Brands(String nombre) {
+    public mBrands(String nombre) {
         this.name = nombre;
     }
 
@@ -23,6 +23,6 @@ public class Brands {
         this.name = name;
     }
 
-    public Brands() {
+    public mBrands() {
     }
 }

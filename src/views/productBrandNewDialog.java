@@ -6,7 +6,7 @@ package views;
 
 import dao.genericDAO;
 import dao.productDAO;
-import models.Brands;
+import models.mBrands;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -21,7 +21,7 @@ public class productBrandNewDialog extends javax.swing.JDialog {
     productDAO qProduct = new productDAO();
     genericDAO qGeneric = new genericDAO();
     
-    Brands classBrand = new Brands();
+    mBrands classBrand = new mBrands();
     
     public String marcaSeleccionada = "";
     private String marcaCreada;

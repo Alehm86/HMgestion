@@ -19,7 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import models.Service;
+import models.mService;
 
 public class serviceViewPanel extends javax.swing.JDialog {
 
@@ -27,7 +27,7 @@ public class serviceViewPanel extends javax.swing.JDialog {
     serviceDAO queriesServices = new serviceDAO();
     budgetDAO queriesBudget = new budgetDAO();
     
-    Service mService = new Service();
+    mService mService = new mService();
     
     private boolean msjEstado = false;
     
@@ -388,7 +388,6 @@ public class serviceViewPanel extends javax.swing.JDialog {
         Double cost = null;
         String tCosto = txtCost.getText().trim();
         cost = obtenerValorNumerico(tCosto);
-        JOptionPane.showMessageDialog(null, cost);
         
         if(!txtCost.getText().isEmpty()){
             mService.setFinal_cost(cost);           

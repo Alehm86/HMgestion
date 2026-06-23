@@ -1,7 +1,6 @@
 package views;
 
 import dao.serviceDAO;
-import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -30,11 +29,15 @@ public class serviceListPanel extends javax.swing.JPanel {
     
     public serviceListPanel() {
         initComponents();
-        llenarCombos();
-        listar();
         
+        btnEntregar.setEnabled(false);
+        
+        llenarCombos();
+        listar(); 
         actions();
         selectService();
+        verificarEstadoServicio();
+        
     }
     
     private void actions(){
@@ -45,6 +48,17 @@ public class serviceListPanel extends javax.swing.JPanel {
        
         cboStates.addActionListener(e->{
             listar();
+        });
+        
+        btnEntregar.addActionListener(e->{           
+            int confirmacion = JOptionPane.showConfirmDialog(null,"¿Confirma entregar el equipo?","Confirmación",JOptionPane.YES_NO_OPTION);
+            
+            if (confirmacion != JOptionPane.YES_OPTION) {
+                return;
+            }              
+            qServices.updateServiceDespachar(serviceSelected);   
+            listar();
+            
         });
         
     }
@@ -62,7 +76,7 @@ public class serviceListPanel extends javax.swing.JPanel {
              estado = pServiceView.dialogoServiceActualizado();
              
              if(estado){
-                 qServices.listServices(jtableServices);
+                 qServices.listServices(tableServices);
              }
 
         }else{
@@ -80,15 +94,15 @@ public class serviceListPanel extends javax.swing.JPanel {
         }
 
         if(selected.equals("Todos")){
-            qServices.listServices(jtableServices); 
+            qServices.listServices(tableServices); 
         }else{
-            qServices.listServicesForState(jtableServices,id_status);
+            qServices.listServicesForState(tableServices,id_status);
         }        
     }
     
     private void selectService(){
 
-        jtableServices.addMouseListener(new MouseAdapter(){
+        tableServices.addMouseListener(new MouseAdapter(){
             
             public void mousePressed(MouseEvent Mouse_evt){
                 JTable tablaO =(JTable) Mouse_evt.getSource();
@@ -96,7 +110,7 @@ public class serviceListPanel extends javax.swing.JPanel {
                 int row = tablaO.rowAtPoint(point);
                          
                 if(Mouse_evt.getClickCount()==1){
-                    serviceSelected = String.valueOf(jtableServices.getValueAt(jtableServices.getSelectedRow(), 1).toString()); 
+                    serviceSelected = String.valueOf(tableServices.getValueAt(tableServices.getSelectedRow(), 1).toString()); 
                 }         
             }
         });
@@ -130,6 +144,20 @@ public class serviceListPanel extends javax.swing.JPanel {
         cboStates.addItem("Entregado");
         estadosMap.put("Entregado", 8);        
     }
+    
+    private void verificarEstadoServicio(){
+
+        int fila = tableServices.getSelectedRow();
+
+        if(fila == -1){
+            btnEntregar.setEnabled(false);
+            return;
+        }
+
+        String estado = tableServices.getValueAt(fila, 8).toString().trim();
+
+        btnEntregar.setEnabled(estado.equalsIgnoreCase("No reparado"));
+    }  
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -139,8 +167,9 @@ public class serviceListPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         btnServiceView = new javax.swing.JButton();
         cboStates = new javax.swing.JComboBox<>();
+        btnEntregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtableServices = new javax.swing.JTable();
+        tableServices = new javax.swing.JTable();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -153,6 +182,11 @@ public class serviceListPanel extends javax.swing.JPanel {
         btnServiceView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/revisar32.png"))); // NOI18N
         btnServiceView.setText("Ver servicio");
 
+        btnEntregar.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        btnEntregar.setForeground(new java.awt.Color(35, 35, 38));
+        btnEntregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/entrega-de-paquetes.png"))); // NOI18N
+        btnEntregar.setText("Entregar");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -160,7 +194,9 @@ public class serviceListPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnServiceView)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 665, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEntregar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 535, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cboStates, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -175,14 +211,16 @@ public class serviceListPanel extends javax.swing.JPanel {
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cboStates, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnServiceView)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnServiceView)
+                            .addComponent(btnEntregar))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        jtableServices.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jtableServices.setForeground(new java.awt.Color(65, 65, 63));
-        jtableServices.setModel(new javax.swing.table.DefaultTableModel(
+        tableServices.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        tableServices.setForeground(new java.awt.Color(65, 65, 63));
+        tableServices.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -193,15 +231,15 @@ public class serviceListPanel extends javax.swing.JPanel {
 
             }
         ));
-        jtableServices.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jtableServices.setFillsViewportHeight(true);
-        jtableServices.setRowHeight(28);
-        jtableServices.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableServices.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tableServices.setFillsViewportHeight(true);
+        tableServices.setRowHeight(28);
+        tableServices.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtableServicesMouseClicked(evt);
+                tableServicesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jtableServices);
+        jScrollPane1.setViewportView(tableServices);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -214,15 +252,18 @@ public class serviceListPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtableServicesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableServicesMouseClicked
+    private void tableServicesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableServicesMouseClicked
+        
+        verificarEstadoServicio();
+        
         if (evt.getClickCount() == 2) {
 
-            int fila = jtableServices.getSelectedRow();
+            int fila = tableServices.getSelectedRow();
 
             if (fila != -1) {
                 viewService();      
@@ -230,15 +271,16 @@ public class serviceListPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Seleccione una fila");
             }
         } 
-    }//GEN-LAST:event_jtableServicesMouseClicked
+    }//GEN-LAST:event_tableServicesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEntregar;
     private javax.swing.JButton btnServiceView;
     private javax.swing.JComboBox<String> cboStates;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jtableServices;
+    private javax.swing.JTable tableServices;
     // End of variables declaration//GEN-END:variables
 }

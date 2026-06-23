@@ -7,7 +7,7 @@ package views;
 import dao.productDAO;
 import dao.genericDAO;
 import dao.supplierDAO;
-import models.Supplier;
+import models.mSupplier;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -22,7 +22,7 @@ public class supplierNewDialog extends javax.swing.JDialog {
     genericDAO qGeneric = new genericDAO();
     supplierDAO qSuppliers = new supplierDAO();
     
-    Supplier mSupplier = new Supplier();
+    mSupplier mSupplier = new mSupplier();
     
     private String SupplierSelected = "";
     private String proveedorCreado;
