@@ -22,28 +22,29 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utils.tableStyleUtil;
+import dao.genericDAO;
+import dao.connectionDAO;
 
 public class serviceDAO {
     
-    private Connection getConnection() {
-        connectionDB con = new connectionDB();
-        return con.establecerConexion();
-    }
+    connectionDAO Connection = new connectionDAO();
+    genericDAO qGeneric = new genericDAO();
     
-    private DefaultTableModel crearModeloNoEditable() {
-        return new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-    }
+//    private DefaultTableModel crearModeloNoEditable() {
+//        return new DefaultTableModel() {
+//            @Override
+//            public boolean isCellEditable(int row, int column) {
+//                return false;
+//            }
+//        };
+//    }
+    
     
     public void insertDevice(int id_customer, String deviceType, String brand, String model, String serialNumber, String description){
         
         String sql="INSERT INTO `devices`(`id_customer`, `device_type`, `brand`, `model`, `serial_number`, `description`) VALUES (?,?,?,?,?,?)";
                
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
        
         try{
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);           
@@ -68,7 +69,7 @@ public class serviceDAO {
         
         String sql = "SELECT * FROM devices WHERE serial_number = ?";
         
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
         
         try {         
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);          
@@ -109,7 +110,7 @@ public class serviceDAO {
                 "FROM `devices` " +
                 "WHERE `serial_number`=?";
                     
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
                   
         try{            
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
@@ -155,7 +156,7 @@ public class serviceDAO {
 
         String sqlUpdate = "UPDATE service_orders SET service_number = ? WHERE id_service = ?";
 
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
 
         try{
             conexion.setAutoCommit(false);
@@ -218,8 +219,8 @@ public class serviceDAO {
         
         LocalDate fechaLocal = LocalDate.now();
         
-        Connection conexion = getConnection();
-
+        Connection conexion = Connection.getConnection();
+        
         try{
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);            
             pstmt.setInt(1, id_service);
@@ -256,9 +257,9 @@ public class serviceDAO {
         
         Statement stmt;
 
-        DefaultTableModel dtm = crearModeloNoEditable();
+        DefaultTableModel dtm = qGeneric.crearModeloNoEditable();
 
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
 
         String[] titleTable = {"Fecha de ingreso","Nº de servicio","Cliente","Dispositivo","Marca","Modelo","Nº de serie","Descripcion","Estado","Fecha de reparación"};
         dtm.setColumnIdentifiers(titleTable);
@@ -320,9 +321,9 @@ public class serviceDAO {
                 "WHERE so.id_status = ? " +
                 "ORDER BY so.entry_date DESC;";
 
-        DefaultTableModel dtm = crearModeloNoEditable();
+        DefaultTableModel dtm = qGeneric.crearModeloNoEditable();
 
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
 
         String[] titleTable = {"Fecha de ingreso","Nº de servicio","Cliente","Dispositivo","Marca","Modelo","Nº de serie","Descripcion","Estado","Fecha de reparación"};
         dtm.setColumnIdentifiers(titleTable);
@@ -361,7 +362,11 @@ public class serviceDAO {
         } catch(SQLException e){
             JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
         }
-    }    
+    }
+    private void mensajeError() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
     
     public class StatusColorRenderer extends DefaultTableCellRenderer {
 
@@ -459,7 +464,7 @@ public class serviceDAO {
                 "INNER JOIN services_states s ON so.id_status = s.id_states " +
                 "WHERE so.service_number = ?";
 
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
 
         try{            
             PreparedStatement pstmt = conexion.prepareStatement(sql);
@@ -505,7 +510,7 @@ public class serviceDAO {
         
         LocalDate fechaLocal = LocalDate.now();
                
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
        
         try{
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
@@ -540,10 +545,10 @@ public class serviceDAO {
         String sql = "UPDATE `service_orders` SET `id_status`= 8 ,`delivery_date`= ? WHERE `service_number` = ?";
         
         boolean estado = false;
-        LocalDate fechaLocal = LocalDate.now();
+        LocalDate fechaLocal = LocalDate.now();   
         
-        Connection conexion = getConnection();
-       
+        Connection conexion = Connection.getConnection();
+        
         try{
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);
            
@@ -553,12 +558,12 @@ public class serviceDAO {
             pstmt.executeUpdate();
               
             pstmt.close();
-            conexion.close();
             estado = true;
-            
+            conexion.close();
         }
         catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "ERROR -> " + e.getMessage());
+            mensajeError();
+            System.out.println("ERROR EN: serviceDAO: updateServiceDespachar. " + e.getMessage());
         } 
         
         if(estado){
@@ -599,7 +604,7 @@ public class serviceDAO {
                     "INNER JOIN devices d ON so.id_device = d.id_device " +
                     "WHERE so.id_service = ?";
         
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
         
         try{            
             PreparedStatement pstmt = conexion.prepareStatement(sql);
@@ -655,7 +660,7 @@ public class serviceDAO {
                     "SUM(CASE WHEN id_status = 7 THEN 1 ELSE 0 END) AS reparado " +
                     "FROM service_orders";
         
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
         
         try{
             PreparedStatement pstm = conexion.prepareStatement(sql);
@@ -716,7 +721,7 @@ public class serviceDAO {
                     "INNER JOIN devices d ON so.id_device = d.id_device " +
                     "WHERE so.service_number = ? AND so.id_status = 8";        
         
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
             
         try{
             PreparedStatement pstm = conexion.prepareStatement(sql);
@@ -775,9 +780,9 @@ public class serviceDAO {
         
         boolean status = false;
         
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
         
-        DefaultTableModel dtm = crearModeloNoEditable();
+        DefaultTableModel dtm = qGeneric.crearModeloNoEditable();
         
         String[] titulo = {"idService","Servicio","Estado","Dispositivo", "S/N", "Ingrso", "Egreso"};
         dtm.setColumnIdentifiers(titulo);

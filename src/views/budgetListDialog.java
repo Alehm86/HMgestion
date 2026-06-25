@@ -18,8 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -33,18 +31,18 @@ public class budgetListDialog extends javax.swing.JDialog {
     budgetDAO qBudget = new budgetDAO();
     utility utils = new utility();
     
-    int id_budget;
-    int id_service;
-    int status = 0;
+    private int id_budget;
+    private int id_service;
+    private int status = 0;
     
-    String filtroFecha;
-    String filtroEstado;
-    
+    private String filtroFecha;
+    private String filtroEstado;   
+
     private TableRowSorter<DefaultTableModel> sorter;
     
     public void setConfigPage(int status){      
         this.status = status;
-        if(status == 1){
+        if(this.status == 1){
             btnSelectProduct.setVisible(true);
             btnCancel.setVisible(true);
             btnCancelBudget.setVisible(false);
@@ -55,8 +53,11 @@ public class budgetListDialog extends javax.swing.JDialog {
         return id_budget;
     }
     
-    public budgetListDialog(java.awt.Frame parent, boolean modal) {
+    public budgetListDialog(java.awt.Frame parent, boolean modal, int status) {
         super(parent, modal);
+        
+        this.status = status;
+        
         initComponents();
         
         btnSelectProduct.setVisible(false);
@@ -67,14 +68,15 @@ public class budgetListDialog extends javax.swing.JDialog {
         
         leyendaBotones();       
         actions();
+        
         listadoInicial();   
              
-        utils.agregarPlaceholderN(txtBuscar, "Filtrar...");        
-        
-    }
+        utils.agregarPlaceholderN(txtBuscar, "Filtrar...");      
+
+    }    
 
     private void listadoInicial(){
-        qBudget.listBudgets(tableBudgets, "30 días", "Todos");
+        qBudget.listBudgets(status,tableBudgets, "30 días", "Todos");
         tableBudgets.getColumnModel().getColumn(5).setCellRenderer(new vencimientoColorRenderer());
     }
     
@@ -119,10 +121,10 @@ public class budgetListDialog extends javax.swing.JDialog {
             String estado = cboFiltroEstado.getSelectedItem().toString();
  
             if(status > 0){
-                qBudget.listBudgets(tableBudgets, fecha, estado);
+                qBudget.listBudgets(status,tableBudgets, fecha, estado);
                 filtrarPresupuestos();             
             }else{
-                qBudget.listBudgets(tableBudgets, fecha, estado);
+                qBudget.listBudgets(status,tableBudgets, fecha, estado);
             }
             tableBudgets.getColumnModel().getColumn(5).setCellRenderer(new vencimientoColorRenderer());
             tableBudgets.getColumnModel().getColumn(6).setCellRenderer(new colorRenderEstado());
@@ -152,7 +154,12 @@ public class budgetListDialog extends javax.swing.JDialog {
         });
         
         btnViewBudget.addActionListener(e->{
-            viewBudget();
+            if(id_budget > 0){
+               viewBudget(); 
+            }else{
+                JOptionPane.showMessageDialog(null, "Seleccione un presupuesto.");
+            }
+            
         });         
         
         btnCancelBudget.addActionListener(e->{
@@ -524,7 +531,7 @@ public class budgetListDialog extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                budgetListDialog dialog = new budgetListDialog(new javax.swing.JFrame(), true);
+                budgetListDialog dialog = new budgetListDialog(new javax.swing.JFrame(), true, 1);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

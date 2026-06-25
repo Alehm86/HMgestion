@@ -1,9 +1,11 @@
 package views;
 
+import ConnectionDB.connectionDB;
 import dao.serviceDAO;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFrame;
@@ -50,7 +52,8 @@ public class serviceListPanel extends javax.swing.JPanel {
             listar();
         });
         
-        btnEntregar.addActionListener(e->{           
+        btnEntregar.addActionListener(e->{        
+            
             int confirmacion = JOptionPane.showConfirmDialog(null,"¿Confirma entregar el equipo?","Confirmación",JOptionPane.YES_NO_OPTION);
             
             if (confirmacion != JOptionPane.YES_OPTION) {
@@ -58,7 +61,7 @@ public class serviceListPanel extends javax.swing.JPanel {
             }              
             qServices.updateServiceDespachar(serviceSelected);   
             listar();
-            
+
         });
         
     }

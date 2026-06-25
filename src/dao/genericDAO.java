@@ -11,20 +11,32 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import dao.connectionDAO;
+import javax.swing.table.DefaultTableModel;
 
 public class genericDAO {
     
-    private Connection getConnection() {
-        connectionDB con = new connectionDB();
-        return con.establecerConexion();
-    }  
+    connectionDAO Connection = new connectionDAO();
+    
+    public void mensajeError(){
+        JOptionPane.showMessageDialog(null, "Error comunicarse con el administrador!");
+    }
+    
+    public DefaultTableModel crearModeloNoEditable() {
+        return new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+    }
     
     //VERIFICA SI EXISTE EL NOMBRE
     public boolean nameExists(String name , String tabla) {
         
         String sql = "SELECT COUNT(*) FROM "+ tabla +" WHERE name = ?";
     
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
     
         try {
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);  
@@ -80,7 +92,7 @@ public class genericDAO {
         
         String sql = "UPDATE "+ tabla +" SET state = "+ state +" WHERE name = ?";
         
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
        
         try{
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);         
@@ -99,7 +111,7 @@ public class genericDAO {
 
         String sql = "UPDATE " + tabla + " SET `name` = ? WHERE `name` = ?";
 
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
 
         try{
             PreparedStatement pstmt = conexion.prepareStatement(sql); 
@@ -120,7 +132,7 @@ public class genericDAO {
 
         String sql = "SELECT * FROM " + tableDB + " ORDER BY name ASC";
 
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
 
         combo.removeAllItems();
         combo.addItem("Seleccione una opción");
@@ -144,7 +156,7 @@ public class genericDAO {
 
         String sql = "SELECT * FROM " + table + " WHERE state = 1 ORDER BY name ASC";
 
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
 
         combo.addItem("Seleccione una opción");
 

@@ -24,10 +24,8 @@ import utils.tableStyleUtil;
 
 public class budgetDAO {
     
-    private Connection getConnection() {
-        connectionDB con = new connectionDB();
-        return con.establecerConexion();
-    }
+    genericDAO qGeneric = new genericDAO();
+    connectionDAO Connection = new connectionDAO();   
     
     private DefaultTableModel crearModeloNoEditable() {
         return new DefaultTableModel() {
@@ -56,7 +54,7 @@ public class budgetDAO {
 
         String sqlUpdate = "UPDATE `budget` SET `nro_budget`=? WHERE `id_budget`=?";
 
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
 
         try{
             conexion.setAutoCommit(false);
@@ -88,7 +86,7 @@ public class budgetDAO {
 
             if(idGenerado > 0){
                 
-                String puntoVenta = "01";
+                String puntoVenta = "PPTO-01";
                 String nro_budget = String.format("%s-%06d", puntoVenta, idGenerado);            
 
                 PreparedStatement pstmtUpdate = conexion.prepareStatement(sqlUpdate);
@@ -131,7 +129,7 @@ public class budgetDAO {
         String sql ="INSERT INTO `budget_detail`(`id_budget`, `description`, `type`, `id_product`, `quantity`, `price`, `iva`, `subtotal`) " +
                     "VALUES (?,?,?,?,?,?,?,?)";
         
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
         
         try{
             PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);  
@@ -189,7 +187,7 @@ public class budgetDAO {
 
         String nameCustomer = "";
 
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
 
         String[] titulo = new String[]{"Items", "Cant", "P. Unit. IVA Inc.", "IVA","Total"};
         dtm.setColumnIdentifiers(titulo);
@@ -343,7 +341,7 @@ public class budgetDAO {
         
         DefaultTableModel dtm = crearModeloNoEditable();
 
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
 
         String[] titulo = new String[]{"Items", "Cant", "Precio Unit", "IVA","Total"};
         dtm.setColumnIdentifiers(titulo);        
@@ -403,7 +401,7 @@ public class budgetDAO {
 
         boolean estado = false;
 
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
 
         try{
             conexion.setAutoCommit(false);
@@ -440,9 +438,11 @@ public class budgetDAO {
         return estado;
     }     
     
-    public void listBudgets(JTable tableItems, String filtroFecha, String filtroEstado){
+    public void listBudgets(int type, JTable tableItems, String filtroFecha, String filtroEstado){
 
-        String sqlBase =
+        String sqlBase = "";
+        
+        String op1 =
             "SELECT " +
             "b.id_budget, " +
             "b.date, " +
@@ -457,6 +457,30 @@ public class budgetDAO {
             "LEFT JOIN service_orders s ON b.id_service = s.id_service " +
             "INNER JOIN budget_states bt ON b.id_state = bt.id_budget_state " +
             "WHERE b.date >= CURDATE() - INTERVAL 1 YEAR ";
+
+        String op2 =
+            "SELECT " +
+            "b.id_budget, " +
+            "b.date, " +
+            "b.nro_budget, " +
+            "b.customer_name, " +
+            "COALESCE(s.service_number, ' ') AS service_number, " +
+            "s.id_service, " +
+            "b.total, " +
+            "b.expiration_date, " +
+            "bt.name AS state_name " +
+            "FROM budget b " +
+            "LEFT JOIN service_orders s ON b.id_service = s.id_service " +
+            "INNER JOIN budget_states bt ON b.id_state = bt.id_budget_state " +
+            "WHERE b.id_service IS NULL " +
+            "AND b.id_state <> 6 " +
+            "AND b.date >= CURDATE() - INTERVAL 1 YEAR ";
+        
+        if(type == 1){
+            sqlBase =  op2;
+        }else{
+            sqlBase =  op1;
+        }
 
         String condicionFecha = "";
         String condicionEstado = "";
@@ -491,7 +515,7 @@ public class budgetDAO {
         };
         dtm.setColumnIdentifiers(titulo);
 
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
 
         try{
             Statement stmt = conexion.createStatement();
@@ -557,7 +581,8 @@ public class budgetDAO {
             conexion.close();
 
         }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            qGeneric.mensajeError();
+            System.out.println("ERROR EN: budgetDAO: listBudgets. " + e.getMessage());
         }
     }
     
@@ -565,7 +590,7 @@ public class budgetDAO {
         
         String sql= "UPDATE budget SET id_state  = 4 WHERE expiration_date < CURDATE() AND id_state  = 1";
         
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
         
         try{
             PreparedStatement pstmt = conexion.prepareStatement(sql);           

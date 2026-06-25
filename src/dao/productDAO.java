@@ -225,9 +225,9 @@ public class productDAO {
             pstmt.setString(1, name);
             ResultSet rs = pstmt.executeQuery();
            
-           while(rs.next()){
-               idCat=(rs.getInt("id_category"));            
-           }
+            while(rs.next()){
+                idCat=(rs.getInt("id_category"));            
+            }
            
            rs.close();
            pstmt.close();

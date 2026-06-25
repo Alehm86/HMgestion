@@ -4,8 +4,12 @@
  */
 package views;
 
+
+import ConnectionDB.connectionDB;
+import java.sql.Connection;
 import dao.cashRegisterDAO;
 import dao.customerDAO;
+import dao.stockDAO;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
@@ -26,12 +30,13 @@ import javax.swing.table.DefaultTableModel;
 import models.mCashRegDetail;
 import models.mCashRegister;
 import utils.tableStyleUtil;
-
+import java.sql.SQLException;
 
 public class salesRegisterPanel extends javax.swing.JPanel {
 
     customerDAO qCustomer = new customerDAO();
     cashRegisterDAO qCashReg = new cashRegisterDAO();
+    stockDAO qStock = new stockDAO();
     
     mCashRegister modelCashReg = new mCashRegister();
     mCashRegDetail modelCRDetail = new mCashRegDetail();
@@ -367,12 +372,12 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                     totalServices = totalServices();
                     lblTotalServices.setText(String.format("%.2f", totalServices));
                             
-                    calcularTotales();
+                    calcularResumen();
                 }
                 
             }else if(opcion.equals("Presupuesto")){
                 
-                budgetListDialog fListBudget = new budgetListDialog(null, true);
+                budgetListDialog fListBudget = new budgetListDialog(null, true, 1);
                 fListBudget.setLocationRelativeTo(null);
                 fListBudget.setConfigPage(1);
                 fListBudget.setVisible(true);
@@ -390,7 +395,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                 totalServices = totalServices();
                 lblTotalServices.setText(String.format("%.2f", totalServices));
 
-                calcularTotales();
+                calcularResumen();
             }
             
             cboAddOp.setEnabled(false);
@@ -420,7 +425,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
             totalServices = totalServices();
             lblTotalServices.setText(String.format("%.2f", totalServices));
 
-            calcularTotales();
+            calcularResumen();
         });
                 
     }
@@ -473,7 +478,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
             totalProducts = totalProductos();
             lblTotalProducts.setText(String.format("%.2f", totalProducts));
             
-            calcularTotales();
+            calcularResumen();
         });
         
         btnEditProduct.addActionListener(e->{
@@ -494,7 +499,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
             totalProducts = totalProductos();
             lblTotalProducts.setText(String.format("%.2f", totalProducts));
             
-            calcularTotales();
+            calcularResumen();
         });
         
         btnDeleteProduct.addActionListener(e->{  
@@ -504,7 +509,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
             totalProducts = totalProductos();
             lblTotalProducts.setText(String.format("%.2f", totalProducts));
             
-            calcularTotales();
+            calcularResumen();
         });
     }
     
@@ -552,7 +557,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         }
     }
    
-    public void calcularTotales(){
+    public void calcularResumen(){
 
         double subtotalProductos = 0;
         double subtotalServicios = 0;
@@ -704,34 +709,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         double saldo = totalFinal - totalPagado;
         lbl_Saldo.setText(String.format("%.2f", saldo));
     }
-    
-//    private void calcularSaldo(int fila){
-//
-//        double totalPagado = 0;
-//
-//        for(int i = 0; i < dtmPayment.getRowCount(); i++){
-//
-//            if(i == fila){
-//                continue;
-//            }
-//
-//            try{
-//                totalPagado += Double.parseDouble(dtmPayment.getValueAt(i, 1).toString());
-//
-//            }catch(Exception e){
-//            }
-//        }
-//
-//        double saldoPendiente = totalFinal - totalPagado;
-//
-//        if(saldoPendiente < 0){
-//            saldoPendiente = 0;
-//        }
-//
-//        dtmPayment.setValueAt(saldoPendiente,fila,1);
-//
-//        calcularPagos();
-//    }
+
     private void calcularSaldo(int fila){
 
         BigDecimal totalPagado = BigDecimal.ZERO;
@@ -761,6 +739,12 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         calcularPagos();
     }
     
+    
+    private Connection getConnection() {
+        connectionDB conn = new connectionDB();
+        return conn.establecerConexion();
+    }
+    
     private void registrarVenta(){
         
         boolean valido = true;
@@ -772,165 +756,279 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         double saldo = Double.parseDouble(lbl_Saldo.getText().trim().replace("$", "").replace(" ", "").replace(",", "."));       
         String observation = textAreaObservation.getText();
         
-        if(!observation.isEmpty()){
-            modelCashReg.setObservation(observation);
-        }else{
-            modelCashReg.setObservation(null);
-        }
+        Connection conn = getConnection();
         
-        if(id_customer > 0){
-            modelCashReg.setId_customer(id_customer);
-        }else{
-            modelCashReg.setId_customer(null);
-        }
-        
-        if(totalGeneral != totalFinal){
-            modelCashReg.setDiscount(discount);
-        }else{
-            modelCashReg.setDiscount(0.00);
-        }
-          
-        if(saldo < 0){
-            JOptionPane.showMessageDialog(null, "El importe excede el total a pagar");
-            return;
-        }else if(saldo > 0){
-            JOptionPane.showMessageDialog(null, "Falta pagar: $" + saldo);
-            return;
-        }else{
+        try{
+            conn.setAutoCommit(false);
             
-        }
-        
-        if(tableProducts.getRowCount() < 1 && tableServices.getRowCount() < 1){
-            JOptionPane.showMessageDialog(null, "No hay ítems cargados.");
-            valido = false;
-        }
-        
-        if(tablaPagos.getRowCount() < 1){
-            JOptionPane.showMessageDialog(null, "No hay metodo de pago cargado.");
-            valido = false;
-        }
-        
-        int confirmacion = JOptionPane.showConfirmDialog(
-            null,
-            "¿Confirma el registro?",
-            "Confirmación",
-            JOptionPane.YES_NO_OPTION
-        );                   
-        if (confirmacion != JOptionPane.YES_OPTION) {
-            return;
-        }  
-        
-        id_operation = qCashReg.cashRegister(
-                modelCashReg.getId_customer(), 
-                totalGeneral, 
-                modelCashReg.getDiscount(), 
-                totalFinal, 
-                modelCashReg.getObservation()
-        );
-        
-        if(id_operation <= 0){
-            JOptionPane.showMessageDialog(null, "Error al registrar el presupuesto.");
-            return;
-        }
-        
-        if(tableProducts.getRowCount() > 0){
-            
-           for(int i = 0; i < tableProducts.getRowCount(); i++){
+            if(!observation.isEmpty()){
+                modelCashReg.setObservation(observation);
+            }else{
+                modelCashReg.setObservation(null);
+            }
 
-                String operation = tableProducts.getValueAt(i, 1).toString();
-                String description = tableProducts.getValueAt(i, 2).toString();           
-                String type = "product";
-                
-                String idProd = "";
-                
-                Object value = tableProducts.getValueAt(i, 0);
-                if (value != null) {
-                    idProd = value.toString().trim();
+            if(id_customer > 0){
+                modelCashReg.setId_customer(id_customer);
+            }else{
+                modelCashReg.setId_customer(null);
+            }
+
+            if(totalGeneral != totalFinal){
+                modelCashReg.setDiscount(discount);
+            }else{
+                modelCashReg.setDiscount(0.00);
+            }
+
+            if(saldo < 0){
+                JOptionPane.showMessageDialog(null, "El importe excede el total a pagar");
+                return;
+            }else if(saldo > 0){
+                JOptionPane.showMessageDialog(null, "Falta pagar: $" + saldo);
+                return;
+            }else{
+
+            }
+
+            if(tableProducts.getRowCount() < 1 && tableServices.getRowCount() < 1){
+                JOptionPane.showMessageDialog(null, "No hay ítems cargados.");
+                valido = false;
+            }
+
+            if(tablaPagos.getRowCount() < 1){
+                JOptionPane.showMessageDialog(null, "No hay metodo de pago cargado.");
+                valido = false;
+            }
+
+            int confirmacion = JOptionPane.showConfirmDialog(
+                null,
+                "¿Confirma el registro?",
+                "Confirmación",
+                JOptionPane.YES_NO_OPTION
+            );                   
+            if (confirmacion != JOptionPane.YES_OPTION) {
+                return;
+            }  
+//            REGISTRA LA VENTA
+            id_operation = qCashReg.cashRegister(
+                    conn,
+                    modelCashReg.getId_customer(), 
+                    totalGeneral, 
+                    modelCashReg.getDiscount(), 
+                    totalFinal, 
+                    modelCashReg.getObservation()
+            );
+
+            if(id_operation <= 0){
+                JOptionPane.showMessageDialog(null, "Error comunicarse con el administrador!");
+                System.out.println("Error al registrar la venta.");
+                return;
+            }
+
+            for(int i = 0; i < tablaPagos.getRowCount(); i++){
+
+                String method = tablaPagos.getValueAt(i, 0).toString();
+                double total = Double.parseDouble(tablaPagos.getValueAt(i, 1).toString().trim().replace("$", "").replace(" ", "").replace(",", "."));
+
+                status = qCashReg.insertMethodPayments(conn,id_operation,method,total);
+
+                if(!status){
+                    JOptionPane.showMessageDialog(null, "Error comunicarse con el administrador!");
+                    System.out.println("Error al registrar metodo de pago");
+                    return;
                 }
-                Integer id_product = null;
-                if (!idProd.isEmpty()) {
-                    id_product = Integer.parseInt(idProd);
-                }
-                
-                int quantity = Integer.parseInt(tableProducts.getValueAt(i, 3).toString());
-                double price = Double.parseDouble(tableProducts.getValueAt(i, 4).toString());
-                String iva = tableProducts.getValueAt(i, 5).toString();
-                double subtotal = Double.parseDouble(tableProducts.getValueAt(i, 6).toString());                 
 
-                mCashRegDetail item = new mCashRegDetail(
-                        operation,
-                        description,
-                        type,
-                        id_product,
-                        quantity,
-                        price,
-                        iva,
-                        subtotal
-                );
-
-                status = qCashReg.insertCashRegDetail(
-                        id_operation,
-                        item.getOperation(),
-                        item.getDescription(),
-                        item.getType(),
-                        item.getId_product(),
-                        item.getQuantity(),
-                        item.getPrice(),
-                        item.getIva(),
-                        item.getSubtotal()
-                );
             } 
-        }
-        
-        if(tableServices.getRowCount() > 0){
-                       
-            for(int i = 0; i < tableServices.getRowCount(); i++){
 
-                String operation = tableServices.getValueAt(i, 0).toString();
-                String description = tableServices.getValueAt(i, 1).toString();           
-                String type = "service";
-                Integer id_product = null;
-                int quantity = Integer.parseInt(tableServices.getValueAt(i, 2).toString());
-                double price = Double.parseDouble(tableServices.getValueAt(i, 3).toString());
-                String iva = "21%";
-                double subtotal = Double.parseDouble(tableServices.getValueAt(i, 5).toString());                      
+            if(tableProducts.getRowCount() > 0){
+//                RECORRE LA TABLA PRODUCTOS Y AGREGA LOS ITEMS DE LA VENTA
+                for(int i = 0; i < tableProducts.getRowCount(); i++){
 
-                mCashRegDetail item = new mCashRegDetail(
-                        operation,
-                        description,
-                        type,
-                        id_product,
-                        quantity,
-                        price,
-                        iva,
-                        subtotal
-                );
+                    String operation = tableProducts.getValueAt(i, 1).toString();
+                    String description = tableProducts.getValueAt(i, 2).toString();           
+                    String type = "product";
+                    int quantity = Integer.parseInt(tableProducts.getValueAt(i, 3).toString());
 
-                status = qCashReg.insertCashRegDetail(
-                        id_operation,
-                        item.getOperation(),
-                        item.getDescription(),
-                        item.getType(),
-                        item.getId_product(),
-                        item.getQuantity(),
-                        item.getPrice(),
-                        item.getIva(),
-                        item.getSubtotal()
-                );
-            } 
+                    String idProd = "";
+
+                    Object value = tableProducts.getValueAt(i, 0);
+                    if (value != null) {
+                        idProd = value.toString().trim();
+                    }
+                    Integer id_product = null;
+                    if (!idProd.isEmpty()) {
+                        id_product = Integer.parseInt(idProd);
+                    }
+
+                    double price = Double.parseDouble(tableProducts.getValueAt(i, 4).toString());
+                    String iva = tableProducts.getValueAt(i, 5).toString();
+                    double subtotal = Double.parseDouble(tableProducts.getValueAt(i, 6).toString());                 
+
+                    mCashRegDetail item = new mCashRegDetail(
+                            operation,
+                            description,
+                            type,
+                            id_product,
+                            quantity,
+                            price,
+                            iva,
+                            subtotal
+                    );
+
+                    status = qCashReg.insertCashRegDetail(
+                            conn,
+                            id_operation,
+                            item.getOperation(),
+                            item.getDescription(),
+                            item.getType(),
+                            item.getId_product(),
+                            item.getQuantity(),
+                            item.getPrice(),
+                            item.getIva(),
+                            item.getSubtotal()
+                    );
+
+                    if(!status){
+                        JOptionPane.showMessageDialog(null, "Error comunicarse con el administrador!");
+                        System.out.println("Error al registrar item de tabla productos");
+                        return;
+                    }
+                } 
+            }
+
+            if(tableServices.getRowCount() > 0){
+//                RECORRE LA TABLA SERVICIOS Y AGREGA LOS ITEMS DE LA VENTA
+                for(int i = 0; i < tableServices.getRowCount(); i++){
+
+                    String operation = tableServices.getValueAt(i, 0).toString();
+                    String description = tableServices.getValueAt(i, 1).toString();           
+                    String type = "service";
+                    Integer id_product = null;
+                    int quantity = Integer.parseInt(tableServices.getValueAt(i, 2).toString());
+                    double price = Double.parseDouble(tableServices.getValueAt(i, 3).toString());
+                    String iva = "21%";
+                    double subtotal = Double.parseDouble(tableServices.getValueAt(i, 5).toString());                      
+
+                    mCashRegDetail item = new mCashRegDetail(
+                            operation,
+                            description,
+                            type,
+                            id_product,
+                            quantity,
+                            price,
+                            iva,
+                            subtotal
+                    );
+
+                    status = qCashReg.insertCashRegDetail(
+                            conn,
+                            id_operation,
+                            item.getOperation(),
+                            item.getDescription(),
+                            item.getType(),
+                            item.getId_product(),
+                            item.getQuantity(),
+                            item.getPrice(),
+                            item.getIva(),
+                            item.getSubtotal()
+                    );
+
+                    if(!status){
+                        JOptionPane.showMessageDialog(null, "Error comunicarse con el administrador!");
+                        System.out.println("Error al registrar item de tabla servicios");
+                        return;
+                    }
+                } 
+
+            }
+
+            if(tableProducts.getRowCount() > 0){
+//                RECORRE LA TABLA PRODUCTOS Y ACTUALIZA LOS STOCKS
+                for(int i = 0; i < tableProducts.getRowCount(); i++){
+
+                    int quantity = Integer.parseInt(tableProducts.getValueAt(i, 3).toString());
+
+                    String idProd = "";
+
+                    Object value = tableProducts.getValueAt(i, 0);
+                    if (value != null) {
+                        idProd = value.toString().trim();
+                    }
+                    Integer id_product = null;
+                    if (!idProd.isEmpty()) {
+                        id_product = Integer.parseInt(idProd);
+                        status = qStock.updateStock(conn,id_product, quantity);
+                    }               
+
+                    if(!status){
+                        throw new Exception("No se pudo actualizar stock del producto ID: "+ id_product);
+                    }
+                } 
+            }
             
-        }
-           
-        //ADD METODO DE PAGO
-        //cuenta corriente
-        //UPDATE STOCK
-        //ENTREGAR SERVICIO
-        //UPDATE PRESUPUESTO
-        
-        JOptionPane.showMessageDialog(null, "Presupuesto registrado correctamente.");
-        
-        limpiar();
-        
+            if(tableOperations.getRowCount() > 0){
+                
+                for(int i = 0; i < tableOperations.getRowCount(); i++){
+                    
+                    String tipo = tableOperations.getValueAt(i, 1).toString();
+                    String operationNumber = tableOperations.getValueAt(i, 2).toString();
+
+                    if("Servicio técnico".equals(tipo)){
+//                        DESPACHAR SERVICIO TÉCNICO 
+                        System.out.println("LLEGUE A ESTE PUNTO");
+                        status = qCashReg.serviceDespachar(conn, operationNumber);
+                        
+                        if(!status){
+                            throw new Exception("No se pudo despachar: "+ operationNumber);
+                        }
+                    }
+                    else if("Presupuesto".equals(tipo)){
+//                        ACTUALIZAR ESTADO PRESUPUESTO    
+                        status = qCashReg.updateStateBudget(conn, operationNumber);
+                        
+                        if(!status){
+                            throw new Exception("No se pudo actualizar estado presupuesto: "+ operationNumber);
+                        }
+                        
+                    }
+                }
+            }          
+//verificar que no se repita el mismo presupuesto.
+//verificar que no se repita el mismo servicio tecnico.
+//Diseñar y planificar para asociar los productos presupuestados a pedido.   
+//verificar que al ingresar un servicio tecnico o presupuesto no se repita.
+//crear tabla cuenta corriente.
+//registrar cta. cte.
+//administrar cta. cte. (ver quienes deben).
+//en caso que el cliente pague la cuenta diseñar como lo insertamos en el sistema (ventas).
+//crear tabla operacion (venta, compra, pago).
+//registrar operacion.
+
+
+            JOptionPane.showMessageDialog(null, "Venta registrada correctamente.");
+
+            limpiar();
+            
+            conn.commit();
+            
+        }catch(Exception e){
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+            
+        }finally{
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }            
     }
     
     private void limpiar(){

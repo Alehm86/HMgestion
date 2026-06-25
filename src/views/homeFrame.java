@@ -245,7 +245,7 @@ public class homeFrame extends javax.swing.JFrame {
         });
         
         jMenuListPresupuesto.addActionListener(e -> {
-            budgetListDialog fListBudget = new budgetListDialog(null, true);
+            budgetListDialog fListBudget = new budgetListDialog(null, true, 0);
             fListBudget.setLocationRelativeTo(null);
             fListBudget.setVisible(true);
         });

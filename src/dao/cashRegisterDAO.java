@@ -18,11 +18,9 @@ import session.session;
 
 public class cashRegisterDAO {
     
-    private Connection getConnection() {
-        connectionDB con = new connectionDB();
-        return con.establecerConexion();
-    }
-    
+    connectionDAO Connection = new connectionDAO();
+    genericDAO qGeneric = new genericDAO();
+       
     private DefaultTableModel crearModeloNoEditable() {
         return new DefaultTableModel() {
             @Override
@@ -62,7 +60,7 @@ public class cashRegisterDAO {
                             "INNER JOIN service_orders so ON b.id_service = so.id_service " +
                             "WHERE so.service_number = ?";
 
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
 
         try {
             PreparedStatement pstmt = conexion.prepareStatement(sql);
@@ -125,7 +123,8 @@ public class cashRegisterDAO {
                 pstmt2.close();
 
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+                qGeneric.mensajeError();
+                System.out.println("ERROR EN: cashRegisterDAO: listServiceOperation. " + e.getMessage());
             }
 
             rs.close();
@@ -141,7 +140,7 @@ public class cashRegisterDAO {
             int idBudget,
             DefaultTableModel dtmOperation,
             DefaultTableModel dtmProduct,
-            DefaultTableModel dtmService){
+            DefaultTableModel dtmService){     
         
         String sqlBudget= "SELECT " +
                           "b.nro_budget AS comprobante, " +
@@ -164,7 +163,7 @@ public class cashRegisterDAO {
                                "INNER JOIN budget b ON bd.id_budget = b.id_budget " +
                                "WHERE bd.id_budget = ?";
             
-        Connection conexion = getConnection();
+        Connection conexion = Connection.getConnection();
         
         try {
             PreparedStatement pstmt = conexion.prepareStatement(sqlBudget);
@@ -227,7 +226,8 @@ public class cashRegisterDAO {
                 pstmt2.close();
 
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+                qGeneric.mensajeError();
+                System.out.println("ERROR EN: cashRegisterDAO: listBudgetOperation. " + e.getMessage());
             }
 
             rs.close();
@@ -235,12 +235,14 @@ public class cashRegisterDAO {
             conexion.close();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+            qGeneric.mensajeError();
+            System.out.println("ERROR EN: cashRegisterDAO: listBudgetOperation. " + e.getMessage());
         }
         
     }
     
     public int cashRegister(
+            Connection conn,
             Integer id_customer,    
             double total,
             double discount,
@@ -257,13 +259,11 @@ public class cashRegisterDAO {
         LocalDate fechaLocal = LocalDate.now();
         
         int idGenerado = 0;
-        int id_user = session.getCurrentUser().getId();
-        
-        Connection conexion = getConnection();
+        int id_user = session.getCurrentUser().getId();       
         
         try{
-            conexion.setAutoCommit(false);
-            PreparedStatement pstmtInsert = conexion.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
+            conn.setAutoCommit(false);
+            PreparedStatement pstmtInsert = conn.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
             
             if (id_customer == null) {
                 pstmtInsert.setNull(1, java.sql.Types.INTEGER);
@@ -291,31 +291,50 @@ public class cashRegisterDAO {
 
                 String sale_number = "RV-" + String.format("%06d", idGenerado);
 
-                PreparedStatement pstmtUpdate = conexion.prepareStatement(sqlUpdate);
-
+                PreparedStatement pstmtUpdate = conn.prepareStatement(sqlUpdate);
                 pstmtUpdate.setString(1, sale_number);
                 pstmtUpdate.setInt(2, idGenerado);
 
                 pstmtUpdate.executeUpdate();
                 pstmtUpdate.close();
-            }
-
-            conexion.commit();
-            conexion.close();
-            
+            }         
             
         }catch(SQLException e){
             try {
-                conexion.rollback();
+                conn.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            JOptionPane.showMessageDialog(null, "ERROR AL REGISTRAR OPERACION: " + e.getMessage());           
+            System.out.println("ERROR EN: cashRegisterDAO: cashRegister. " + e.getMessage());          
         }
         return idGenerado;
     }
     
+    public boolean insertMethodPayments(Connection conn, int id_sale, String method, double total){
+        
+        String sql = "INSERT INTO `sales_payments`(`id_sale`, `method`, `total`) VALUES (?,?,?)";
+        
+        boolean status = false;
+        
+        try{
+            PreparedStatement pstmt = conn.prepareStatement(sql);         
+            pstmt.setInt(1, id_sale);
+            pstmt.setString(2, method);
+            pstmt.setDouble(3, total);
+            
+            pstmt.executeUpdate();
+            status = true;
+            
+            pstmt.close();
+            
+        }catch(SQLException e){
+            System.out.println("ERROR EN: cashRegisterDAO: insertMethodPayments. " + e.getMessage()); 
+        }
+        return status;
+    }
+    
     public boolean insertCashRegDetail(
+            Connection conn,
             int id_CashReg,
             String operation,
             String description,
@@ -332,11 +351,9 @@ public class cashRegisterDAO {
         String sql ="INSERT INTO `sales_detail`(`id_sale`, `operation`, `description`, `type`, `id_product`, `quantity`, `price`, `iva`, `subtotal`) " +
                     "VALUES (?,?,?,?,?,?,?,?,?)";
         
-        Connection conexion = getConnection();
         
         try{
-            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);  
-            
+            PreparedStatement pstmt = (PreparedStatement) conn.prepareStatement(sql);             
             pstmt.setInt(1, id_CashReg);
             pstmt.setString(2, operation);
             pstmt.setString(3, description);
@@ -356,15 +373,65 @@ public class cashRegisterDAO {
             pstmt.executeUpdate();   
             
             status = true;
-            
-            conexion.close(); 
+
             pstmt.close();
             
         }
         catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "ERROR AL REGISTRAR DETALLE: " + e.getMessage());
+            System.out.println("ERROR EN: cashRegisterDAO: insertMethodPayments. " + e.getMessage());
         }
         return status;
     }
+    
+        public boolean serviceDespachar(Connection conn,String serviceNumber){
+        
+        String sql = "UPDATE `service_orders` SET `id_status`= 8 ,`delivery_date`= ? WHERE `service_number` = ?";
+        
+        boolean estado = false;
+        LocalDate fechaLocal = LocalDate.now();           
+        
+        try{
+            PreparedStatement pstmt = (PreparedStatement) conn.prepareStatement(sql);         
+            pstmt.setDate(1, java.sql.Date.valueOf(fechaLocal));
+            pstmt.setString(2, serviceNumber);
+            pstmt.executeUpdate();
+              
+            pstmt.close();
+            estado = true;
+
+        }
+        catch(SQLException e){
+            qGeneric.mensajeError();
+            System.out.println("ERROR EN: cashRegisterDAO: serviceDespachar. " + e.getMessage());
+        } 
+        
+        if(estado){
+            JOptionPane.showMessageDialog(null, "Equipo entregado!.");
+        }
+        
+        return estado;
+    } 
+        
+    public boolean updateStateBudget(Connection conn, String budgetNumber){
+        
+        String sql = "UPDATE `budget` SET `id_state`= 6 WHERE `nro_budget`=?";
+        
+        boolean estado = false;
+        
+        try{
+            PreparedStatement pstmt = (PreparedStatement) conn.prepareStatement(sql);        
+            pstmt.setString(1, budgetNumber);
+            pstmt.executeUpdate();
+              
+            pstmt.close();
+            estado = true;
+
+        }
+        catch(SQLException e){
+            qGeneric.mensajeError();
+            System.out.println("ERROR EN: cashRegisterDAO: updateStateBudget. " + e.getMessage());
+        }
+        return estado;
+    }    
 
 }
