@@ -8,6 +8,7 @@ package views;
 import ConnectionDB.connectionDB;
 import java.sql.Connection;
 import dao.cashRegisterDAO;
+import dao.currentAccountDAO;
 import dao.customerDAO;
 import dao.stockDAO;
 import java.awt.Color;
@@ -31,12 +32,15 @@ import models.mCashRegDetail;
 import models.mCashRegister;
 import utils.tableStyleUtil;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class salesRegisterPanel extends javax.swing.JPanel {
 
     customerDAO qCustomer = new customerDAO();
     cashRegisterDAO qCashReg = new cashRegisterDAO();
     stockDAO qStock = new stockDAO();
+    currentAccountDAO qCuAcc = new currentAccountDAO();
     
     mCashRegister modelCashReg = new mCashRegister();
     mCashRegDetail modelCRDetail = new mCashRegDetail();
@@ -100,9 +104,9 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         tableOperations();
         tablaPagos();
         
-        actionCustomer();
-        actionProduct();
-        actionOperation();    
+        buttonsCustomer();
+        buttonsProduct();
+        buttonsOperation();    
         actionButtons();
         
     }
@@ -239,6 +243,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         tablaPagos.getColumnModel().getColumn(2).setCellRenderer(new ButtonCellRenderer());
         tablaPagos.getColumnModel().getColumn(3).setCellRenderer(new ButtonCellRenderer());
         
+        cboPaymentMethod.addItem("Seleccionar...");
         cboPaymentMethod.addItem("Efectivo");
         cboPaymentMethod.addItem("Transferencia");
         cboPaymentMethod.addItem("Débito");
@@ -248,16 +253,30 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         cboPaymentMethod.addItem("Cuenta Corriente");
         
         tablaPagos.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(cboPaymentMethod));
-        
-        btnAddMetPago.addActionListener(e->{
-             Object[] row = {
-                 "Efectivo",
-                 0.00,
-                 "Todo",
-                 "Eliminar"
-             };
-             dtmPayment.addRow(row);
-             calcularPagos();
+          
+        btnAddMetPago.addActionListener(e->{         
+            
+            Object[] row = {
+                "Seleccionar...",
+                0.00,
+                "Todo",
+                "Eliminar"
+            };
+            dtmPayment.addRow(row);
+            
+            int fila = dtmPayment.getRowCount() - 1;
+            tablaPagos.setRowSelectionInterval(fila, fila);
+
+            SwingUtilities.invokeLater(() -> {
+                
+                tablaPagos.editCellAt(fila, 0);
+                Component editor = tablaPagos.getEditorComponent();
+                if (editor != null) {
+                    editor.requestFocusInWindow();
+                }
+            });
+
+            calcularPagos();
 
          }); 
         
@@ -296,7 +315,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
             lbl_Saldo.setText(String.format("%.2f", totalFinal));
         }
         
-    }
+    }   
        
     public class ButtonCellRenderer extends DefaultTableCellRenderer {
 
@@ -330,8 +349,38 @@ public class salesRegisterPanel extends javax.swing.JPanel {
             return label;
         }
     }
+    
+//VERIFICA QUE NO SE REPITA EL METODO DE PAGO
+    private boolean validarMetodosPago() {
 
-    private void actionOperation(){
+        Set<String> metodos = new HashSet<>();
+
+        for (int i = 0; i < tablaPagos.getRowCount(); i++) {
+
+            Object valor = tablaPagos.getValueAt(i, 0);
+
+            if (valor == null) {
+                JOptionPane.showMessageDialog(null,"Debe seleccionar un método de pago.");
+                return false;
+            }
+
+            String metodo = valor.toString().trim();
+
+            if (metodo.equals("Seleccionar...")) {
+                JOptionPane.showMessageDialog(null,"Debe seleccionar un método de pago.");
+                return false;
+            }
+
+            if (!metodos.add(metodo)) {
+                JOptionPane.showMessageDialog(null,"El método de pago '" + metodo + "' está repetido.");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void buttonsOperation(){
         
         btnAddOp.addActionListener(e->{
             cboAddOp.setEnabled(true);
@@ -348,7 +397,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         btnConfirmOp.addActionListener(e->{
             
             int id_budget = -1;
-            
+
             String opcion = cboAddOp.getSelectedItem().toString();
             
             if(opcion.equals("Servicio técnico")){
@@ -364,39 +413,109 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                 
                 if(!serviceNumber.isEmpty()){
                     
-                    qCashReg.listServiceOperation(serviceNumber,dtmOperation,dtmProduct,dtmService);
+                    if(loadedOperation(serviceNumber)){
+                        
+                        JOptionPane.showMessageDialog(null,"Servicio técnico ya cargado!");
+                        
+                    }else{
+                        
+                        String budgetNum = qCashReg.selectBudgetNumber(serviceNumber);
+                        boolean estado = verificarIdProductos(budgetNum);
+                        
+                        if(estado){
+                            asociarIdproduct(budgetNum);
+                        }
+                        
+                        boolean dialogo = verificarIdProductos(budgetNum);
+
+                        if(dialogo){
+                            JOptionPane.showMessageDialog(null, "El servicio no se cargara hasta que todos los productos esten asociados!");
+                            return;    
+                        }
+                        
+                        qCashReg.listServiceOperation(serviceNumber,dtmOperation,dtmProduct,dtmService);
                     
-                    totalProducts = totalProductos();
-                    lblTotalProducts.setText(String.format("%.2f", totalProducts));
-                    
-                    totalServices = totalServices();
-                    lblTotalServices.setText(String.format("%.2f", totalServices));
-                            
-                    calcularResumen();
-                }
-                
-            }else if(opcion.equals("Presupuesto")){
+                        totalProducts = totalProductos();
+                        lblTotalProducts.setText(String.format("%.2f", totalProducts));
+
+                        totalServices = totalServices();
+                        lblTotalServices.setText(String.format("%.2f", totalServices));
+
+                        calcularResumen();
+                    }                    
+                }              
+            }
+
+            else if(opcion.equals("Presupuesto")){
                 
                 budgetListDialog fListBudget = new budgetListDialog(null, true, 1);
                 fListBudget.setLocationRelativeTo(null);
                 fListBudget.setConfigPage(1);
                 fListBudget.setVisible(true);
                 
-                id_budget = fListBudget.getIdBudget();
-            }
-            
-            if(id_budget > 0){
+                String budgetNum = fListBudget.getBudgetNumber();
                 
-                qCashReg.listBudgetOperation(id_budget, dtmOperation, dtmProduct, dtmService);
-                
-                totalProducts = totalProductos();
-                lblTotalProducts.setText(String.format("%.2f", totalProducts));
+                if(!budgetNum.isEmpty()){         
+                    
+                    if(loadedOperation(budgetNum)){
+                        
+                        JOptionPane.showMessageDialog(null,"Presupuesto ya cargado!");
+                        
+                    }else{
+                        
+                        boolean estado = verificarIdProductos(budgetNum);
+                        
+                        if(estado){
+                            
+                            asociarIdproduct(budgetNum);
+                            
+//                            int confirmacion = JOptionPane.showConfirmDialog(
+//                                null,
+//                                "Existen productos del presupuesto que no se encuentran registrados en el sistema. " +
+//                                "Asócielos con el producto correspondiente para poder continuar.",
+//                                "Confirmación",
+//                                JOptionPane.YES_NO_OPTION
+//                            );                   
+//                            if (confirmacion != JOptionPane.YES_OPTION) {
+//                                return;
+//                            }
+//                            
+//                            productAssocieateDialog fAssocProduct = new productAssocieateDialog(null, true);
+//                            fAssocProduct.setLocationRelativeTo(null);
+//                            
+//                            fAssocProduct.dialogoBudgetNumber(budgetNum);
+//                            fAssocProduct.setVisible(true);
+//                            
+//                            boolean dialogo = verificarIdProductos(budgetNum);
+//                            
+//                            if(dialogo){
+//                                JOptionPane.showMessageDialog(null, "El presupuesto no se cargara hasta que todos los productos esten asociados!");
+//                                return;    
+//                            }
+                            
+                        } 
+                        
+                        boolean dialogo = verificarIdProductos(budgetNum);
 
-                totalServices = totalServices();
-                lblTotalServices.setText(String.format("%.2f", totalServices));
+                        if(dialogo){
+                            JOptionPane.showMessageDialog(null, "El presupuesto no se cargara hasta que todos los productos esten asociados!");
+                            return;    
+                        }
 
-                calcularResumen();
+                        qCashReg.listBudgetOperation(budgetNum, dtmOperation, dtmProduct, dtmService);
+
+                        totalProducts = totalProductos();
+                        lblTotalProducts.setText(String.format("%.2f", totalProducts));
+
+                        totalServices = totalServices();
+                        lblTotalServices.setText(String.format("%.2f", totalServices));
+
+                        calcularResumen();
+                    
+                    }           
+                }
             }
+                            
             
             cboAddOp.setEnabled(false);
             btnConfirmOp.setEnabled(false);
@@ -428,6 +547,51 @@ public class salesRegisterPanel extends javax.swing.JPanel {
             calcularResumen();
         });
                 
+    }   
+    
+    private boolean loadedOperation(String numberOperation){
+
+        boolean compare = false;
+        
+        for(int i = 0; i < tableOperations.getRowCount(); i++){
+                    
+            String operationNumber = tableOperations.getValueAt(i, 2).toString();
+              
+            if(operationNumber.equals(numberOperation)){
+                compare = true;
+            }
+        }
+        return compare;
+    }
+    
+    private boolean verificarIdProductos(String budgetNum){
+        
+        boolean estado = false;
+        
+        estado = qCashReg.IdProductExist(budgetNum);
+        
+        return estado;
+    }
+    
+    private void asociarIdproduct(String budgetNum){
+        
+        int confirmacion = JOptionPane.showConfirmDialog(
+            null,
+            "Existen productos del presupuesto que no se encuentran registrados en el sistema. " +
+            "Asócielos con el producto correspondiente para poder continuar.",
+            "Confirmación",
+            JOptionPane.YES_NO_OPTION
+        );                   
+        if (confirmacion != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        productAssocieateDialog fAssocProduct = new productAssocieateDialog(null, true);
+        fAssocProduct.setLocationRelativeTo(null);
+
+        fAssocProduct.dialogoBudgetNumber(budgetNum);
+        fAssocProduct.setVisible(true);
+
     }
     
     private void actionButtons(){
@@ -437,19 +601,23 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         });
               
         btnConfirm.addActionListener(e->{
+            
+            if (!validarMetodosPago()) {
+                return;
+            }
             registrarVenta();            
         });
              
         btnCancel.addActionListener(e->{
             limpiar();           
         });
-        
-        
+   
     }
     
-    private void actionCustomer(){
+    private void buttonsCustomer(){
         
         btnSearchCustomer.addActionListener(e->{
+            
             customerSearchDialog pSearch = new customerSearchDialog(parent, true);           
             pSearch.setVisible(true);
             cuitClient = pSearch.getCustomerSerch();
@@ -463,22 +631,30 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                 qCustomer.selectCustomerSimplified(cuitClient, lbl_id_customer, txtCustomer, txtPhone, lbl_address);
                 txtDni.setText(cuitClient);
             }
+            
         });
+        
     }
     
-    private void actionProduct(){
+    private void buttonsProduct(){
         
-        btnAddProduct.addActionListener(e->{
-                
+        btnAddProduct.addActionListener(e -> {
+
             salesProductSelectDialog pSearchProduct = new salesProductSelectDialog(parent, true);
             pSearchProduct.setVisible(true);
+
+            Object[] producto = pSearchProduct.getProduct();
+
+            if (producto != null) {
+                
+                dtmProduct.addRow(producto);
+
+                totalProducts = totalProductos();
+                lblTotalProducts.setText(String.format("%.2f", totalProducts));
+
+                calcularResumen();
+            }
             
-            dtmProduct.addRow(pSearchProduct.getProduct());
-            
-            totalProducts = totalProductos();
-            lblTotalProducts.setText(String.format("%.2f", totalProducts));
-            
-            calcularResumen();
         });
         
         btnEditProduct.addActionListener(e->{
@@ -823,42 +999,59 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                 System.out.println("Error al registrar la venta.");
                 return;
             }
+            
+            //AGREGA LOS METODOS DE PAGO
+            if(tablaPagos.getRowCount() > 0){
+                
+                for(int i = 0; i < tablaPagos.getRowCount(); i++){
 
-            for(int i = 0; i < tablaPagos.getRowCount(); i++){
+                    String method = tablaPagos.getValueAt(i, 0).toString();
+                    double total = Double.parseDouble(tablaPagos.getValueAt(i, 1).toString().trim().replace("$", "").replace(" ", "").replace(",", "."));
 
-                String method = tablaPagos.getValueAt(i, 0).toString();
-                double total = Double.parseDouble(tablaPagos.getValueAt(i, 1).toString().trim().replace("$", "").replace(" ", "").replace(",", "."));
+                    status = qCashReg.insertMethodPayments(conn,id_operation,method,total);
 
-                status = qCashReg.insertMethodPayments(conn,id_operation,method,total);
+                    if(method.equals("Cuenta Corriente")){
 
-                if(!status){
-                    JOptionPane.showMessageDialog(null, "Error comunicarse con el administrador!");
-                    System.out.println("Error al registrar metodo de pago");
-                    return;
+                        String cliente = txtCustomer.getText();
+                        int idCustomer = Integer.parseInt(lbl_id_customer.getText().trim());
+                        String estado = "ACTIVO";                   
+                        String operation = "VENTA";
+                        Double debito = null;
+
+                        if(cliente.isEmpty()){
+                            JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente!");
+                            return;
+                        }else{                       
+                            if(tableProducts.getRowCount() > 0){
+                                AddProdCtaCte(conn,id_operation,idCustomer,operation,debito,estado);
+                            }
+                            if(tableServices.getRowCount() > 0){
+                                AddServiceCtaCte(conn,id_operation,idCustomer,operation,debito,estado);
+                            }  
+                            addPayCtaCte(conn,id_operation,idCustomer,estado);                       
+                        }  
+
+
+                    }
+
+                    if(!status){
+                        JOptionPane.showMessageDialog(null, "Error comunicarse con el administrador!");
+                        System.out.println("Error al registrar metodo de pago");
+                        return;
+                    }
                 }
-
-            } 
+            }
+             
 
             if(tableProducts.getRowCount() > 0){
-//                RECORRE LA TABLA PRODUCTOS Y AGREGA LOS ITEMS DE LA VENTA
+            //RECORRE LA TABLA PRODUCTOS Y AGREGA LOS ITEMS DE LA VENTA
                 for(int i = 0; i < tableProducts.getRowCount(); i++){
 
                     String operation = tableProducts.getValueAt(i, 1).toString();
                     String description = tableProducts.getValueAt(i, 2).toString();           
                     String type = "product";
                     int quantity = Integer.parseInt(tableProducts.getValueAt(i, 3).toString());
-
-                    String idProd = "";
-
-                    Object value = tableProducts.getValueAt(i, 0);
-                    if (value != null) {
-                        idProd = value.toString().trim();
-                    }
-                    Integer id_product = null;
-                    if (!idProd.isEmpty()) {
-                        id_product = Integer.parseInt(idProd);
-                    }
-
+                    int idProd = Integer.parseInt(tableProducts.getValueAt(i, 0).toString());
                     double price = Double.parseDouble(tableProducts.getValueAt(i, 4).toString());
                     String iva = tableProducts.getValueAt(i, 5).toString();
                     double subtotal = Double.parseDouble(tableProducts.getValueAt(i, 6).toString());                 
@@ -867,7 +1060,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                             operation,
                             description,
                             type,
-                            id_product,
+                            idProd,
                             quantity,
                             price,
                             iva,
@@ -939,10 +1132,10 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                     }
                 } 
 
-            }
+            }                  
 
             if(tableProducts.getRowCount() > 0){
-//                RECORRE LA TABLA PRODUCTOS Y ACTUALIZA LOS STOCKS
+//              RECORRE LA TABLA PRODUCTOS Y ACTUALIZA LOS STOCKS
                 for(int i = 0; i < tableProducts.getRowCount(); i++){
 
                     int quantity = Integer.parseInt(tableProducts.getValueAt(i, 3).toString());
@@ -973,8 +1166,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                     String operationNumber = tableOperations.getValueAt(i, 2).toString();
 
                     if("Servicio técnico".equals(tipo)){
-//                        DESPACHAR SERVICIO TÉCNICO 
-                        System.out.println("LLEGUE A ESTE PUNTO");
+                        
                         status = qCashReg.serviceDespachar(conn, operationNumber);
                         
                         if(!status){
@@ -982,7 +1174,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                         }
                     }
                     else if("Presupuesto".equals(tipo)){
-//                        ACTUALIZAR ESTADO PRESUPUESTO    
+  
                         status = qCashReg.updateStateBudget(conn, operationNumber);
                         
                         if(!status){
@@ -992,12 +1184,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                     }
                 }
             }          
-//verificar que no se repita el mismo presupuesto.
-//verificar que no se repita el mismo servicio tecnico.
-//Diseñar y planificar para asociar los productos presupuestados a pedido.   
-//verificar que al ingresar un servicio tecnico o presupuesto no se repita.
-//crear tabla cuenta corriente.
-//registrar cta. cte.
+
 //administrar cta. cte. (ver quienes deben).
 //en caso que el cliente pague la cuenta diseñar como lo insertamos en el sistema (ventas).
 //crear tabla operacion (venta, compra, pago).
@@ -1029,6 +1216,149 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                 e.printStackTrace();
             }
         }            
+    }
+    
+//    private void addMethodPays(boolean status, Connection conn, int id_operation){
+//              
+//        for(int i = 0; i < tablaPagos.getRowCount(); i++){
+//
+//            String method = tablaPagos.getValueAt(i, 0).toString();
+//            double total = Double.parseDouble(tablaPagos.getValueAt(i, 1).toString().trim().replace("$", "").replace(" ", "").replace(",", "."));
+//
+//            status = qCashReg.insertMethodPayments(conn,id_operation,method,total);
+//
+//            if(method.equals("Cuenta Corriente")){
+//
+//                String cliente = txtCustomer.getText();
+//                int idCustomer = Integer.parseInt(lbl_id_customer.getText().trim());
+//                String estado = "ACTIVO";                   
+//                String operation = "VENTA";
+//                Double debito = null;
+//
+//                if(cliente.isEmpty()){
+//                    JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente!");
+//                    return;
+//                }else{                       
+//                    if(tableProducts.getRowCount() > 0){
+//                        AddProdCtaCte(conn,id_operation,idCustomer,operation,debito,estado);
+//                    }
+//                    if(tableServices.getRowCount() > 0){
+//                        AddServiceCtaCte(conn,id_operation,idCustomer,operation,debito,estado);
+//                    }  
+//                    addPayCtaCte(conn,id_operation,idCustomer,estado);                       
+//                }  
+//
+//
+//            }
+//
+//            if(!status){
+//                JOptionPane.showMessageDialog(null, "Error comunicarse con el administrador!");
+//                System.out.println("Error al registrar metodo de pago");
+//                return;
+//            }
+//        } 
+//        
+//    }
+    
+    private void AddProdCtaCte(Connection conn, int id_sale, int idCustomer, String operation, Double debito, String estado){
+        
+        Integer id_service = null;
+        
+        for(int i = 0; i < tableProducts.getRowCount(); i++){
+            
+            String description = tableProducts.getValueAt(i, 2).toString();           
+            int idProd = Integer.parseInt(tableProducts.getValueAt(i, 0).toString());     
+            int quantity = Integer.parseInt(tableProducts.getValueAt(i, 3).toString());
+            double price = Double.parseDouble(tableProducts.getValueAt(i, 4).toString());
+            String iva = tableProducts.getValueAt(i, 5).toString();
+            double credito = Double.parseDouble(tableProducts.getValueAt(i, 6).toString());                 
+
+            qCuAcc.insertMovCtaCte(
+                    conn, 
+                    idCustomer, 
+                    operation, 
+                    id_sale, 
+                    idProd, 
+                    id_service, 
+                    description, 
+                    quantity, 
+                    price, 
+                    iva, 
+                    debito, 
+                    credito, 
+                    estado
+            );
+        }             
+    }
+    
+    private void AddServiceCtaCte(Connection conn, int id_sale, int idCustomer, String operation, Double debito, String estado){
+        
+        Integer id_product = null;
+        
+        for(int i = 0; i < tableServices.getRowCount(); i++){
+
+            String serviceNumber = tableServices.getValueAt(i, 0).toString();
+            int id_service = qCuAcc.selectIdService(serviceNumber);   
+            String description = tableServices.getValueAt(i, 1).toString();                     
+            int quantity = Integer.parseInt(tableServices.getValueAt(i, 2).toString());
+            double price = Double.parseDouble(tableServices.getValueAt(i, 3).toString());
+            String iva = "21%";
+            double credito = Double.parseDouble(tableServices.getValueAt(i, 5).toString());                      
+
+            qCuAcc.insertMovCtaCte(
+                    conn, 
+                    idCustomer, 
+                    operation, 
+                    id_sale, 
+                    id_product, 
+                    id_service, 
+                    description, 
+                    quantity, 
+                    price, 
+                    iva, 
+                    debito, 
+                    credito, 
+                    estado
+            );
+        }
+    }
+    
+    private void addPayCtaCte(Connection conn, int id_sale, int idCustomer,String estado){
+        
+        Integer id_product = null;
+        Integer id_service = null;
+        String operation = "PAGO";
+        Integer quantity = null; 
+        Double price = null;
+        String iva = null;
+        Double credito = null;
+        
+        for(int i = 0; i < tablaPagos.getRowCount(); i++){
+            
+            String method = tablaPagos.getValueAt(i, 0).toString();
+            String description = "PAGO EN: " + tablaPagos.getValueAt(i, 0).toString();
+            double debito = Double.parseDouble(tablaPagos.getValueAt(i, 1).toString().trim().replace("$", "").replace(" ", "").replace(",", "."));
+            
+            if(!method.equals("Cuenta Corriente")){
+                qCuAcc.insertMovCtaCte(
+                        conn, 
+                        idCustomer, 
+                        operation, 
+                        id_sale, 
+                        id_product, 
+                        id_service, 
+                        description, 
+                        quantity, 
+                        price, 
+                        iva, 
+                        debito, 
+                        credito, 
+                        estado
+                );
+            }
+
+        }
+        
     }
     
     private void limpiar(){
@@ -1699,7 +2029,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
             .addGroup(panelBudgetLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelBudgetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
                     .addGroup(panelBudgetLayout.createSequentialGroup()
                         .addComponent(jLabel37)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1768,9 +2098,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel49))
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(panelBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(panelBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(

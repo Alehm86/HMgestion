@@ -31,8 +31,9 @@ public class budgetListDialog extends javax.swing.JDialog {
     budgetDAO qBudget = new budgetDAO();
     utility utils = new utility();
     
+    private String budgetNumber;
     private int id_budget;
-    private int id_service;
+    private Integer id_service;
     private int status = 0;
     
     private String filtroFecha;
@@ -51,6 +52,10 @@ public class budgetListDialog extends javax.swing.JDialog {
     
     public int getIdBudget(){
         return id_budget;
+    }
+    
+    public String getBudgetNumber(){
+        return budgetNumber;
     }
     
     public budgetListDialog(java.awt.Frame parent, boolean modal, int status) {
@@ -144,6 +149,7 @@ public class budgetListDialog extends javax.swing.JDialog {
 
                     int modelRow = tabla.convertRowIndexToModel(row);
 
+                    budgetNumber = String.valueOf(tableBudgets.getValueAt(tableBudgets.getSelectedRow(), 1).toString()); 
                     id_budget = (int) tabla.getModel().getValueAt(modelRow, 7);
 
                     Object idServiceObj = tabla.getModel().getValueAt(modelRow, 8);

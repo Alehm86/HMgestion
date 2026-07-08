@@ -4,7 +4,6 @@
  */
 package dao;
 
-import ConnectionDB.connectionDB;
 import java.awt.Color;
 import java.awt.Component;
 import java.sql.Connection;
@@ -22,8 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utils.tableStyleUtil;
-import dao.genericDAO;
-import dao.connectionDAO;
+
 
 public class serviceDAO {
     

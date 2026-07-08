@@ -353,7 +353,7 @@
                       <Component id="btnCtaCte" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Component id="btnServiceTec" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="454" max="32767" attributes="0"/>
+                      <EmptySpace pref="450" max="32767" attributes="0"/>
                       <Component id="btnExit" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
@@ -707,7 +707,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Icons/salir32.png"/>
+                  <Image iconType="3" name="/Icons/exit-32.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Salir"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

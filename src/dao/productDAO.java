@@ -489,18 +489,13 @@ public class productDAO {
     
     public void selectProduct(int idProducto, JLabel producto, JTextField codigoProducto){
         
-        String sql="SELECT sc.name, b.name, model, color, product_code "
-                + "FROM products "
-                + "INNER JOIN product_subcategories sc ON products.id_subcategory = sc.id_subcategory "
-                + "INNER JOIN product_brands b ON products.id_brand = b.id_brand "
-                + "WHERE id_product = " +idProducto;        
+        String sql = "SELECT sc.name, b.name, model, color, product_code " +
+                     "FROM products " +
+                     "INNER JOIN product_subcategories sc ON products.id_subcategory = sc.id_subcategory " +
+                     "INNER JOIN product_brands b ON products.id_brand = b.id_brand " +
+                     "WHERE id_product = " +idProducto;        
         
-        Statement stmt;
-
-        String marca;
-        String subcat;
-        String modelo;
-        String color;
+        Statement stmt;      
         
         Connection conexion = getConnection();
         
@@ -510,11 +505,14 @@ public class productDAO {
            
            while(rs.next()){
                
-                subcat=(rs.getString("sc.name"));
-                marca=(rs.getString("b.name"));
-                modelo=(rs.getString("model"));
-                color=(rs.getString("color"));
-                producto.setText(subcat+" "+marca+" "+modelo+" COLOR "+color+"."); 
+                String subcat=(rs.getString("sc.name"));
+                String marca=(rs.getString("b.name"));
+                String modelo=(rs.getString("model"));
+                
+                String colorString = rs.getString("color");
+                String textoColor = (colorString != null) ? " COLOR " + colorString : "";
+
+                producto.setText(subcat + " " + marca + " " + modelo + textoColor + ".");
                 codigoProducto.setText(rs.getString("product_code"));
            } 
            

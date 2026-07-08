@@ -21,7 +21,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utils.tableStyleUtil;
 
-
 public class budgetDAO {
     
     genericDAO qGeneric = new genericDAO();
@@ -510,8 +509,7 @@ public class budgetDAO {
         DefaultTableModel dtm = crearModeloNoEditable();
 
         String[] titulo = {
-            "Fecha", "Presup. Nº", "Cliente", "Nº de servicio",
-            "Total", "Vencimiento", "Estado", "id_budget", "id_service"
+            "Fecha", "Presup. Nº", "Cliente", "Nº de servicio","Total", "Vencimiento", "Estado", "id_budget", "id_service"
         };
         dtm.setColumnIdentifiers(titulo);
 
@@ -602,6 +600,27 @@ public class budgetDAO {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
        
+    }
+
+    public boolean updateIdInBudgetDetail(Connection conn,int id_product, int idBudgDetail){
+        
+        String sql = "UPDATE `budget_detail` SET `id_product`= ? WHERE id_budget_detail = ?";
+              
+        boolean estado = false;
+        
+        try{
+            PreparedStatement pstmt = conn.prepareStatement(sql);           
+            pstmt.setInt(1, id_product);
+            pstmt.setInt(2, idBudgDetail);
+            pstmt.executeUpdate();
+            
+            estado = true;            
+            
+        }catch(SQLException e){
+            qGeneric.mensajeError();
+            System.out.println("ERROR EN: budgetDAO: updateIdInBudgetDetail. " + e.getMessage());
+        }
+        return estado;
     }
     
 }

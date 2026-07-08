@@ -964,12 +964,9 @@
                               <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                               <Component id="jLabel49" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="panelBudget" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="panelBudget" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="19" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1131,7 +1128,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane8" pref="733" max="32767" attributes="0"/>
+                              <Component id="jScrollPane8" pref="739" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>

@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import dao.connectionDAO;
 import javax.swing.table.DefaultTableModel;
 
 public class genericDAO {
@@ -191,7 +190,7 @@ public class genericDAO {
             ResultSet rs = pstmt.executeQuery();   
 
             while(rs.next()){
-                id=(rs.getInt(nId));            
+                id =(rs.getInt(nId));            
             }
             
         }
@@ -200,6 +199,8 @@ public class genericDAO {
         }
        return id; 
     }
+    
+
     
 
     

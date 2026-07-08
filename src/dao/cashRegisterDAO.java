@@ -134,43 +134,63 @@ public class cashRegisterDAO {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
         }
-    }
+    }   
     
     public void listBudgetOperation(
-            int idBudget,
+            String budgetNumber,
             DefaultTableModel dtmOperation,
             DefaultTableModel dtmProduct,
-            DefaultTableModel dtmService){     
-        
-        String sqlBudget= "SELECT " +
-                          "b.nro_budget AS comprobante, " +
-                          "b.date AS fecha, " +
-                          "b.customer_name AS cliente, " +
-                          "b.total AS total " +
-                          "FROM budget AS b " +
-                          "WHERE b.id_budget = ?";
-        
-        String sqlBudgetItem = "SELECT " +
-                               "b.nro_budget AS nroBudget, " +
-                               "bd.description AS descripcion, " +
-                               "bd.type AS tipo, " +
-                               "COALESCE(bd.id_product, 0) AS idProduct, " +
-                               "bd.quantity AS cantidad, " +
-                               "bd.price AS precioUnitario, " +
-                               "bd.iva AS iva, " +
-                               "bd.subtotal AS total " +
-                               "FROM budget_detail AS bd " +
-                               "INNER JOIN budget b ON bd.id_budget = b.id_budget " +
-                               "WHERE bd.id_budget = ?";
-            
+            DefaultTableModel dtmService){
+
+        String sqlBudget =
+                "SELECT " +
+                "b.nro_budget AS comprobante, " +
+                "b.date AS fecha, " +
+                "b.customer_name AS cliente, " +
+                "b.total AS total " +
+                "FROM budget b " +
+                "WHERE b.nro_budget = ?";
+
+        String sqlBudgetItem =
+                "SELECT " +
+                "b.nro_budget AS nroBudget, " +
+                "bd.description AS descripcion, " +
+                "bd.type AS tipo, " +
+                "bd.id_product AS idProduct, " +
+                "bd.quantity AS cantidad, " +
+                "bd.price AS precioUnitario, " +
+                "bd.iva AS iva, " +
+                "bd.subtotal AS total, " +
+
+                "sc.name AS subcategoria, " +
+                "pb.name AS marca, " +
+                "p.model AS modelo, " +
+                "p.color AS color " +
+
+                "FROM budget_detail bd " +
+
+                "INNER JOIN budget b " +
+                "ON bd.id_budget = b.id_budget " +
+
+                "LEFT JOIN products p " +
+                "ON bd.id_product = p.id_product " +
+
+                "LEFT JOIN product_subcategories sc " +
+                "ON p.id_subcategory = sc.id_subcategory " +
+
+                "LEFT JOIN product_brands pb " +
+                "ON p.id_brand = pb.id_brand " +
+
+                "WHERE b.nro_budget = ?";
+
         Connection conexion = Connection.getConnection();
-        
-        try {
+
+        try{
             PreparedStatement pstmt = conexion.prepareStatement(sqlBudget);
-            pstmt.setInt(1, idBudget);
+            pstmt.setString(1, budgetNumber);
             ResultSet rs = pstmt.executeQuery();
 
-            while (rs.next()) {
+            while(rs.next()){
 
                 Object[] row = {
                     rs.getString("fecha"),
@@ -179,66 +199,79 @@ public class cashRegisterDAO {
                     rs.getString("cliente"),
                     rs.getDouble("total")
                 };
+
                 dtmOperation.addRow(row);
-            }
-
-            try {
-                PreparedStatement pstmt2 = conexion.prepareStatement(sqlBudgetItem);
-                pstmt2.setInt(1, idBudget);
-                ResultSet rs2 = pstmt2.executeQuery();
-
-                while (rs2.next()) {
-
-                    String tipo = rs2.getString("tipo");
-
-                    if ("product".equals(tipo)) {
-
-                        Integer idProduct = (Integer) rs2.getObject("idProduct");
-
-                        Object[] rowProd = {
-                            rs2.getString("idProduct"),
-                            rs2.getString("nroBudget"),
-                            rs2.getString("descripcion"),
-                            rs2.getInt("cantidad"),
-                            rs2.getDouble("precioUnitario"),
-                            rs2.getString("iva"),
-                            rs2.getDouble("total")
-                        };
-
-                        dtmProduct.addRow(rowProd);
-
-                    } else if ("service".equals(tipo)) {
-
-                        Object[] rowServ = {
-                            rs2.getString("nroBudget"),
-                            rs2.getString("descripcion"),
-                            rs2.getInt("cantidad"),
-                            rs2.getDouble("precioUnitario"),
-                            rs2.getString("iva"),
-                            rs2.getDouble("total")
-                        };
-
-                        dtmService.addRow(rowServ);
-                    }
-                }
-
-                rs2.close();
-                pstmt2.close();
-
-            } catch (SQLException e) {
-                qGeneric.mensajeError();
-                System.out.println("ERROR EN: cashRegisterDAO: listBudgetOperation. " + e.getMessage());
             }
 
             rs.close();
             pstmt.close();
+
+            PreparedStatement pstmt2 = conexion.prepareStatement(sqlBudgetItem);
+            pstmt2.setString(1, budgetNumber);
+
+            ResultSet rs2 = pstmt2.executeQuery();
+
+            while(rs2.next()){
+
+                String tipo = rs2.getString("tipo");
+
+                if("product".equals(tipo)){
+
+                    Integer idProducto = (Integer) rs2.getObject("idProduct");
+
+                    String descripcion;
+
+                    if(idProducto == null){
+
+                        descripcion = rs2.getString("descripcion");
+
+                    }else{
+
+                        descripcion = rs2.getString("subcategoria") + " " + rs2.getString("marca") + " " + rs2.getString("modelo");
+                        String color = rs2.getString("color");
+
+                        if(color != null && !color.isBlank()){
+                            descripcion += " COLOR " + color;
+                        }
+                        descripcion += ".";
+                    }
+
+                    Object[] rowProd = {
+                        idProducto,
+                        rs2.getString("nroBudget"),
+                        descripcion,
+                        rs2.getInt("cantidad"),
+                        rs2.getDouble("precioUnitario"),
+                        rs2.getString("iva"),
+                        rs2.getDouble("total")
+                    };
+
+                    dtmProduct.addRow(rowProd);
+
+                }else if("service".equals(tipo)){
+
+                    Object[] rowServ = {
+                        rs2.getString("nroBudget"),
+                        rs2.getString("descripcion"),
+                        rs2.getInt("cantidad"),
+                        rs2.getDouble("precioUnitario"),
+                        rs2.getString("iva"),
+                        rs2.getDouble("total")
+                    };
+
+                    dtmService.addRow(rowServ);
+                }
+            }
+
+            rs2.close();
+            pstmt2.close();
             conexion.close();
 
-        } catch (SQLException e) {
+        }catch(SQLException e){
+
             qGeneric.mensajeError();
             System.out.println("ERROR EN: cashRegisterDAO: listBudgetOperation. " + e.getMessage());
         }
-        
     }
     
     public int cashRegister(
@@ -358,13 +391,25 @@ public class cashRegisterDAO {
             pstmt.setString(2, operation);
             pstmt.setString(3, description);
             pstmt.setString(4, type);
-            
+
             if (idProd != null && idProd > 0) {
                 pstmt.setInt(5, idProd);
             } else {
                 pstmt.setNull(5, java.sql.Types.INTEGER);
             }
             
+//            if (quantity != null && quantity > 0) {
+//                pstmt.setInt(6, quantity);
+//            } else {
+//                pstmt.setNull(6, java.sql.Types.INTEGER);
+//            }
+//            
+//            if (price != null && price > 0) {
+//                pstmt.setDouble(7, price);
+//            } else {
+//                pstmt.setNull(7, java.sql.Types.DOUBLE);
+//            }
+
             pstmt.setInt(6, quantity);
             pstmt.setDouble(7, price);
             pstmt.setString(8, iva);
@@ -434,4 +479,136 @@ public class cashRegisterDAO {
         return estado;
     }    
 
+    public static String selectIdOperationBudget (int idBudget){
+        
+        String sql = "SELECT nro_budget FROM budget WHERE id_budget = ?";
+        
+        String nroBudget = "";
+        
+        connectionDB con = new connectionDB();
+        Connection conexion = (Connection) con.establecerConexion();
+        
+        try{
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);  
+            pstmt.setInt(1, idBudget);
+            ResultSet rs = pstmt.executeQuery();   
+
+            while(rs.next()){
+                nroBudget =(rs.getString("nro_budget"));            
+            }       
+            
+        }
+        catch(SQLException e){          
+            JOptionPane.showMessageDialog(null, "Error comunicarse con el administrador!");
+            System.out.println("ERROR EN: cashRegisterDAO: selectIdOperationBudget. " + e.getMessage());
+        }
+       return nroBudget;
+  
+    }
+
+    public static boolean IdProductExist(String budgetNumber){
+        
+        String sql = "SELECT bd.id_product " +
+                     "FROM budget_detail AS bd " +
+                     "INNER JOIN budget b ON bd.id_budget = b.id_budget " +
+                     "WHERE b.nro_budget = ? AND bd.type = 'product'";
+        
+        boolean estado = false;
+        
+        connectionDB con = new connectionDB();
+        Connection conexion = (Connection) con.establecerConexion();
+        
+        try{
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);    
+            pstmt.setString(1, budgetNumber);
+            ResultSet rs = pstmt.executeQuery();   
+
+            while(rs.next()){
+                
+                rs.getInt("id_product");    
+                
+                if(rs.wasNull()){
+                    estado = true;                    
+                    rs.close();
+                    pstmt.close();
+                    conexion.close();
+                    
+                }
+            }       
+            
+            rs.close();
+            pstmt.close();
+            conexion.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return estado;
+    }
+    
+    public void listProductsForBudget(DefaultTableModel dtmProduct, String budgetNumber){
+        
+        String sql = "SELECT bd.id_budget_detail ,bd.description " +
+                     "FROM budget_detail bd " +
+                     "INNER JOIN budget b ON bd.id_budget = b.id_budget " +
+                     "WHERE b.nro_budget = ? " +
+                     "AND bd.type = 'product' " +
+                     "AND bd.id_product IS NULL";
+        
+        Connection conexion = Connection.getConnection();
+        
+        try{
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setString(1, budgetNumber);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Object[] rowProd = {rs.getString("description"),"","",rs.getString("id_budget_detail"),"Seleccionar"};
+                dtmProduct.addRow(rowProd);
+            }
+            
+            rs.close();
+            pstmt.close();
+            conexion.close();    
+                
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error comunicarse con el administrador!");
+            System.out.println("ERROR EN: cashRegisterDAO: listProductsForBudget. " + e.getMessage());
+        }
+    }  
+    
+    public String selectBudgetNumber(String serviceNumber){
+        
+        String budgetNumber = "";
+        
+        String sql = "SELECT nro_budget AS budgetNumber " +
+                     "FROM budget AS b " +
+                     "INNER JOIN service_orders so ON b.id_service = so.id_service " +
+                     "WHERE so.service_number = ?";
+        
+        Connection conexion = Connection.getConnection();
+        
+        try{
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setString(1, serviceNumber);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                budgetNumber = rs.getString("budgetNumber"); 
+            }
+            
+            rs.close();
+            pstmt.close();
+            conexion.close();    
+                
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error comunicarse con el administrador!");
+            System.out.println("ERROR EN: cashRegisterDAO: selectBudgetNumber. " + e.getMessage());
+        }
+        
+        return budgetNumber;
+    }
+        
+
+    
 }

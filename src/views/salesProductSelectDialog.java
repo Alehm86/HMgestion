@@ -28,6 +28,11 @@ public class salesProductSelectDialog extends javax.swing.JDialog {
     Frame parent = (Frame) SwingUtilities.getWindowAncestor(this);
 
     public Object[] getProduct(){
+        
+        if (id_product == -1) {
+            return null;
+        }
+        
         return new Object[]{
             id_product,
             "Ninguno",
@@ -37,6 +42,7 @@ public class salesProductSelectDialog extends javax.swing.JDialog {
             IVA,
             tot
         };
+        
     }
 
     public salesProductSelectDialog(java.awt.Frame parent, boolean modal) {
