@@ -172,6 +172,17 @@ public class homeFrame extends javax.swing.JFrame {
             jPanelContent.repaint();
         });
         
+        btnCtaCte.addActionListener(e -> {
+            currentAccountDashboard pCuAcc = new currentAccountDashboard();
+            pCuAcc.setSize(1700, 877);
+            pCuAcc.setLocation(0, 0);
+
+            jPanelContent.removeAll();
+            jPanelContent.add(pCuAcc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1712, 877));
+            jPanelContent.revalidate();
+            jPanelContent.repaint();
+        });
+        
     }
     
     private void menuSuperior(){

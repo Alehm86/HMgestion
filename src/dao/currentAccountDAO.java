@@ -12,6 +12,11 @@ import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import session.session;
 import java.sql.Connection;
+import java.sql.Statement;
+import java.util.Date;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import utils.tableStyleUtil;
 
 public class currentAccountDAO {
     
@@ -21,9 +26,8 @@ public class currentAccountDAO {
     
     public boolean insertMovCtaCte(
             Connection conn,
-            int idCustomer,
+            int id_ca,
             String operation,
-            int id_sale,
             Integer id_product,
             Integer id_service,
             String descripcion,
@@ -31,14 +35,12 @@ public class currentAccountDAO {
             Double price,
             String iva,
             Double debito,
-            Double credito,
-            String status
+            Double credito
     ){
         
-        String sql = "INSERT INTO `current_account`" +
-                     "(`id_customer`, `date`, `operation`, `id_sale`, `id_product`, `id_service`, `description`, " +
-                     "`quantity`, `price`, `iva`, `debit`, `credit`, `status`, `id_user`)" +
-                     "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO `current_account_detail`" +
+                     "(`id_ca`, `date`, `operation`, `id_product`, `id_service`, `description`, `quantity`, `price`, `iva`, `debit`, `credit`, `id_user`) " +
+                     "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         
         boolean estado = false;
         
@@ -48,54 +50,50 @@ public class currentAccountDAO {
 
         try{
             PreparedStatement pstmt = (PreparedStatement) conn.prepareStatement(sql);
-            pstmt.setInt(1, idCustomer);
+            pstmt.setInt(1, id_ca);
             pstmt.setDate(2, java.sql.Date.valueOf(fechaLocal));           
             pstmt.setString(3, operation);       
-            pstmt.setInt(4, id_sale); 
             
             if (id_product != null && id_product > 0) {
-                pstmt.setInt(5, id_product);
+                pstmt.setInt(4, id_product);
+            } else {
+                pstmt.setNull(4, java.sql.Types.INTEGER);
+            } 
+            
+            if (id_service != null && id_service > 0) {
+                pstmt.setInt(5, id_service);
             } else {
                 pstmt.setNull(5, java.sql.Types.INTEGER);
             } 
             
-            if (id_service != null && id_service > 0) {
-                pstmt.setInt(6, id_service);
-            } else {
-                pstmt.setNull(6, java.sql.Types.INTEGER);
-            } 
-            
-            pstmt.setString(7, descripcion);
+            pstmt.setString(6, descripcion);
 
             if (quantity != null && quantity > 0) {
-                pstmt.setInt(8, quantity);
+                pstmt.setInt(7, quantity);
             } else {
-                pstmt.setNull(8, java.sql.Types.INTEGER);
+                pstmt.setNull(7, java.sql.Types.INTEGER);
             }      
             
             if (price != null && price > 0) {
-                pstmt.setDouble(9, price);
+                pstmt.setDouble(8, price);
             } else {
-                pstmt.setNull(9, java.sql.Types.DOUBLE);
+                pstmt.setNull(8, java.sql.Types.DOUBLE);
             } 
-                       
-//            pstmt.setInt(8, quantity);
-//            pstmt.setDouble(9, price);
-            pstmt.setString(10, iva);
+                      
+            pstmt.setString(9, iva);
      
             if (debito != null && debito > 0) {
-                pstmt.setDouble(11, debito);
+                pstmt.setDouble(10, debito);
             } else {
-                pstmt.setNull(11, java.sql.Types.DOUBLE);
+                pstmt.setNull(10, java.sql.Types.DOUBLE);
             }          
             
             if (credito != null && credito > 0) {
-                pstmt.setDouble(12, credito);
+                pstmt.setDouble(11, credito);
             } else {
-                pstmt.setNull(12, java.sql.Types.DOUBLE);
+                pstmt.setNull(11, java.sql.Types.DOUBLE);
             }       
-            pstmt.setString(13, status);
-            pstmt.setInt(14, id_user);
+            pstmt.setInt(12, id_user);
           
             pstmt.executeUpdate();
             estado = true;
@@ -135,6 +133,301 @@ public class currentAccountDAO {
             JOptionPane.showMessageDialog(null, "ERROR" + e.getMessage());
         }
        return id; 
+    }
+    
+//YA NO LO USO!!!!  --->   09/07/2026    
+//    public boolean currentAccountExist(int id_customer){
+//        
+//        boolean exist = false;
+//        
+//        String sql = "SELECT 1 FROM current_account WHERE id_customer = ? LIMIT 1";
+//        
+//        connectionDB con = new connectionDB();
+//        java.sql.Connection conexion = (java.sql.Connection) con.establecerConexion();
+//        
+//        try{
+//            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);  
+//            pstmt.setInt(1, id_customer);
+//            ResultSet rs = pstmt.executeQuery();
+//            
+//            exist = rs.next();
+//            
+//            rs.close();
+//            pstmt.close();
+//            conexion.close();
+//            
+//        }catch(SQLException e){
+//            JOptionPane.showMessageDialog(null, "ERROR" + e.getMessage());
+//        }
+//        
+//        
+//        return exist;
+//    }
+    
+    public int selectCurrentAccount(int id_customer){
+        
+        String sql = "SELECT `id_ca` FROM `current_account` WHERE `id_customer` =?";
+        
+        int id_ca = -1;
+        
+        connectionDB con = new connectionDB();
+        java.sql.Connection conexion = (java.sql.Connection) con.establecerConexion();
+        
+        try{
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);  
+            pstmt.setInt(1, id_customer);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while(rs.next()){
+                id_ca =(rs.getInt("id_ca"));            
+            }
+            
+            rs.close();
+            pstmt.close();
+            conexion.close();
+            
+        }catch(SQLException e){
+            qGeneric.mensajeError();
+            System.out.println("ERROR EN: currentAccountDAO: selectCurrentAccount. " + e.getMessage());
+        }
+        
+        
+        return id_ca;
+    }
+    
+    public void listCurrentAccount(DefaultTableModel dtmCurrentAccounts){
+        
+        String sql = "SELECT " +
+                     "ca.id_ca AS idCA, " +
+                     "ca.ca_number AS caNumber, " +
+                     "c.name AS name, " +
+                     "c.id_customer AS idCustomer, " +
+                     "c.cuit AS cuit, " +
+                     "c.phone AS phone, " +
+                     "c.email AS email " +
+                     "FROM current_account AS ca " +
+                     "INNER JOIN customer c ON ca.id_customer = c.id_customer " +
+                     "WHERE `status` = ?";
+        
+        Connection conexion = Connection.getConnection();
+               
+        try{
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);  
+            pstmt.setInt(1, 1);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                int idCA = rs.getInt("idCA");
+                String ultimoMov = selectLastMovement(idCA);
+                double valSaldo = calcularSaldoCA(idCA);
+                String saldo = "$" + valSaldo;
+            
+                Object[] row = {
+                    idCA,
+                    rs.getString("caNumber"),
+                    rs.getString("name"),
+                    rs.getString("idCustomer"),
+                    formatCUIT(rs.getString("cuit")),
+                    rs.getString("phone"),
+                    rs.getString("email"),
+                    ultimoMov,
+                    saldo
+                };
+                dtmCurrentAccounts.addRow(row);
+            }         
+            
+            rs.close();
+            pstmt.close();
+            conexion.close();
+            
+        }catch(SQLException e){
+            qGeneric.mensajeError();
+            System.out.println("ERROR EN: currentAccountDAO: listCurrentAccount. " + e.getMessage());
+        }
+        
+    }
+    
+    private String formatCUIT(String cuit) {
+
+        if (cuit.length() == 8) {
+            return cuit;
+        }
+
+        if (cuit.length() == 11) {
+            return cuit.substring(0, 2) + "-" + cuit.substring(2, 10) + "-" + cuit.substring(10);
+        }
+
+        return cuit;
+    }
+    
+    public double calcularSaldoCA(int id_ca){
+
+        double credito = 0;
+        double debito = 0;
+        double saldo = 0;
+
+        String sql = "SELECT `debit`, `credit` FROM `current_account_detail` WHERE `id_ca` = ?";
+
+        Connection conexion = Connection.getConnection();
+
+        try{
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setInt(1, id_ca);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while(rs.next()){
+
+                credito += rs.getDouble("credit");
+                debito += rs.getDouble("debit");
+
+            }
+
+            saldo = credito - debito;
+
+            rs.close();
+            pstmt.close();
+            conexion.close();
+
+        }catch(SQLException e){
+            qGeneric.mensajeError();
+            System.out.println("ERROR EN: currentAccountDAO: calcularSaldoCA. " + e.getMessage());
+        }
+
+        return saldo;
+    }
+    
+    public int insertCurrentAccount(int id_customer){
+
+        String sqlInsert = "INSERT INTO current_account (id_customer, status, date, id_user) "
+                   + "VALUES (?, ?, ?, ?)";
+        
+        String sqlUpdate = "UPDATE `current_account` SET `ca_number`=? WHERE `id_ca` = ?";
+
+        LocalDate fechaLocal = LocalDate.now();
+        int idGenerado = 0;
+        int id_user = session.getCurrentUser().getId();
+
+        connectionDB con = new connectionDB();
+        Connection conexion = con.establecerConexion();
+
+        try{
+            conexion.setAutoCommit(false);
+            PreparedStatement pstmtInsert = conexion.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
+
+            pstmtInsert.setInt(1, id_customer);
+            pstmtInsert.setInt(2, 1);
+            pstmtInsert.setDate(3, java.sql.Date.valueOf(fechaLocal));
+            pstmtInsert.setInt(4, id_user);
+
+            pstmtInsert.executeUpdate();
+
+            ResultSet rs = pstmtInsert.getGeneratedKeys();
+
+            if(rs.next()){
+                idGenerado = rs.getInt(1);
+            }
+
+            rs.close();
+            pstmtInsert.close();
+            
+            if(idGenerado > 0){
+
+                String serviceNumber = "CC-" + String.format("%06d", idGenerado);
+
+                PreparedStatement pstmtUpdate = conexion.prepareStatement(sqlUpdate);
+
+                pstmtUpdate.setString(1, serviceNumber);
+                pstmtUpdate.setInt(2, idGenerado);
+
+                pstmtUpdate.executeUpdate();
+                pstmtUpdate.close();
+            }
+
+            conexion.commit();
+            conexion.close();
+
+        }catch(SQLException e){
+            try {
+                conexion.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            qGeneric.mensajeError();
+            System.out.println("ERROR EN: currentAccountDAO: insertCurrentAccount. " + e.getMessage());
+        }
+
+        return idGenerado;
+    }
+    
+    public String selectLastMovement(int idCA){
+
+        String ultimoMov = null;
+
+        String sql = "SELECT MAX(`date`) AS lastDate FROM current_account_detail WHERE id_ca = ?";
+        
+        Connection conexion = Connection.getConnection();
+
+        try{
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setInt(1, idCA);
+            ResultSet rs = pstmt.executeQuery();
+                  
+            if(rs.next()){
+                ultimoMov = rs.getString("lastDate");
+            }
+            
+            rs.close();
+            pstmt.close();
+            conexion.close();
+            
+
+        }catch(SQLException e){
+            qGeneric.mensajeError();
+            System.out.println("ERROR EN currentAccountDAO: selectLastMovement(): " + e.getMessage());
+        }
+
+        return ultimoMov;
+    }
+    
+    public void listCAMovements(int idCA, DefaultTableModel dtmCAMovements){
+        
+        String sql = "SELECT `date`,`description`, `quantity`, `price`, `iva`, COALESCE(debit, '') AS debit, COALESCE(credit, '') AS credit " +
+                     "FROM `current_account_detail` WHERE `id_ca` = ?";
+        
+        Connection conexion = Connection.getConnection();
+        
+        try{
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);  
+            pstmt.setInt(1, idCA);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                            
+                Object[] row = {
+                    rs.getString("date"),
+                    rs.getString("description"),
+                    rs.getString("quantity"),
+                    rs.getString("price"),
+                    rs.getString("iva"),
+                    rs.getString("credit"),
+                    rs.getString("debit")
+
+                };
+                dtmCAMovements.addRow(row);
+            }         
+            
+            rs.close();
+            pstmt.close();
+            conexion.close();
+            
+        }catch(SQLException e){
+            qGeneric.mensajeError();
+            System.out.println("ERROR EN: currentAccountDAO: listCAMovements. " + e.getMessage());
+        }
+        
+        
     }
         
 }

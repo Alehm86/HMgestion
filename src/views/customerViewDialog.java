@@ -12,8 +12,6 @@ import dao.serviceDAO;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -95,6 +93,7 @@ public class customerViewDialog extends javax.swing.JDialog {
     }
     
     public void inicializar(){
+        
         btnSuspender.setEnabled(false);
         btnBaja.setEnabled(false);
         btnReactivar.setEnabled(false);
@@ -143,6 +142,7 @@ public class customerViewDialog extends javax.swing.JDialog {
     }   
     
     private void clear(){
+        
         cboIVA.setSelectedIndex(0);
         cboProvinces.setSelectedIndex(0);
         txtName.setText("");
@@ -155,64 +155,49 @@ public class customerViewDialog extends javax.swing.JDialog {
     }
     
     private void startMsjs(){
+        
         lblErrorName.setText("");
         lblErrorTel.setText("");
         lblErrorEmail.setText("");
     }
 
-    private void llenarCombos(){       
+    private void llenarCombos(){      
+        
         qGeneric.llenarCombos(cboIVA, "customer_iva");
         qGeneric.llenarCombosActivos(cboProvinces, "provinces");
     }
     
     private void offObjets(){
-//        cboIVA.setEnabled(false);
-//        txtName.setEnabled(false);
-//        txtCUIT.setEnabled(false);
-//        txtTel.setEnabled(false);
-//        txtEmail.setEnabled(false);
-//        txtStreet.setEnabled(false);
-//        txtHeight.setEnabled(false);
-//        txtCity.setEnabled(false);
-//        cboProvinces.setEnabled(false);
         
-        cboIVA.setEditable(false);
-        txtName.setEditable(false);
-        txtCUIT.setEditable(false);
-        txtTel.setEditable(false);
-        txtEmail.setEditable(false);
-        txtStreet.setEditable(false);
-        txtHeight.setEditable(false);
-        txtCity.setEditable(false);
-        cboProvinces.setEditable(false);
+        cboIVA.setEnabled(false);
+        txtName.setFocusable(false);
+        txtCUIT.setFocusable(false);
+        txtTel.setFocusable(false);
+        txtEmail.setFocusable(false);
+        txtStreet.setFocusable(false);
+        txtHeight.setFocusable(false);
+        txtCity.setFocusable(false);
+        cboProvinces.setEnabled(false);
         
     }    
     
     private void onObjets(){
-//        cboIVA.setEnabled(true);
-//        txtName.setEnabled(true);
-//        txtCUIT.setEnabled(true);
-//        txtTel.setEnabled(true);
-//        txtEmail.setEnabled(true);
-//        txtStreet.setEnabled(true);
-//        txtHeight.setEnabled(true);
-//        txtCity.setEnabled(true);
-//        cboProvinces.setEnabled(true);
         
-        cboIVA.setEditable(true);
-        txtName.setEditable(true);
-        txtCUIT.setEditable(true);
-        txtTel.setEditable(true);
-        txtEmail.setEditable(true);
-        txtStreet.setEditable(true);
-        txtHeight.setEditable(true);
-        txtCity.setEditable(true);
-        cboProvinces.setEditable(true);
+        cboIVA.setEnabled(true);
+        txtName.setFocusable(true);
+        txtCUIT.setFocusable(true);
+        txtTel.setFocusable(true);
+        txtEmail.setFocusable(true);
+        txtStreet.setFocusable(true);
+        txtHeight.setFocusable(true);
+        txtCity.setFocusable(true);
+        cboProvinces.setEnabled(true);
     }     
     
     private void actions(){       
         
         btnEditClient.addActionListener(e->{
+            
             btnRegistrar.setEnabled(true); 
             btnCancel.setEnabled(true); 
             onObjets();

@@ -349,6 +349,8 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="lbl_idProduct" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="lblStock" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="lbl_product" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="lbl_id" min="-2" pref="12" max="-2" attributes="0"/>
@@ -384,6 +386,7 @@
                               <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lbl_product" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lbl_idProduct" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblStock" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -559,9 +562,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_idProduct">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="idProduct"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_id">
           <Properties>
@@ -582,6 +582,8 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblStock">
         </Component>
       </SubComponents>
     </Container>

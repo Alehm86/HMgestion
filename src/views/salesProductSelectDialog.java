@@ -63,12 +63,13 @@ public class salesProductSelectDialog extends javax.swing.JDialog {
         txtCantidad.setText("");
         txtProductCode.setText("");
         lbl_total.setText("");
+        lbl_stock.setText("");
     }
     
     private void buscarCode(){
         inicializar();
         qProduct.selectProduct(id_product, lbl_product, txtProductCode);
-        qProduct.selectSalePriceAndIva(id_product,txtPrice,lbl_iva);
+        qProduct.selectSalePriceAndIva(id_product,txtPrice,lbl_iva,lbl_stock);
         lbl_id.setText(String.valueOf(id_product));
     }
     
@@ -192,6 +193,8 @@ public class salesProductSelectDialog extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtPrice = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        lbl_stock = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("HM Gestión");
@@ -284,6 +287,13 @@ public class salesProductSelectDialog extends javax.swing.JDialog {
         txtPrice.setText("xxx");
         txtPrice.setBorder(null);
 
+        jLabel8.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel8.setText("Stock:");
+
+        lbl_stock.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        lbl_stock.setForeground(new java.awt.Color(12, 83, 151));
+        lbl_stock.setText("xxx");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -300,7 +310,11 @@ public class salesProductSelectDialog extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbl_iva))
+                                .addComponent(lbl_iva)
+                                .addGap(98, 98, 98)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbl_stock))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(txtProductCode, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -351,7 +365,10 @@ public class salesProductSelectDialog extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
                         .addComponent(jLabel5)
-                        .addComponent(lbl_iva))
+                        .addComponent(lbl_iva)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(lbl_stock)))
                     .addComponent(txtPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -426,11 +443,13 @@ public class salesProductSelectDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lbl_id;
     private javax.swing.JLabel lbl_iva;
     private javax.swing.JLabel lbl_product;
+    private javax.swing.JLabel lbl_stock;
     private javax.swing.JLabel lbl_total;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtPrice;

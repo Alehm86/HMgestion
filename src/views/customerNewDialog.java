@@ -133,6 +133,7 @@ public class customerNewDialog extends javax.swing.JDialog {
     }
     
     private void limpiar(){
+        
         txtName.setText("");
         txtEmail.setText("");
         txtTel.setText("");
@@ -156,10 +157,7 @@ public class customerNewDialog extends javax.swing.JDialog {
         mCustomer.fechaRegistro = fecha;
         
         if (cboIVA.getSelectedIndex() > 0) { 
-            mCustomer.iva = qGeneric.selectId(
-                    "id_iva",
-                    "iva",
-                    cboIVA.getSelectedItem().toString()
+            mCustomer.iva = qGeneric.selectId("id_iva","customer_iva",cboIVA.getSelectedItem().toString()
             );
         } else {
             lblErrorTipoCustomer.setText("Debe seleccionar una opción.");

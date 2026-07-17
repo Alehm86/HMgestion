@@ -110,6 +110,7 @@ public class budgetDialog extends javax.swing.JDialog {
         lbl_product.setVisible(false);
         lbl_iva.setVisible(false);
         lbl_fecha.setText(fecha);   
+        lblStock.setVisible(false);
         
         cboIVA.addItem("21.0%");
         cboIVA.addItem("10.5%");
@@ -337,7 +338,7 @@ public class budgetDialog extends javax.swing.JDialog {
     private void buscarCode(){
         
         qProduct.selectProduct(id_product, lbl_product, txtProductCode);
-        qProduct.selectSalePriceAndIva(id_product,txtPrice,lbl_iva);
+        qProduct.selectSalePriceAndIva(id_product,txtPrice,lbl_iva,lblStock);
         txtProduct.setText(lbl_product.getText());
         lbl_idProduct.setText(String.valueOf(id_product));
         cboType.setSelectedIndex(1);
@@ -639,6 +640,7 @@ public class budgetDialog extends javax.swing.JDialog {
         lbl_idProduct = new javax.swing.JLabel();
         lbl_id = new javax.swing.JLabel();
         cboType = new javax.swing.JComboBox<>();
+        lblStock = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTablePresupuesto = new javax.swing.JTable();
@@ -866,8 +868,6 @@ public class budgetDialog extends javax.swing.JDialog {
         btnAdd.setText("Agregar");
         btnAdd.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
-        lbl_idProduct.setText("idProduct");
-
         lbl_id.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
         cboType.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
@@ -905,6 +905,8 @@ public class budgetDialog extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lbl_idProduct)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblStock)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lbl_product)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lbl_id, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -917,8 +919,7 @@ public class budgetDialog extends javax.swing.JDialog {
                             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtProductCode))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -932,7 +933,8 @@ public class budgetDialog extends javax.swing.JDialog {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(lbl_product)
-                            .addComponent(lbl_idProduct))))
+                            .addComponent(lbl_idProduct)
+                            .addComponent(lblStock))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(txtProductCode, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1287,6 +1289,7 @@ public class budgetDialog extends javax.swing.JDialog {
     private javax.swing.JTextArea jTextAreaObservaciones;
     private javax.swing.JLabel lblIva105;
     private javax.swing.JLabel lblIva21;
+    private javax.swing.JLabel lblStock;
     private javax.swing.JLabel lblSubtotal;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lbl_address;

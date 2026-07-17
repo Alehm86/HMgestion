@@ -404,9 +404,10 @@ public class customerDAO {
     }           
     
     //no se usa
-    public void listAllCustomer(JTable jtable){
+    public void listAllCustomer(JTable tabla){
         
         String sql = "SELECT * FROM `customer`";  
+        
         Statement stmt;
         
         DefaultTableModel dtm = crearModeloNoEditable();
@@ -417,7 +418,7 @@ public class customerDAO {
         dtm.setColumnIdentifiers(titulo);
         
         try{
-            stmt=conexion.createStatement();
+            stmt = conexion.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -429,14 +430,14 @@ public class customerDAO {
                 dtm.addRow(row);
             }
 
-            jtable.setModel(dtm);
+            tabla.setModel(dtm);
             
-            tableStyleUtil.applyPoppinsHeader(jtable);
+            tableStyleUtil.applyPoppinsHeader(tabla);
             
-            jtable.getColumnModel().getColumn(0).setPreferredWidth(250);
-            jtable.getColumnModel().getColumn(1).setPreferredWidth(250);           
+            tabla.getColumnModel().getColumn(0).setPreferredWidth(250);
+            tabla.getColumnModel().getColumn(1).setPreferredWidth(250);           
 
-            jtable.getTableHeader().setReorderingAllowed(false);
+            tabla.getTableHeader().setReorderingAllowed(false);
             
             rs.close();
             stmt.close();
@@ -919,6 +920,11 @@ public class customerDAO {
         }
     }   
     
+    public void selectCustomer(JLabel customerName, JLabel id_Customer){
+        
+        String sql = "";
+        
+    }
     
     
     

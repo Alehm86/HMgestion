@@ -101,7 +101,7 @@ public class customerListPanel extends javax.swing.JPanel {
             fView.setVisible(true);
 
             estado = fView.dialogoClienteActualizado();                             
-            if(estado=true){
+            if(estado = true){
                 filtrarClientes();
             }                             
         }else{

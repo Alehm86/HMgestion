@@ -270,7 +270,6 @@ public class serviceDAO {
 
                 Object[] row = {
                     rs.getString("entry_date"),
-//                    .toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
                     rs.getString("service_number"),
                     rs.getString("customer_name"),
                     rs.getString("device_type"),

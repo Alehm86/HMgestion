@@ -33,8 +33,7 @@ public class cashRegisterDAO {
     public void listServiceOperation(
             String serviceNumber,
             DefaultTableModel dtmOperation,
-            DefaultTableModel dtmProduct,
-            DefaultTableModel dtmService
+            DefaultTableModel dtmItem
     ) {
 
         String sql = "SELECT " +
@@ -102,11 +101,12 @@ public class cashRegisterDAO {
                             rs2.getDouble("total")
                         };
 
-                        dtmProduct.addRow(rowProd);
+                        dtmItem.addRow(rowProd);
 
                     } else if ("service".equals(tipo)) {
 
                         Object[] rowServ = {
+                            "",
                             serviceNumber,
                             rs2.getString("descripcion"),
                             rs2.getInt("cantidad"),
@@ -115,7 +115,7 @@ public class cashRegisterDAO {
                             rs2.getDouble("total")
                         };
 
-                        dtmService.addRow(rowServ);
+                        dtmItem.addRow(rowServ);
                     }
                 }
 
@@ -139,8 +139,8 @@ public class cashRegisterDAO {
     public void listBudgetOperation(
             String budgetNumber,
             DefaultTableModel dtmOperation,
-            DefaultTableModel dtmProduct,
-            DefaultTableModel dtmService){
+            DefaultTableModel dtmItems
+    ){
 
         String sqlBudget =
                 "SELECT " +
@@ -246,11 +246,12 @@ public class cashRegisterDAO {
                         rs2.getDouble("total")
                     };
 
-                    dtmProduct.addRow(rowProd);
+                    dtmItems.addRow(rowProd);
 
                 }else if("service".equals(tipo)){
 
                     Object[] rowServ = {
+                        "",
                         rs2.getString("nroBudget"),
                         rs2.getString("descripcion"),
                         rs2.getInt("cantidad"),
@@ -259,7 +260,7 @@ public class cashRegisterDAO {
                         rs2.getDouble("total")
                     };
 
-                    dtmService.addRow(rowServ);
+                    dtmItems.addRow(rowServ);
                 }
             }
 
@@ -288,9 +289,7 @@ public class cashRegisterDAO {
                            "VALUES (?,?,?,?,?,?)";
         
         String sqlUpdate = "UPDATE sales SET sale_number = ? WHERE `id_sale` = ?";
-          
-        LocalDate fechaLocal = LocalDate.now();
-        
+               
         int idGenerado = 0;
         int id_user = session.getCurrentUser().getId();       
         
@@ -563,7 +562,13 @@ public class cashRegisterDAO {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                Object[] rowProd = {rs.getString("description"),"","",rs.getString("id_budget_detail"),"Seleccionar"};
+                Object[] rowProd = {
+                    rs.getString("description"),
+                    "",
+                    "",
+                    rs.getString("id_budget_detail"),
+                    "Seleccionar"
+                };
                 dtmProduct.addRow(rowProd);
             }
             

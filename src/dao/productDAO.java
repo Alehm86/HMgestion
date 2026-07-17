@@ -817,9 +817,12 @@ public class productDAO {
         }
     }
     
-    public void selectSalePriceAndIva(int id_Product, JTextField txtPrice, JLabel labelIva) {
+    public void selectSalePriceAndIva(int id_Product, JTextField txtPrice, JLabel labelIva, JLabel labelStock) {
         
-        String sql = "SELECT `salePrice`, `iva` FROM `product_price` WHERE `id_product`= ?";
+        String sql = "SELECT pp.salePrice, pp.iva, ps.quantity " +
+                     "FROM product_price AS pp " +
+                     "INNER JOIN product_stock ps ON pp.id_product = ps.id_product " +
+                     "WHERE pp.id_product = ?";
     
         Connection conexion = getConnection();
     
@@ -833,6 +836,7 @@ public class productDAO {
                 txtPrice.setText(rs.getString("salePrice"));
                 String iva = rs.getString("iva");
                 labelIva.setText(iva + "%");
+                labelStock.setText(rs.getString("quantity"));
                 
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el id: " + id_Product);

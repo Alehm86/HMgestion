@@ -113,6 +113,7 @@ public class purchaseInvoiceDialog extends javax.swing.JDialog {
         
         lbl_date.setText("");
         lbl_iva.setVisible(false);
+        lblStock.setVisible(false);
         
         qGeneric.llenarCombosActivos(cboSupplier, "suppliers");
         
@@ -330,7 +331,7 @@ public class purchaseInvoiceDialog extends javax.swing.JDialog {
     private void buscarCode(){
         
         qProduct.selectProduct(id_product, lbl_product, txtProductCode);
-        qProduct.selectSalePriceAndIva(id_product,txtPrice,lbl_iva);
+        qProduct.selectSalePriceAndIva(id_product,txtPrice,lbl_iva,lblStock);
         txtProduct.setText(lbl_product.getText());
         infoCombo();
         txtPrice.setText("");
@@ -764,6 +765,7 @@ public class purchaseInvoiceDialog extends javax.swing.JDialog {
         jPanel14 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         txtProductCode = new javax.swing.JTextField();
+        lblStock = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -1446,6 +1448,8 @@ public class purchaseInvoiceDialog extends javax.swing.JDialog {
                                     .addComponent(txtProductCode))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnBuscarPorCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblStock)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
@@ -1469,7 +1473,8 @@ public class purchaseInvoiceDialog extends javax.swing.JDialog {
                             .addComponent(btnBuscarProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnNewProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBuscarPorCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtProductCode, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtProductCode, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblStock))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel8)
@@ -1714,6 +1719,7 @@ public class purchaseInvoiceDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lblErrorType;
     private javax.swing.JLabel lblIva105;
     private javax.swing.JLabel lblIva21;
+    private javax.swing.JLabel lblStock;
     private javax.swing.JLabel lblSubtotal;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lbl_date;
