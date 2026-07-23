@@ -43,8 +43,6 @@ public class currentAccountViewForm extends javax.swing.JFrame {
         initComponents();
 
         inicializar();
-        
-        
     }
 
     public currentAccountViewForm(int id_CA) {

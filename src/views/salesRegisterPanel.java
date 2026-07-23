@@ -32,8 +32,10 @@ import models.mCashRegDetail;
 import models.mCashRegister;
 import utils.tableStyleUtil;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.DefaultComboBoxModel;
 
 public class salesRegisterPanel extends javax.swing.JPanel {
 
@@ -83,6 +85,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         
         cboAddOp.addItem("Servicio técnico");
         cboAddOp.addItem("Presupuesto");
+        cboAddOp.addItem("Cuenta corriente");
         
         panelProduct.setVisible(true);
         panelBudget.setVisible(true);       
@@ -110,7 +113,6 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         btnAddCancel.setEnabled(false);
         
         lbl_subtProd.setText("0.00");
-        lbl_subtServ.setText("0.00");
         lbl_iva_105.setText("0.00");
         lbl_iva_21.setText("0.00");
         lbl_totalFinal.setText("0.00");
@@ -140,12 +142,37 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         tableOperations.getColumnModel().getColumn(2).setPreferredWidth(150); 
         tableOperations.getColumnModel().getColumn(3).setPreferredWidth(300); 
         tableOperations.getColumnModel().getColumn(4).setPreferredWidth(100); 
+        
+        dtmOperation.addTableModelListener(e -> {
+
+            if(dtmOperation.getRowCount() == 0) {
+                dtmPayment.setRowCount(0); 
+                txtDescuento.setText("");
+                lbl_totalPagos.setText("");
+            }
+            
+            for(int i = 0; i < tableOperations.getRowCount(); i++){
+
+                String tipo = tableOperations.getValueAt(i, 1).toString();
+                String operationNumber = tableOperations.getValueAt(i, 2).toString();
+      
+                for (int x = 0; x < tablaPagos.getRowCount(); x++) {
+
+                    String metodo = tablaPagos.getValueAt(x, 0).toString();
+
+                    if ("Cuenta Corriente".equals(metodo)) {
+                        JOptionPane.showMessageDialog(this, "Se elimina el metodo de pago Cta. Cte.");
+                        dtmPayment.removeRow(x);
+                    }
+                }          
+            }
+        });
 
     }
 
     private void tableItems(){
 
-        String[] titulo = new String[]{"Id","Comprobante","Producto", "cant.", "Unit. c/IVA","I.V.A", "Total"};
+        String[] titulo = new String[]{"Id","Comprobante","Item", "cant.", "Unit. c/IVA","I.V.A", "Total"};
         dtmItems.setColumnIdentifiers(titulo);
         tableItems.setModel(dtmItems);
         
@@ -212,13 +239,22 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         cboPaymentMethod.addItem("Débito");
         cboPaymentMethod.addItem("Crédito");
         cboPaymentMethod.addItem("Cheque");
-        cboPaymentMethod.addItem("eCheq");
+        cboPaymentMethod.addItem("eCheq");    
         cboPaymentMethod.addItem("Cuenta Corriente");
         
         tablaPagos.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(cboPaymentMethod));
           
+        dtmPayment.addTableModelListener(e -> {
+            
+            if (tablaPagos.getRowCount() == 0) {
+                lbl_totalPagos.setText("");
+            } 
+        });
+        
         btnAddMetPago.addActionListener(e->{         
             
+            verificarCboMetPago();
+                    
             Object[] row = {
                 "Seleccionar...",
                 0.00,
@@ -278,7 +314,37 @@ public class salesRegisterPanel extends javax.swing.JPanel {
             lbl_Saldo.setText(String.format("%.2f", totalFinal));
         }
         
-    }   
+    }  
+    
+    private void verificarCboMetPago() {
+
+        boolean existeCuentaCorriente = false;
+
+        for (int z = 0; z < tableOperations.getRowCount(); z++) {
+
+            String tipo = tableOperations.getValueAt(z, 1).toString();
+
+            if("Cuenta corriente".equalsIgnoreCase(tipo)) {
+                existeCuentaCorriente = true;
+                break;
+            }
+        }
+
+        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cboPaymentMethod.getModel();
+
+        boolean existeItem = model.getIndexOf("Cuenta Corriente") != -1;
+
+        if(existeCuentaCorriente){
+
+            if(existeItem){
+                cboPaymentMethod.removeItem("Cuenta Corriente");
+            }
+        }else{
+            if(!existeItem){
+                cboPaymentMethod.addItem("Cuenta Corriente");
+            }
+        }
+    }
        
     public class ButtonCellRenderer extends DefaultTableCellRenderer {
 
@@ -450,11 +516,26 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                     }           
                 }
             }
-                            
             
+            else if(opcion.equals("Cuenta corriente")){
+                
+                currentAccountSelectDialog pCASelect = new currentAccountSelectDialog(parent, true);
+                pCASelect.setVisible(true);
+
+                Object[] rowOp = pCASelect.CAOperation();
+                Object[] rowItem = pCASelect.CAItem();
+
+                if (rowOp != null) {
+                    dtmOperation.addRow(rowOp);
+                    dtmItems.addRow(rowItem);
+                }
+                
+            }
+ 
             cboAddOp.setEnabled(false);
             btnConfirmOp.setEnabled(false);
             btnAddCancel.setEnabled(false);
+            
         });
         
         btnDeleteOp.addActionListener(e->{
@@ -709,7 +790,6 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         }
 
         lbl_subtProd.setText("$ " + String.format("%.2f", subtotalProductos));
-        lbl_subtServ.setText("$ " + String.format("%.2f", subtotalServicios));
 
         lbl_iva_105.setText("$ " + String.format("%.2f", iva105));
         lbl_iva_21.setText("$ " + String.format("%.2f", iva21));
@@ -728,11 +808,10 @@ public class salesRegisterPanel extends javax.swing.JPanel {
     private void calcularDescuento(){
         
         Double subtotalProductos = Double.parseDouble(lbl_subtProd.getText().trim().replace("$", "").replace(" ", "").replace(",", "."));
-        Double subtotalServicios = Double.parseDouble(lbl_subtServ.getText().trim().replace("$", "").replace(" ", "").replace(",", "."));
         Double iva105 = Double.parseDouble(lbl_iva_105.getText().trim().replace("$", "").replace(" ", "").replace(",", "."));
         Double iva21 = Double.parseDouble(lbl_iva_21.getText().trim().replace("$", "").replace(" ", "").replace(",", "."));
 
-        double total = subtotalProductos + subtotalServicios + iva105 + iva21;
+        double total = subtotalProductos + iva105 + iva21;
 
         if(txtDescuento.getText().trim().isEmpty()){
 
@@ -756,6 +835,11 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         totalFinal = total;
         saldoPendiente = total;
         lbl_Saldo.setText("$ " + String.format("%.2f", saldoPendiente));
+        
+        if (tablaPagos.getRowCount() > 0) {
+            JOptionPane.showMessageDialog(this, "Actualice los metodos de pago agregados.");
+        }
+        
     }
     
     private void eliminarItemsPorComprobante(DefaultTableModel modelo,int columnaComprobante,String comprobante){
@@ -983,7 +1067,17 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                     String description = tableItems.getValueAt(i, 2).toString();           
                     String type = "product";
                     int quantity = Integer.parseInt(tableItems.getValueAt(i, 3).toString());
-                    int idProd = Integer.parseInt(tableItems.getValueAt(i, 0).toString());
+                    
+                    Integer idProd = null;
+                    Object valor = tableItems.getValueAt(i, 0);
+                    if (valor != null) {
+                        String texto = valor.toString().trim();
+
+                        if (!texto.isEmpty()) {
+                            idProd = Integer.parseInt(texto);
+                        }
+                    }
+                                    
                     double price = Double.parseDouble(tableItems.getValueAt(i, 4).toString());
                     String iva = tableItems.getValueAt(i, 5).toString();
                     double subtotal = Double.parseDouble(tableItems.getValueAt(i, 6).toString());                 
@@ -1071,8 +1165,6 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                 }
             }          
 
-//administrar cta. cte. (ver quienes deben).
-//en caso que el cliente pague la cuenta diseñar como lo insertamos en el sistema (ventas).
 //crear tabla operacion (venta, compra, pago).
 //registrar operacion.
 
@@ -1110,8 +1202,18 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         
         for(int i = 0; i < tableItems.getRowCount(); i++){
             
-            String description = tableItems.getValueAt(i, 2).toString();           
-            int idProd = Integer.parseInt(tableItems.getValueAt(i, 0).toString());     
+            String description = tableItems.getValueAt(i, 2).toString();  
+            
+            Integer idProd = null;
+            Object valor = tableItems.getValueAt(i, 0);
+            if (valor != null) {
+                String texto = valor.toString().trim();
+
+                if (!texto.isEmpty()) {
+                    idProd = Integer.parseInt(texto);
+                }
+            } 
+         
             int quantity = Integer.parseInt(tableItems.getValueAt(i, 3).toString());
             double price = Double.parseDouble(tableItems.getValueAt(i, 4).toString());
             String iva = tableItems.getValueAt(i, 5).toString();
@@ -1164,9 +1266,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
                         credito
                 );
             }
-
-        }
-        
+        }      
     }
     
     private void limpiar(){
@@ -1179,7 +1279,6 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         lbl_id_customer.setText("-1");
         
         lbl_subtProd.setText("0.00");
-        lbl_subtServ.setText("0.00");
         lbl_iva_105.setText("0.00");
         lbl_iva_21.setText("0.00");
         lbl_totalGeneral.setText("0.00");
@@ -1213,6 +1312,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel45 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
@@ -1292,6 +1392,9 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         jLabel45.setFont(new java.awt.Font("Poppins", 0, 36)); // NOI18N
         jLabel45.setForeground(new java.awt.Color(12, 83, 151));
         jLabel45.setText("Registrar venta");
+        jLabel45.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cart64.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1299,15 +1402,15 @@ public class salesRegisterPanel extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1172, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -1768,6 +1871,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         jLabel37.setForeground(new java.awt.Color(12, 83, 151));
         jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/budget16.png"))); // NOI18N
         jLabel37.setText("Operación");
+        jLabel37.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         btnAddOp.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnAddOp.setForeground(new java.awt.Color(35, 35, 38));
@@ -1791,7 +1895,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         ));
         jScrollPane8.setViewportView(tableOperations);
 
-        cboAddOp.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        cboAddOp.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         cboAddOp.setForeground(new java.awt.Color(35, 35, 38));
 
         btnConfirmOp.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -1828,18 +1932,16 @@ public class salesRegisterPanel extends javax.swing.JPanel {
             panelBudgetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBudgetLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelBudgetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(cboAddOp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddOp)
-                    .addComponent(btnConfirmOp)
-                    .addComponent(btnDeleteOp)
-                    .addComponent(btnAddCancel))
+                .addGroup(panelBudgetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel37, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddOp, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cboAddOp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConfirmOp, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnAddCancel, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnDeleteOp, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(panelBudgetLayout.createSequentialGroup()
-                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(124, 124, 124))
         );
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
@@ -1915,6 +2017,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
         jLabel32.setForeground(new java.awt.Color(12, 83, 151));
         jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/product16.png"))); // NOI18N
         jLabel32.setText("Items");
+        jLabel32.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         btnAddProduct.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnAddProduct.setForeground(new java.awt.Color(35, 35, 38));
@@ -1947,7 +2050,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
 
         jLabel33.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(12, 83, 151));
-        jLabel33.setText("Total de productos:");
+        jLabel33.setText("Total de items:");
 
         lblTotalProducts.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         lblTotalProducts.setForeground(new java.awt.Color(12, 83, 151));
@@ -2093,6 +2196,7 @@ public class salesRegisterPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnSearchCustomer;
     private javax.swing.JComboBox<String> cboAddOp;
     private javax.swing.JComboBox<String> cboTypeDesc;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;

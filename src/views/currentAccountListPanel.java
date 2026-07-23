@@ -5,17 +5,12 @@
 package views;
 
 import dao.currentAccountDAO;
-import java.awt.Dialog;
-import java.awt.Point;
-import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -44,11 +39,10 @@ public class currentAccountListPanel extends javax.swing.JPanel {
         initComponents();
         
         utils.agregarPlaceholderN(txtBuscar, "Buscar...");
-        
-           
+             
         tableCurrentAccounts();
         actions();
-        activarBuscadorTabla();
+        buscadorTabla();
     }
     
     private void tableCurrentAccounts(){
@@ -60,10 +54,8 @@ public class currentAccountListPanel extends javax.swing.JPanel {
         qCA.listCurrentAccount(dtmCurrentAccounts);
         
         sorter = new TableRowSorter<>(dtmCurrentAccounts);
-
         tableCurrentAccount.setRowSorter(sorter);
-
-        
+     
         tableStyleUtil.applyPoppinsHeader(tableCurrentAccount);
 
         tableCurrentAccount.getColumnModel().getColumn(0).setMinWidth(0);
@@ -117,7 +109,6 @@ public class currentAccountListPanel extends javax.swing.JPanel {
         btnVer.addActionListener(e->{
             
             currentAccountViewForm pView = new currentAccountViewForm(idCA);
-  
             
             if(idCA > 0){
                 pView.setCurrentAccount(id_customer, customerName, CUIT);
@@ -128,7 +119,7 @@ public class currentAccountListPanel extends javax.swing.JPanel {
         });
     }
     
-    private void activarBuscadorTabla(){
+    private void buscadorTabla(){
 
         txtBuscar.getDocument().addDocumentListener(new DocumentListener(){
 

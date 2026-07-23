@@ -88,7 +88,6 @@ public class serviceNewPanel extends javax.swing.JPanel {
         
         bntDeviceCustomer.addActionListener(e->{
             
-//            JTable tabla = new JTable();
             boolean deviceExist = false;
             
             int idClient = Integer.parseInt(lbl_id.getText().trim());   

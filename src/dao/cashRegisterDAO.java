@@ -161,23 +161,17 @@ public class cashRegisterDAO {
                 "bd.price AS precioUnitario, " +
                 "bd.iva AS iva, " +
                 "bd.subtotal AS total, " +
-
                 "sc.name AS subcategoria, " +
                 "pb.name AS marca, " +
                 "p.model AS modelo, " +
                 "p.color AS color " +
-
                 "FROM budget_detail bd " +
-
                 "INNER JOIN budget b " +
                 "ON bd.id_budget = b.id_budget " +
-
                 "LEFT JOIN products p " +
                 "ON bd.id_product = p.id_product " +
-
                 "LEFT JOIN product_subcategories sc " +
                 "ON p.id_subcategory = sc.id_subcategory " +
-
                 "LEFT JOIN product_brands pb " +
                 "ON p.id_brand = pb.id_brand " +
 
@@ -397,18 +391,6 @@ public class cashRegisterDAO {
                 pstmt.setNull(5, java.sql.Types.INTEGER);
             }
             
-//            if (quantity != null && quantity > 0) {
-//                pstmt.setInt(6, quantity);
-//            } else {
-//                pstmt.setNull(6, java.sql.Types.INTEGER);
-//            }
-//            
-//            if (price != null && price > 0) {
-//                pstmt.setDouble(7, price);
-//            } else {
-//                pstmt.setNull(7, java.sql.Types.DOUBLE);
-//            }
-
             pstmt.setInt(6, quantity);
             pstmt.setDouble(7, price);
             pstmt.setString(8, iva);

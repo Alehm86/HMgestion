@@ -13,10 +13,8 @@ import javax.swing.JOptionPane;
 import session.session;
 import java.sql.Connection;
 import java.sql.Statement;
-import java.util.Date;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import utils.tableStyleUtil;
+
 
 public class currentAccountDAO {
     
@@ -248,6 +246,46 @@ public class currentAccountDAO {
         
     }
     
+    public void listCurrentAccountSimplified(DefaultTableModel dtmCurrentAccounts){
+        
+        String sql = "SELECT " +
+                     "ca.id_ca AS idCA, " +
+                     "ca.ca_number AS caNumber, " +
+                     "c.name AS name, " +
+                     "c.id_customer AS idCustomer " +
+                     "FROM current_account AS ca " +
+                     "INNER JOIN customer c ON ca.id_customer = c.id_customer " +
+                     "WHERE `status` = ?";
+        
+        Connection conexion = Connection.getConnection();
+               
+        try{
+            PreparedStatement pstmt = (PreparedStatement) conexion.prepareStatement(sql);  
+            pstmt.setInt(1, 1);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                            
+                Object[] row = {
+                    rs.getInt("idCA"),
+                    rs.getString("caNumber"),
+                    rs.getString("name"),
+                    rs.getString("idCustomer")
+                };
+                dtmCurrentAccounts.addRow(row);
+            }         
+            
+            rs.close();
+            pstmt.close();
+            conexion.close();
+            
+        }catch(SQLException e){
+            qGeneric.mensajeError();
+            System.out.println("ERROR EN: currentAccountDAO: listCurrentAccountSimplified. " + e.getMessage());
+        }
+        
+    }
+    
     private String formatCUIT(String cuit) {
 
         if (cuit.length() == 8) {
@@ -393,6 +431,8 @@ public class currentAccountDAO {
     
     public void listCAMovements(int idCA, DefaultTableModel dtmCAMovements){
         
+        dtmCAMovements.setRowCount(0);
+        
         String sql = "SELECT `date`,`description`, `quantity`, `price`, `iva`, COALESCE(debit, '') AS debit, COALESCE(credit, '') AS credit " +
                      "FROM `current_account_detail` WHERE `id_ca` = ?";
         
@@ -425,9 +465,7 @@ public class currentAccountDAO {
         }catch(SQLException e){
             qGeneric.mensajeError();
             System.out.println("ERROR EN: currentAccountDAO: listCAMovements. " + e.getMessage());
-        }
-        
-        
+        }           
     }
         
 }
